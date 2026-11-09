@@ -250,11 +250,11 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 </head><body><div class="app">
 <header class="hd noprint">
 <div class="brand"><img id="hdLogo" alt="CMS"><div><h1>Candidate Management System (CMS)</h1><div class="sub">ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর</div></div></div>
-<div class="up"><button class="p" id="upBtn" onclick="document.getElementById('file').click()">📂 ফাইল আপলোড (HTML)</button><input type="file" id="file" multiple accept=".html,.htm,.txt,.pdf,.xlsx,.xls,.csv" hidden><label>ছবির ফোল্ডার: <input type="file" id="dir" webkitdirectory multiple></label></div>
+<div class="up"><button class="p" id="upBtn" title="ফাইল ও ফোল্ডার একসাথে বা আলাদা — যেকোনোভাবে যোগ করে আপলোড করুন">📂 ফাইল আপলোড (HTML)</button><input type="file" id="file" multiple accept=".html,.htm,.txt,.pdf,.xlsx,.xls,.csv" hidden><input type="file" id="upDir" webkitdirectory multiple hidden><label>ছবির ফোল্ডার: <input type="file" id="dir" webkitdirectory multiple></label></div>
 <div class="st"><span class="mut" id="jobId" style="font-weight:600"></span><span class="mut" id="stat"></span><div class="uxBtns"><span class="uxUp"><button type="button" id="kpDirBtn" class="uxB" title="ভাইস-চ্যান্সেলর, ডীন, বিভাগীয় প্রধান, প্রভোস্ট, পরিচালক ও অফিস প্রধানের নামের তালিকা (DOCX) আপলোড/সম্পাদনা — কার্যবিবরণীর সিলেকশন কমিটিতে বসবে">👥 Responsibility List<small>DOCX</small></button><button type="button" id="kpDirView" class="uxR" hidden title="সংরক্ষিত Responsibility List দেখুন" aria-label="Responsibility List দেখুন">👁</button></span><span class="uxUp"><button type="button" id="uxScBtn" class="uxB" title="নির্বাচনী কমিটির তালিকা (DOCX / PDF) আপলোড করুন — শুধু নতুন নাম যুক্ত হবে, বাকি সব অপরিবর্তিত থাকবে">📋 নির্বাচনী কমিটি আপডেট<small>DOCX / PDF</small></button><button type="button" id="uxScView" class="uxR" title="নির্বাচনী কমিটির বর্তমান তালিকা দেখুন" aria-label="নির্বাচনী কমিটির তালিকা দেখুন">👁</button><button type="button" id="uxScRst" class="uxR" hidden title="মূল (ডিফল্ট) তালিকায় ফিরুন" aria-label="কমিটি ডিফল্টে ফিরুন">↺</button><input type="file" id="uxScFile" accept=".docx,.pdf" hidden></span></div><span class="uxUp"><button type="button" id="hdAdBtn" title="নিয়োগ বিজ্ঞপ্তি (PDF / DOCX) আপলোড করলে স্মারক নং ও তারিখ মেলা সব রেকর্ডে পদ, বিভাগ, গ্রেড, বেতন ও যোগ্যতা বসবে" style="background:#fff;color:#005f30;border:1px solid #fff;font-weight:700;border-radius:7px;padding:4px 12px;cursor:pointer">📢 নিয়োগ বিজ্ঞপ্তি আপলোড (PDF / DOCX)</button><button type="button" id="hdAdView" class="uxR" title="নিয়োগ বিজ্ঞপ্তি দেখুন" aria-label="নিয়োগ বিজ্ঞপ্তি দেখুন">👁</button></span></div>
 </header>
 <div class="body">
-<nav class="tabs noprint"><button data-t="rec">রেকর্ড</button><button data-t="data" class="on">ডাটা</button><button data-t="rj" id="rjTab">Reject</button><button data-t="att">হাজিরা শীট</button><button data-t="cp">কাস্টম প্রিন্ট</button><button data-t="ph">মোবাইল নম্বর</button><button data-t="sms" id="smsTab">Send SMS</button><button data-t="dup">দ্বৈত আবেদন</button><button data-t="kp">কার্যবিবরণী</button><button data-t="np">নিয়োগপত্র</button><button data-t="arc" id="arcTab">আর্কাইভ</button></nav>
+<nav class="tabs noprint"><button data-t="rec">রেকর্ড</button><button data-t="data" class="on">ডাটা</button><button data-t="rj" id="rjTab">Reject</button><button data-t="att">হাজিরা শীট</button><button data-t="wr" id="wrTab">Written কমিটি</button><button data-t="cp">কাস্টম প্রিন্ট</button><button data-t="ph">মোবাইল নম্বর</button><button data-t="sms" id="smsTab">Send SMS</button><button data-t="dup">দ্বৈত আবেদন</button><button data-t="kp">কার্যবিবরণী</button><button data-t="np">নিয়োগপত্র</button><button data-t="arc" id="arcTab">আর্কাইভ</button></nav>
 <main class="main">
 <div class="sec on" id="t-data"><div class="card noprint">
 <div class="row"><input id="q" class="grow" placeholder="🔍 খুঁজুন (নাম, আইডি, মোবাইল, বিশ্ববিদ্যালয়, ঠিকানা...)">
@@ -352,7 +352,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 </div></div>
 
 <div class="ag" id="aRmBox"><div class="agt"><span class="ai">🏫</span>কক্ষ অনুযায়ী ভাগ <small class="mut">(লিখিত পরীক্ষা — প্রথম থেকে ধারাবাহিকভাবে নির্ধারিত জন করে প্রতি কক্ষে)</small><span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:12px"><span>বেতন স্কেল ও গ্রেড</span><select id="aGradeW" style="max-width:190px;padding:3px 8px;font-weight:400" title="গ্রেড বাছলে লিখিত পরীক্ষার হাজিরা শীটে বিভাগ/দপ্তরের পরের লাইনে বেতন স্কেল ও গ্রেড বসবে"></select></span></div>
-<div class="agb"><div id="aRmList"></div><div class="row" style="margin-top:8px"><button type="button" id="aRmAdd">＋ কক্ষ যোগ</button><button type="button" id="aRoomV" title="কক্ষ অনুযায়ী শীটগুলো প্রিভিউ দেখুন" aria-label="কক্ষ অনুযায়ী প্রিভিউ">👁</button><button type="button" class="p" id="aRoomDocx">📄 কক্ষ অনুযায়ী Word (.docx)</button><span class="mut" id="aRmInfo"></span></div></div></div>
+<div class="agb"><div id="aRmList"></div><div class="row" style="margin-top:8px"><button type="button" id="aRmAdd">＋ কক্ষ যোগ</button><button type="button" id="aRoomV" title="কক্ষ অনুযায়ী শীটগুলো প্রিভিউ দেখুন" aria-label="কক্ষ অনুযায়ী প্রিভিউ">👁</button><button type="button" class="p" id="aRoomDocx">📄 কক্ষ অনুযায়ী Word (.docx)</button><span id="aRmNbW" style="position:relative;display:inline-block"><button class="p" id="aRmNb" type="button" title="কক্ষ অনুযায়ী ভাগ করা নোটিশ বোর্ড লিস্ট — প্রতি কক্ষের জন্য আলাদা তালিকা">📋 কক্ষ অনুযায়ী নোটিশ বোর্ড লিস্ট</button></span><span class="mut" id="aRmInfo"></span></div></div></div>
 <div class="ag" id="aVivaBox" style="display:none"><div class="agt"><span class="ai">🎤</span>মৌখিক পরীক্ষার প্রার্থী নির্বাচন</div>
 <div class="agb g3">
 <label class="f"><span>নির্বাচনের ধরন</span><select id="aSlMode" class="slMode" title="কোনটি দিয়ে নির্বাচন করবেন"><option value="sl">SL নম্বর</option><option value="id">আইডির শেষ ৩ ডিজিট</option></select></label>
@@ -367,8 +367,14 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div class="ag"><div class="agt"><span class="ai">☑️</span>হাজিরা শীটে যে ফিল্ড থাকবে <small class="mut">(ছবিসহ দেওয়া যায়)</small><span style="margin-left:auto;display:inline-flex;align-items:center;gap:14px;font-weight:600;font-size:12.5px" title="নতুন ফরম্যাটের ফাইলে নাম ইংরেজি ও বাংলা দুটোই থাকে। হাজিরা শীট ও মেধা তালিকা ফরমে কোনটি যাবে এখান থেকে টিক দিন (দুটো টিক দিলে পাশাপাশি আসবে)।"><span>নাম ও পিতার নাম:</span><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aLnE" checked style="width:auto;margin:0">ইংরেজি</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aLnB" style="width:auto;margin:0">বাংলা</label></span></div>
 <div class="agb"><div class="cols" id="aCols"></div></div></div>
 
-<div class="abar"><label style="display:inline-flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="aAdUse"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><button class="p" id="aGen">👁 শীট তৈরি করুন</button><button id="aPrint">⬇ PDF ডাউনলোড</button><button class="p" id="aDocx">📄 Word (.docx) — Legal</button><span class="anxw" id="aAnxW" style="display:none"><button id="aAnxV" type="button" title="মেধা তালিকা ফরম দেখুন (প্রিভিউ)" aria-label="মেধা তালিকা ফরম দেখুন">👁</button><button class="p" id="aAnx" title="মৌখিক পরীক্ষায় নির্বাচিত প্রার্থীদের নিয়ে প্রাপ্ত নম্বর ও মেধা তালিকা ফরম (Word)">📄 মেধা তালিকা ফরম</button></span><button class="p" id="aRes" title="লিখিত পরীক্ষার ফলাফল শীট (xlsx) — All Marks ও Viva List, ২টি শীটসহ">📊 Result Sheet (Draft)</button></div></div>
+<div class="abar"><label style="display:inline-flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="aAdUse"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><button class="p" id="aGen">👁 শীট তৈরি করুন</button><button id="aPrint">⬇ PDF ডাউনলোড</button><button class="p" id="aDocx">📄 Word (.docx) — Legal</button><span class="anxw" id="aAnxW" style="display:none"><button id="aAnxV" type="button" title="মেধা তালিকা ফরম দেখুন (প্রিভিউ)" aria-label="মেধা তালিকা ফরম দেখুন">👁</button><button class="p" id="aAnx" title="মৌখিক পরীক্ষায় নির্বাচিত প্রার্থীদের নিয়ে প্রাপ্ত নম্বর ও মেধা তালিকা ফরম (Word)">📄 মেধা তালিকা ফরম</button></span><button class="p" id="aRes" title="লিখিত পরীক্ষার ফলাফল শীট (xlsx) — All Marks ও Viva List, ২টি শীটসহ">📊 Result Sheet (Draft)</button><span id="aNbW" style="position:relative;display:inline-block"><button class="p" id="aNb" type="button" title="লিখিত পরীক্ষার নোটিশ বোর্ড লিস্ট — Word (.docx), Legal, দুই কলামে, ৮ পয়েন্ট ফন্ট">📋 নোটিশ বোর্ড লিস্ট</button></span></div></div>
 <div id="sheet"></div></div>
+<div class="sec" id="t-wr"><div class="card noprint">
+<h3 style="margin:0 0 8px">✍️ লিখিত পরীক্ষার দায়িত্ব</h3>
+<p class="mut" style="margin:0 0 8px">প্রথমে রেকর্ড বাছাই করুন — তারপর সেই রেকর্ডের পদের জন্য লিখিত/ব্যবহারিক পরীক্ষার দায়িত্বপ্রাপ্ত শিক্ষক/কর্মকর্তাদের তালিকা (সংযুক্তি-৩) তৈরির এন্ট্রি ফরম আসবে।</p>
+<div class="row"><select id="wrRec" class="grow" title="রেকর্ড বাছাই করুন"><option value="">— রেকর্ড বাছাই করুন —</option></select><div id="wrMore" class="wrMore" hidden></div></div>
+<div id="wrBody" hidden></div>
+</div><div id="wrSheet" hidden></div></div>
 <div class="sec" id="t-cp"><div class="card noprint">
 <div class="row"><input id="cpTitle" class="grow" placeholder="শিরোনাম (যেমন: আবেদনকৃত প্রার্থীদের তথ্য)" value="আবেদনকৃত প্রার্থীদের তথ্য"><input id="cpQ" type="search" autocomplete="off" placeholder="🔍 খুঁজুন (নাম, আইডি, মোবাইল, বিশ্ববিদ্যালয়, ঠিকানা…)" title="এখানে লিখলে শুধু মিলে যাওয়া আবেদনকারীরাই প্রিভিউ/PDF/Word-এ আসবে" style="flex:0 0 340px;width:340px;max-width:34%"><label><input type="checkbox" id="cpHead" checked> প্রতিষ্ঠানের নাম ও লোগো</label><label style="font-weight:600"><input type="checkbox" id="cpAd"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><input type="checkbox" id="cpQt" checked hidden></div>
 <div class="row" style="margin-top:8px"><label>লেআউট: <select id="cpLay"><option value="d">Landscape (বিস্তারিত)</option><option value="t">Portrait (কাস্টম ফিল্ড — Legal)</option><option value="l">Landscape (কাস্টম ফিল্ড — Legal)</option></select></label>
@@ -500,7 +506,7 @@ $('#stat').textContent=`✓ ${b} জন লোড (রেকর্ড: ${rec}), 
 function init(){try{const e=document.getElementById('aLnE'),b=document.getElementById('aLnB'),h=(R||[]).some(r=>r.nameBn||r.fatherBn);if(e&&b){b.checked=!!h;e.checked=!h}}catch(x){}try{if(noEnF()){hid.add('father');col('fatherBn').l='পিতার নাম'}else col('fatherBn').l='পিতার নাম (বাংলা)'}catch(e){}try{window.cpLive&&window.cpLive()}catch(e){}try{if(!(R||[]).some(r=>r.nameBn||r.fatherBn)){hid.add('nameBn');hid.add('fatherBn')}}catch(e){}$('#cols').innerHTML=C.map(c=>`<label><input type=checkbox data-c=${c.k} ${hid.has(c.k)?'':'checked'}>${esc(c.l)}</label>`).join('');
 $$('#cols input').forEach(x=>x.onchange=()=>{x.checked?hid.delete(x.dataset.c):hid.add(x.dataset.c);sv();draw()});
 const o=C.filter(c=>!c.ph).map(c=>`<option value=${c.k}>${esc(c.l)}</option>`).join('');$('#fc').innerHTML=o;$('#aSort').innerHTML='<option value="">মূল ক্রম</option>'+o;
-$('#aCols').innerHTML=C.filter(c=>!/Bn$/.test(c.k)).map(c=>`<label><input type=checkbox data-a=${c.k} ${['photo','id','name','father'].includes(c.k)?'checked':''}>${esc(c.l)}</label>`).join('');draw()}
+$('#aCols').innerHTML=C.filter(c=>!/Bn$/.test(c.k)).map(c=>`<label><input type=checkbox data-a=${c.k} ${['photo','id','name','father'].includes(c.k)?'checked':''}>${esc(c.l)}</label>`).join('')+'<label><input type=checkbox data-a=sig checked>স্বাক্ষর</label>';draw()}
 function okf(r,f){const c=col(f.k),t=c.g(r);if(f.o=='c')return bn(t).toLowerCase().includes(bn(f.v).toLowerCase());const v=parseFloat(bn(c.n?c.n(r):t)),x=parseFloat(bn(f.v));return!isNaN(v)&&!isNaN(x)&&(f.o=='g'?v>=x:v<=x)}
 function srt(a,k,d){if(k=='no')return a.slice().sort((x,y)=>d*((x.no||0)-(y.no||0)));const c=col(k);return a.slice().sort((x,y)=>d*(c.n?(c.n(x)||0)-(c.n(y)||0):String(c.g(x)).localeCompare(String(c.g(y)),'bn',{numeric:true})))}
 function view(){const q=bn($('#q').value).toLowerCase().split(/\s+/).filter(Boolean);let a=R.filter(r=>q.every(w=>S(r).includes(w))&&flt.every(f=>okf(r,f)));return sort.k?srt(a,sort.k,sort.d):a}
@@ -625,23 +631,25 @@ $('#bioSl').onclick=()=>{
   else if(sel.size)rows=R.filter(r=>sel.has(r.id));
   else{toast('⚠ '+lb+' লিখুন (যেমন 1,3,5-10) অথবা তালিকা থেকে টিক দিন');return}
   rows.sort((x,y)=>(x.no||0)-(y.no||0));bioPdf(rows,miss)};
-$('#modal').onclick=e=>{if(e.target.id=='modal')e.target.classList.remove('on')};document.onkeydown=e=>{if(e.key=='Escape')$('#modal').classList.remove('on')};
+$('#modal').onclick=e=>{if(e.target.id=='modal'){window.__pend=null;e.target.classList.remove('on')}};document.onkeydown=e=>{if(e.key=='Escape')$('#modal').classList.remove('on')};
 /* input */
 
 const thumb=(f,w=56)=>new Promise(res=>{const u=URL.createObjectURL(f),i=new Image();i.onload=()=>{const k=document.createElement('canvas');k.width=w;k.height=Math.round(w*i.naturalHeight/i.naturalWidth);k.getContext('2d').drawImage(i,0,0,k.width,k.height);URL.revokeObjectURL(u);res(k.toDataURL('image/jpeg',w>100?.8:.6))};i.onerror=()=>res('');i.src=u});
-$('#dir').onchange=async e=>{const fs=[...e.target.files].filter(f=>(f.type||'').startsWith('image/')||/\.(jpe?g|png|gif|webp|bmp)$/i.test(f.name)),dc=x=>{try{return decodeURIComponent(x)}catch(_){return x}},byP={},byB={};
+window.applyImgs=async function(files,quiet,force){const fs=[...files].filter(f=>(f.type||'').startsWith('image/')||/\.(jpe?g|png|gif|webp|bmp)$/i.test(f.name)),dc=x=>{try{return decodeURIComponent(x)}catch(_){return x}},byP={},byB={};
 fs.forEach(f=>{const q=(f.webkitRelativePath||f.name).split('/'),k=q.slice(-2).join('/').toLowerCase(),b=f.name.toLowerCase();byP[k]=f;(byB[b]=byB[b]||[]).push(f)});
 let n=0;
-for(const r of R){const s=r.pn||(r.photo&&!r.photo.startsWith('data:')?r.photo:'');if(!s)continue;const sg=dc(s).replace(/\\/g,'/').split('/').filter(Boolean);if(!sg.length)continue;let f=byP[sg.slice(-2).join('/').toLowerCase()];
+for(const r of R){if(!force&&r.photo&&String(r.photo).startsWith('data:'))continue;const s=r.pn||(r.photo&&!r.photo.startsWith('data:')?r.photo:'');if(!s)continue;const sg=dc(s).replace(/\\/g,'/').split('/').filter(Boolean);if(!sg.length)continue;let f=byP[sg.slice(-2).join('/').toLowerCase()];
 if(!f){const a=byB[sg[sg.length-1].toLowerCase()]||[];f=a.length==1?a[0]:a.find(x=>rec&&(x.webkitRelativePath||'').includes(rec+'_files'))}
 if(f){const t=await thumb(f),g=await thumb(f,220);if(t){r.pn=sg.slice(-2).join('/');r.photo=t;r.big=g;n++}}}
-const fx=async x=>{const s0=x.pn||(x.photo&&!String(x.photo).startsWith('data:')?x.photo:'');if(!s0)return 0;const sg=dc(s0).replace(/\\/g,'/').split('/').filter(Boolean);if(!sg.length)return 0;let f=byP[sg.slice(-2).join('/').toLowerCase()];if(!f){const a=byB[sg[sg.length-1].toLowerCase()]||[];f=a.length==1?a[0]:null}if(!f)return 0;const t=await thumb(f),g=await thumb(f,220);if(!t)return 0;x.pn=sg.slice(-2).join('/');x.photo=t;x.big=g;return 1};
+const fx=async x=>{if(!force&&x.photo&&String(x.photo).startsWith('data:'))return 0;const s0=x.pn||(x.photo&&!String(x.photo).startsWith('data:')?x.photo:'');if(!s0)return 0;const sg=dc(s0).replace(/\\/g,'/').split('/').filter(Boolean);if(!sg.length)return 0;let f=byP[sg.slice(-2).join('/').toLowerCase()];if(!f){const a=byB[sg[sg.length-1].toLowerCase()]||[];f=a.length==1?a[0]:null}if(!f)return 0;const t=await thumb(f),g=await thumb(f,220);if(!t)return 0;x.pn=sg.slice(-2).join('/');x.photo=t;x.big=g;return 1};
 for(const r of RJ)n+=await fx(r);
 let on=0;
 /* অন্য সব সংরক্ষিত রেকর্ডেও (যোগ্য ও Reject উভয়) ছবি যুক্ত হবে — তাই ব্যাকআপে সব ছবি থাকবে */
 try{const all=await store.all();for(const o of all){if(!o||o.name==rec)continue;let c=0;for(const x of (o.R||[]))c+=await fx(x);for(const x of (o.RJ||[]))c+=await fx(x);if(c){await store.set(o.name,o);META[o.name]=metaOf(o);delete AMETA[o.name];on+=c}}}catch(err){console.error(err)}
 n+=on;
-sv();draw();try{recRender()}catch(e){}$('#stat').textContent=n?`✓ ${n} টি ছবি যুক্ত হয়েছে`+(on?` (অন্য রেকর্ডে ${on} টি)`:''):'⚠ কোনো ছবি মেলেনি। যে ফোল্ডারে _files ফোল্ডারগুলো আছে (বা সরাসরি _files ফোল্ডার) সেটি নির্বাচন করুন';e.target.value=''};
+sv();draw();try{recRender()}catch(e){}if(!quiet)$('#stat').textContent=n?`✓ ${n} টি ছবি যুক্ত হয়েছে`+(on?` (অন্য রেকর্ডে ${on} টি)`:''):'⚠ কোনো ছবি মেলেনি। যে ফোল্ডারে _files ফোল্ডারগুলো আছে (বা সরাসরি _files ফোল্ডার) সেটি নির্বাচন করুন';return n};
+$('#dir').onchange=async e=>{await applyImgs(e.target.files,false,true);e.target.value=''};
+
 $$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');$$('.sec').forEach(s=>s.classList.remove('on'));$('#t-'+b.dataset.t).classList.add('on');if(b.dataset.t=='ph')phs();if(b.dataset.t=='rec')recRender();if(b.dataset.t=='rj')rjRender(true);if(b.dataset.t=='arc')arcRender();if(b.dataset.t=='att')vivaInfo()});
 /* mobile */
 function phones(){const src=$('#phSrc').value=='a'?R:view(),seen=new Set(),out=[];src.forEach(r=>(bn(r.mobile).replace(/[\s\-()]/g,'').match(/(?:\+?88)?01[3-9]\d{8}/g)||[]).forEach(m=>{const n=m.slice(-11);if(!seen.has(n)){seen.add(n);out.push({n,name:r.name})}}));return out}
@@ -657,7 +665,7 @@ function attRow(r){if(!r||(!r.nameBn&&!r.fatherBn&&!r.fBn))return r;const L=attL
 return{...r,name:pick(r.name,r.nameBn),father:pick(r.fBn?'':r.father,r.fatherBn),fBn:0}}
 window.attRow=attRow;
 ['aLnE','aLnB'].forEach(id=>{const x=$('#'+id);if(x)x.addEventListener('change',()=>{if(!$('#aLnE').checked&&!$('#aLnB').checked)x.checked=true})});
-function sdata(){const cs=$$('#aCols input:checked').map(x=>col(x.dataset.a));const vv=$('#aType').value.includes('মৌখিক');let a=vv?vivaSel().a:($('#aSrc').value=='a'?R.slice():view());if($('#aSort').value)a=srt(a,$('#aSort').value,1);a=a.map(attRow);return{cs,a,viva:$('#aType').value.includes('মৌখিক'),per:(+$('#aRows').value>0?Math.max(5,Math.min(60,+$('#aRows').value)):0)}}
+function sdata(){const cs=$$('#aCols input:checked').filter(x=>x.dataset.a!='sig').map(x=>col(x.dataset.a));const sg=!$('#aCols input[data-a=sig]')||$('#aCols input[data-a=sig]').checked;const vv=$('#aType').value.includes('মৌখিক');let a=vv?vivaSel().a:($('#aSrc').value=='a'?R.slice():view());if($('#aSort').value)a=srt(a,$('#aSort').value,1);a=a.map(attRow);return{cs,sg,a,viva:$('#aType').value.includes('মৌখিক'),per:(+$('#aRows').value>0?Math.max(5,Math.min(60,+$('#aRows').value)):0)}}
 const VK='duet_venues';
 const vGet=()=>{try{const a=JSON.parse(localStorage.getItem(VK)||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}};
 const vFill=()=>{const dl=$('#aVenueList');if(dl)dl.innerHTML=vGet().map(v=>'<option value="'+String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')+'">').join('')};
@@ -678,11 +686,11 @@ inp.addEventListener('keydown',e=>{if(e.key=='Escape')box.style.display='none'})
 const tmTxt=()=>{const t=($('#aTime').value||'').trim().replace(/\s*ঘটিকা\s*$/,'');if(!t)return'';return[$('#aTimeP').value,t,'ঘটিকা'].filter(Boolean).join(' ')};
 let aRoomCur='';const roomFmt=x=>{x=String(x||'').replace(/\s+/g,' ').trim();if(!x)return'';return /^কক্ষ\s*নং/.test(x)?x:'কক্ষ নং-'+x};
 const sinfo=()=>{vSave();const tm=tmTxt();return[$('#aDate').value&&'তারিখ: '+window.khri($('#aDate').value),tm&&'সময়: '+tm,$('#aVenue').value&&($('#aType').value.includes('মৌখিক')?'স্থান/ভেন্যু : ':'ভবনের নাম: ')+$('#aVenue').value,aRoomCur].filter(Boolean)};
-function gen(ov){ov=ov&&ov.a?ov:null;const{cs,a:a0,viva,per:per0}=sdata();const a=ov?ov.a:a0;if(viva&&!a.length){toast('⚠ মৌখিক পরীক্ষার জন্য SL নম্বর লিখুন বা ডাটা ট্যাবে টিক দিন');$('#sheet').innerHTML='';return}const auto=!per0,rh=auto?(cs.some(c=>c.ph)?16:10):Math.max(9,Math.min(22,Math.floor(2100/per0)/10)),per=auto?Math.max(5,Math.floor(196/rh)):per0,pages=Math.ceil(a.length/per)||1;let h='';
+function gen(ov){ov=ov&&ov.a?ov:null;const{cs,sg,a:a0,viva,per:per0}=sdata();const a=ov?ov.a:a0;if(viva&&!a.length){toast('⚠ মৌখিক পরীক্ষার জন্য SL নম্বর লিখুন বা ডাটা ট্যাবে টিক দিন');$('#sheet').innerHTML='';return}const auto=!per0,rh=auto?(cs.some(c=>c.ph)?16:10):Math.max(9,Math.min(22,Math.floor(2100/per0)/10)),per=auto?Math.max(5,Math.floor(196/rh)):per0,pages=Math.ceil(a.length/per)||1;let h='';
 for(let p=0;p<pages;p++){const rs=a.slice(p*per,(p+1)*per);
 h+=`<div class="pg"><h2 style="display:flex;align-items:center;justify-content:center;gap:12px"><img src="${LOGO}" style="height:58px;width:auto"><span>${esc($('#aInst').value)}</span></h2>${$('#aAddr').value?`<p>${esc($('#aAddr').value)}</p>`:''}${adOn('a')?adHtml('a'):`${$('#aPost').value?`<h3>পদের নাম : ${esc($('#aPost').value)}</h3>`:''}${$('#aDept').value?`<h3>বিভাগ/দপ্তর : ${esc($('#aDept').value)}</h3>`:''}${(!viva&&payLn())?`<h3>${esc(payLn())}</h3>`:''}`}<h3>হাজিরা শীট — ${esc($('#aType').value)}</h3><p>${sinfo().map(esc).join(' &nbsp;|&nbsp; ')}</p>
-<table><thead><tr><th>ক্রম</th>${cs.map(c=>`<th>${esc(c.l)}</th>`).join('')}<th>স্বাক্ষর</th></tr></thead><tbody>`+
-rs.map((r,n)=>`<tr style="height:${rh}mm"><td>${(r.no||p*per+n+1)}</td>${cs.map(c=>`<td${c.k=='name'||c.k=='father'?' class="l"':''}>${c.ph?ph(r):c.k=='mobile'?mk(r):esc(c.g(r))}</td>`).join('')}<td class="sg"></td></tr>`).join('')+
+<table><thead><tr><th>ক্রম</th>${cs.map(c=>`<th>${esc(c.l)}</th>`).join('')}${sg?'<th>স্বাক্ষর</th>':''}</tr></thead><tbody>`+
+rs.map((r,n)=>`<tr style="height:${rh}mm"><td>${(r.no||p*per+n+1)}</td>${cs.map(c=>`<td${c.k=='name'||c.k=='father'?' class="l"':''}>${c.ph?ph(r):c.k=='mobile'?mk(r):esc(c.g(r))}</td>`).join('')}${sg?'<td class="sg"></td>':''}</tr>`).join('')+
 `</tbody></table><p style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:14px"><span style="font-size:7pt;text-align:left">${esc(rec||'')}</span><span>পাতা ${p+1}/${pages} · মোট পরীক্ষার্থী: ${a.length}</span></p></div>`}
 if(ov&&ov.app)$('#sheet').insertAdjacentHTML('beforeend',h);else $('#sheet').innerHTML=h}
 
@@ -735,7 +743,7 @@ else if(mode=='anx')document.getElementById('aAnxV').click();
 else{const d=sdata();if(d.a.length)gen()}
 }catch(e){console.error(e)}finally{window.toast=tt}};
 const sched=mode=>{clearTimeout(tm);tm=setTimeout(()=>{if(typeof R==='undefined'||!R||!R.length)return;run(mode)},450)};
-const modeOf=t=>t.closest('#aRmBox')?'room':t.closest('#aVivaBox')?'anx':t.closest('.anxw')?'anx':'sheet';
+const modeOf=t=>t.closest('#aRmBox')?'room':t.closest('#aVivaBox')?'sheet':t.closest('.anxw')?'anx':'sheet';
 const ok=t=>t&&t.closest&&!t.closest('#sheet')&&!(t.type=='file')&&!t.closest('#aVenueDd');
 T.addEventListener('input',e=>{if(ok(e.target))sched(modeOf(e.target))});
 T.addEventListener('change',e=>{if(ok(e.target))sched(modeOf(e.target))});
@@ -1047,7 +1055,149 @@ o.edu=ys.map((y,i)=>{const a=y.k-3,b=i+1<ys.length?ys[i+1].k-3:1e12,E=ln(r,idc+3
 o.exp=X(ln(r,idc+8))}
 else{const cs=[1,2,3,4].map(i=>ln(r,idc+i).join(' ')).filter(Boolean),isM=s=>/^[+\d\s-]{8,}$/.test(s),nm2=cs.filter(s=>!isM(s)&&!s.includes('@'));o.name=nm2[0];o.father=nm2[1];o.mobile=cs.find(isM)||'';o.email=cs.find(s=>s.includes('@'))||''}
 return mk2(o)})}
-$('#file').onchange=async e=>{const fl=[...e.target.files];e.target.value='';if(!fl.length)return;const ms=[];for(let k=0;k<fl.length;k++){const f=fl[k];if(fl.length>1)ms.push(f.name);await one(f,k+1,fl.length)}if(fl.length>1)$('#stat').textContent='✅ '+fl.length+'টি ফাইল আপলোড সম্পন্ন — প্রতিটির জন্য আলাদা রেকর্ড তৈরি হয়েছে (রেকর্ড ট্যাবে দেখুন)।'};
+
+/* ===== একসাথে একাধিক ফাইল + ফোল্ডার আপলোড; HTML-এর নামের সাথে "_files" ফোল্ডার মিলিয়ে ছবি নিজে থেকে যুক্ত হবে ===== */
+const isImgF=f=>(f.type||'').startsWith('image/')||/\.(jpe?g|png|gif|webp|bmp)$/i.test(f.name);
+const isDataF=f=>/\.(html?|txt|pdf|xlsx?|csv)$/i.test(f.name);
+const relP=f=>(f.__rel||f.webkitRelativePath||f.name).replace(/\\/g,'/');
+const baseNm=n=>String(n).replace(/\.[^.]*$/,'').normalize('NFC').trim().toLowerCase();
+const keepF=f=>isImgF(f)||isDataF(f);
+const tmo=(p,ms)=>Promise.race([p,new Promise(r=>setTimeout(()=>r(null),ms))]);
+async function readEntries(en,out){
+  try{
+    if(en.isFile){const f=await tmo(new Promise(r=>en.file(r,()=>r(null))),20000);
+      if(f&&keepF(f)){try{Object.defineProperty(f,'__rel',{value:String(en.fullPath||f.name).replace(/^\//,'')})}catch(_){}out.push(f)}}
+    else if(en.isDirectory){const rd=en.createReader();let all=[];
+      for(;;){const ch=await tmo(new Promise(r=>rd.readEntries(r,()=>r([]))),20000);if(!ch||!ch.length)break;all=all.concat([...ch])}
+      for(const c of all)await readEntries(c,out)}
+  }catch(err){console.error('readEntries',err)}}
+async function readHandle(h,path,out){
+  try{
+    if(h.kind==='file'){const f=await h.getFile();if(keepF(f)){try{Object.defineProperty(f,'__rel',{value:path})}catch(_){}out.push(f)}}
+    else if(h.kind==='directory'){for await(const [nm,c] of h.entries())await readHandle(c,path+'/'+nm,out)}
+  }catch(err){console.error('readHandle',err)}}
+function estPh(rs,sub,old){const has=new Set(old.filter(x=>x&&x.photo&&String(x.photo).startsWith('data:')).map(x=>String(x.id)));
+  const dc=x=>{try{return decodeURIComponent(x)}catch(_){return x}};
+  const k2=new Set(),bs=new Set();sub.forEach(f=>{const q=relP(f).split('/');k2.add(q.slice(-2).join('/').toLowerCase());bs.add(f.name.toLowerCase())});
+  return rs.filter(r=>{if(has.has(String(r.id))||!r.photo||String(r.photo).startsWith('data:'))return false;const sg=dc(String(r.photo)).replace(/\\/g,'/').split('/').filter(Boolean);return sg.length&&(k2.has(sg.slice(-2).join('/').toLowerCase())||bs.has(sg[sg.length-1].toLowerCase()))}).length}
+window.handleUploads=async function(files,dry,onGo){
+  files=[...files];if(!files.length)return;
+  const inFilesDir=f=>/_files\//i.test(relP(f)),imgs=files.filter(isImgF),docs=files.filter(f=>isDataF(f)&&!isImgF(f)&&!inFilesDir(f)).sort((a,b)=>a.name.localeCompare(b.name,'en',{numeric:true}));
+  const byFolder={};imgs.forEach(f=>{const q=relP(f).split('/');const fd=q.length>1?q[q.length-2].normalize('NFC').trim().toLowerCase():'';(byFolder[fd]=byFolder[fd]||[]).push(f)});
+  if(!docs.length&&imgs.length){await applyImgs(imgs,false,true);return}
+  if(!docs.length){$('#stat').textContent='⚠ কোনো HTML/ডেটা ফাইল পাওয়া যায়নি';return}
+  const hasPh=x=>x&&x.photo&&String(x.photo).startsWith('data:');
+  const parseF=async f=>{const x=f.name.split('.').pop().toLowerCase();TT='';try{if(x=='pdf')return await readPdf(await f.arrayBuffer());if(/^xls[xm]?$/.test(x))return readXls(await f.arrayBuffer(),'array');if(x=='csv')return readXls((await f.text()).replace(/^\ufeff/,''),'string');return P(await f.text())}catch(er){return []}};
+  const SUM=[];
+  for(let k=0;k<docs.length;k++){
+    const f=docs[k];$('#stat').textContent='⏳ যাচাই করা হচ্ছে... ('+(k+1)+'/'+docs.length+') '+f.name;
+    const rs=await parseF(f);
+    if(!rs.length){SUM.push({file:f.name,name:f.name.replace(/\.[^.]*$/,''),err:'কোনো আবেদনকারী পাওয়া যায়নি'});continue}
+    const name=String(normRec(f.name.replace(/\.[^.]*$/,''))).replace(/\s+/g,' ').trim().slice(0,200)||'নামহীন রেকর্ড';
+    /* আগে থেকে সংরক্ষিত একই নামের রেকর্ড: ডাটা শীট (R) ও রিজেক্ট লিস্ট (RJ/D) */
+    let eR=[],eJ=[],eD=[],exists=false;
+    if(rec===name){eR=R;eJ=RJ;eD=[...D];exists=true}
+    else{try{const ex=await store.get(name);if(ex){exists=true;eR=ex.R||[];eJ=ex.RJ||[];eD=ex.D||[]}}catch(_){}}
+    const idR=new Set(eR.map(r=>String(r.id))),idJ=new Set([...eJ.map(r=>String(r.id)),...eD.map(String)]);
+    const inR=rs.filter(r=>idR.has(String(r.id))).length,inJ=rs.filter(r=>!idR.has(String(r.id))&&idJ.has(String(r.id))).length,nw=rs.length-inR-inJ;
+    const want=baseNm(f.name)+'_files';let sub=byFolder[want]||[];if(!sub.length)sub=byFolder[name.normalize('NFC').toLowerCase()+'_files']||[];
+    const e={file:f.name,name,total:rs.length,inR,inJ,nw,exists,imgFolder:sub.length,ph:0,skipped:false};
+    if(dry){e.skipped=exists&&nw===0;e.ph=estPh(rs,sub,eR.concat(eJ));SUM.push(e);continue}
+    if(exists&&nw===0){
+      /* সবাই আগে থেকেই আছে — আবার আপলোডের দরকার নেই; শুধু ছবি বাকি থাকলে যুক্ত হবে */
+      e.skipped=true;
+      if(sub.length){try{e.ph=(await applyImgs(sub,true))||0}catch(_){}}
+    }else{
+      await one(f,k+1,docs.length,rs);
+      if(rec===name){
+        if(sub.length){const b0=R.concat(RJ).filter(hasPh).length;await applyImgs(sub,true);e.ph=R.concat(RJ).filter(hasPh).length-b0;}
+        e.noImgNote=!sub.length&&imgs.length>0;
+      }
+    }
+    SUM.push(e);
+  }
+  if(dry){TT='';$('#stat').textContent='';showUpSummary(SUM,imgs.length>0,{preview:true,go:onGo});return}
+  try{sv();draw();recRender()}catch(_){}
+  showUpSummary(SUM,imgs.length>0);
+};
+function showUpSummary(S,hadImgs,opt){const PV=!!(opt&&opt.preview);
+  const ok=S.filter(e=>!e.err),T=k=>ok.reduce((a,e)=>a+(e[k]||0),0),sk=ok.filter(e=>e.skipped).length;
+  const th='background:#0a7a3c;color:#fff;padding:.45em .6em;border:1px solid #076030;text-align:center;white-space:nowrap',
+        td='padding:.35em .6em;border:1px solid #cfd8d3;text-align:center',tl='padding:.35em .6em;border:1px solid #cfd8d3;text-align:left';
+  const heads=['ক্রম','রেকর্ডের নাম','মোট প্রার্থী',PV?'নতুন ডাটা যুক্ত হবে':'নতুন ডাটা যুক্ত',PV?'ছবি যুক্ত হবে':'ছবি যুক্ত','ডাটা শীটে আগে থেকে ছিল','রিজেক্ট লিস্টে আগে থেকে ছিল','অবস্থা'];
+  let t='<table id="upSumT" style="width:100%;border-collapse:collapse"><thead><tr>'+heads.map(x=>'<th style="'+th+'">'+x+'</th>').join('')+'</tr></thead><tbody>';
+  S.forEach((e,i)=>{const bg=i%2?'background:#f6faf8;':'';
+    if(e.err){t+='<tr style="'+bg+'"><td style="'+td+'">'+(i+1)+'</td><td style="'+tl+'">'+esc(e.name)+'</td><td colspan=5 style="'+td+';color:#c00">⚠ '+esc(e.err)+'</td><td style="'+tl+'">পড়া যায়নি</td></tr>';return}
+    let st=PV?(e.skipped?'⏭ সবাই আগে থেকেই আছে — আপলোড বাদ যাবে':(e.exists?'🔄 আংশিক নতুন — হালনাগাদ হবে':'🆕 নতুন রেকর্ড হবে')):(e.skipped?'⏭ সবাই আগে থেকেই আছে — আপলোড বাদ':(e.exists?'🔄 আংশিক নতুন — হালনাগাদ':'🆕 নতুন রেকর্ড'));
+    if(hadImgs&&!e.imgFolder)st+=' · <span style="color:#c00">⚠ ছবির ফোল্ডার মেলেনি</span>';
+    t+='<tr style="'+bg+'"><td style="'+td+'">'+(i+1)+'</td><td style="'+tl+'">'+esc(e.name)+'</td><td style="'+td+'">'+e.total+'</td><td style="'+td+';font-weight:700;color:#0a7a3c">'+e.nw+'</td><td style="'+td+'">'+e.ph+'</td><td style="'+td+'">'+e.inR+'</td><td style="'+td+'">'+e.inJ+'</td><td style="'+tl+'">'+st+'</td></tr>'});
+  t+='<tr style="font-weight:700;background:#e3f1e9"><td style="'+td+'"></td><td style="'+tl+'">মোট ('+S.length+' টি ফাইল'+(sk?', '+sk+' টি বাদ':'')+')</td><td style="'+td+'">'+T('total')+'</td><td style="'+td+'">'+T('nw')+'</td><td style="'+td+'">'+T('ph')+'</td><td style="'+td+'">'+T('inR')+'</td><td style="'+td+'">'+T('inJ')+'</td><td style="'+td+'"></td></tr></tbody></table>';
+  let ov=document.getElementById('upSumOv');if(!ov){ov=document.createElement('div');ov.id='upSumOv';document.body.appendChild(ov)}
+  ov.style.cssText='position:fixed;inset:0;z-index:100000;background:#fff;display:flex;flex-direction:column;padding:12px 16px;box-sizing:border-box';
+  ov.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;flex:none"><div><b style="font-size:20px">'+(PV?'👁 আপলোড সামারি প্রিভিউ — এখনো কিছু আপলোড হয়নি':'📋 আপলোড সামারি — রেকর্ড অনুযায়ী')+'</b><div class="mut" style="font-size:13px;margin-top:2px">মোট '+S.length+' টি ফাইল · নতুন ডাটা <b style="color:#0a7a3c">'+T('nw')+'</b> জন · ছবি <b style="color:#0a7a3c">'+T('ph')+'</b> টি · ডাটা শীটে আগে থেকে <b>'+T('inR')+'</b> জন · রিজেক্ট লিস্টে আগে থেকে <b>'+T('inJ')+'</b> জন'+(sk?' · '+sk+' টি ফাইল বাদ':'')+'</div></div><div style="flex:none;display:flex;gap:8px">'+(PV?'<button type="button" id="upSumGo" class="p" style="padding:8px 16px;font-size:15px">✔ আপলোড শুরু করুন</button>':'')+'<button type="button" id="upSumX" style="padding:8px 16px;font-size:15px">'+(PV?'← ফিরে যান':'✕ বন্ধ')+' (Esc)</button></div></div><div id="upSumBody" style="flex:1;min-height:0;overflow:hidden">'+t+'</div>';
+  const body=ov.querySelector('#upSumBody'),tb=ov.querySelector('#upSumT');
+  /* পর্দার মাপ অনুযায়ী ফন্ট ঠিক করে পুরো টেবিল এক পাতায় ফিট করা */
+  const fit=()=>{let fs=20;tb.style.fontSize=fs+'px';body.style.overflow='hidden';
+    while(fs>6&&(tb.offsetHeight>body.clientHeight||tb.scrollWidth>body.clientWidth)){fs-=.5;tb.style.fontSize=fs+'px'}
+    if(fs<=6)body.style.overflow='auto'};
+  const close=()=>{ov.remove();removeEventListener('resize',fit);removeEventListener('keydown',kd,true)};
+  const kd=e=>{if(e.key==='Escape'){e.stopPropagation();close()}};
+  ov.querySelector('#upSumX').onclick=close;if(PV){ov.querySelector('#upSumGo').onclick=()=>{close();if(opt.go)opt.go()}}addEventListener('keydown',kd,true);addEventListener('resize',fit);
+  fit();requestAnimationFrame(fit);
+  if(!PV)$('#stat').textContent='✅ '+ok.length+'টি ফাইল প্রক্রিয়া সম্পন্ন — নতুন '+T('nw')+' জন, ছবি '+T('ph')+' টি, আগে থেকে ডাটা শীটে '+T('inR')+' জন ও রিজেক্ট লিস্টে '+T('inJ')+' জন।';
+}
+window.__pend=null;
+function pendAdd(fl){if(!window.__pend||!$('#modal').classList.contains('on')||!$('#upGo')){window.__pend=null;return false}const seen=new Set(window.__pend.map(f=>relP(f)+'|'+f.size));[...fl].forEach(f=>{const k=relP(f)+'|'+f.size;if(!seen.has(k)){seen.add(k);window.__pend.push(f)}});pendDraw();return true}
+function pendDraw(){const P=window.__pend||[],im=P.filter(isImgF).length,dc=P.filter(f=>isDataF(f)&&!isImgF(f)).length,ot=P.length-im-dc,el=$('#upInfo');if(!el)return;
+  el.innerHTML=P.length?'নির্বাচিত: <b>'+dc+'</b> টি ডেটা ফাইল (HTML ইত্যাদি) · <b>'+im+'</b> টি ছবি'+(ot?' · '+ot+' টি অন্য ফাইল (বাদ যাবে)':''):'এখনো কিছু নির্বাচন করা হয়নি';
+  $('#upGo').disabled=!dc&&!im;const pv=$('#upPrev');if(pv)pv.disabled=!dc}
+function openUpPicker(){window.__pend=[];
+  $('#mb').innerHTML='<div style="max-width:560px"><div class="row" style="justify-content:space-between;align-items:center"><h3 style="margin:0">📂 ফাইল আপলোড</h3><button type="button" id="upPX">✕ বন্ধ</button></div>'
+  +'<div id="upDrop" style="margin:12px 0;padding:26px 12px;border:2px dashed #0a7a3c;border-radius:10px;text-align:center;background:#f3faf6">ফাইল ও ফোল্ডার একসাথে এখানে <b>ড্র্যাগ করে ছাড়ুন</b><br><span class="mut" style="font-size:12px">অথবা নিচের বাটন দিয়ে একটির পর একটি যোগ করুন — যেকোনো ক্রমে, যতবার খুশি</span></div>'
+  +'<div class="row" style="gap:8px;flex-wrap:wrap"><button type="button" class="p" id="upAddDir">📁 ফোল্ডার যোগ করুন</button><button type="button" class="p" id="upAddFiles">📄 ফাইল যোগ করুন</button></div>'
+  +'<p id="upInfo" class="mut" style="margin:12px 0"></p><div class="row" style="justify-content:flex-end;gap:8px"><button type="button" id="upPrev">👁 সামারি দেখুন</button><button type="button" id="upClr">🗑 মুছুন</button><button type="button" class="p" id="upGo">✔ আপলোড শুরু করুন</button></div></div>';
+  $('#modal').classList.add('on');pendDraw();
+  const close=()=>{window.__pend=null;$('#modal').classList.remove('on')};
+  $('#upPX').onclick=close;
+  $('#upAddDir').onclick=()=>{const i=$('#upDir');i.value='';i.click()};
+  $('#upAddFiles').onclick=()=>{const i=$('#file');i.value='';i.click()};
+  $('#upClr').onclick=()=>{window.__pend=[];pendDraw()};
+  const go=async()=>{const P=window.__pend||[];window.__pend=null;$('#modal').classList.remove('on');await handleUploads(P)};
+  $('#upGo').onclick=go;
+  $('#upPrev').onclick=async()=>{const P=window.__pend||[];if(!P.length)return;const b=$('#upPrev');b.disabled=true;const t0=b.textContent;b.textContent='⏳ হিসাব হচ্ছে...';
+    try{await handleUploads(P,true,go)}catch(err){console.error(err);toast('⚠ সামারি তৈরি করা যায়নি: '+(err&&err.message||err))}
+    b.textContent=t0;b.disabled=false;pendDraw()};
+  const d=$('#upDrop');d.ondragover=e=>{e.preventDefault();d.style.background='#d9f0e3'};d.ondragleave=()=>d.style.background='#f3faf6'}
+$('#upBtn').onclick=openUpPicker;
+$('#upDir').onchange=async e=>{const fl=[...e.target.files];e.target.value='';if(!pendAdd(fl))await handleUploads(fl)};
+$('#file').onchange=async e=>{const fl=[...e.target.files];e.target.value='';if(!pendAdd(fl))await handleUploads(fl)};
+/* ড্র্যাগ-ড্রপ: একসাথে একাধিক ফাইল ও ফোল্ডার ছাড়া যাবে */
+(function(){let dc=0;const ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(0,120,60,.82);color:#fff;display:none;align-items:center;justify-content:center;font-size:26px;font-weight:700;pointer-events:none;text-align:center';ov.textContent='📂 ফাইল ও ফোল্ডার এখানে ছাড়ুন';document.body.appendChild(ov);
+ const skip=e=>e.target&&e.target.closest&&e.target.closest('#tlBtn,#uxScBtn,#hdAdBtn,#kpDirBtn');
+ const has=e=>e.dataTransfer&&!skip(e)&&[...(e.dataTransfer.types||[])].includes('Files');
+ addEventListener('dragenter',e=>{if(!has(e))return;e.preventDefault();dc++;ov.style.display='flex'},true);
+ addEventListener('dragover',e=>{if(has(e)){e.preventDefault();try{e.dataTransfer.dropEffect='copy'}catch(_){}}},true);
+ addEventListener('dragleave',e=>{if(!has(e))return;dc=Math.max(0,dc-1);if(!dc)ov.style.display='none'},true);
+ const info=t=>{const el=$('#upInfo');if(el&&window.__pend)el.innerHTML=t;$('#stat').textContent=t.replace(/<[^>]+>/g,'')};
+ addEventListener('drop',e=>{if(!has(e))return;e.preventDefault();dc=0;ov.style.display='none';
+  /* সবকিছু ইভেন্টের ভেতরেই (সিঙ্ক্রোনাসলি) সংগ্রহ করতে হয়, নইলে ব্রাউজার ফোল্ডারের তথ্য মুছে ফেলে */
+  const its=[...(e.dataTransfer.items||[])].filter(i=>i.kind==='file');
+  const ens=its.map(i=>{try{return i.webkitGetAsEntry&&i.webkitGetAsEntry()}catch(_){return null}});
+  const hs=its.map(i=>{try{return i.getAsFileSystemHandle?i.getAsFileSystemHandle():null}catch(_){return null}});
+  const plain=[...(e.dataTransfer.files||[])];
+  (async()=>{try{
+    info('⏳ ফাইল ও ফোল্ডার পড়া হচ্ছে... একটু অপেক্ষা করুন');
+    let out=[];
+    for(const en of ens)if(en)await readEntries(en,out);
+    if(!out.length){ /* বিকল্প পদ্ধতি */
+      for(let i=0;i<hs.length;i++){if(!hs[i])continue;const h=await tmo(hs[i],10000);if(h)await readHandle(h,h.name,out)}}
+    if(!out.length)out=plain.filter(f=>f.size||f.type).filter(keepF);
+    if(!out.length){info('⚠ কোনো ফাইল পড়া যায়নি। "📁 ফোল্ডার যোগ করুন" বাটন দিয়ে ফোল্ডারটি যোগ করে দেখুন।');return}
+    if(pendAdd(out))return;
+    await handleUploads(out);
+  }catch(err){console.error(err);info('⚠ ড্র্যাগ-ড্রপে সমস্যা: '+(err&&err.message||err))}})();
+ },true);
+})();
 function normRec(nm){nm=String(nm||'');const M=[...nm.matchAll(/\[([^\[\]]*)\]/g)];
 for(let q=M.length-1;q>=0;q--){let t=bn(M[q][1]),y,mo,d,dm,found=null;
 const A=/(?<![\d.])((?:19|20)\d\d)([-\/._])(\d{1,2})\2(\d{1,2})(?![\d])/,B=/(?<![\d.])(\d{1,2})([-\/._])(\d{1,2})\2((?:19|20)\d\d)(?!\d)/;
@@ -1058,8 +1208,8 @@ let memo=(t.slice(0,found.index)+' '+t.slice(found.index+found[0].length)).repla
 const p2=n=>String(n).padStart(2,'0'),parts=[memo,p2(d)+'-'+p2(mo)+'-'+y].filter(Boolean);if(internal)parts.push('(Internal)');
 return nm.slice(0,M[q].index)+'['+parts.join('_')+']'+nm.slice(M[q].index+M[q][0].length)}
 return nm}
-async function one(f,k,n){const x=f.name.split('.').pop().toLowerCase();$('#stat').textContent='⏳ ফাইল পড়া হচ্ছে... ('+k+'/'+n+') '+f.name;TT='';
-try{let rs=[];if(x=='pdf')rs=await readPdf(await f.arrayBuffer());else if(/^xls[xm]?$/.test(x))rs=readXls(await f.arrayBuffer(),'array');else if(x=='csv')rs=readXls((await f.text()).replace(/^\ufeff/,''),'string');else{try{rs=P(await f.text())}catch(er){rs=[]}}
+async function one(f,k,n,pre){const x=f.name.split('.').pop().toLowerCase();$('#stat').textContent='⏳ ফাইল পড়া হচ্ছে... ('+k+'/'+n+') '+f.name;if(!pre)TT='';
+try{let rs=[];if(pre)rs=pre;else if(x=='pdf')rs=await readPdf(await f.arrayBuffer());else if(/^xls[xm]?$/.test(x))rs=readXls(await f.arrayBuffer(),'array');else if(x=='csv')rs=readXls((await f.text()).replace(/^\ufeff/,''),'string');else{try{rs=P(await f.text())}catch(er){rs=[]}}
 if(!rs.length){fin(rs);return}
 await startRec(normRec(f.name.replace(/\.[^.]*$/,'')),f.name);fin(rs)}
 catch(err){$('#stat').textContent='⚠ ফাইল পড়া যায়নি ('+f.name+'): '+(err&&err.message||err)}}
@@ -1088,15 +1238,16 @@ const wr=(t,o={})=>`<w:r><w:rPr>${FN}${o.b?'<w:b/><w:bCs/>':''}${o.c?`<w:color w
 const wp=(runs,o={})=>`<w:p><w:pPr>${o.pb?'<w:pageBreakBefore/>':''}<w:spacing w:before="${o.bf||0}" w:after="${o.af||0}"/><w:jc w:val="${o.jc||'left'}"/></w:pPr>${runs}</w:p>`;
 const wtc=(w,inner,shd)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/>${shd?'<w:shd w:val="clear" w:color="auto" w:fill="EEEEEE"/>':''}<w:vAlign w:val="center"/></w:tcPr>${inner}</w:tc>`;
 const KW={photo:1000,id:1250,name:2500,father:2300,mobile:1450,email:2300,dob:1250,age:1500,quota:1000,addr:2900,paddr:2900};
-async function docxGen(ov){ov=ov&&ov.a?ov:null;const{cs,a:a0,viva,per:per0}=sdata();const a=ov?ov.a:a0;if(!a.length){toast(viva?'⚠ মৌখিক পরীক্ষার জন্য SL নম্বর লিখুন বা ডাটা ট্যাবে টিক দিন':'⚠ আগে ডাটা লোড করুন');return}
+async function docxGen(ov){ov=ov&&ov.a?ov:null;const{cs,sg,a:a0,viva,per:per0}=sdata();const a=ov?ov.a:a0;if(!a.length){toast(viva?'⚠ মৌখিক পরীক্ষার জন্য SL নম্বর লিখুন বা ডাটা ট্যাবে টিক দিন':'⚠ আগে ডাটা লোড করুন');return}
 if(cs.some(c=>c.k=='photo')&&a.some(r=>!r.photo||!String(r.photo).startsWith('data:')))toast('⚠ কিছু ছবি যুক্ত হয়নি — উপরের "ছবির ফোল্ডার" থেকে _files ফোল্ডারগুলো আছে এমন ফোল্ডার দিন, তারপর আবার Word তৈরি করুন');$('#aDocx').disabled=true;const old=$('#aDocx').textContent;$('#aDocx').textContent='⏳ তৈরি হচ্ছে...';
-try{const TW=10540,SIGMIN=1500,SERIAL=520,VIVA=0;
+try{const TW=10540,SIGMIN=sg?1500:0,SERIAL=520,VIVA=0;
 const mxl=k=>Math.max(0,...a.map(r=>String(col(k).g(r)==null?'':col(k).g(r)).length)),FX=c=>c.k=='photo'||c.k=='id'||c.k=='mobile';
 let ws=cs.map(c=>/^(name|nameBn|father|fatherBn)$/.test(c.k)?Math.max(1500,Math.min(3700,mxl(c.k)*108+180)):c.k=='photo'?850:c.k=='id'?1050:c.k=='mobile'?1250:KW[c.k]||(c.k.endsWith('i')?3000:1800));
 const avail=TW-SERIAL-VIVA-SIGMIN,S=ws.reduce((x,y)=>x+y,0);
 if(S>avail){const fs=cs.reduce((s,c,i)=>s+(FX(c)?ws[i]:0),0),fl=S-fs,room=Math.max(avail-fs,fl*.5);ws=ws.map((w,i)=>FX(cs[i])?w:Math.max(900,Math.floor(w*room/fl)))}
-{const t=ws.reduce((x,y)=>x+y,0),mx=TW-SERIAL-VIVA-1200;if(t>mx)ws=ws.map(w=>Math.floor(w*mx/t))}
-const sig=TW-SERIAL-VIVA-ws.reduce((x,y)=>x+y,0),grid=[SERIAL,...ws,sig];
+{const t=ws.reduce((x,y)=>x+y,0),mx=TW-SERIAL-VIVA-(sg?1200:0);if(t>mx)ws=ws.map(w=>Math.floor(w*mx/t))}
+if(!sg){const S0=ws.reduce((x,y)=>x+y,0),ex=TW-SERIAL-VIVA-S0;if(S0>0&&ex>0){ws=ws.map(w=>w+Math.floor(ex*w/S0));ws[ws.length-1]+=TW-SERIAL-VIVA-ws.reduce((x,y)=>x+y,0)}}
+const sig=TW-SERIAL-VIVA-ws.reduce((x,y)=>x+y,0),grid=sg?[SERIAL,...ws,sig]:[SERIAL,...ws];
 const hasPhD=cs.some(c=>c.ph),rowH=hasPhD?1000:560,LN=300,CW=118;
 const headH=850+($('#aAddr').value?340:0)+($('#aPost').value?370:0)+($('#aDept').value?370:0)+((!viva&&payLn())?370:0)+370+(sinfo().length?400:200)+500,BUD=18540-headH-400;
 const est=r=>{let m=1;cs.forEach((c,i)=>{if(c.ph)return;const tx=String(c.g(r)==null?'':c.g(r));m=Math.max(m,Math.ceil(tx.length*CW/Math.max(300,grid[i+1]-140)))});return Math.max(rowH,m*LN+60)};
@@ -1123,11 +1274,11 @@ if(!adOn('a')&&!viva&&payLn())body+=wp(wr(payLn(),{b:1,s:22}),{jc:'center',af:10
 body+=wp(wr('হাজিরা শীট — '+$('#aType').value,{b:1,s:22}),{jc:'center',af:20});
 const inf=sinfo().join('   |   ');body+=wp(inf?wr(inf,{s:19}):'',{jc:'center',af:100});
 let tb=`<w:tbl><w:tblPr><w:tblW w:w="${TW}" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders>${['top','left','bottom','right','insideH','insideV'].map(s=>`<w:${s} w:val="single" w:sz="4" w:space="0" w:color="000000"/>`).join('')}</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="70" w:type="dxa"/><w:right w:w="70" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${grid.map(g=>`<w:gridCol w:w="${g}"/>`).join('')}</w:tblGrid>`;
-const hd=['ক্রম',...cs.map(c=>c.l),'স্বাক্ষর'];
+const hd=['ক্রম',...cs.map(c=>c.l),...(sg?['স্বাক্ষর']:[])];
 tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="450" w:hRule="atLeast"/><w:tblHeader/></w:trPr>${hd.map((h,i)=>wtc(grid[i],wp(wr(h,{b:1,s:19}),{jc:'center'}),1)).join('')}</w:tr>`;
 for(let n=0;n<rs.length;n++){const r=rs[n];let cells=wtc(grid[0],wp(wr(String((r.no||off+n+1)),{s:18}),{jc:'center'}));
 for(let i=0;i<cs.length;i++){const c=cs[i],J=(c.k=='name'||c.k=='father')?'left':'center';let inner;if(c.ph){const px=await photoXml(r);inner=wp(px||'',{jc:'center'})}else if(c.k=='mobile'){const bad=!okm(r.mobile);inner=wp(wr(r.mobile||'—',{s:18,b:bad,c:bad?'C00000':''}),{jc:'center'})}else inner=wp(wr(String(c.g(r)==null?'':c.g(r)),{s:18}),{jc:J});cells+=wtc(grid[i+1],inner)}
-cells+=wtc(grid[cs.length+1],wp(''));
+if(sg)cells+=wtc(grid[cs.length+1],wp(''));
 tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="${rowH}" w:hRule="atLeast"/></w:trPr>${cells}</w:tr>`}
 body+=tb+'</w:tbl>'}
 body+='<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p>';
@@ -1153,6 +1304,98 @@ const blob=await zipMake(files);await dl(blob,(ov&&ov.fname)||safe((rec?rec+' - 
 catch(err){alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
 $('#aDocx').disabled=false;$('#aDocx').textContent=old}
 $('#aDocx').onclick=()=>docxGen();
+/* ===== নোটিশ বোর্ড লিস্ট (লিখিত পরীক্ষা): শুধু ক্রম, আইডি, নাম, পিতার নাম — এক পেজে দুই কলামে, ছোট ফন্টে (PDF ও Word) ===== */
+(function(){
+const btn=$('#aNb'),wrap=$('#aNbW');if(!btn||!wrap)return;const attGen=gen;
+const vis=()=>{wrap.style.display=$('#aType').value.includes('মৌখিক')?'none':'inline-block'};
+$('#aType').addEventListener('change',vis);vis();
+const headHtml=()=>`<h2 style="display:flex;align-items:center;justify-content:center;gap:12px"><img src="${LOGO}" style="height:58px;width:auto"><span>${esc($('#aInst').value)}</span></h2>${$('#aAddr').value?`<p>${esc($('#aAddr').value)}</p>`:''}${adOn('a')?adHtml('a'):`${$('#aPost').value?`<h3>পদের নাম : ${esc($('#aPost').value)}</h3>`:''}${$('#aDept').value?`<h3>বিভাগ/দপ্তর : ${esc($('#aDept').value)}</h3>`:''}${payLn()?`<h3>${esc(payLn())}</h3>`:''}`}<h3>লিখিত পরীক্ষার জন্য যোগ্য প্রার্থীদের তালিকা</h3><p>${sinfo().map(esc).join(' &nbsp;|&nbsp; ')}</p>`;
+const half=(rs,off)=>`<table><colgroup><col style="width:9%"><col style="width:21%"><col style="width:37%"><col style="width:33%"></colgroup><thead><tr><th>ক্রম</th><th>আইডি</th><th>নাম</th><th>পিতার নাম</th></tr></thead><tbody>${rs.map((r,i)=>`<tr><td>${r.no||off+i+1}</td><td>${esc(String(r.id||''))}</td><td class="l">${esc(r.name||'')}</td><td class="l">${esc(r.father||'')}</td></tr>`).join('')}</tbody></table>`;
+const H3S=' style="font-size:calc(.9em + 2pt)"',DV='<span style="margin:0 10px;font-weight:400">|</span>';
+/* ২য় ও পরবর্তী পাতার মাথায় বসবে: পদ/বিভাগ লাইন + তালিকার শিরোনাম + তারিখ/সময়/ভবন লাইন */
+const subHtml=()=>{let s='';if(adOn('a')){const x=adLines(),g=adSplit(x.parts,16.2,703,'  |  ')[0]||[];if(g.length)s+='<h3'+H3S+'>'+g.map(esc).join(DV)+'</h3>'}else{if($('#aPost').value)s+=`<h3>পদের নাম : ${esc($('#aPost').value)}</h3>`;if($('#aDept').value)s+=`<h3>বিভাগ/দপ্তর : ${esc($('#aDept').value)}</h3>`}
+return s+`<h3>লিখিত পরীক্ষার জন্য যোগ্য প্রার্থীদের তালিকা</h3><p>${sinfo().map(esc).join(' &nbsp;|&nbsp; ')}</p>`};
+const NBFS=10.67/* ৮ পয়েন্ট */;
+const pageHtml=(a,fs,first,last,tot)=>{const r=Math.ceil(a.length/2);return`<div class="pg nb" style="width:725px;margin:0 auto"><style>#sheet .nb table{table-layout:fixed;width:100%;margin-top:6px;border-collapse:collapse}#sheet .nb th,#sheet .nb td{padding:1px 3px!important;font-size:${fs}px;line-height:1.2;border:1px solid #000;white-space:normal;word-break:break-word}#sheet .nb th{background:#eee}#sheet .nb td.l{text-align:left}</style>${first?headHtml():subHtml()}<div style="display:flex;gap:8px;align-items:flex-start"><div style="flex:1;min-width:0">${half(a.slice(0,r),0)}</div><div style="flex:1;min-width:0">${half(a.slice(r),r)}</div></div>${last?`<p style="text-align:right;font-size:9px;margin-top:6px">মোট পরীক্ষার্থী: ${tot}</p>`:''}</div>`};
+/* এক Legal পাতায় না ধরলে পরের পাতায় ভাগ হবে; প্রতি পরবর্তী পাতার উপরে শিরোনাম-তথ্য আবার বসবে */
+const nbFill=(root,a)=>{const LIM=1253*0.97;let i=0,first=true;
+while(i<a.length){const rem=a.slice(i);
+const fit=k=>{root.insertAdjacentHTML('beforeend',pageHtml(rem.slice(0,k),NBFS,first,k>=rem.length,a.length));const pg=root.lastElementChild,ok=pg.offsetHeight<=LIM;pg.remove();return ok};
+let c=rem.length;if(!fit(c)){let lo=1,hi=c-1;while(lo<hi){const m=Math.ceil((lo+hi)/2);if(fit(m))lo=m;else hi=m-1}c=lo}
+root.insertAdjacentHTML('beforeend',pageHtml(rem.slice(0,c),NBFS,first,c>=rem.length,a.length));i+=c;first=false}};
+function genNb(){const{a}=sdata();if(!a.length){toast('⚠ আগে ডাটা লোড করুন');return false}
+const root=$('#sheet');root.innerHTML='';nbFill(root,a)}
+async function nbDocx(a,fname,silent){
+const old=btn.textContent;btn.disabled=true;btn.textContent='⏳ তৈরি হচ্ছে...';
+try{const TW=10540,n=a.length,r=Math.ceil(n/2),files=[],rels=[];let docId=1;
+const LH=460000,logoRun=()=>{const id=docId++;return`<w:r><w:rPr><w:position w:val="-22"/></w:rPr><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="228600"><wp:extent cx="${LH}" cy="${LH}"/><wp:docPr id="${id}" name="Logo ${id}"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="${id}" name="logo.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${LH}" cy="${LH}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r><w:r><w:t xml:space="preserve">  </w:t></w:r>`};
+files.push({n:'word/media/logo.png',d:b64u(LOGO.split(',')[1])});rels.push('<Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/logo.png"/>');
+let body='';
+{const tc=(w,c)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${c}</w:tc>`,po={af:10};
+body+=`<w:tbl><w:tblPr><w:tblW w:w="10540" w:type="dxa"/><w:jc w:val="center"/><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="1000"/><w:gridCol w:w="8540"/><w:gridCol w:w="1000"/></w:tblGrid><w:tr>${tc(1000,wp(logoRun(),{...po,jc:'right'}))}${tc(8540,wp(wr($('#aInst').value,{b:1,s:36}),{...po,jc:'center'}))}${tc(1000,wp('',{...po,jc:'center'}))}</w:tr></w:tbl>`}
+if($('#aAddr').value)body+=wp(wr($('#aAddr').value,{s:20}),{jc:'center',af:20});
+if(adOn('a'))body+=adDocx(wp,wr,10540);else{if($('#aPost').value)body+=wp(wr('পদের নাম : '+$('#aPost').value,{b:1,s:22}),{jc:'center',af:10});if($('#aDept').value)body+=wp(wr('বিভাগ/দপ্তর : '+$('#aDept').value,{b:1,s:22}),{jc:'center',af:10});if(payLn())body+=wp(wr(payLn(),{b:1,s:22}),{jc:'center',af:10})}
+body+=wp(wr('লিখিত পরীক্ষার জন্য যোগ্য প্রার্থীদের তালিকা',{b:1,s:22}),{jc:'center',af:20});
+const inf=sinfo().join('   |   ');body+=wp(inf?wr(inf,{s:19}):'',{jc:'center',af:100});
+const nPost=adOn('a')?1:(($('#aPost').value?1:0)+($('#aDept').value?1:0));
+const headH=850+($('#aAddr').value?340:0)+($('#aPost').value?370:0)+($('#aDept').value?370:0)+(payLn()?370:0)+370+(inf?400:200)+500,BUD=18540-headH-450;
+const subH=20+nPost*370+370+(inf?400:200)+500,BUDN=18540-subH-450;
+const rowH0=Math.floor(BUD/(r+1)),multi=rowH0<190,rowH=multi?190:Math.min(380,rowH0),sz=16;
+const G=[440,1050,1950,1770],GAP=120,grid=[...G,GAP,...G];
+const bd='<w:tcBorders>'+['top','left','bottom','right'].map(s=>`<w:${s} w:val="single" w:sz="4" w:space="0" w:color="000000"/>`).join('')+'</w:tcBorders>';
+const tcB=(w,inner,shd)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/>${bd}${shd?'<w:shd w:val="clear" w:color="auto" w:fill="EEEEEE"/>':''}<w:vAlign w:val="center"/></w:tcPr>${inner}</w:tc>`;
+const tcN=w=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/></w:tcPr><w:p/></w:tc>`;
+const cell=(w,t,jc,shd,b)=>tcB(w,`<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="${rowH}" w:lineRule="exact"/><w:jc w:val="${jc}"/></w:pPr>${wr(String(t==null?'':t),{s:sz,b:b?1:0})}</w:p>`,shd);
+const hd=['ক্রম','আইডি','নাম','পিতার নাম'];
+const hrow=()=>hd.map((h,i)=>cell(G[i],h,'center',1,1)).join('');
+const side=(x,i)=>x?cell(G[0],x.no||i+1,'center')+cell(G[1],x.id||'','center')+cell(G[2],x.name||'','left')+cell(G[3],x.father||'','left'):G.map(tcN).join('');
+const mkTb=(ch,base)=>{const rr=Math.ceil(ch.length/2);let tb=`<w:tbl><w:tblPr><w:tblW w:w="${TW}" w:type="dxa"/><w:jc w:val="center"/><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="0" w:type="dxa"/><w:left w:w="40" w:type="dxa"/><w:bottom w:w="0" w:type="dxa"/><w:right w:w="40" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${grid.map(g=>`<w:gridCol w:w="${g}"/>`).join('')}</w:tblGrid>`;
+tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="${rowH}" w:hRule="exact"/><w:tblHeader/></w:trPr>${hrow()}${tcN(GAP)}${hrow()}</w:tr>`;
+for(let i=0;i<rr;i++){tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="${rowH}" w:hRule="exact"/></w:trPr>${side(ch[i],base+i)}${tcN(GAP)}${side(ch[rr+i],base+rr+i)}</w:tr>`}
+return tb+'</w:tbl>'};
+/* ২য় ও পরবর্তী পাতার মাথায়: পদ/বিভাগ লাইন + শিরোনাম + তারিখ/সময়/ভবন লাইন */
+const subXml=()=>{let s='<w:p><w:pPr><w:pageBreakBefore/><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p>';
+if(adOn('a')){const x=adLines(),g=adSplit(x.parts,14.67,TW/15,'  |  ')[0]||[];if(g.length)s+=wp(wr(g.join('  |  '),{b:1,s:22}),{jc:'center',af:10})}
+else{if($('#aPost').value)s+=wp(wr('পদের নাম : '+$('#aPost').value,{b:1,s:22}),{jc:'center',af:10});if($('#aDept').value)s+=wp(wr('বিভাগ/দপ্তর : '+$('#aDept').value,{b:1,s:22}),{jc:'center',af:10})}
+s+=wp(wr('লিখিত পরীক্ষার জন্য যোগ্য প্রার্থীদের তালিকা',{b:1,s:22}),{jc:'center',af:20});s+=wp(inf?wr(inf,{s:19}):'',{jc:'center',af:100});return s};
+const pgs=[];if(!multi)pgs.push(a);else{const c1=Math.max(1,Math.floor(BUD/rowH)-1),cN=Math.max(1,Math.floor(BUDN/rowH)-1);let i=0,f=1;while(i<n){const k=2*(f?c1:cN);pgs.push(a.slice(i,i+k));i+=k;f=0}}
+let base=0;pgs.forEach((ch,pi)=>{if(pi>0)body+=subXml();body+=mkTb(ch,base);base+=ch.length});
+body+=wp(wr('মোট পরীক্ষার্থী: '+n,{s:16}),{jc:'right',bf:60});
+const sect=`<w:sectPr><w:pgSz w:w="12240" w:h="20160"/><w:pgMar w:top="720" w:right="850" w:bottom="900" w:left="850" w:header="400" w:footer="400" w:gutter="0"/></w:sectPr>`;
+const doc=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${NS}><w:body>${body}${sect}</w:body></w:document>`;
+const guid='{'+(crypto.randomUUID?crypto.randomUUID():'D2F4A1B3-5C6E-4F70-8A9B-0C1D2E3F4A5B').toUpperCase()+'}';
+const font=b64u(KB64),hex=guid.replace(/[{}-]/g,''),key=[];for(let i=0;i<16;i++)key.push(parseInt(hex.substr(30-2*i,2),16));for(let i=0;i<32;i++)font[i]^=key[i%16];
+const X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',E=s=>new TextEncoder().encode(s);
+files.unshift(
+{n:'[Content_Types].xml',d:E(X+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpg" ContentType="image/jpeg"/><Default Extension="png" ContentType="image/png"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/></Types>')},
+{n:'_rels/.rels',d:E(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>')},
+{n:'word/document.xml',d:E(doc)},
+{n:'word/_rels/document.xml.rels',d:E(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/>'+rels.join('')+'</Relationships>')},
+{n:'word/styles.xml',d:E(X+`<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr>${FN}<w:sz w:val="20"/><w:szCs w:val="20"/><w:lang w:val="en-US" w:eastAsia="en-US" w:bidi="bn-BD"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>`)},
+{n:'word/settings.xml',d:E(X+'<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:embedTrueTypeFonts/><w:saveSubsetFonts w:val="0"/><w:defaultTabStop w:val="720"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>')},
+{n:'word/fontTable.xml',d:E(X+`<w:fonts xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:font w:name="Kalpurush"><w:charset w:val="01"/><w:family w:val="auto"/><w:pitch w:val="variable"/><w:embedRegular r:id="rId1" w:fontKey="${guid}"/></w:font></w:fonts>`)},
+{n:'word/_rels/fontTable.xml.rels',d:E(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/font" Target="fonts/font1.odttf"/></Relationships>')},
+{n:'word/fonts/font1.odttf',d:font});
+const blob=await zipMake(files);await dl(blob,fname,'');if(!silent)toast('📄 নোটিশ বোর্ড লিস্ট (Word) তৈরি হয়েছে ('+n+' জন, '+pgs.length+' পাতা)')}
+catch(err){alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
+btn.disabled=false;btn.textContent=old}
+btn.onclick=async()=>{const{a}=sdata();if(!a.length){toast('⚠ আগে ডাটা লোড করুন');return}await nbDocx(a,safe((rec?rec+' - ':'')+'নোটিশ বোর্ড লিস্ট')+'.docx')};
+/* ---- কক্ষ অনুযায়ী নোটিশ বোর্ড লিস্ট: প্রতিটি কক্ষের জন্য আলাদা তালিকা (SL ক্রম অপরিবর্তিত, কক্ষ নং হেডারে) ---- */
+const rmPrep=()=>{const rows=rmData().filter(r=>r.cnt>0);if(!rows.length){toast('⚠ কক্ষ নং ও পরীক্ষার্থীর সংখ্যা লিখুন');return null}
+const all=sdata().a;if(!all.length){toast('⚠ আগে ডাটা লোড করুন');return null}
+if(rows.some(r=>!r.room)){toast('⚠ প্রতিটি সারিতে কক্ষ নং লিখুন');return null}
+let at=0;const out=[];for(const r of rows){const sl=all.slice(at,at+r.cnt);at+=r.cnt;if(!sl.length)break;out.push({room:r.room,a:sl})}
+return{out,miss:all.length-at,over:at>all.length}};
+const rmNote=(p,k)=>p.over?' (⚠ বণ্টিত সংখ্যা মোটের চেয়ে বেশি)':p.miss>0?' (⚠ '+p.miss+' জন কোনো কক্ষে বণ্টিত হয়নি)':'';
+const rmBtn=$('#aRmNb');
+if(rmBtn){
+rmBtn.onclick=async()=>{const p=rmPrep();if(!p)return;
+if(p.over&&!confirm('বণ্টিত সংখ্যা মোট পরীক্ষার্থীর চেয়ে বেশি। শেষ কক্ষগুলোতে কম জন থাকবে। চালিয়ে যাবেন?'))return;
+const ot=rmBtn.textContent;rmBtn.disabled=true;let n=0;
+try{for(const x of p.out){aRoomCur=x.room;rmBtn.textContent='⏳ '+x.room+'…';await nbDocx(x.a,safe((rec?rec+' - ':'')+'নোটিশ বোর্ড লিস্ট - '+x.room)+'.docx',true);n++;await new Promise(r=>setTimeout(r,700))}}
+finally{aRoomCur='';rmBtn.disabled=false;rmBtn.textContent=ot}
+toast('✅ '+n+'টি কক্ষের নোটিশ বোর্ড লিস্ট ডাউনলোড হয়েছে'+rmNote(p))}}
+})();
 /* ===== SMS ডেলিভারি রিপোর্ট (পদ/রেকর্ড অনুযায়ী) — PDF ও Word ===== */
 window.dlrExport=async function(fmt,d){
   const HD=['ক্রম','আইডি','নাম (বাংলায়)','পিতার নাম (বাংলায়)','পদ ও বিভাগ/দপ্তরের নাম','SMS Text','SMS পাঠানোর তারিখ ও সময়','SMS Status'];
@@ -1743,7 +1986,7 @@ const I=!($('#aIdc')&&!$('#aIdc').checked),fx=I?[600,1300,2600]:[697,3348],rs_=T
 let tb=`<w:tbl><w:tblPr><w:tblW w:w="${TW}" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders>${['top','left','bottom','right','insideH','insideV'].map(s=>`<w:${s} w:val="single" w:sz="4" w:space="0" w:color="000000"/>`).join('')}</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="70" w:type="dxa"/><w:right w:w="70" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${W.map(g=>`<w:gridCol w:w="${g}"/>`).join('')}</w:tblGrid>`;
 tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="900"/><w:tblHeader/><w:jc w:val="center"/></w:trPr>${H.map((h,i)=>tc(W[i],par(run(h,{b:1,s:19}),{jc:'center'}))).join('')}</w:tr>`;
 tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="70"/><w:tblHeader/><w:jc w:val="center"/></w:trPr>${W.map((w,i)=>tc(w,par(run('('+(i+1)+')',{s:15}),{jc:'center'}))).join('')}</w:tr>`;
-a.forEach((r,n)=>{tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="900"/><w:jc w:val="center"/></w:trPr>${tc(W[0],par(run(String(r.no||n+1).padStart(2,'0')),{jc:'center'}))}${I?tc(W[1],par(run(String(r.id||'')),{jc:'center'})):''}${tc(W[I?2:1],par(run(r.name||''))+par(run('Father’s Name: '+(r.father||''),{s:19})))}${W.slice(I?3:2).map(w=>tc(w,'<w:p/>')).join('')}</w:tr>`});
+a.forEach((r,n)=>{tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="900"/><w:jc w:val="center"/></w:trPr>${tc(W[0],par(run(String(r.no||n+1).padStart(2,'0')),{jc:'center'}))}${I?tc(W[1],par(run(String(r.id||'')),{jc:'center'})):''}${tc(W[I?2:1],par(run(r.name||''))+par(run('পিতা : '+(r.father||''),{s:19})))}${W.slice(I?3:2).map(w=>tc(w,'<w:p/>')).join('')}</w:tr>`});
 body+=tb+'</w:tbl><w:p/>';
 const sect='<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="900" w:right="1000" w:bottom="900" w:left="1000" w:header="400" w:footer="400" w:gutter="0"/><w:cols w:space="720"/></w:sectPr>';
 const doc=`${X}<w:document ${NS}><w:body>${body}${sect}</w:body></w:document>`;
@@ -1770,7 +2013,7 @@ function anxView(){let a=vivaSel().a.map(r=>window.attRow?window.attRow(r):r);
 if(!a.length){toast('⚠ মৌখিক পরীক্ষার জন্য SL নম্বর লিখুন বা ডাটা ট্যাবে টিক দিন');$('#sheet').innerHTML='';return}
 if($('#aSort').value)a=srt(a,$('#aSort').value,1);
 const I=!($('#aIdc')&&!$('#aIdc').checked),P=!!($('#aPrac')&&$('#aPrac').checked),DOT='……………………',mm=anxMemo(),pay=anxPay(),H=["Sl. No.","ID No.","Name & Father's Name","Obtained Marks in Written Exam.","Obtained Marks in Practical Exam.","Obtained Marks in Viva Voce","Total","Merit Position"].filter((_,i)=>(i!=1||I)&&(i!=4||P)),Wd=(fx=>fx.concat(Array(P?5:4).fill((100-fx.reduce((x,y)=>x+y,0))/(P?5:4))))(I?[6,12,28]:[7,34]);
-const row=(r,n)=>`<tr style="height:15mm"><td>${String(r.no||n+1).padStart(2,'0')}</td>${I?`<td>${esc(String(r.id||''))}</td>`:''}<td class="l"><div>${esc(r.name||'')}</div><div style="font-size:.92em">Father’s Name: ${esc(r.father||'')}</div></td>${'<td></td>'.repeat(P?5:4)}</tr>`;
+const row=(r,n)=>`<tr style="height:15mm"><td>${String(r.no||n+1).padStart(2,'0')}</td>${I?`<td>${esc(String(r.id||''))}</td>`:''}<td class="l"><div>${esc(r.name||'')}</div><div style="font-size:.92em">পিতা : ${esc(r.father||'')}</div></td>${'<td></td>'.repeat(P?5:4)}</tr>`;
 $('#sheet').innerHTML=`<div class="pg"><h2 style="display:flex;align-items:center;justify-content:center;gap:12px"><img src="${LOGO}" style="height:50px;width:auto"><span>${esc($('#aInst').value)}</span></h2>${$('#aAddr').value?`<p>${esc($('#aAddr').value)}</p>`:''}
 <p style="margin-top:8px">স্মারক নং-ঢাপ্রপ্রবি/${mm?bd(mm.no):DOT}; তারিখ : ${mm?bd(mm.date)+' খ্রি.':'……/……/………… খ্রি.'}${typeof rnTxt=='function'?rnTxt():''}</p>
 <p>পদের নাম : ${esc($('#aPost').value||DOT)}</p><p>অফিস/বিভাগ : ${esc($('#aDept').value||DOT)}</p><p>বেতন স্কেল ও গ্রেড : ${esc(pay?bd(pay):DOT)}</p>
@@ -2040,8 +2283,8 @@ function adDocx(wp,wr,tw){const x=adLines();return(x.l1?wp(wr(x.l1,{b:1,s:22}),{
 /* রেকর্ড খোলা থাকলে হাজিরা শীট ও কাস্টম প্রিন্টে নিয়োগ বিজ্ঞপ্তির তথ্য ডিফল্টে টিক থাকবে (আগে বন্ধ করা থাকলে সেটাই থাকবে) */
 function adInit(){if(!rec)return;AD=AD||{};if(AD.memo==null&&AD.post==null&&AD.dept==null){try{const d=adDef(rec);Object.assign(AD,{memo:d.memo,date:d.date,post:d.post,dept:d.dept,count:d.count||''});if(d.grade&&!AD.grade)AD.grade=String(d.grade)}catch(e){}}if(AD.grade==null||AD.grade===undefined||AD.grade===''){const g=adGrFor(AD.post,rec);if(g)AD.grade=String(g)}if(AD.ua==null)AD.ua=1;if(AD.uc==null)AD.uc=1}
 function adSync(){adInit();const a=document.getElementById('aAdUse'),c=document.getElementById('cpAd');if(a)a.checked=!!(AD&&AD.ua);if(c)c.checked=!!(AD&&AD.uc)}
-function adApply(){adInit();adSync();if(!AD||!(AD.ua||AD.uc))return;const set=(id,v)=>{const e=document.getElementById(id);if(!e||e.value===v)return;e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}))};
-set('aPost',adSp(AD.post));set('aDept',adSp(AD.dept));set('aGrade',AD.grade?String(AD.grade):'')}
+function adApply(){adInit();adSync();if(!AD)return;const on=!!(AD.ua||AD.uc),set=(id,v)=>{const e=document.getElementById(id);if(!e||e.value===v)return;e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}))};
+if(on){set('aPost',adSp(AD.post));set('aDept',adSp(AD.dept))}/* গ্রেড (বেতন স্কেল) নিয়োগ বিজ্ঞপ্তির টিক বন্ধ থাকলেও রেকর্ড অনুযায়ী অটো বসবে */set('aGrade',AD.grade?String(AD.grade):'')}
 async function adTog(k,box){if(!rec){box.checked=false;toast('⚠ আগে একটি রেকর্ড খুলুন');return}
 const v=box.checked;AD=AD||{};if(v&&AD.memo==null&&AD.post==null){const d=adDef(rec);Object.assign(AD,{memo:d.memo,date:d.date,post:d.post,dept:d.dept,count:d.count||''})}
 AD['u'+k]=v?1:0;adApply();await svNow();
@@ -3643,6 +3886,7 @@ function dirSeat(x){
     ex=i>=0?ex.slice(i):ex.filter(t=>!/(বিভাগ|ইনস্টিটিউট)$/.test(t));
     role=ex.join(', ')||rs.join(', ')}
   return{name:fixMP(name),role:role.replace(/এন্ড\s+এন্ড/g,'এন্ড')}}
+window.__dirSeat=dirSeat;window.__dirGet=dirGet;
 function dirTblHtml(list){
   if(!list.length)return'<div class="none">কোনো এন্ট্রি নেই — DOCX আপলোড করুন বা সম্পাদনা (টেক্সট) থেকে লিখুন</div>';
   return'<table><thead><tr><th>ক্রমিক</th><th>নাম ও পদবী (কমিটিতে যেভাবে বসবে)</th></tr></thead><tbody>'+
@@ -4783,4 +5027,427 @@ fillCfg();
 })();
 </script>
 
+<style id="wrCss">
+nav.tabs button[data-t=wr]::before{content:"✍️ "}
+nav.tabs button[data-t=wr]{white-space:nowrap;line-height:1.5}
+#t-wr{overflow:auto}#t-wr>.card{flex:none;overflow:visible;max-height:none}
+#t-wr .wrG{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+#t-wr .f{display:flex;flex-direction:column;gap:3px;min-width:0}
+#t-wr .f>span{font-size:12.5px;font-weight:600;color:var(--mut)}
+#t-wr .f input,#t-wr .f textarea,#t-wr .f select{width:100%;min-width:0}
+#t-wr .f textarea{min-height:74px;font-size:13px;resize:vertical}
+#t-wr .f select{margin-top:4px;font-size:12.5px;color:var(--mut)}
+#t-wr details{border:1px solid var(--bd);border-radius:10px;padding:8px 12px;margin:10px 0;background:var(--hl)}
+#t-wr summary{cursor:pointer;font-weight:700;color:var(--thc)}
+#t-wr .wrRt{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:8px}
+#t-wr .wrRow{border:1px solid var(--bd);border-radius:12px;margin:10px 0;overflow:visible}
+#t-wr .wrRh{display:flex;align-items:center;gap:8px;background:var(--hl);padding:7px 12px;border-bottom:1px solid var(--bd);color:var(--thc);border-radius:12px 12px 0 0}
+#t-wr .wrSb,#t-wr .wrTa{display:grid;grid-template-columns:repeat(var(--n,6),minmax(0,1fr));gap:10px;padding:0 12px 12px}
+#t-wr .wrSb{padding-bottom:8px}
+#t-wr .wrSc{position:relative;min-width:0}
+#t-wr .wrSl{display:block;font-size:11.5px;font-weight:700;color:var(--thc);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#t-wr .wrSw{display:flex;gap:4px;border:1px solid var(--bd);border-radius:8px;background:var(--card);padding:2px;min-width:0}
+#t-wr .wrSw select,#t-wr .wrSw input{border:0!important;background:transparent!important;font-size:12px;min-width:0;margin:0!important;padding:5px 4px!important;box-shadow:none!important}
+#t-wr .wrSw select{flex:0 0 42%;max-width:42%;border-right:1px solid var(--bd)!important;border-radius:0!important;color:var(--mut)}
+#t-wr .wrSw input{flex:1 1 auto;width:100%}
+#t-wr .wrSw:focus-within{border-color:var(--pr);box-shadow:0 0 0 2px rgba(0,132,63,.15)}
+#t-wr .wrRes{position:absolute;z-index:40;top:100%;left:0;min-width:max(100%,340px);max-height:260px;overflow:auto;background:var(--card);color:var(--tx);border:1px solid var(--pr);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.2);margin-top:3px}
+#t-wr .wrSc.wrSr .wrRes{left:auto;right:0}
+#t-wr .wrRi{padding:6px 10px;cursor:pointer;font-size:13px;line-height:1.35;border-bottom:1px solid var(--bd)}
+#t-wr .wrRi:last-child{border-bottom:0}
+#t-wr .wrRi:hover,#t-wr .wrRi.on{background:var(--hl)}
+#t-wr .wrRi small{display:block;color:var(--mut);font-size:11.5px}
+#t-wr .wrRi small.wrEx{color:var(--tx);font-weight:600}
+#t-wr .wrMore{flex:1 1 340px;min-width:260px}
+#t-wr .wrMore select{width:100%}
+#t-wr .wrMc{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+#t-wr .wrMx{display:inline-flex;align-items:center;gap:6px;padding:2px 4px 2px 10px;border:1px solid var(--pr);border-radius:14px;font-size:12.5px}
+#t-wr .wrMx button{border:0;background:none;cursor:pointer;color:#c00;font-size:13px}
+#t-wr .wrXr{display:inline-block;margin:3px 5px 0 0;padding:2px 8px;border:1px solid var(--pr);border-radius:6px;color:var(--pr);background:var(--card);font-size:11.5px}
+#t-wr .wrXr:hover{background:var(--pr);color:#fff}
+#t-wr .wrRe{padding:8px 10px;color:var(--mut);font-size:12.5px}
+#t-wr .wrRg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px}
+#t-wr .wrAct{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+#t-wr .wrPh{margin:14px 0 0;font-weight:700;color:var(--thc)}
+#wrSheet{flex:none;margin-top:8px;background:#fff;color:#000;padding:16px;border:1px solid var(--bd);border-radius:8px;overflow:auto}
+#wrSheet,#wrSheet *{font-family:"KalpurushEmb","Kalpurush",sans-serif}
+#wrSheet .pg{min-width:1100px;color:#000}
+#wrSheet .wrH{display:flex;align-items:center;justify-content:center;gap:14px}
+#wrSheet .wrH img{height:58px;width:58px;object-fit:contain}
+#wrSheet .wrH .t1{font-size:24px;font-weight:700;text-align:center;line-height:1.3}
+#wrSheet .wrH .t2{font-size:15px;font-weight:700;text-align:center}
+#wrSheet .wrD{text-align:right;font-size:13px;font-weight:700;margin:6px 4px 4px}
+#wrSheet .wrI{text-align:center;font-weight:700;font-size:14.5px;line-height:1.55;margin:6px 30px 10px}
+#wrSheet table{border-collapse:collapse;width:100%;table-layout:fixed;margin:0}
+#wrSheet table.wrM th,#wrSheet table.wrM td{border:1px solid #000;padding:5px 6px;text-align:center;vertical-align:middle;background:#fff;color:#000;white-space:normal;position:static;overflow-wrap:anywhere}
+#wrSheet table.wrM th{font-size:12px;background:#f2f2f2}
+#wrSheet table.wrM th .sb{font-weight:400;font-size:12px;margin-top:3px}
+#wrSheet table.wrM td{font-size:12px;height:60px}
+#wrSheet table.wrM td.l{text-align:left;vertical-align:top}
+#wrSheet table.wrM td .pb{display:flex;gap:4px;align-items:flex-start}
+#wrSheet table.wrM td .pb .no{flex:none;min-width:1.7em}
+#wrSheet table.wrM td .pb .tx{min-width:0}
+#wrSheet table.wrM td .pb+.pb{margin-top:3px}
+#wrSheet table.wrM tr{page-break-inside:avoid;break-inside:avoid}
+#wrSheet table.wrS td,#wrSheet table.wrS tr:hover td{background:#fff;border:0;text-align:center;padding:46px 8px 0;font-size:13px;font-weight:700}
+@media(max-width:900px){#t-wr .wrG,#t-wr .wrRg,#t-wr .wrSb,#t-wr .wrTa{grid-template-columns:1fr 1fr}#t-wr .wrRt{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:560px){#t-wr .wrG,#t-wr .wrRg,#t-wr .wrRt,#t-wr .wrSb,#t-wr .wrTa{grid-template-columns:1fr}}
+#t-wr .wrChk{display:flex;gap:8px;align-items:center;margin:10px 0;font-weight:600}
+</style>
+<script>
+/* ===== লিখিত পরীক্ষার দায়িত্ব (সংযুক্তি-৩) ===== */
+(function(){
+const KEY='duet_wr_v1',BD='০১২৩৪৫৬৭৮৯',DIRK='duet_kp_dir';
+const toBn=s=>String(s==null?'':s).replace(/\d/g,d=>BD[d]);
+const toEn=s=>String(s==null?'':s).replace(/[০-৯]/g,d=>BD.indexOf(d));
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const g=id=>document.getElementById(id);
+const YR=()=>toBn(new Date().getFullYear());
+const COLS=[
+ {k:'d',t:'লিখিত ও ব্যবহারিক পরীক্ষা গ্রহণের তারিখ',w:1250},
+ {k:'n',t:'প্রার্থীর সংখ্যা (জন)',w:1050},
+ {k:'c',t:'লিখিত পরীক্ষা গ্রহণ কমিটির সভাপতি',r:0,w:2280},
+ {k:'s',t:'প্রশ্নপত্র প্রণয়নকারী',r:1,w:2990},
+ {k:'p',t:'ব্যবহারিক পরীক্ষা গ্রহণকারী',r:2,w:2506},
+ {k:'m',t:'প্রশ্নপত্র মডারেশন, টাইপ, প্রিন্টিং, প্যাকিং',r:3,w:2906},
+ {k:'r',t:'কক্ষ পরিদর্শক',r:4,w:3614},
+ {k:'e',t:'উত্তরপত্র মূল্যায়নকারী',r:5,w:3659}];
+const AC=()=>COLS.filter(c=>c.k!='p'||(W&&W.prac));
+const colT=c=>c.k=='d'&&!(W&&W.prac)?'লিখিত পরীক্ষা গ্রহণের তারিখ':(c.k=='p'&&W&&/পরিচ্ছন্ন/.test(W.post||'')?c.t+' (শুধু পরিচ্ছন্নতা কর্মী পদের জন্য প্রযোজ্য)':c.t);
+const wsum=()=>AC().reduce((a,c)=>a+c.w,0);
+const RATES0=['3000','3000','2000','3000','1000','120'];
+let cur='',W=null,pt=0;
+
+/* ---------- সংরক্ষণ ---------- */
+const loadAll=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){return{}}};
+const saveW=()=>{if(!cur||!W)return;try{const a=loadAll();a[cur]=W;localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}};
+const dirList=()=>{try{const o=JSON.parse(localStorage.getItem(DIRK)||'{}')||{};return Array.isArray(o.list)?o.list.filter(x=>Array.isArray(x)&&x[0]&&x[1]):[]}catch(e){return[]}};
+
+/* ---------- ফরম্যাট ---------- */
+const money=v=>{const t=String(v==null?'':v).trim();if(!t)return'......../-';const n=Number(toEn(t).replace(/[^\d.]/g,''));return toBn(isNaN(n)?t:n.toLocaleString('en-IN'))+'/-'};
+const fmtDate=(s,fb)=>{s=toBn(String(s||'').trim());if(!s)return fb;return /খ্রি/.test(s)?s:(/^[০-৯]/.test(s)?s+' খ্রি.':s)};
+const dEmpty=()=>'........../........../'+YR()+' খ্রি.';
+const rel=d=>{d=String(d||'').trim();if(!d)return'';return d+(/[\u0995-\u09B9\u09DC-\u09DF\u09CE]$/.test(d)?'ের':'র')};
+const gradeTxt=gr=>{const d=toEn(gr||'').replace(/\D/g,'');return d?'গ্রেড-'+toBn(d):''};
+const qPosts=a=>{const q=a.map(x=>'“'+x+'”');return q.length>2?q.slice(0,-1).join(', ')+' ও '+q[q.length-1]:q.join(' ও ')};
+const joinO=(a,w)=>a.length>2?a.slice(0,-1).join(', ')+' '+w+' '+a[a.length-1]:a.join(' '+w+' ');
+const splitP=t=>String(t||'').split(/\s*[;；]\s*/).map(x=>x.trim()).filter(Boolean);
+const postLabel=()=>{const ps=splitP(W.post);if(!ps.length)return'“.........”';if(ps.length>1){const gt=gradeTxt(W.grade);return qPosts(ps)+(gt?' ('+gt+')':'')}const p=ps[0],gt=gradeTxt(W.grade);return'“'+p+(gt&&!/গ্রেড/.test(p)?' ('+gt+')':'')+'”'};
+const multiInfo=()=>{const xs=(W.recs||[]).map(n=>(W.xi||{})[n]).filter(Boolean);if(!xs.length)return null;
+ const xp=xs.map(x=>x.post).filter(Boolean),p0=splitP(W.post).filter(p=>!xp.includes(p));
+ return[{memo:String(W.memo||'').trim(),mdate:String(W.mdate||'').trim(),dept:String(W.dept||'').trim(),posts:p0}].concat(xs.map(x=>({memo:String(x.memo||'').trim(),mdate:String(x.mdate||'').trim(),dept:String(x.dept||'').trim(),posts:splitP(x.post)})))};
+const intro=()=>{
+ const M=multiInfo(),tail=' পদে '+(W.prac?'লিখিত ও ব্যবহারিক':'লিখিত')+' পরীক্ষা গ্রহণের নিমিত্ত দায়িত্ব প্রাপ্ত শিক্ষকবৃন্দের তালিকা :';
+ if(!M)return 'নিয়োগ বিজ্ঞপ্তির স্মারক নং-'+(toBn(String(W.memo||'').trim())||'.........')+', তারিখ : '+fmtDate(W.mdate,dEmpty())+' অনুযায়ী '+(String(W.dept||'').trim()?rel(W.dept)+' ':'')+postLabel()+tail;
+ const uq=a=>a.filter((x,i)=>a.findIndex(y=>nz(y)==nz(x))==i);
+ const memos=uq(M.map(m=>m.memo).filter(Boolean)),dates=M.map(m=>fmtDate(m.mdate,dEmpty())),sameD=uq(dates).length==1;
+ const same=memos.length<2&&sameD;
+ const mt='নিয়োগ বিজ্ঞপ্তির স্মারক নং-'+(memos.length?toBn(joinO(memos,'ও')):'.........')+', তারিখ'+(same?' : '+dates[0]:' যথাক্রমে : '+joinO(dates,'ও'))+' অনুযায়ী ';
+ const depts=uq(M.map(m=>m.dept).filter(Boolean));let who;
+ const gt=gradeTxt(W.grade),gs=gt?' ('+gt+')':'';
+ if(depts.length<2){who=(depts[0]?rel(depts[0])+' ':'')+(()=>{const ps=uq(M.reduce((a,m)=>a.concat(m.posts),[]));return ps.length?qPosts(ps)+gs:'“.........”'})()}
+ else who=joinO(M.filter(m=>m.posts.length||m.dept).map(m=>(m.dept?rel(m.dept)+' ':'')+(m.posts.length?qPosts(m.posts):'“.........”')),'এবং')+gs;
+ return mt+who+tail};
+const blocks=s=>String(s||'').split(/\n\s*\n/).map(b=>b.split('\n').map(x=>x.trim()).filter(Boolean)).filter(b=>b.length);
+const rateSub=c=>c.r==null?'':(c.r==5?'(সম্মানী : পূর্ণ উত্তরপত্র '+money(W.rates[5])+' × উত্তরপত্রের সংখ্যা)':'(সম্মানী : '+money(W.rates[c.r])+')');
+const cellTxt=(r,c)=>c.k=='d'?toBn(String(r.d||'').trim()):c.k=='n'?nLines(r).join(' '):'';
+/* প্রার্থীর সংখ্যা: "(১২৮+৩২) = ১৬০" লিখলে "=" থেকে নতুন লাইন (নমুনার মতো) */
+const nLines=r=>{const t=toBn(String(r.n||'').trim()),i=t.indexOf('=');return i>0?[t.slice(0,i).trim(),'= '+t.slice(i+1).trim()]:[t]};
+/* নামের তালিকা: প্রতিজনের আগে স্বয়ংক্রিয় ক্রমিক নং (১।, ২।…); আগে নিজে নম্বর লিখলে বাদ যায় */
+const NUMRE=/^\s*[0-9০-৯]+\s*[|।│.)]\s*/;
+const persons=v=>{v=String(v||'');const bl=/\n\s*\n/.test(v)?blocks(v):v.split('\n').map(x=>x.trim()).filter(Boolean).map(x=>[x]);return bl.map(b=>{b=b.slice();b[0]=b[0].replace(NUMRE,'');return b})};
+
+/* ---------- Teacher List থেকে শিক্ষক ইনডেক্স (সার্চ ও জ্যেষ্ঠতা) ---------- */
+const TLK='duet_teacher_list_v1';
+const clean1=t=>String(t==null?'':t).replace(/\s+/g,' ').trim();
+const nz=t=>clean1(t).replace(/[\s.:ঃ,\u200c\u200d()\-]/g,'').toLowerCase();
+const nzName=t=>nz(String(t).replace(/অধ্যাপক|প্রকৌশলী|ডাঃ|ডা\.|ডঃ|ড\.|মোঃ|মো\./g,''));
+const parseDt=t=>{t=toEn(clean1(t));let m=t.match(/(\d{1,2})\s*[\/\-.]\s*(\d{1,2})\s*[\/\-.]\s*(\d{2,4})/);
+ if(m){let y=+m[3];if(y<100)y+=y>50?1900:2000;const d=+m[1],mo=+m[2];if(mo>=1&&mo<=12&&d>=1&&d<=31)return Date.UTC(y,mo-1,d)}
+ m=t.match(/(\d{1,2})[\s\-]+([A-Za-z]{3,9})[\s\-,.]+(\d{4})/);if(m){const v=Date.parse(m[1]+' '+m[2]+' '+m[3]+' UTC');if(!isNaN(v))return v}
+ return null};
+/* ---------- বিভাগ / ইনস্টিটিউট / অনুষদ / হলের সংক্ষিপ্ত নাম (ডাটাবেজ) ---------- */
+const UNIT_DB=[
+ ['faculty','সিভিল ইঞ্জিনিয়ারিং','সিই অনুষদ'],['faculty','ইলেকট্রিক্যাল এন্ড ইলেকট্রনিক ইঞ্জিনিয়ারিং','ইইই অনুষদ'],['faculty','মেকানিক্যাল ইঞ্জিনিয়ারিং','এম অনুষদ'],['faculty','ফ্যাকাল্টি অব সায়েন্স','বিজ্ঞান অনুষদ'],
+ ['dept','পুরকৌশল','সিই'],['dept','আর্কিটেকচার','স্থাপত্য'],['dept','তড়িৎ ও ইলেকট্রনিক কৌশল','ইইই'],['dept','কম্পিউটার সায়েন্স এন্ড ইঞ্জিনিয়ারিং','সিএসই'],['dept','যন্ত্রকৌশল','এমই'],['dept','টেক্সটাইল ইঞ্জিনিয়ারিং','টিই'],['dept','ইন্ডাস্ট্রিয়াল এন্ড প্রোডাকশন ইঞ্জিনিয়ারিং','আইপিই'],['dept','গণিত','গণিত'],['dept','পদার্থবিজ্ঞান','পদার্থবিজ্ঞান'],['dept','রসায়ন','রসায়ন'],['dept','মানবিক ও সামাজিক বিজ্ঞান','এইচএসএস'],['dept','ম্যাটেরিয়ালস এন্ড মেটালার্জিক্যাল ইঞ্জিনিয়ারিং','এমএমই'],['dept','কেমিক্যাল ইঞ্জিনিয়ারিং','সিএইচই'],['dept','ফুড ইঞ্জিনিয়ারিং','এফই'],
+ ['inst','ইনস্টিটিউট অব এনার্জি ইঞ্জিনিয়ারিং','আইইই'],['inst','ইনস্টিটিউট অব ওয়াটার এন্ড এনভায়রনমেন্ট','আইডব্লিউই'],['inst','ইনস্টিটিউট অব ইনফরমেশন এন্ড কমিউনিকেশন টেকনোলজি','আইআইসিটি'],
+ ['hall','ড. ফজলুর রহমান খান হল','এফ আর খান হল'],['hall','ড. কুদরত-ই-খুদা হল','কিউ কে হল'],['hall','শহীদ মুক্তিযোদ্ধা হল','এস এম হল'],['hall','কাজী নজরুল ইসলাম হল','কে এন আই হল'],['hall','মাদাম কুরী হল','এম সি হল'],['hall','শহীদ তাজউদ্দিন আহমেদ হল','এসটিএ হল'],['hall','বিজয় ২৪ হল','বিজয় ২৪ হল']];
+const FAC_RX=[['সিভিল|civil|পুরকৌশল','সিই অনুষদ'],['ইলেকট্রিক|ইলেকট্রনিক|electric|তড়িৎ','ইইই অনুষদ'],['মেকানিক্যাল|mechanical|যন্ত্র','এম অনুষদ'],['সায়েন্স|science|বিজ্ঞান','বিজ্ঞান অনুষদ']].map(x=>[new RegExp(x[0],'i'),x[1]]);
+const HALL_RX=[['ফজলুর|খান\s*হল|\bfr\s*khan','এফ আর খান হল'],['কুদরত|qudrat|kudrat','কিউ কে হল'],['মুক্তিযোদ্ধা','এস এম হল'],['নজরুল','কে এন আই হল'],['কুরী|কুরি|curie','এম সি হল'],['তাজউদ্দ|তাজউদ্দিন|tajuddin|tajuddin','এসটিএ হল'],['বিজয়','বিজয় ২৪ হল']].map(x=>[new RegExp(x[0],'i'),x[1]]);
+const DEPT_SHORT=[['স্থাপত্য|আর্কিটেকচার|architect','স্থাপত্য'],['এনার্জি|energy|\biee\b','আইইই'],['ওয়াটার|water|\biwe\b|পানি','আইডব্লিউই'],['\biict\b|আইআইসিটি|ইনফরমেশন|information','আইআইসিটি'],['3csr|climate|জলবায়ু','৩সিএসআর'],['সিভিল|civil|\bce\b|পুরকৌশল','সিই'],['ইলেকট্রিক|ইলেকট্রনিক|electric|\beee\b|তড়িৎ','ইইই'],['মেকানিক্যাল|mechanical|\bme\b|যন্ত্রকৌশল','এমই'],['ইন্ডাস্ট্রিয়াল|ইন্ডাষ্ট্রিয়াল|industrial|\bipe\b|আইপিই','আইপিই'],['কম্পিউটার|computer|\bcse\b|সিএসই','সিএসই'],['টেক্সটাইল|textile|\bte\b','টিই'],['কেমিক্যাল|chemical|\bche\b','সিএইচই'],['ফুড|food|\bfe\b','এফই'],['ম্যাটেরিয়াল|material|metallurg|\bmme\b|এমএমই','এমএমই'],['গণিত|math','গণিত'],['পদার্থ|physics','পদার্থবিজ্ঞান'],['রসায়ন|কেমিস্ট্রি|chemistry','রসায়ন'],['মানবিক|humanit|ইংরেজি|ইংরেজী|english|অর্থনীতি|economics|সমাজ|\bhss\b','এইচএসএস']].map(x=>[new RegExp(x[0],'i'),x[1]]);
+const DEPT_ONLY=new Set(UNIT_DB.filter(u=>u[0]=='dept').map(u=>u[2]));
+const unitKey=t=>String(t==null?'':t).replace(/&amp;/g,'&').replace(/[\s.,()\-‌‍&]/g,'').replace(/ইঞ্জিনিয়ারিং|ইন্জিনিয়ারিং|এন্ড|এবং/g,'').toLowerCase();
+const deptShort=d=>{d=clean1(d);if(!d)return'';
+ const k=unitKey(d),ex=UNIT_DB.find(u=>u[0]!='faculty'&&(unitKey(u[1])==k||unitKey(u[2])==k));if(ex)return ex[2];
+ if(/অনুষদ|ফ্যাকাল্টি|faculty/i.test(d)){for(const [re,v] of FAC_RX)if(re.test(d))return v}
+ if(/হল\s*$|\bhall\b/i.test(d)){for(const [re,v] of HALL_RX)if(re.test(d))return v}
+ for(const [re,v] of DEPT_SHORT)if(re.test(d))return v;
+ return d.replace(/\s*(বিভাগ|ইনস্টিটিউট|সেন্টার)\s*$/,'').trim()};
+const DES_BN={'professor':'অধ্যাপক','associate professor':'সহযোগী অধ্যাপক','assistant professor':'সহকারী অধ্যাপক','lecturer':'প্রভাষক','senior lecturer':'সিনিয়র প্রভাষক'};
+const desRank=d=>/ভাইস.?চ্যান্সেলর/.test(d)?(/প্রো/.test(d)?1:0):/সহযোগী/.test(d)?20:/সহকারী|সহ\./.test(d)?30:/অধ্যাপক/.test(d)?10:/সিনিয়র.*(প্রভাষক|লেকচারার)/.test(d)?39:/প্রভাষক|লেকচারার/.test(d)?40:90;
+const vcInfo=()=>{let o={};try{o=(typeof dirGet=='function'?dirGet():JSON.parse(localStorage.getItem(DIRK)||'{}'))||{}}catch(e){}
+ return{vc:o.vc!=null?o.vc:'অধ্যাপক ড. প্রকৌশলী মোহাম্মদ ইকবাল',pvc:o.pvc!=null?o.pvc:'অধ্যাপক ড. রুমা'}};
+let TLc=null,TLs='';
+function teachers(){
+ let d=null;try{d=JSON.parse(localStorage.getItem(TLK)||'null')}catch(e){}
+ const v=vcInfo(),key=(d?String(d.ts)+':'+d.n:'-')+'|'+v.vc+'|'+v.pvc;
+ if(TLc&&TLs==key)return TLc;
+ const list=[],depts=[];let hdr=[],info='';
+ if(d&&Array.isArray(d.groups)){
+  d.groups.forEach(g=>{const dp=clean1(g.dept);if(dp&&!depts.includes(dp))depts.push(dp);
+   (g.rows||[]).forEach((r,i)=>{if(!i){if(!hdr.length&&r.length==6)hdr=r.map(c=>clean1(c.t));return}
+    if(r.length!=6)return;const n=clean1(r[1].t);if(!n||/^[\s*\-–—_.…]+$/.test(n))return;
+    list.push({n,des:clean1(r[2].t),c:[r[3],r[4],r[5]].map(c=>clean1(c&&c.t)),dept:dp})})});
+  /* বর্তমান পদে যোগদানের তারিখের কলাম (৪র্থ–৬ষ্ঠ কলামের মধ্যে) চিহ্নিত করা */
+  const fr=[0,1,2].map(j=>list.length?list.filter(t=>parseDt(t.c[j])!=null).length/list.length:0),cand=[0,1,2].filter(j=>fr[j]>=0.4);
+  let dc=-1;if(cand.length){dc=cand.find(j=>/বর্তমান|পদে|current|present|eZ©gvb|c‡`/i.test(hdr[j+3]||''));if(dc==null||dc<0)dc=cand[cand.length-1]}
+  list.forEach(t=>{t.jt=dc>=0?t.c[dc]:'';t.jd=dc>=0?parseDt(t.jt):null});
+  info=dc>=0?'জ্যেষ্ঠতা: Teacher List-এর “'+(hdr[dc+3]||('কলাম '+toBn(dc+4)))+'” (কলাম '+toBn(dc+4)+') অনুযায়ী':'জ্যেষ্ঠতা: Teacher List-এ তারিখের কলাম পাওয়া যায়নি — শুধু পদবি অনুযায়ী সাজানো হচ্ছে';
+ }
+ const vn=nzName(v.vc),pn=nzName(v.pvc),same=(a,b)=>a&&b&&(a==b||(a.length>=6&&b.length>=6&&(a.includes(b)||b.includes(a))));
+ list.forEach(t=>{const k=nzName(t.n);t.vc=same(k,vn)?1:same(k,pn)?2:0;
+  let des=t.des;const low=des.toLowerCase();if(DES_BN[low])des=DES_BN[low];t.des=des;
+  t.prof=/অধ্যাপক/.test(des)&&!/সহযোগী|সহকারী|সহ\./.test(des);t.ds=deptShort(t.dept);
+  t.rank=t.vc==1?0:t.vc==2?1:2+desRank(des)});
+ [['vc',v.vc,0,'ভাইস-চ্যান্সেলর','ভিসি'],['pvc',v.pvc,1,'প্রো-ভাইস-চ্যান্সেলর','প্রো-ভিসি']].forEach(([k,nm,rk,ds,sh])=>{nm=clean1(nm);if(!nm)return;
+  if(list.some(t=>t.vc==(rk+1))){list.forEach(t=>{if(t.vc==rk+1)t.vcName=nm});return}
+  list.push({n:nm,des:ds,dept:'',ds:'',prof:false,vc:rk+1,rank:rk,jd:null,jt:'',vcName:nm,pseudo:1})});
+ list.sort((a,b)=>a.rank-b.rank||((a.jd==null?9e15:a.jd)-(b.jd==null?9e15:b.jd))||a.n.localeCompare(b.n,'bn'));
+ TLc={list,depts,info};TLs=key;return TLc}
+/* এক লাইনের এন্ট্রি: ১। নাম, পদবি, বিভাগ (সংক্ষেপে) — অধ্যাপক হলে নামের শুরুতে শুধু “অধ্যাপক” */
+const entryOf=t=>{if(t.vc==1)return(t.vcName||t.n)+', ভাইস-চ্যান্সেলর';if(t.vc==2)return(t.vcName||t.n)+', প্রো-ভাইস-চ্যান্সেলর';
+ if(t.prof)return[/^অধ্যাপক/.test(t.n)?t.n:'অধ্যাপক '+t.n,deptLbl(t.ds)].filter(Boolean).join(', ');
+ return[t.n,t.des,deptLbl(t.ds)].filter(Boolean).join(', ')};
+const deptLbl=d=>{d=clean1(d);return d&&DEPT_ONLY.has(d)?d+' বিভাগ':d};
+/* অন্যান্য (অতিরিক্ত) দায়িত্ব — সংরক্ষিত Responsibility List থেকে নাম মিলিয়ে */
+function extraRoles(t){
+ const out=[];let D=null;try{D=typeof window.__dirGet=='function'?window.__dirGet():null}catch(e){}
+ if(!D||t.pseudo)return out;
+ const k=nzName(t.n);if(k.length<3)return out;
+ const same=a=>a&&(a==k||(a.length>=6&&k.length>=6&&(a.includes(k)||k.includes(a))));
+ try{if(D.reg&&same(nzName(D.reg)))out.push('রেজিস্ট্রার')}catch(e){}
+ (D.list||[]).forEach(x=>{try{const st=typeof window.__dirSeat=='function'?window.__dirSeat(x):null;if(st&&st.name&&same(nzName(st.name))&&st.role&&!out.includes(st.role))out.push(st.role)}catch(e){}});
+ return out}
+const entryRole=(t,r)=>t.vc?(t.vcName||t.n)+', '+r:(t.prof?[/^অধ্যাপক/.test(t.n)?t.n:'অধ্যাপক '+t.n,r]:[t.n,t.des,r]).filter(Boolean).join(', ');
+const SHORTT={c:'সভাপতি',s:'প্রশ্নপত্র প্রণয়ন',p:'ব্যবহারিক',m:'মডারেশন/টাইপ/প্রিন্টিং',r:'কক্ষ পরিদর্শক',e:'উত্তরপত্র মূল্যায়ন'};
+const sortKey=(W_,e)=>{const m=W_.meta&&W_.meta[e];return m?m:null};
+function addEntry(i,k,e,meta){
+ const row=W.rows[i];W.meta=W.meta||{};W.meta[e]=meta;
+ const cur=persons(row[k]).map(b=>b.join(', '));
+ if(!cur.some(x=>nz(x)==nz(e)))cur.push(e);
+ const known=cur.filter(x=>W.meta[x]),manual=cur.filter(x=>!W.meta[x]);
+ known.sort((a,b)=>{const x=W.meta[a],y=W.meta[b];return(x[0]-y[0])||((x[1]==null?9e15:x[1])-(y[1]==null?9e15:y[1]))});
+ row[k]=known.concat(manual).join('\n')}
+
+/* ---------- রেকর্ডের তথ্য ---------- */
+async function recInfo(n){
+ let ad={},cnt=null;
+ try{if(n===rec){ad=AD||{};cnt=R.length}else{const o=await store.get(n);if(o){ad=o.ad||{};cnt=(o.R||[]).length}}}catch(e){}
+ let df={};try{df=adDef(n)||{}}catch(e){}
+ const pk=k=>(ad[k]!=null&&String(ad[k]).trim()!=='')?ad[k]:(df[k]!=null?df[k]:'');
+ let grade=pk('grade');if(!grade){try{grade=adGrFor(pk('post'),n)||''}catch(e){}}
+ return{memo:String(pk('memo')),mdate:String(pk('date')).replace(/\s*খ্রি\.?\s*$/,''),post:String(pk('post')),dept:String(pk('dept')),grade:String(grade||''),count:cnt};
+}
+const blank=n=>({d:'',n:n==null?'':String(n),c:'',s:'',p:'',m:'',r:'',e:''});
+async function fresh(n){const i=await recInfo(n);return{memo:i.memo,mdate:i.mdate,ldate:'',post:i.post,dept:i.dept,grade:i.grade,rates:RATES0.slice(),rows:[blank(i.count)],prac:false,meta:{}}}
+function norm(w){w=w||{};w.rates=Array.isArray(w.rates)&&w.rates.length==6?w.rates:RATES0.slice();w.prac=!!w.prac;w.recs=Array.isArray(w.recs)?w.recs:[];w.xi=w.xi&&typeof w.xi=='object'?w.xi:{};w.meta=w.meta&&typeof w.meta=='object'?w.meta:{};w.rows=Array.isArray(w.rows)&&w.rows.length?w.rows:[blank('')];w.rows=w.rows.map(r=>Object.assign(blank(''),r));['memo','mdate','ldate','post','dept','grade'].forEach(k=>{if(w[k]==null)w[k]=''});return w}
+
+/* ---------- রেকর্ড ড্রপডাউন ---------- */
+function fillSel(){
+ const e=g('wrRec');if(!e)return;const v=e.value;
+ let ns=Object.keys(META||{});try{ns=ns.filter(n=>!UPGS.some(u=>u.recName==n))}catch(x){}
+ if(rec&&!ns.includes(rec))ns.push(rec);
+ ns.sort((a,b)=>a.localeCompare(b,'bn',{numeric:true}));
+ const cn=n=>n==rec?R.length:(META[n]&&META[n].n!=null?META[n].n:null);
+ e.innerHTML='<option value="">— রেকর্ড বাছাই করুন —</option>'+ns.map(n=>'<option value="'+esc(n)+'">'+esc(n)+(cn(n)!=null?'  —  যোগ্য: '+cn(n)+' জন':'')+'</option>').join('');
+ e.value=ns.includes(v)?v:(ns.includes(cur)?cur:'');try{renderMore()}catch(x){}
+}
+
+/* ---------- ফরম ---------- */
+const deptOpts=()=>{const T=teachers();return'<option value="">সব বিভাগ</option><option value="vc">ভিসি / প্রো-ভিসি</option>'+T.depts.map((d,j)=>'<option value="'+j+'">'+esc(deptLbl(deptShort(d)||d))+' — '+esc(d)+'</option>').join('')};
+const stripHtml=()=>{const cs=AC().slice(2),n=cs.length,o=deptOpts();return'<div class="wrSb" style="--n:'+n+'">'+cs.map((c,x)=>'<div class="wrSc'+(x>=n-2?' wrSr':'')+'" data-k="'+c.k+'"><span class="wrSl" title="'+esc(c.t)+'">🔍 '+esc(SHORTT[c.k]||c.t)+'</span><div class="wrSw"><select data-dsel title="বিভাগ বাছাই করুন">'+o+'</select><input data-q placeholder="নাম লিখে খুঁজুন" autocomplete="off"></div><div class="wrRes" hidden></div></div>').join('')+'</div>'};
+const rowHtml=(r,i)=>'<div class="wrRow" data-i="'+i+'"><div class="wrRh"><b>🗓 সারি '+toBn(i+1)+'</b><span class="grow" style="flex:1"></span><button type="button" data-act="dup" title="এই সারির কপি নিচে যোগ হবে">⧉ কপি</button><button type="button" class="d" data-act="del">✕ মুছুন</button></div><div class="wrRg">'
+ +'<label class="f"><span>'+colT(COLS[0])+'</span><input data-k="d" value="'+esc(r.d)+'" placeholder="যেমন: ১৫/১১/২০২৬"></label>'
+ +'<label class="f"><span>'+COLS[1].t+'</span><input data-k="n" inputmode="numeric" value="'+esc(r.n)+'"></label>'
+ +'</div>'+stripHtml()+'<div class="wrTa" style="--n:'+AC().slice(2).length+'">'+AC().slice(2).map(c=>'<div class="f"><span>'+esc(c.t)+' <small class="mut" data-rl="'+c.r+'">'+esc(rateSub(c))+'</small></span><textarea data-k="'+c.k+'" rows="6" placeholder="প্রতি লাইনে একজন: নাম, পদবি, বিভাগ (ক্রমিক নং নিজে থেকে বসবে)। উপরের সার্চ বক্স থেকেও যোগ করা যাবে।">'+esc(r[c.k])+'</textarea>'+'</div>').join('')
+ +'</div></div>';
+/* একই গ্রেডের একাধিক পদ নিয়ে একটি কমিটি */
+function moreHtml(){
+ const e=g('wrRec'),used=[cur].concat(W.recs||[]);
+ const opts=e?[...e.options].filter(o=>o.value&&!used.includes(o.value)).map(o=>'<option value="'+esc(o.value)+'">'+esc(o.value)+'</option>').join(''):'';
+ return'<select id="wrMoreSel" title="একই গ্রেডের একাধিক পদের জন্য একটি কমিটি হলে এখান থেকে অন্য রেকর্ড যোগ করুন — পদের নাম শীর্ষ তথ্যে যুক্ত হবে এবং প্রার্থীর সংখ্যা যোগ হবে"><option value="">＋ একই কমিটিতে আরেকটি রেকর্ডের পদ যোগ করুন</option>'+opts+'</select>'
+ +((W.recs||[]).length?'<div class="wrMc">'+W.recs.map((n,i)=>'<span class="wrMx">'+esc(n)+' <button type="button" data-act="rmrec" data-r="'+i+'" title="বাদ দিন">✕</button></span>').join('')+'</div>':'')}
+function renderMore(){const m=g('wrMore');if(!m)return;if(!W||!cur){m.hidden=true;m.innerHTML='';return}m.innerHTML=moreHtml();m.hidden=false}
+const sumN=(n,add)=>{const t=toEn(String(n||'').trim()).replace(/\s+/g,''),a=+toEn(String(add));if(!add&&add!==0||isNaN(a))return n;
+ let m=t.match(/^\(?(\d+(?:\+\d+)*)\)?=?(\d+)?$/);if(!m||!t)return n;const parts=m[1].split('+').map(Number);parts.push(a);return'('+parts.join('+')+') = '+parts.reduce((x,y)=>x+y,0)};
+const rmN=(n,sub)=>{const t=toEn(String(n||'').trim()).replace(/\s+/g,''),m=t.match(/^\((\d+(?:\+\d+)+)\)=\d+$/);if(!m||sub==null)return n;const p=m[1].split('+').map(Number),i=p.lastIndexOf(+sub);if(i<0)return n;p.splice(i,1);return p.length==1?String(p[0]):'('+p.join('+')+') = '+p.reduce((x,y)=>x+y,0)};
+async function addMoreRec(n){
+ if(!W||!n)return;const i=await recInfo(n);
+ if(W.recs.includes(n)||n==cur)return;
+ const ps=String(W.post||'').split(/\s*[;；]\s*/).map(x=>x.trim()).filter(Boolean);
+ if(i.post&&!ps.includes(i.post))ps.push(i.post);W.post=ps.join('; ');
+ if(!W.grade&&i.grade)W.grade=i.grade;
+ W.recs.push(n);W.recCnt=W.recCnt||{};W.recCnt[n]=i.count;W.xi=W.xi||{};W.xi[n]={memo:i.memo,mdate:i.mdate,post:i.post,dept:i.dept};
+ if(i.count!=null)W.rows.forEach(r=>{r.n=sumN(r.n,i.count)});
+ buildForm();touch();renderPreview();
+ const gd=toEn(String(i.grade||'')).replace(/\D/g,''),g0=toEn(String(W.grade||'')).replace(/\D/g,'');
+ toast(gd&&g0&&gd!=g0?'⚠ এই রেকর্ডের গ্রেড ('+toBn(gd)+') ভিন্ন — শীর্ষ তথ্যে গ্রেড যাচাই করুন':'✓ পদ যোগ হয়েছে')}
+async function rmMoreRec(idx){
+ const n=W.recs[idx];if(n==null)return;const i=await recInfo(n);
+ if(i.post){const ps=String(W.post||'').split(/\s*[;；]\s*/).map(x=>x.trim()).filter(Boolean).filter(x=>x!==i.post);W.post=ps.join('; ')}
+ const c=(W.recCnt||{})[n];if(c!=null)W.rows.forEach(r=>{r.n=rmN(r.n,c)});
+ W.recs.splice(idx,1);buildForm();touch();renderPreview()}
+function buildForm(){
+ const b=g('wrBody');
+ b.innerHTML='<div class="wrPh">📌 শীর্ষ তথ্য</div><div class="wrG">'
+ +'<label class="f"><span>তালিকার তারিখ (ওপরে ডানে)</span><input data-h="ldate" value="'+esc(W.ldate)+'" placeholder="যেমন: ১০/১১/২০২৬"></label>'
+ +'<label class="f"><span>নিয়োগ বিজ্ঞপ্তির স্মারক নং</span><input data-h="memo" value="'+esc(W.memo)+'"></label>'
+ +'<label class="f"><span>বিজ্ঞপ্তির তারিখ</span><input data-h="mdate" value="'+esc(W.mdate)+'" placeholder="যেমন: ০৫/০৫/২০২৬"></label>'
+ +'<label class="f"><span>বিভাগ / দপ্তর</span><input data-h="dept" value="'+esc(W.dept)+'"></label>'
+ +'<label class="f"><span>পদের নাম <small class="mut">(একাধিক পদ হলে ; দিয়ে আলাদা করুন)</small></span><input data-h="post" value="'+esc(W.post)+'" placeholder="যেমন: নিরাপত্তা প্রহরী; পরিচ্ছন্নতা কর্মী"></label>'
+ +'<label class="f"><span>গ্রেড (সংখ্যা)</span><input data-h="grade" value="'+esc(W.grade)+'" placeholder="যেমন: 16"></label></div>'
+ +'<label class="wrChk"><input type="checkbox" id="wrPrac"'+(W.prac?' checked':'')+'> ব্যবহারিক পরীক্ষা আছে (টিক দিলে “ব্যবহারিক পরীক্ষা গ্রহণকারী” কলাম যোগ হবে)</label>'
+ +'<details><summary>💰 সম্মানীর হার (প্রয়োজনে বদলান)</summary><div class="wrRt">'+AC().filter(c=>c.r!=null).map(c=>'<label class="f"><span>'+esc(c.t)+'</span><input data-rate="'+c.r+'" value="'+esc(W.rates[c.r])+'"></label>').join('')+'</div></details>'
+ +'<div class="wrPh">👥 দায়িত্ব বণ্টন</div><div id="wrRows">'+W.rows.map(rowHtml).join('')+'</div>'
+ +'<div class="wrAct"><button type="button" id="wrAdd">➕ আরেকটি পরীক্ষার তারিখ / সারি</button><span class="mut">প্রতিটি কলামের উপরের সার্চ বক্সে বিভাগ বেছে বা নাম লিখে শিক্ষক যোগ করুন — জ্যেষ্ঠতা অনুযায়ী (ভিসি, প্রো-ভিসি, তারপর অধ্যাপক → সহযোগী → সহকারী, একই পদে বর্তমান পদে যোগদানের তারিখ অনুযায়ী) নিজে থেকে সাজবে। হাতে লিখলে প্রতি লাইনে একজন (নাম, পদবি, বিভাগ); ক্রমিক নং (১।, ২।…) নিজে থেকে বসবে। প্রার্থীর সংখ্যায় “(১২৮+৩২) = ১৬০” লিখলে “=” থেকে পরের লাইনে যাবে।</span></div>'
+ +'<div class="wrAct"><button type="button" class="p" id="wrDocx">📄 Word (.docx)</button><button type="button" id="wrPdf">🖨 PDF</button><button type="button" id="wrReload" title="রেকর্ড থেকে স্মারক নং, তারিখ, পদ, বিভাগ, গ্রেড আবার আনুন">↻ রেকর্ড থেকে শীর্ষ তথ্য নিন</button><button type="button" class="d" id="wrClear">🗑 ফরম খালি করুন</button><span class="mut" id="wrSaved">✓ স্বয়ংক্রিয়ভাবে সংরক্ষিত হয়</span></div><div class="mut" id="wrSen" style="font-size:12px;margin-top:4px">'+esc(teachers().info||'Teacher List আপলোড করা নেই — সার্চে শুধু ভিসি/প্রো-ভিসি পাওয়া যাবে (উপরে “Teacher List” বাটনে DOCX আপলোড করুন)')+'</div>';
+ b.hidden=false;renderMore();
+}
+function renderPreview(){const s=g('wrSheet');if(!W){s.hidden=true;return}s.hidden=false;s.innerHTML=sheetHtml()}
+function touch(){saveW();clearTimeout(pt);pt=setTimeout(renderPreview,250)}
+
+/* ---------- প্রিভিউ ---------- */
+function sheetHtml(){
+ const th=AC().map(c=>'<th style="width:'+(c.w*100/wsum()).toFixed(2)+'%">'+esc(colT(c))+(c.r!=null?'<div class="sb">'+esc(rateSub(c))+'</div>':'')+'</th>').join('');
+ const cell=(r,c)=>{if(c.k=='d')return esc(cellTxt(r,c));if(c.k=='n')return nLines(r).map(esc).join('<br>');return persons(r[c.k]).map((b,i)=>'<div class="pb"><span class="no">'+toBn(i+1)+'।</span><span class="tx">'+b.map(esc).join('<br>')+'</span></div>').join('')};
+ const rows=W.rows.map(r=>'<tr>'+AC().map(c=>'<td'+(c.k=='n'?'':' class="l"')+'>'+cell(r,c)+'</td>').join('')+'</tr>').join('');
+ const sg=['ডেপুটি রেজিস্ট্রার','রেজিস্ট্রার','ভাইস-চ্যান্সেলর'].map(t=>'<td>_________________<br>'+t+'</td>').join('');
+ return '<div class="pg"><div class="wrH"><img src="'+LOGO+'" alt=""><div><div class="t1">ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর</div><div class="t2">গাজীপুর-১৭০৭</div></div></div>'
+ +'<div class="wrD">তারিখ : '+esc(fmtDate(W.ldate,dEmpty()))+'</div><p class="wrI">'+esc(intro())+'</p>'
+ +'<table class="wrM"><thead><tr>'+th+'</tr></thead><tbody>'+rows+'</tbody></table><table class="wrS"><tr>'+sg+'</tr></table></div>';
+}
+
+/* ---------- Word ---------- */
+async function makeDocx(){
+ const files=[],NSX=NS;let docId=1;
+ files.push({n:'word/media/logo.png',d:b64u(LOGO.split(',')[1])});
+ const sz=o=>'<w:sz w:val="'+(o.s||22)+'"/><w:szCs w:val="'+(o.s||22)+'"/>';
+ const rn=(t,o={})=>'<w:r><w:rPr>'+FN+(o.b?'<w:b/><w:bCs/>':'')+sz(o)+'</w:rPr><w:t xml:space="preserve">'+XE(t)+'</w:t></w:r>';
+ const br='<w:r><w:br/></w:r>';
+ const pp=(runs,o={})=>'<w:p><w:pPr>'+(o.keep?'<w:keepNext/>':'')+'<w:spacing w:before="'+(o.bf||0)+'" w:after="'+(o.af||0)+'" w:line="'+(o.ln||240)+'" w:lineRule="auto"/><w:jc w:val="'+(o.jc||'left')+'"/></w:pPr>'+runs+'</w:p>';
+ const tc=(w,inner,o={})=>'<w:tc><w:tcPr><w:tcW w:w="'+w+'" w:type="dxa"/>'+(o.sh?'<w:shd w:val="clear" w:color="auto" w:fill="'+o.sh+'"/>':'')+'<w:vAlign w:val="'+(o.va||'center')+'"/></w:tcPr>'+inner+'</w:tc>';
+ const tr=(cells,o={})=>'<w:tr><w:trPr><w:cantSplit/>'+(o.h?'<w:trHeight w:val="'+o.h+'" w:hRule="atLeast"/>':'')+(o.hd?'<w:tblHeader/>':'')+'</w:trPr>'+cells.join('')+'</w:tr>';
+ const BRD='<w:tblBorders>'+['top','left','bottom','right','insideH','insideV'].map(s=>'<w:'+s+' w:val="single" w:sz="4" w:space="0" w:color="000000"/>').join('')+'</w:tblBorders>';
+ const tbl=(ws,rows,o={})=>'<w:tbl><w:tblPr><w:tblW w:w="'+ws.reduce((a,b)=>a+b,0)+'" w:type="dxa"/><w:jc w:val="center"/>'+(o.nb?'':BRD)+'<w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="70" w:type="dxa"/><w:right w:w="70" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>'+ws.map(w=>'<w:gridCol w:w="'+w+'"/>').join('')+'</w:tblGrid>'+rows.join('')+'</w:tbl>';
+ const LH=520000;
+ const logo=()=>{const id=docId++;return'<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="'+LH+'" cy="'+LH+'"/><wp:docPr id="'+id+'" name="Logo '+id+'"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="'+id+'" name="logo.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+LH+'" cy="'+LH+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>'};
+ const PW=20160,PH=12240,MG=432,TW=PW-2*MG;
+ const ACs=AC();let ws=ACs.map(c=>Math.round(c.w*TW/wsum()));ws[ws.length-1]+=TW-ws.reduce((a,b)=>a+b,0);
+ let body='';
+ /* শিরোনাম */
+ const L1=4600,L3=4600,L2=TW-L1-L3;
+ body+=tbl([L1,L2,L3],[tr([tc(L1,pp(logo(),{jc:'right'})),tc(L2,pp(rn('ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর',{b:1,s:46}),{jc:'center'})+pp(rn('গাজীপুর-১৭০৭',{b:1,s:30}),{jc:'center'})),tc(L3,pp(''))])],{nb:1});
+ body+=pp(rn('তারিখ : '+fmtDate(W.ldate,dEmpty()),{b:1,s:26}),{jc:'right',bf:80,af:60});
+ body+=pp(rn(intro(),{b:1,s:30}),{jc:'center',af:140,ln:276});
+ /* মূল টেবিল */
+ const hdr=tr(ACs.map((c,i)=>tc(ws[i],pp(rn(colT(c),{b:1,s:18}),{jc:'center',ln:250})+(c.r!=null?pp(rn(rateSub(c),{s:18}),{jc:'center',bf:40,ln:250}):''),{sh:'F2F2F2'})),{hd:1,h:900});
+ const cellP=(r,c,i)=>{
+  if(c.k=='d')return pp(rn(cellTxt(r,c),{s:18}),{jc:'left'});
+  if(c.k=='n')return pp(nLines(r).map((t,ti)=>(ti?br:'')+rn(t,{s:18})).join(''),{jc:'center'});
+  const bl=persons(r[c.k]);if(!bl.length)return pp('');
+  const hg=bl.length>=10?420:340;
+  return bl.map((b,bi)=>'<w:p><w:pPr><w:tabs><w:tab w:val="left" w:pos="'+hg+'"/></w:tabs><w:spacing w:before="0" w:after="'+(bi<bl.length-1?40:0)+'" w:line="252" w:lineRule="auto"/><w:ind w:left="'+hg+'" w:hanging="'+hg+'"/><w:jc w:val="left"/></w:pPr>'+rn(toBn(bi+1)+'।',{s:18})+'<w:r><w:tab/></w:r>'+b.map((t,ti)=>(ti?br:'')+rn(t,{s:18})).join('')+'</w:p>').join('')};
+ const rows=W.rows.map(r=>tr(ACs.map((c,i)=>tc(ws[i],cellP(r,c,i),{va:(c.k=='n'?'center':'top')})),{h:827}));
+ body+=tbl(ws,[hdr].concat(rows));
+ /* স্বাক্ষর */
+ const sw=[Math.floor(TW/3),Math.floor(TW/3)];sw.push(TW-sw[0]-sw[1]);
+ body+=pp('',{af:0,bf:0,ln:240,keep:1});
+ body+=tbl(sw,[tr(['ডেপুটি রেজিস্ট্রার','রেজিস্ট্রার','ভাইস-চ্যান্সেলর'].map((t,i)=>tc(sw[i],pp(rn('_________________',{b:1,s:22}),{jc:'center',bf:700,keep:1})+pp(rn(t,{b:1,s:22}),{jc:'center'}))),{})],{nb:1});
+ const sect='<w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="'+PW+'" w:h="'+PH+'" w:orient="landscape"/><w:pgMar w:top="'+MG+'" w:right="'+MG+'" w:bottom="'+MG+'" w:left="'+MG+'" w:header="'+MG+'" w:footer="'+MG+'" w:gutter="0"/></w:sectPr>';
+ const doc='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document '+NSX+'><w:body>'+body+sect+'</w:body></w:document>';
+ const guid='{'+(crypto.randomUUID?crypto.randomUUID():'D2F4A1B3-5C6E-4F70-8A9B-0C1D2E3F4A5B').toUpperCase()+'}';
+ const font=b64u(KB64),hex=guid.replace(/[{}-]/g,''),key=[];for(let i=0;i<16;i++)key.push(parseInt(hex.substr(30-2*i,2),16));for(let i=0;i<32;i++)font[i]^=key[i%16];
+ const X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',enc=s=>new TextEncoder().encode(s);
+ files.unshift(
+  {n:'[Content_Types].xml',d:enc(X+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/></Types>')},
+  {n:'_rels/.rels',d:enc(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>')},
+  {n:'word/document.xml',d:enc(doc)},
+  {n:'word/_rels/document.xml.rels',d:enc(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/><Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/logo.png"/><Relationship Id="rId10" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/></Relationships>')},
+  {n:'word/footer1.xml',d:enc(X+'<w:ftr '+NSX+'><w:p><w:pPr><w:jc w:val="right"/></w:pPr>'+rn('Page No. ',{s:14})+'<w:r><w:rPr>'+FN+'<w:sz w:val="14"/><w:szCs w:val="14"/></w:rPr><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:rPr>'+FN+'<w:sz w:val="14"/><w:szCs w:val="14"/></w:rPr><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r><w:rPr>'+FN+'<w:sz w:val="14"/><w:szCs w:val="14"/></w:rPr><w:fldChar w:fldCharType="separate"/></w:r>'+rn('1',{s:14})+'<w:r><w:rPr>'+FN+'<w:sz w:val="14"/><w:szCs w:val="14"/></w:rPr><w:fldChar w:fldCharType="end"/></w:r></w:p></w:ftr>')},
+  {n:'word/styles.xml',d:enc(X+'<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr>'+FN+'<w:sz w:val="22"/><w:szCs w:val="22"/><w:lang w:val="en-US" w:eastAsia="en-US" w:bidi="bn-BD"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>')},
+  {n:'word/settings.xml',d:enc(X+'<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:embedTrueTypeFonts/><w:saveSubsetFonts w:val="0"/><w:defaultTabStop w:val="720"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>')},
+  {n:'word/fontTable.xml',d:enc(X+'<w:fonts xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:font w:name="Kalpurush"><w:charset w:val="01"/><w:family w:val="auto"/><w:pitch w:val="variable"/><w:embedRegular r:id="rId1" w:fontKey="'+guid+'"/></w:font></w:fonts>')},
+  {n:'word/_rels/fontTable.xml.rels',d:enc(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/font" Target="fonts/font1.odttf"/></Relationships>')},
+  {n:'word/fonts/font1.odttf',d:font});
+ return zipMake(files);
+}
+window.wrMakeDocx=makeDocx;
+
+/* ---------- খোলা / ইভেন্ট ---------- */
+async function openFor(n){
+ if(!n){cur='';W=null;g('wrBody').hidden=true;renderMore();renderPreview();return}
+ cur=n;const saved=loadAll()[n];
+ W=saved?norm(saved):norm(await fresh(n));
+ if(!saved)saveW();
+ buildForm();renderPreview();
+}
+const T=g('t-wr');
+g('wrRec').addEventListener('change',e=>openFor(e.target.value));
+const tb=document.querySelector('.tabs button[data-t=wr]');
+if(tb)tb.addEventListener('click',()=>setTimeout(fillSel,0));
+T.addEventListener('change',e=>{if(e.target.id=='wrPrac'&&W){W.prac=e.target.checked;buildForm();touch();renderPreview()}});
+T.addEventListener('input',e=>{
+ const t=e.target;if(!W)return;
+ if(t.dataset.h){W[t.dataset.h]=t.value}
+ else if(t.dataset.rate!=null){W.rates[+t.dataset.rate]=t.value;COLS.forEach(c=>{if(c.r!=null){const s=T.querySelector('[data-rl="'+c.r+'"]');if(s)s.textContent=rateSub(c)}})}
+ else if(t.dataset.k){const row=t.closest('.wrRow');if(!row)return;W.rows[+row.dataset.i][t.dataset.k]=t.value}
+ else return;
+ touch();
+});
+/* ---- সার্চ বক্স ---- */
+const hideRes=ex=>T.querySelectorAll('.wrRes').forEach(x=>{if(x!==ex)x.hidden=true});
+function showRes(cell){
+ const inp=cell.querySelector('[data-q]'),sel=cell.querySelector('[data-dsel]'),box=cell.querySelector('.wrRes'),TD=teachers(),q=nz(inp.value),dv=sel.value;
+ let L=TD.list;
+ if(dv==='vc')L=L.filter(t=>t.vc);else if(dv!=='')L=L.filter(t=>t.dept==TD.depts[+dv]);
+ if(q)L=L.filter(t=>nz(t.n).includes(q)||nz(t.des).includes(q)||nz(entryOf(t)).includes(q)||nz(extraRoles(t).join(' ')).includes(q));
+ if(!q&&dv===''){box.innerHTML='<div class="wrRe">বিভাগ বাছাই করুন অথবা নামের অংশ লিখুন…</div>';box.hidden=false;box._res=[];hideRes(box);return}
+ L=L.slice(0,60);box._res=L;
+ box.innerHTML=L.length?L.map((t,j)=>'<div class="wrRi'+(j?'':' on')+'" data-j="'+j+'">'+esc(t.vc?(t.vcName||t.n):t.n)+'<small>'+esc([t.vc==1?'ভাইস-চ্যান্সেলর':t.vc==2?'প্রো-ভাইস-চ্যান্সেলর':t.des,deptLbl(t.ds),t.jt?('যোগদান: '+t.jt):''].filter(Boolean).join(' · '))+'</small>'+(()=>{const x=extraRoles(t);return x.length?'<small class="wrEx">অন্যান্য দায়িত্ব: '+x.map((r,y)=>'<span class="wrXr" data-x="'+y+'" title="ক্লিক করলে নামের সাথে এই দায়িত্বসহ যোগ হবে">'+esc(r)+'</span>').join('')+'</small>':''})()+'</div>').join(''):'<div class="wrRe">'+(TD.list.some(t=>!t.pseudo)?'কোনো শিক্ষক পাওয়া যায়নি':'Teacher List আপলোড করা নেই')+'</div>';
+ box.hidden=false;hideRes(box)}
+function pickRes(cell,j,xr){
+ const box=cell.querySelector('.wrRes'),t=box._res&&box._res[j],row=cell.closest('.wrRow');if(!t||!row||!W)return;
+ const i=+row.dataset.i,k=cell.dataset.k;
+ if(xr!=null){const r=extraRoles(t)[xr];if(r==null)return;addEntry(i,k,entryRole(t,r),[t.rank,t.jd])}else addEntry(i,k,entryOf(t),[t.rank,t.jd]);
+ const ta=row.querySelector('textarea[data-k="'+k+'"]');if(ta)ta.value=W.rows[i][k];
+ const inp=cell.querySelector('[data-q]');inp.value='';box.hidden=true;touch()}
+T.addEventListener('input',e=>{const t=e.target;if(t.matches&&t.matches('[data-q]'))showRes(t.closest('.wrSc'))});
+T.addEventListener('focusin',e=>{const t=e.target;if(t.matches&&t.matches('[data-q]'))showRes(t.closest('.wrSc'))});
+T.addEventListener('change',e=>{const t=e.target;if(t.matches&&t.matches('[data-dsel]')){const c=t.closest('.wrSc');showRes(c);c.querySelector('[data-q]').focus()}});
+T.addEventListener('keydown',e=>{const t=e.target;if(!t.matches||!t.matches('[data-q]'))return;const c=t.closest('.wrSc'),box=c.querySelector('.wrRes');
+ if(e.key=='Escape'){box.hidden=true;return}
+ if(e.key=='ArrowDown'||e.key=='ArrowUp'){const it=[...box.querySelectorAll('.wrRi')];if(!it.length)return;let x=it.findIndex(y=>y.classList.contains('on'));it.forEach(y=>y.classList.remove('on'));x=e.key=='ArrowDown'?Math.min(it.length-1,x+1):Math.max(0,x-1);it[x].classList.add('on');it[x].scrollIntoView({block:'nearest'});e.preventDefault();return}
+ if(e.key=='Enter'){const on=box.querySelector('.wrRi.on');if(on)pickRes(c,+on.dataset.j);e.preventDefault()}});
+T.addEventListener('mousedown',e=>{const it=e.target.closest&&e.target.closest('.wrRi');if(it){e.preventDefault();const xr=e.target.closest('.wrXr');pickRes(it.closest('.wrSc'),+it.dataset.j,xr?+xr.dataset.x:null)}});
+document.addEventListener('mousedown',e=>{if(!e.target.closest||!e.target.closest('.wrSc'))hideRes(null)});
+const reRows=()=>{g('wrRows').innerHTML=W.rows.map(rowHtml).join('');touch()};
+T.addEventListener('change',e=>{const t=e.target;if(t.id=='wrMoreSel'&&t.value){addMoreRec(t.value)}});
+T.addEventListener('click',async e=>{
+ const b=e.target.closest('button');if(!b||!W)return;
+ if(b.dataset.act=='rmrec'){rmMoreRec(+b.dataset.r);return}
+ const row=b.closest('.wrRow'),i=row?+row.dataset.i:-1;
+ if(b.dataset.act=='del'){if(W.rows.length<2){W.rows[0]=blank('');reRows();return}W.rows.splice(i,1);reRows();return}
+ if(b.dataset.act=='dup'){W.rows.splice(i+1,0,Object.assign({},W.rows[i]));reRows();return}
+ if(b.id=='wrAdd'){const l=W.rows[W.rows.length-1];W.rows.push(blank(l?l.n:''));reRows();return}
+ if(b.id=='wrReload'){const f=await fresh(cur);['memo','mdate','post','dept','grade'].forEach(k=>{W[k]=f[k]});for(const n of W.recs.slice()){const x=await recInfo(n);W.xi=W.xi||{};W.xi[n]={memo:x.memo,mdate:x.mdate,post:x.post,dept:x.dept};if(x.post&&!String(W.post).split(/\s*[;；]\s*/).includes(x.post))W.post=(W.post?W.post+'; ':'')+x.post}buildForm();touch();renderPreview();toast('↻ রেকর্ড থেকে শীর্ষ তথ্য নেওয়া হয়েছে');return}
+ if(b.id=='wrClear'){if(!confirm('এই রেকর্ডের দায়িত্ব বণ্টনের সব এন্ট্রি মুছে ফেলবেন?'))return;const f=await fresh(cur);W=norm(f);buildForm();saveW();renderPreview();toast('🗑 ফরম খালি করা হয়েছে');return}
+ if(b.id=='wrDocx'){
+  const old=b.textContent;b.disabled=true;b.textContent='⏳ তৈরি হচ্ছে...';
+  try{const blob=await makeDocx(),fn=safe(cur+' - লিখিত পরীক্ষার দায়িত্ব')+'.docx';await dl(blob,fn,'');toast('📄 Word ফাইল তৈরি হয়েছে')}
+  catch(err){console.error(err);alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
+  finally{b.disabled=false;b.textContent=old}return}
+ if(b.id=='wrPdf'){pdfDl('wrPdf','wrSheet',()=>{renderPreview()},{w:355.6,h:215.9,m:8,px:1284},safe(cur+' - লিখিত পরীক্ষার দায়িত্ব')+'.pdf');return}
+});
+})();
+</script>
 </body></html>
