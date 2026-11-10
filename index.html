@@ -105,11 +105,15 @@ nav.tabs{flex-direction:row;overflow-x:auto;align-self:stretch}.main{overflow:vi
 @media print{body{overflow:visible!important;height:auto!important}.app,.body,.main,.sec.on{display:block!important;height:auto!important;overflow:visible!important}}
 
 nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]::before{content:"🗃 "}nav.tabs button[data-t=kp]::before{content:"📋 "}nav.tabs button[data-t=np]::before{content:"✉️ "}button.ic{font-size:15px;line-height:1;padding:5px 8px}button.ic.adOn{background:var(--hl);border-color:var(--pr)}.adG{display:grid;grid-template-columns:1fr 1fr;gap:10px}.adG .f>span{font-size:12.5px;font-weight:600;color:var(--mut)}.adG input,.adG select{width:100%;min-width:0}.adPv{margin:12px 0;padding:10px 12px;border:1px dashed var(--pr);border-radius:8px;background:var(--hl);text-align:center;font-weight:700;line-height:1.7}.adPv i{font-style:normal;margin:0 10px;font-weight:400;color:var(--mut)}.adUse{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--pr);border-radius:8px;font-weight:600;cursor:pointer;margin-bottom:10px}@media(max-width:620px){.adG{grid-template-columns:1fr}}
-#t-dup .card{flex:none;overflow:visible;max-height:none}
+#t-dup{overflow:auto}#t-dup .card{flex:none;overflow:visible;max-height:none}
 #dRecs{max-height:240px;overflow:auto;border:1px solid var(--bd);border-radius:8px;padding:6px 10px;background:var(--card)}
 #dRecs label{display:flex;gap:8px;align-items:flex-start;padding:3px 0;font-size:13px}
 #dsheet{flex:none;margin-top:12px;background:#fff;color:#000;padding:16px;border:1px solid var(--bd);border-radius:8px;overflow:auto}
+#dCurRec{position:absolute;top:3px;z-index:2;left:120px;right:0;max-width:calc(100% - 120px);width:max-content;font-weight:800;font-size:15px;color:var(--pr);background:var(--hl);border:1px solid var(--pr);border-left-width:5px;border-radius:6px;padding:3px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none}#dCurRec.on{display:block}
 #dsheet:empty{display:none}
+#dPinW{position:sticky;top:0;height:0;flex:none;z-index:20;overflow:visible}
+#dPin{display:none;background:#fff;color:#000;padding:6px 16px 0;border:1px solid var(--bd);border-radius:8px 8px 0 0;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+#dPin.on{display:block}#dPin h2{font-size:17px}#dPin h3{font-size:14px}#dPin p{font-size:12px}#dPin img{height:30px!important}#dPin table.dp{margin-top:4px;margin-bottom:-1px}
 #dsheet .pg{page-break-after:always;margin-bottom:24px}
 #dsheet .pg:last-child{page-break-after:auto}
 .dsh,.dsh *{font-family:"KalpurushEmb","Kalpurush",sans-serif}
@@ -260,7 +264,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div class="row"><input id="q" class="grow" placeholder="🔍 খুঁজুন (নাম, আইডি, মোবাইল, বিশ্ববিদ্যালয়, ঠিকানা...)">
 <select id="fc"></select><select id="fo"><option value="c">ধারণ করে</option><option value="g">≥ (সমান/বেশি)</option><option value="l">≤ (সমান/কম)</option></select><input id="fvv" placeholder="মান" style="width:110px"><button id="fadd">ফিল্টার যোগ</button><button id="fclr">সব মুছুন</button></div>
 <div id="chips" class="row" style="margin-top:8px"></div>
-<details style="margin:8px 0"><summary class="mut">কলাম নির্বাচন</summary><div class="cols" id="cols" style="margin-top:6px"></div></details>
+<div style="position:relative"><span id="dCurRec" title="বর্তমান রেকর্ড"></span><details style="margin:8px 0"><summary class="mut">কলাম নির্বাচন</summary><div class="cols" id="cols" style="margin-top:6px"></div></details></div>
 <div class="row" style="margin-bottom:8px"><span id="cnt" class="mut"></span><span class="grow"></span>
 <select id="slMode" class="slMode" title="কোনটি দিয়ে নির্বাচন করবেন"><option value="sl">SL নম্বর</option><option value="id">আইডির শেষ ৩ ডিজিট</option></select><input id="slIn" placeholder="SL: 1,3,5-10" title="টেবিলের SL কলামের নম্বর; কমা দিয়ে লিখুন, ধারাবাহিক হলে 5-10" style="width:200px"><button class="d" id="delSl">SL অনুযায়ী মুছুন</button><button class="p" id="bioSl" title="SL/আইডি দেওয়া প্রার্থীদের বায়োডাটা সামারি A4 পাতায় (প্রতি প্রার্থী ১ পাতা) PDF হিসেবে ডাউনলোড">📄 SL অনুযায়ী PDF</button><button class="d" id="delSel">নির্বাচিত মুছুন</button><button id="undo">↩ আগের অবস্থা</button><button class="p" id="xl">Excel (৬ কলাম)</button></div>
 <div class="tw"><table id="tb"></table></div>
@@ -293,7 +297,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div class="smsSub"><button data-p="send" class="on">✉ SMS পাঠান</button><button data-p="dlr">📬 ডেলিভারি রিপোর্ট</button><button data-p="log">🧾 লগ রিপোর্ট</button><button data-p="cfg">⚙ সেটিং</button><span class="grow"></span><span id="smsBal" class="mut"></span><button id="smsBalBtn" title="bulksmsbd.net অ্যাকাউন্টের ব্যালেন্স দেখুন">💰 ব্যালেন্স</button></div>
 
 <div class="smsP on" id="smsP-send">
-<div class="row"><label>প্রাপক: <select id="smsSrc"><option value="f">ডাটা ট্যাবের ফিল্টার করা সারি</option><option value="a">সব সারি</option><option value="m">শুধু ম্যানুয়াল নম্বর</option></select></label><span id="smsRcInfo" class="mut"></span><label title="একটি পদ/রেকর্ড বাছলে শুধু সেই রেকর্ডের যোগ্য (Reject ছাড়া) প্রার্থীদের মোবাইল নম্বর তালিকায় আসবে; কেউ আগে থেকে টিক দেওয়া থাকবে না">পদ / রেকর্ড: <select id="smsRec" style="max-width:300px"><option value="">— পদ / রেকর্ড বাছাই করুন —</option><option value="__cur">বর্তমান রেকর্ড (প্রাপক অনুযায়ী)</option></select></label><label title="মোবাইল নম্বরের সমস্যা ইস্যু অনুযায়ী দেখুন">Issue: <select id="smsIss" style="max-width:260px"><option value="">— সব —</option></select></label><span class="grow"></span><button id="smsAll">✔ Select All</button><button id="smsNone">✖ Deselect All</button></div>
+<div class="row"><label>প্রাপক: <select id="smsSrc"><option value="f">ডাটা ট্যাবের ফিল্টার করা সারি</option><option value="a">সব সারি</option><option value="m">শুধু ম্যানুয়াল নম্বর</option></select></label><span id="smsRcInfo" class="mut"></span><label title="একটি পদ/রেকর্ড বাছলে শুধু সেই রেকর্ডের যোগ্য (Reject ছাড়া) প্রার্থীদের মোবাইল নম্বর তালিকায় আসবে; কেউ আগে থেকে টিক দেওয়া থাকবে না">পদ / রেকর্ড: <select id="smsRec" style="max-width:230px"><option value="">— পদ / রেকর্ড বাছাই করুন —</option><option value="__cur">বর্তমান রেকর্ড (প্রাপক অনুযায়ী)</option></select></label><label title="মোবাইল নম্বরের সমস্যা ইস্যু অনুযায়ী দেখুন">Issue: <select id="smsIss" style="max-width:150px"><option value="">— সব —</option></select></label><span class="grow"></span><span style="display:inline-flex;gap:6px;white-space:nowrap;flex:none"><button id="smsAll">✔ Select All</button><button id="smsNone">✖ Deselect All</button></span></div>
 <div class="tw" style="max-height:230px;margin:8px 0"><table id="smsRcT"></table></div>
 <details style="margin-bottom:10px"><summary class="mut">➕ ম্যানুয়াল নম্বর যোগ করুন (কমা / স্পেস / নতুন লাইনে আলাদা)</summary><textarea id="smsMan" placeholder="01XXXXXXXXX, 8801XXXXXXXXX" style="min-height:70px;margin-top:6px"></textarea></details>
 <div class="row" style="margin-bottom:6px"><b>বার্তা</b><span class="mut">ব্যক্তিগত করতে বসান:</span><button type="button" data-ins="{name}">{name}</button><button type="button" data-ins="{id}">{id}</button><span class="grow"></span></div>
@@ -391,7 +395,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div id="dRecs"></div>
 <p class="mut" style="margin:6px 0 0">নাম, পিতার নাম ও জন্ম তারিখ — তিনটিই মিললে একই ব্যক্তি ধরা হয় (Md/Mohammad, ফাঁকা ঘর ও চিহ্ন উপেক্ষা করা হয়)। একজন একাধিক পদে (অথবা একই পদে একাধিকবার) আবেদন করলে তবেই তালিকায় আসবে। ১টি পদ নির্বাচিত থাকলে সেই পদের ভেতরের দ্বৈত আবেদনই দেখাবে।</p>
 <div class="row" style="margin-top:8px"><button class="p" id="dGen">দ্বৈত আবেদন খুঁজুন</button><button id="dPdf">⬇ PDF ডাউনলোড</button><button class="p" id="dDocx">📄 Word (.docx)</button><span id="dInfo" class="mut"></span></div></div>
-<div id="dsheet"></div></div>
+<div id="dPinW" class="noprint"><div id="dPin" class="dsh"></div></div><div id="dsheet"></div></div>
 <div class="sec" id="t-kp"><div class="card noprint"><h3 style="margin:0 0 8px">📋 কার্যবিবরণী</h3><div id="kpBox" class="catBox"></div><p class="mut" style="margin-top:10px">যে পদের কার্যবিবরণী দরকার তার নামের পাশের <b>“কার্যবিবরণী প্রস্তুত”</b> বাটনে ক্লিক করুন। টুলে যে তথ্য আছে (স্মারক নং, তারিখ, পদ, বিভাগ, গ্রেড, পদসংখ্যা, মোট প্রার্থী, সিলেকশন কমিটি) তা নিজে বসবে; যা নেই শুধু তার ঘর আসবে। ঘ) ও ঙ) অংশের নাম/পিতার নাম হাতে লেখার জন্য ফাঁকা থাকবে।</p></div></div>
 <div class="sec" id="t-np"><div class="card noprint"><h3 style="margin:0 0 8px">✉️ নিয়োগপত্র</h3><div id="npBox" class="catBox"></div><p class="mut" style="margin-top:10px">শিক্ষক, কর্মকর্তা ও কর্মচারী — সব শ্রেণির পদের জন্যই নিয়োগপত্র তৈরি করা যাবে (বাটনে ক্লিক করে প্রার্থী বাছুন)। স্মারক নং-এর ধরন পদের শ্রেণি অনুযায়ী নিজে বদলায়।</p></div></div>
 <div class="sec" id="t-arc"><div class="card noprint">
@@ -781,6 +785,19 @@ function sbFill(){const e=$('#sbRec');if(!e)return;const ns=Object.keys(META).fi
 const cn=n=>n==rec?R.length:(META[n]&&META[n].n!=null?META[n].n:null);const sig=ns.map(n=>n+'\u0003'+cn(n)).join('\u0001')+'\u0002'+rec+'\u0002'+UPGSEL+UPGS.filter(upgLive).map(u=>'\u0004'+u.id+(u.letters||[]).length).join('');if(e._sig===sig)return;e._sig=sig;
 e.innerHTML=ns.length?ns.map(n=>`<option value="${esc(n)}"${n==rec?' selected':''}>${esc(n)}${cn(n)!=null?'  —  যোগ্য: '+cn(n)+' জন':''}</option>`).join(''):UPGS.filter(upgLive).length?'':'<option value="">— কোনো রেকর্ড নেই —</option>';e.innerHTML+=UPGS.filter(upgLive).map(u=>'<option value="upg:'+esc(u.id)+'"'+(u.id==UPGSEL?' selected':'')+'>⬆ '+esc(u.post)+' (আপগ্রেডেশন) — '+esc(u.dept)+'  —  যোগ্য: '+(u.letters||[]).length+' জন</option>').join('');e.value=UPGSEL&&UPGS.some(u=>u.id==UPGSEL&&upgLive(u))?'upg:'+UPGSEL:(rec||'')}
 document.addEventListener('change',async ev=>{const t=ev.target;if(t&&t.id=='sbRec'){const n=t.value;if(/^upg:/.test(n)){upgSel(n.slice(4));toast('✓ আপগ্রেডেশন নির্বাচিত');return}if(UPGSEL)upgSel('');if(n&&n!=rec){t._sig='';await openRecord(n,true);toast('✓ রেকর্ড খোলা হয়েছে: '+n)}}});
+/* বর্তমান রেকর্ড ড্রপডাউন: মাউসের হুইল ও ↑/↓ কী দিয়ে একটির পর একটি রেকর্ড নির্বাচন */
+(function(){let tm=0;
+function step(d){const e=document.getElementById('sbRec');if(!e)return;const o=[...e.options].filter(x=>x.value);if(!o.length)return;
+let i=o.findIndex(x=>x.value==e.value);if(i<0)i=d>0?-1:o.length;i=Math.max(0,Math.min(o.length-1,i+d));
+if(o[i].value==e.value)return;e.value=o[i].value;clearTimeout(tm);tm=setTimeout(()=>e.dispatchEvent(new Event('change',{bubbles:true})),160)}
+document.addEventListener('wheel',ev=>{const t=ev.target,c=t&&t.closest&&t.closest('.sbc');if(!c||!c.querySelector('#sbRec'))return;
+ev.preventDefault();const e=document.getElementById('sbRec');if(document.activeElement!==e)e.focus({preventScroll:true});step(ev.deltaY>0?1:-1)},{passive:false});
+document.addEventListener('keydown',ev=>{const t=ev.target;if(!t||t.id!='sbRec')return;
+if(ev.key=='ArrowDown'||ev.key=='ArrowUp'){ev.preventDefault();step(ev.key=='ArrowDown'?1:-1)}});
+})();
+/* ডাটা ট্যাবে বর্তমান রেকর্ডের নাম বোল্ড ও হাইলাইট করে দেখানো */
+(function(){let last=null;const e=document.getElementById('dCurRec');if(!e)return;
+setInterval(()=>{let n='';try{n=rec||''}catch(x){}if(n===last)return;last=n;e.textContent=n?'📂 '+n:'';e.title='বর্তমান রেকর্ড: '+n;e.classList.toggle('on',!!n)},250)})();
 function recRender(){try{adSync()}catch(e){}sbFill();const at=$('#arcTab');if(at){const c=Object.keys(AMETA).length;at.textContent='আর্কাইভ'+(c?' ('+c+')':'')}arcRender();if(!$('#rt'))return;const a=recList(),H=[['name','রেকর্ডের নাম'],['n','আবেদনকারী'],['del','মুছে ফেলা'],['ph','ছবি'],['created','তৈরি'],['ts','সর্বশেষ সংরক্ষণ']];
 $('#rinfo').textContent=`মোট ${Object.keys(META).length} টি রেকর্ড · দেখানো হচ্ছে ${a.length} টি · নির্বাচিত ${[...rsel].filter(n=>META[n]).length} টি`;
 $('#rt').innerHTML='<thead><tr><th><input type=checkbox id=rall></th><th>#</th>'+H.map(([k,l])=>`<th data-s="${k}">${l}${rsort.k==k?(rsort.d>0?' ▲':' ▼'):''}</th>`).join('')+'<th></th></tr></thead><tbody>'+
@@ -1790,23 +1807,25 @@ const inc=$('#dRj').checked,M=new Map(),seen=new Set();let skip=0;
 for(const n of ns){const o=n==rec?{R,RJ}:await store.get(n);if(!o)continue;
 (o.R||[]).concat(inc?(o.RJ||[]):[]).map(nr).forEach(r=>{const u=n+'\u0001'+r.id;if(seen.has(u))return;seen.add(u);
 const k=[dNm(r.name),r.fBn?'bn:'+dNm(r.father):dNm(r.father),dDob(r.dob)];if(k.some(x=>!x||x=='bn:')){skip++;return}
-const j=k.join('|');if(!M.has(j))M.set(j,[]);M.get(j).push({no:r.no,id:r.id,name:r.name,father:r.father,dob:r.dob,post:dPost(n),rec:n})})}
+const j=k.join('|');if(!M.has(j))M.set(j,[]);M.get(j).push({no:r.no,id:r.id,name:r.name,nameBn:r.nameBn||'',father:r.father,dob:r.dob,post:dPost(n),rec:n})})}
 /* বাংলা-পিতার (নতুন ফরম্যাট) প্রার্থী ও ইংরেজি-পিতার (পুরনো ফরম্যাট) প্রার্থী — নাম ও জন্ম তারিখ মিললে একই ব্যক্তি ধরা হবে */
 {const ks=[...M.keys()];ks.forEach(a=>{const p=a.split('|');if(p[1].slice(0,3)!='bn:'||!M.has(a))return;ks.forEach(b=>{if(b==a||!M.has(b))return;const q=b.split('|');if(q[0]==p[0]&&q[2]==p[2]&&q[1].slice(0,3)!='bn:'){M.get(a).push(...M.get(b));M.delete(b)}})})}
 const G=[...M.values()].filter(g=>g.length>1);
+/* তালিকায় নাম বাংলায়: গ্রুপের যেকোনো রেকর্ডে বাংলা নাম থাকলে সেটিই দেখাবে, না থাকলে ইংরেজি */
+G.forEach(g=>{const b=(g.find(x=>x.nameBn)||{}).nameBn;g.forEach(x=>x.dn=b||x.name)});
 G.forEach(g=>g.sort((x,y)=>x.post.localeCompare(y.post,'bn',{numeric:true})||String(x.id).localeCompare(String(y.id),undefined,{numeric:true})));
-G.sort((x,y)=>String(x[0].name).localeCompare(String(y[0].name),'bn'));
+G.sort((x,y)=>String(x[0].dn).localeCompare(String(y[0].dn),'bn'));
 return{G,nP:G.length,nA:G.reduce((q,g)=>q+g.length,0),nR:ns.length,skip}}
 const dSum=d=>`তুলনাকৃত রেকর্ড: ${d.nR} টি · দ্বৈত আবেদনকারী: ${d.nP} জন · মোট আবেদন: ${d.nA} টি`;
 const dRows=d=>{const o=[];d.G.forEach((g,i)=>g.forEach((r,j)=>o.push({g:i,j,n:g.length,r})));return o};
-const dTr=x=>{const rs=x.j?'':` rowspan="${x.n}"`,m=c=>x.j?'':`<td class="l"${rs}>${c}</td>`;return `<tr class="${x.g%2?'g1':''}"><td>${esc(x.r.no||'')}</td><td>${esc(x.r.id)}</td><td class="l">${esc(x.r.post)}</td>${m(esc(x.r.name))}${m(esc(x.r.father))}${x.j?'':`<td${rs}>${esc(x.r.dob)}</td>`}</tr>`};
+const dTr=x=>{const rs=x.j?'':` rowspan="${x.n}"`,m=c=>x.j?'':`<td class="l"${rs}>${c}</td>`;return `<tr class="${x.g%2?'g1':''}"><td>${esc(x.r.no||'')}</td><td>${esc(x.r.id)}</td><td class="l">${esc(x.r.post)}</td>${m(esc(x.r.dn))}${m(esc(x.r.father))}${x.j?'':`<td${rs}>${esc(x.r.dob)}</td>`}</tr>`};
 const dHead=(d,T)=>`<h2 style="display:flex;align-items:center;justify-content:center;gap:12px"><img src="${LOGO}" style="height:58px;width:auto"><span>${esc($('#aInst').value)}</span></h2><h3>${esc(T)}</h3><p>${dSum(d)}</p>`;
 const dTh='<thead><tr><th style="width:6%">ক্রম</th><th style="width:12%">আইডি</th><th style="width:28%">পদ নাম ও বিভাগ/দপ্তর</th><th style="width:20%">নাম</th><th style="width:20%">পিতার নাম</th><th style="width:14%">জন্ম তারিখ</th></tr></thead>';
 /* পাতা ভাগ: আসল উচ্চতা মেপে, একজনের সারি একই পাতায় রেখে */
 async function dupGen(){
 const d=await dupData();if(!d)return false;
 const root=$('#dsheet'),P=PAPER[$('#dPaper').value],T=dTT();
-if(!d.G.length){root.innerHTML='';$('#dInfo').textContent='✓ কোনো দ্বৈত আবেদন পাওয়া যায়নি ('+d.nR+' টি রেকর্ড তুলনা করা হয়েছে)';toast('✓ কোনো দ্বৈত আবেদন পাওয়া যায়নি');return false}
+if(!d.G.length){root.innerHTML='';$('#dPin').innerHTML='';dPinChk();$('#dInfo').textContent='✓ কোনো দ্বৈত আবেদন পাওয়া যায়নি ('+d.nR+' টি রেকর্ড তুলনা করা হয়েছে)';toast('✓ কোনো দ্বৈত আবেদন পাওয়া যায়নি');return false}
 const rows=dRows(d);
 try{await document.fonts.load('12px "KalpurushEmb"','অআকখ abc');await document.fonts.ready}catch(e){}
 const m=document.createElement('div');m.className='dsh';m.style.cssText='position:absolute;left:-9999px;top:0;width:'+P.px+'px';
@@ -1817,9 +1836,15 @@ const AV=P.px*(P.h-24)/(P.w-24)*.95,FOOT=40,pages=[[]];let h=0,i=0;
 d.G.forEach(g=>{const gh=hs.slice(i,i+g.length).reduce((q,x)=>q+x,0);
 if(pages[pages.length-1].length&&h+gh>AV-th-FOOT-(pages.length==1?hb:0)){pages.push([]);h=0}
 pages[pages.length-1].push(...rows.slice(i,i+g.length));h+=gh;i+=g.length});
+$('#dPin').innerHTML=dHead(d,T)+'<table class="dp">'+dTh+'</table>';dPinChk();
 root.innerHTML=pages.map((pr,p)=>`<div class="pg dsh">${p?'':dHead(d,T)}<table class="dp">${dTh}<tbody>${pr.map(dTr).join('')}</tbody></table><p style="text-align:right;margin-top:10px">পাতা ${p+1}/${pages.length}</p></div>`).join('');
 $('#dInfo').textContent='✓ '+dSum(d)+', '+pages.length+' পাতা'+(d.skip?' · নাম/পিতার নাম/জন্ম তারিখ অসম্পূর্ণ থাকায় বাদ: '+d.skip+' টি':'');
 return true}
+/* প্রিভিউ স্ক্রল করলে শিরোনাম ও কলামের হেডার উপরে পিন থাকবে (আসল হেডার দেখা গেলে পিন লুকানো থাকে) */
+function dPinChk(){const pin=$('#dPin'),sc=$('#t-dup'),th=$('#dsheet thead');if(!pin||!sc)return;
+if(!th||!pin.innerHTML){pin.classList.remove('on');return}
+pin.classList.toggle('on',th.getBoundingClientRect().bottom<sc.getBoundingClientRect().top+4)}
+$('#t-dup').addEventListener('scroll',dPinChk,{passive:true});window.addEventListener('resize',dPinChk);
 /* ---- Word (.docx) ---- */
 async function dupDocx(){
 const d=await dupData();if(!d)return;
@@ -1836,7 +1861,7 @@ const H=['ক্রম','আইডি','পদ নাম ও বিভাগ/দ
 let rows=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="450" w:hRule="atLeast"/><w:tblHeader/></w:trPr>${H.map((h,i)=>tc(g[i],wp(wr(h,{b:1,s:19}),{jc:'center'}),{sh:'EEEEEE'})).join('')}</w:tr>`;
 d.G.forEach((gr,gi)=>gr.forEach((r,j)=>{const sh=gi%2?'F2F2F2':'',c=(i,x,J)=>tc(g[i],wp(wr(String(x==null?'':x),{s:18}),{jc:J||'center'}),{sh});
 const mc=(i,x,J)=>tc(g[i],wp(j?'':wr(String(x==null?'':x),{s:18}),{jc:J||'center'}),{sh,vm:j?'c':'r'});
-rows+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="420" w:hRule="atLeast"/></w:trPr>`+c(0,r.no)+c(1,r.id)+c(2,r.post,'left')+mc(3,r.name,'left')+mc(4,r.father,'left')+mc(5,r.dob)+`</w:tr>`}));
+rows+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="420" w:hRule="atLeast"/></w:trPr>`+c(0,r.no)+c(1,r.id)+c(2,r.post,'left')+mc(3,r.dn,'left')+mc(4,r.father,'left')+mc(5,r.dob)+`</w:tr>`}));
 const body=wp(logoRun()+wr($('#aInst').value,{b:1,s:36}),{jc:'center',af:40})+wp(wr(T,{b:1,s:24}),{jc:'center',af:20})+wp(wr(dSum(d),{s:19}),{jc:'center',af:100})+`<w:tbl><w:tblPr><w:tblW w:w="${TW}" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders>${BR}</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="70" w:type="dxa"/><w:right w:w="70" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${g.map(x=>`<w:gridCol w:w="${x}"/>`).join('')}</w:tblGrid>${rows}</w:tbl><w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p>`;
 const sect=`<w:sectPr><w:footerReference w:type="default" r:id="rId4"/><w:pgSz w:w="${P.tw[0]}" w:h="${P.tw[1]}"/><w:pgMar w:top="720" w:right="850" w:bottom="900" w:left="850" w:header="400" w:footer="400" w:gutter="0"/></w:sectPr>`;
 const doc=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${NS}><w:body>${body}${sect}</w:body></w:document>`;
