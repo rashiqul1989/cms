@@ -352,7 +352,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 </div></div>
 
 <div class="ag" id="aRmBox"><div class="agt"><span class="ai">🏫</span>কক্ষ অনুযায়ী ভাগ <small class="mut">(লিখিত পরীক্ষা — প্রথম থেকে ধারাবাহিকভাবে নির্ধারিত জন করে প্রতি কক্ষে)</small><span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:12px"><span>বেতন স্কেল ও গ্রেড</span><select id="aGradeW" style="max-width:190px;padding:3px 8px;font-weight:400" title="গ্রেড বাছলে লিখিত পরীক্ষার হাজিরা শীটে বিভাগ/দপ্তরের পরের লাইনে বেতন স্কেল ও গ্রেড বসবে"></select></span></div>
-<div class="agb"><div id="aRmList"></div><div class="row" style="margin-top:8px"><button type="button" id="aRmAdd">＋ কক্ষ যোগ</button><button type="button" id="aRoomV" title="কক্ষ অনুযায়ী শীটগুলো প্রিভিউ দেখুন" aria-label="কক্ষ অনুযায়ী প্রিভিউ">👁</button><button type="button" class="p" id="aRoomDocx">📄 কক্ষ অনুযায়ী Word (.docx)</button><span id="aRmNbW" style="position:relative;display:inline-block"><button class="p" id="aRmNb" type="button" title="কক্ষ অনুযায়ী ভাগ করা নোটিশ বোর্ড লিস্ট — প্রতি কক্ষের জন্য আলাদা তালিকা">📋 কক্ষ অনুযায়ী নোটিশ বোর্ড লিস্ট</button></span><span class="mut" id="aRmInfo"></span></div></div></div>
+<div class="agb"><div id="aRmList"></div><div id="aStOpt" style="display:inline-flex;gap:12px;align-items:center;font-size:12.5px;font-weight:600;margin:0 4px 0 auto;white-space:nowrap" title="স্টিকারে কী কী থাকবে — টিক তুলে দিলে সেটি স্টিকারে আসবে না (কক্ষ অনুযায়ী ও সকলের স্টিকার, দুটিতেই প্রযোজ্য)"><span>স্টিকারে:</span><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aStSl" checked style="width:auto;margin:0">SL</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aStPh" checked style="width:auto;margin:0">ছবি</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer" title="টিক দিলে কক্ষ অনুযায়ী স্টিকারে Applicant ID-এর পরে কক্ষ নং আসবে (সকলের স্টিকারে কক্ষ নেই)"><input type="checkbox" id="aStRm" style="width:auto;margin:0">কক্ষ নং</label></div><div class="row" style="margin-top:8px"><button type="button" id="aRmAdd">＋ কক্ষ যোগ</button><button type="button" id="aRoomV" title="কক্ষ অনুযায়ী শীটগুলো প্রিভিউ দেখুন" aria-label="কক্ষ অনুযায়ী প্রিভিউ">👁</button><button type="button" class="p" id="aRoomDocx">📄 কক্ষ অনুযায়ী</button><span id="aRmNbW" style="position:relative;display:inline-block"><button class="p" id="aRmNb" type="button" title="কক্ষ অনুযায়ী ভাগ করা নোটিশ বোর্ড লিস্ট — প্রতি কক্ষের জন্য আলাদা তালিকা">📋 কক্ষ অনুযায়ী নোটিশ বোর্ড লিস্ট</button></span><button class="p" id="aRmSt" type="button" title="কক্ষ অনুযায়ী স্টিকার — প্রতি কক্ষের জন্য আলাদা Word ফাইল (Legal, ২ কলাম, ডানে ছবি)">🏷 কক্ষ অনুযায়ী স্টিকার</button><span class="mut" id="aRmInfo"></span></div></div></div>
 <div class="ag" id="aVivaBox" style="display:none"><div class="agt"><span class="ai">🎤</span>মৌখিক পরীক্ষার প্রার্থী নির্বাচন</div>
 <div class="agb g3">
 <label class="f"><span>নির্বাচনের ধরন</span><select id="aSlMode" class="slMode" title="কোনটি দিয়ে নির্বাচন করবেন"><option value="sl">SL নম্বর</option><option value="id">আইডির শেষ ৩ ডিজিট</option></select></label>
@@ -367,7 +367,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div class="ag"><div class="agt"><span class="ai">☑️</span>হাজিরা শীটে যে ফিল্ড থাকবে <small class="mut">(ছবিসহ দেওয়া যায়)</small><span style="margin-left:auto;display:inline-flex;align-items:center;gap:14px;font-weight:600;font-size:12.5px" title="নতুন ফরম্যাটের ফাইলে নাম ইংরেজি ও বাংলা দুটোই থাকে। হাজিরা শীট ও মেধা তালিকা ফরমে কোনটি যাবে এখান থেকে টিক দিন (দুটো টিক দিলে পাশাপাশি আসবে)।"><span>নাম ও পিতার নাম:</span><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aLnE" checked style="width:auto;margin:0">ইংরেজি</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aLnB" style="width:auto;margin:0">বাংলা</label></span></div>
 <div class="agb"><div class="cols" id="aCols"></div></div></div>
 
-<div class="abar"><label style="display:inline-flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="aAdUse"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><button class="p" id="aGen">👁 শীট তৈরি করুন</button><button id="aPrint">⬇ PDF ডাউনলোড</button><button class="p" id="aDocx">📄 Word (.docx) — Legal</button><span class="anxw" id="aAnxW" style="display:none"><button id="aAnxV" type="button" title="মেধা তালিকা ফরম দেখুন (প্রিভিউ)" aria-label="মেধা তালিকা ফরম দেখুন">👁</button><button class="p" id="aAnx" title="মৌখিক পরীক্ষায় নির্বাচিত প্রার্থীদের নিয়ে প্রাপ্ত নম্বর ও মেধা তালিকা ফরম (Word)">📄 মেধা তালিকা ফরম</button></span><button class="p" id="aRes" title="লিখিত পরীক্ষার ফলাফল শীট (xlsx) — All Marks ও Viva List, ২টি শীটসহ">📊 Result Sheet (Draft)</button><span id="aNbW" style="position:relative;display:inline-block"><button class="p" id="aNb" type="button" title="লিখিত পরীক্ষার নোটিশ বোর্ড লিস্ট — Word (.docx), Legal, দুই কলামে, ৮ পয়েন্ট ফন্ট">📋 নোটিশ বোর্ড লিস্ট</button></span></div></div>
+<div class="abar"><label style="display:inline-flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="aAdUse"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><button class="p" id="aGen">👁 শীট তৈরি করুন</button><button id="aPrint">⬇ PDF ডাউনলোড</button><button class="p" id="aDocx">📄 Word (.docx) — Legal</button><span class="anxw" id="aAnxW" style="display:none"><button id="aAnxV" type="button" title="মেধা তালিকা ফরম দেখুন (প্রিভিউ)" aria-label="মেধা তালিকা ফরম দেখুন">👁</button><button class="p" id="aAnx" title="মৌখিক পরীক্ষায় নির্বাচিত প্রার্থীদের নিয়ে প্রাপ্ত নম্বর ও মেধা তালিকা ফরম (Word)">📄 মেধা তালিকা ফরম</button></span><button class="p" id="aRes" title="লিখিত পরীক্ষার ফলাফল শীট (xlsx) — All Marks ও Viva List, ২টি শীটসহ">📊 Result Sheet (Draft)</button><span id="aNbW" style="position:relative;display:inline-block"><button class="p" id="aNb" type="button" title="লিখিত পরীক্ষার নোটিশ বোর্ড লিস্ট — Word (.docx), Legal, দুই কলামে, ৮ পয়েন্ট ফন্ট">📋 নোটিশ বোর্ড লিস্ট</button></span><span id="aStW" style="position:relative;display:inline-block"><button class="p" id="aSt" type="button" title="নির্বাচিত পদের সকল প্রার্থীর স্টিকার — Word (.docx), Legal, ২ কলাম, ডানে ছবি">🏷 স্টিকার ডাউনলোড</button></span></div></div>
 <div id="sheet"></div></div>
 <div class="sec" id="t-wr"><div class="card noprint">
 <h3 style="margin:0 0 8px">✍️ লিখিত পরীক্ষার দায়িত্ব</h3>
@@ -1395,6 +1395,96 @@ const ot=rmBtn.textContent;rmBtn.disabled=true;let n=0;
 try{for(const x of p.out){aRoomCur=x.room;rmBtn.textContent='⏳ '+x.room+'…';await nbDocx(x.a,safe((rec?rec+' - ':'')+'নোটিশ বোর্ড লিস্ট - '+x.room)+'.docx',true);n++;await new Promise(r=>setTimeout(r,700))}}
 finally{aRoomCur='';rmBtn.disabled=false;rmBtn.textContent=ot}
 toast('✅ '+n+'টি কক্ষের নোটিশ বোর্ড লিস্ট ডাউনলোড হয়েছে'+rmNote(p))}}
+})();
+/* ===== স্টিকার (লিখিত পরীক্ষা): Legal পাতা, ২ কলাম, প্রতি পাতায় যতগুলো ধরে ততগুলো; ডানে ছবি (Word .docx) ===== */
+(function(){
+const bAll=$('#aSt'),bRm=$('#aRmSt'),wAll=$('#aStW');if(!bAll||!bRm||!wAll)return;
+const vis=()=>{const w=$('#aType').value.includes('মৌখিক');wAll.style.display=w?'none':'inline-block';bRm.style.display=w?'none':''};
+$('#aType').addEventListener('change',vis);vis();
+/* মাপ (twip; 1 ইঞ্চি = 1440): Legal 12240×20160; চার পাশে ০.৪" (576) মার্জিন → প্রস্থ 11088, উচ্চতা 19008; ১৪ সারি × ২ = ২৮টি/পাতা */
+const GP=220,SP=180,OW=(11088-GP)/2,IW=OW-130,CP=1050,ROWH=1165,NRH=1140,PERPG=14,PM=576,SZ=20,MINSZ=12;
+const rasterize=u=>new Promise(res=>{try{const i=new Image();i.onload=()=>{try{const s=Math.min(1,500/Math.max(i.naturalWidth,i.naturalHeight)),w=Math.max(1,Math.round(i.naturalWidth*s)),h=Math.max(1,Math.round(i.naturalHeight*s)),k=document.createElement('canvas');k.width=w;k.height=h;const g=k.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,w,h);g.drawImage(i,0,0,w,h);res({b:k.toDataURL('image/jpeg',.9).split(',')[1],w,h,ext:'jpg'})}catch(e){res(null)}};i.onerror=()=>res(null);i.src=u}catch(e){res(null)}});
+async function stDocx(a,fname,base,btn,silent,room){
+const old=btn.textContent;btn.disabled=true;btn.textContent='⏳ তৈরি হচ্ছে...';let ok=false;
+try{try{await document.fonts.load('10pt "KalpurushEmb"','অআকখ abc');await document.fonts.ready}catch(e){}
+const files=[],rels=[],cache={};let nImg=0,docId=1,noPhoto=0;
+const showSl=!$('#aStSl')||$('#aStSl').checked,showPh=!$('#aStPh')||$('#aStPh').checked,showRm=!!room&&!!$('#aStRm')&&$('#aStRm').checked;
+const rmM=String(room||'').match(/^(কক্ষ\s*নং\s*[-:]?\s*)(.*)$/),rmParts=showRm?(rmM?[[rmM[1].replace(/\s+/g,' ').replace(/\s*$/,'')+' ',1],[rmM[2],0]]:[[String(room),0]]):[];
+const post=($('#aPost').value||'').trim(),dept=($('#aDept').value||'').trim();
+/* ছবি: প্রতি প্রার্থীর ছবি একবার ফাইলে যুক্ত হয় */
+const photoRun=async r=>{const u=r.big||r.photo;if(!u){noPhoto++;return''}
+if(!cache[u]){let d=null;const m=String(u).match(/^data:image\/(jpeg|png);base64,/i);
+if(m){const[w,h]=await imgDim(u);if(w)d={b:u.split(',')[1],w,h,ext:m[1].toLowerCase()=='png'?'png':'jpg'}}
+if(!d)d=await rasterize(u);
+if(!d||!d.w){cache[u]={x:null}}else{nImg++;const rid='rId'+(10+nImg);files.push({n:'word/media/image'+nImg+'.'+d.ext,d:b64u(d.b)});rels.push(`<Relationship Id="${rid}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/image${nImg}.${d.ext}"/>`);cache[u]={rid,w:d.w,h:d.h,n:nImg,ext:d.ext}}}
+const c=cache[u];if(!c.rid){noPhoto++;return''}
+const mw=(CP-30-50-30)*635,mh=(NRH-20-50)*635,k=Math.min(mw/c.w,mh/c.h),W=Math.round(c.w*k),H=Math.round(c.h*k),id=docId++;
+return`<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="${W}" cy="${H}"/><wp:docPr id="${id}" name="Photo ${id}"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="${id}" name="image${c.n}.${c.ext}"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="${c.rid}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${W}" cy="${H}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:ln w="12700"><a:solidFill><a:srgbClr val="000000"/></a:solidFill></a:ln></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>`};
+const cv=document.createElement('canvas').getContext('2d');
+const wpt=(t,pt,b)=>{cv.font=(b?'bold ':'')+'100px "KalpurushEmb","Kalpurush",sans-serif';return cv.measureText(String(t)).width*pt/100};
+/* এক লাইনে ধরাতে ১০ পয়েন্ট থেকে প্রয়োজনমতো ছোট করে (সর্বনিম্ন ৬ পয়েন্ট) */
+const fit=(parts,av)=>{for(let z=SZ;z>MINSZ;z--){let w=0;for(const[t,b]of parts)w+=wpt(t,z/2,b);if(w*1.04<=av)return z}return MINSZ};
+const ln=(parts,av)=>{const z=fit(parts,av);return`<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="222" w:lineRule="exact"/></w:pPr>${parts.map(([t,b])=>wr(t,{b:b?1:0,s:z})).join('')}</w:p>`};
+const bd=(...sd)=>'<w:tcBorders>'+['top','left','bottom','right'].map(s=>sd.includes(s)?`<w:${s} w:val="dotted" w:sz="4" w:space="0" w:color="000000"/>`:`<w:${s} w:val="nil"/>`).join('')+'</w:tcBorders>';
+const empty=()=>`<w:tc><w:tcPr><w:tcW w:w="${OW}" w:type="dxa"/>${bd()}</w:tcPr><w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p></w:tc>`;
+const SEP='  |  ',tiny='<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p>';
+const sb=['top','left','bottom','right'].map(s=>`<w:${s} w:val="single" w:sz="8" w:space="0" w:color="000000"/>`).join('');
+/* স্টিকার = সলিড বর্ডারের বক্স (নেস্টেড টেবিল); কাটার জন্য আলাদা কোনো বর্ডার নেই, শুধু মাঝে ফাঁকা জায়গা */
+const sticker=async(r,i)=>{const nm=String(r.name||''),fa=String(r.father||'');
+const sl=r.no||(base+i+1),tw=showPh?IW-CP:IW,av=(tw-150)/20-4;
+const idl=[['Applicant ID : ',1],[String(r.id||''),0]];
+const l1=(showSl?[['SL : ',1],[String(sl),0],[SEP,1],...idl]:idl).concat(showRm?[[SEP,1],...rmParts]:[]);
+const txt=ln(l1,av)+ln([['নাম : ',1],[nm,0]],av)+ln([['পিতা : ',1],[fa,0]],av)+ln([['পদের নাম : ',1],[post,0]],av)+ln([['বিভাগ/দপ্তর : ',1],[dept,0]],av);
+const ph=showPh?await photoRun(r):'';
+const c1=`<w:tc><w:tcPr><w:tcW w:w="${tw}" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${txt}</w:tc>`;
+const c2=showPh?`<w:tc><w:tcPr><w:tcW w:w="${CP}" w:type="dxa"/><w:tcMar><w:left w:w="30" w:type="dxa"/><w:right w:w="50" w:type="dxa"/></w:tcMar><w:vAlign w:val="center"/></w:tcPr><w:p><w:pPr><w:spacing w:before="0" w:after="0"/><w:jc w:val="center"/></w:pPr>${ph}</w:p></w:tc>`:'';
+const inner=`<w:tbl><w:tblPr><w:tblW w:w="${IW}" w:type="dxa"/><w:tblBorders>${sb}</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="10" w:type="dxa"/><w:left w:w="90" w:type="dxa"/><w:bottom w:w="10" w:type="dxa"/><w:right w:w="60" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="${tw}"/>${showPh?`<w:gridCol w:w="${CP}"/>`:''}</w:tblGrid><w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="${NRH}" w:hRule="exact"/></w:trPr>${c1}${c2}</w:tr></w:tbl>`;
+return`<w:tc><w:tcPr><w:tcW w:w="${OW}" w:type="dxa"/>${bd()}<w:vAlign w:val="center"/></w:tcPr>${inner}${tiny}</w:tc>`};
+const gapC=`<w:tc><w:tcPr><w:tcW w:w="${GP}" w:type="dxa"/>${bd()}</w:tcPr>${tiny}</w:tc>`;
+/* স্টিকারগুলোর মাঝে ফাঁকা (পাশে ${GP} twip ≈ ৩.৯ মিমি, নিচে ${SP} twip) — কাটার সুবিধার জন্য; প্রতিটির নিজস্ব ডটেড বর্ডার */
+const mkTb=async(ch,b0)=>{let tb=`<w:tbl><w:tblPr><w:tblW w:w="${OW*2+GP}" w:type="dxa"/><w:jc w:val="center"/><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="0" w:type="dxa"/><w:left w:w="50" w:type="dxa"/><w:bottom w:w="0" w:type="dxa"/><w:right w:w="50" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="${OW}"/><w:gridCol w:w="${GP}"/><w:gridCol w:w="${OW}"/></w:tblGrid>`;
+for(let i=0;i<ch.length;i+=2){const L=await sticker(ch[i],b0+i),R=ch[i+1]?await sticker(ch[i+1],b0+i+1):empty();
+if(i>0)tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="${SP}" w:hRule="exact"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="${OW*2+GP}" w:type="dxa"/><w:gridSpan w:val="3"/>${bd()}</w:tcPr>${tiny}</w:tc></w:tr>`;
+tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="${ROWH}" w:hRule="exact"/></w:trPr>${L}${gapC}${R}</w:tr>`}
+return tb+'</w:tbl>'};
+const per=2*PERPG;let body='';
+/* একটানা একটি টেবিল — Word নিজেই পাতা ভাগ করে, তাই মাঝে ফাঁকা পাতা/জায়গা থাকে না */
+body+=await mkTb(a,base);
+body+='<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p>';
+const sect=`<w:sectPr><w:pgSz w:w="12240" w:h="20160"/><w:pgMar w:top="${PM}" w:right="${PM}" w:bottom="${PM}" w:left="${PM}" w:header="288" w:footer="288" w:gutter="0"/></w:sectPr>`;
+const doc=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${NS}><w:body>${body}${sect}</w:body></w:document>`;
+const guid='{'+(crypto.randomUUID?crypto.randomUUID():'D2F4A1B3-5C6E-4F70-8A9B-0C1D2E3F4A5B').toUpperCase()+'}';
+const font=b64u(KB64),hex=guid.replace(/[{}-]/g,''),key=[];for(let i=0;i<16;i++)key.push(parseInt(hex.substr(30-2*i,2),16));for(let i=0;i<32;i++)font[i]^=key[i%16];
+const X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',E=s=>new TextEncoder().encode(s);
+files.unshift(
+{n:'[Content_Types].xml',d:E(X+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpg" ContentType="image/jpeg"/><Default Extension="png" ContentType="image/png"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/></Types>')},
+{n:'_rels/.rels',d:E(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>')},
+{n:'word/document.xml',d:E(doc)},
+{n:'word/_rels/document.xml.rels',d:E(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/>'+rels.join('')+'</Relationships>')},
+{n:'word/styles.xml',d:E(X+`<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr>${FN}<w:sz w:val="20"/><w:szCs w:val="20"/><w:lang w:val="en-US" w:eastAsia="en-US" w:bidi="bn-BD"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>`)},
+{n:'word/settings.xml',d:E(X+'<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:embedTrueTypeFonts/><w:saveSubsetFonts w:val="0"/><w:defaultTabStop w:val="720"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>')},
+{n:'word/fontTable.xml',d:E(X+`<w:fonts xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:font w:name="Kalpurush"><w:charset w:val="01"/><w:family w:val="auto"/><w:pitch w:val="variable"/><w:embedRegular r:id="rId1" w:fontKey="${guid}"/></w:font></w:fonts>`)},
+{n:'word/_rels/fontTable.xml.rels',d:E(X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/font" Target="fonts/font1.odttf"/></Relationships>')},
+{n:'word/fonts/font1.odttf',d:font});
+const blob=await zipMake(files);await dl(blob,fname,'');ok=true;
+if(!silent)toast('🏷 স্টিকার (Word) তৈরি হয়েছে ('+a.length+' জন, '+Math.ceil(a.length/per)+' পাতা)'+(noPhoto?' — ⚠ '+noPhoto+' জনের ছবি যুক্ত হয়নি (ছবির ফোল্ডার দিন)':''));
+return{ok,noPhoto}}
+catch(err){alert('⚠ স্টিকার Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err));return{ok:false,noPhoto:0}}
+finally{btn.disabled=false;btn.textContent=old}}
+/* ---- নিচের বাটন: নির্বাচিত পদের সকলের জন্য একটি ফাইল ---- */
+bAll.onclick=async()=>{const{a}=sdata();if(!a.length){toast('⚠ আগে ডাটা লোড করুন');return}
+await stDocx(a,safe((rec?rec+' - ':'')+'স্টিকার')+'.docx',0,bAll)};
+/* ---- উপরের বাটন: প্রতিটি কক্ষের জন্য আলাদা ফাইল (SL অপরিবর্তিত) ---- */
+bRm.onclick=async()=>{const rows=rmData().filter(r=>r.cnt>0);if(!rows.length){toast('⚠ কক্ষ নং ও পরীক্ষার্থীর সংখ্যা লিখুন');return}
+const all=sdata().a;if(!all.length){toast('⚠ আগে ডাটা লোড করুন');return}
+if(rows.some(r=>!r.room)){toast('⚠ প্রতিটি সারিতে কক্ষ নং লিখুন');return}
+let at=0;const out=[];for(const r of rows){const sl=all.slice(at,at+r.cnt);if(!sl.length)break;out.push({room:r.room,a:sl,base:at});at+=r.cnt}
+const over=at>all.length,miss=all.length-at;
+if(over&&!confirm('বণ্টিত সংখ্যা মোট পরীক্ষার্থীর চেয়ে বেশি। শেষ কক্ষগুলোতে কম জন থাকবে। চালিয়ে যাবেন?'))return;
+const ot=bRm.textContent;bRm.disabled=true;let n=0,np=0;
+try{for(const x of out){bRm.textContent='⏳ '+x.room+'…';const rs=await stDocx(x.a,safe((rec?rec+' - ':'')+'স্টিকার - '+x.room)+'.docx',x.base,bRm,true,x.room);if(rs.ok)n++;np+=rs.noPhoto;bRm.disabled=true;await new Promise(r=>setTimeout(r,700))}}
+finally{bRm.disabled=false;bRm.textContent=ot}
+toast('✅ '+n+'টি কক্ষের স্টিকার ডাউনলোড হয়েছে'+(over?' (⚠ বণ্টিত সংখ্যা মোটের চেয়ে বেশি)':miss>0?' (⚠ '+miss+' জন কোনো কক্ষে বণ্টিত হয়নি)':'')+(np?' — ⚠ '+np+'টি ছবি যুক্ত হয়নি':''))};
 })();
 /* ===== SMS ডেলিভারি রিপোর্ট (পদ/রেকর্ড অনুযায়ী) — PDF ও Word ===== */
 window.dlrExport=async function(fmt,d){
