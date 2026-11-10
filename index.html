@@ -490,7 +490,7 @@ get:async n=>ls?JSON.parse(localStorage.getItem('duet_rec:'+n)||'null'):tx('read
 set:async(n,v)=>ls?localStorage.setItem('duet_rec:'+n,JSON.stringify(v)):tx('readwrite',s=>s.put(v,n)),
 del:async n=>ls?localStorage.removeItem('duet_rec:'+n):tx('readwrite',s=>s.delete(n)),
 all:async()=>ls?Object.keys(localStorage).filter(k=>k.startsWith('duet_rec:')).map(k=>JSON.parse(localStorage.getItem(k))):tx('readonly',s=>s.getAll())}})();
-const metaOf=o=>({rj:(o.RJ||[]).length,name:o.name,n:(o.R||[]).length,del:(o.D||[]).length,ph:(o.R||[]).filter(r=>r.photo&&String(r.photo).startsWith('data:')).length,ts:o.ts||0,created:o.created||0,src:o.src||'',archAt:o.archAt||0,adv:(o.ad&&(o.ad.memo||o.ad.date||o.ad.post||o.ad.dept||o.ad.grade))?1:0});
+const metaOf=o=>({rj:(o.RJ||[]).length,name:o.name,n:(o.R||[]).length,del:(o.D||[]).length,ph:(o.R||[]).filter(r=>r.photo&&String(r.photo).startsWith('data:')).length,ts:o.ts||0,created:o.created||0,src:o.src||'',archAt:o.archAt||0,fin:(o.kp&&o.kp.fin)?1:0,adv:(o.ad&&(o.ad.memo||o.ad.date||o.ad.post||o.ad.dept||o.ad.grade))?1:0});
 const putMeta=o=>{const m=metaOf(o);if(o.arch){AMETA[o.name]=m;delete META[o.name]}else{META[o.name]=m;delete AMETA[o.name]}};
 const nr=r=>({...r,name:tc(r.name),father:tc(r.father),mobile:fixm(r.mobile),dob:fmtD(r.dob),exp:(r.exp||[]).map(x=>({...x,f:fmtD(x.f),e:fmtD(x.e)}))});
 let svT=0,tT=0;
@@ -3422,9 +3422,9 @@ setTimeout(fix,300);
 .kpPaper{background:#fff;color:#000;width:816px;margin:0 auto;padding:48px 96px 56px 144px;box-shadow:0 1px 8px rgba(0,0,0,.35);box-sizing:border-box}
 .kpD{font-family:"KalpurushEmb","Kalpurush",sans-serif;color:#000;font-size:15px;line-height:1.55}
 .kpD *{font-family:inherit}
-.kpD .hd{display:flex;align-items:center;justify-content:center;gap:12px;margin:0}
-.kpD .hd img{height:52px;width:auto}
-.kpD .hd b{font-size:21px;text-align:center;line-height:1.25}
+.kpD .hd{display:grid;grid-template-columns:12.7% 74.6% 12.7%;align-items:center;gap:0;margin:0;padding:0;background:none;color:#000;border:0;flex-wrap:nowrap}
+.kpD .hd img{height:49px;width:auto;justify-self:end;grid-column:1;border-radius:0}
+.kpD .hd b{grid-column:2;font-size:21px;text-align:center;line-height:1.25;color:#000}
 .kpD .ad{text-align:center;font-weight:700;font-size:18px;margin:2px 0 8px}
 .kpD .tt{text-align:center;font-weight:700;text-decoration:underline;font-size:18px;margin:6px 0 12px}
 .kpD p.pa{text-align:justify;text-indent:48px;margin:0 0 8px}
@@ -3434,13 +3434,20 @@ setTimeout(fix,300);
 .kpD table{border-collapse:collapse;margin:6px 0 8px 48px;width:calc(100% - 48px);table-layout:fixed}
 .kpD td,.kpD th{border:1px solid #000;padding:3px 5px;vertical-align:top;overflow-wrap:anywhere;font-size:14px}
 .kpD th{text-align:center;font-weight:700}
+.kpD td,.kpD th{white-space:normal;background:#fff;color:#000;word-break:normal;overflow-wrap:break-word}
+.kpD th{position:static;cursor:default}
+.kpD tr:hover td{background:#fff}
 .kpD td.c{text-align:center}.kpD td.v{vertical-align:middle}
 .kpD table.st{margin-left:0;width:100%;border:0}
-.kpD table.st td{border:0;font-size:13px;vertical-align:middle;padding:2px 3px}
+.kpD table.st td{border:0;font-size:13px;vertical-align:middle;padding:2px 3px;white-space:normal;word-break:normal;overflow-wrap:break-word;line-height:1.3;overflow:visible}
 .kpD table.st td.bx{border:1px solid #000;text-align:center;font-weight:700;height:36px}
 .kpD tr{break-inside:avoid;page-break-inside:avoid}
 #kpBox .kpTop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 #kpBox .kpMk{padding:2px 10px;font-size:12px}
+#kpBox button.p.kpMk.kpDone{background:#1565c0;border-color:#1565c0;color:#fff}
+#kpBox button.p.kpMk.kpDone:hover{background:#0d47a1;border-color:#0d47a1}
+.kpMd .kpFin{margin-left:auto;border:2px solid #1565c0;background:#fff;color:#1565c0;border-radius:8px;padding:3px 12px;font-size:13px;font-weight:700;cursor:pointer}
+.kpMd .kpFin.on{background:#1565c0;color:#fff}
 .kpMd{width:min(940px,100%)}
 .kpMd .kpSum{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px;font-size:13px}
 .kpFill{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-end;border:1px dashed var(--bd,#b8c4d6);border-radius:8px;padding:8px 10px;margin:0 0 8px}.kpFill .c1{flex:2 1 300px;min-width:0}.kpFill .c2,.kpFill .c5{flex:1 1 150px;min-width:0}.kpFill label{display:block;font-size:12.5px;font-weight:600;margin:0 0 3px}.kpFill .kpPkIn{display:flex;gap:6px}.kpMd .kpFill select{width:78px!important;flex:0 0 78px;height:34px;padding:0 6px}.kpMd .kpFill input{height:34px;padding:4px 8px;box-sizing:border-box;min-width:0;width:100%;margin:0}.kpMd .kpFill .kpPkIn input{flex:1 1 auto;width:auto}.kpFill .c3,.kpFill .c4{flex:0 0 84px;min-width:0}.kpFill .kpChkBox{height:34px;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd,#b8c4d6);border-radius:6px;background:#fff}.kpMd .kpFill .kpChkBox input{width:18px;height:18px;margin:0;padding:0;cursor:pointer}.kpMd .kpFill input:disabled{opacity:.5}.kpFill .kpPr{flex:1 1 100%}.kpFill .kpPr:empty{display:none}.kpFill .kpHint{flex:1 1 100%;font-size:11.5px;margin:0}.kpPr .kpRow{display:flex;gap:6px;align-items:center;margin-top:3px}.kpPr .kpRow i{flex:0 0 auto;font-style:normal;font-size:11.5px;color:var(--mut,#667);white-space:nowrap}.kpMd .kpPr .kpRow input{flex:1 1 0;min-width:90px;height:30px;font-size:13px}.kpPr .kpRs{padding:0 7px;height:30px}
@@ -3479,7 +3486,7 @@ const WD=['রবিবার','সোমবার','মঙ্গলবার','
 const LET=['ক','খ','গ','ঘ','ঙ','চ','ছ','জ','ঝ','ঞ'];
 const DEF_COND='অবেক্ষাকাল ২ (দুই) বৎসর';
 let lstT=0;
-const getS=()=>{KP.s=KP.s||{};const cid=cur&&cur.created;if(cid){if(KP.sr&&KP.sr!==cid){KP.s={};KP.ov={}}KP.sr=cid}return KP.s};
+const getS=()=>{KP.s=KP.s||{};const cid=cur&&cur.created;if(cid){if(KP.sr&&KP.sr!==cid){KP.s={};KP.ov={};delete KP.fin}KP.sr=cid}return KP.s};
 
 /* ---------- ছোট সহায়ক ---------- */
 function pDate(s){const m=bn(String(s||'')).match(/(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/);if(!m)return null;const d=new Date(+m[3],+m[2]-1,+m[1]);return d.getMonth()==+m[2]-1?d:null}
@@ -3704,7 +3711,7 @@ function kpHtml(m){let h='<div class="kpD">';
     else if(b.k=='sec')h+='<div class="sc"><span class="l">'+e(b.lab)+'</span><div>'+runsH(b.runs)+'</div></div>';
     else if(b.k=='mem')h+='<div class="ls m0">'+b.items.map(x=>'<div class="it"><span class="n">'+e(x.no)+'</span><div>'+(x.n?e(x.n):'<span class="dot">'+dots(26)+'</span>')+(x.dl||[]).map(t=>'<br>'+e(t)).join('')+'</div></div>').join('')+'</div>';
     else if(b.k=='cl')h+='<div class="ls">'+b.items.map(x=>'<div class="it"><span class="n">'+e(x.no)+'</span><div>'+x.lines.map(lblH).join('<br>')+'</div></div>').join('')+'</div>';
-    else if(b.k=='stat'){h+='<div class="sc"><span class="l">'+e(b.lab)+'</span><div style="flex:1"><table class="st" style="margin:0"><tr>'+b.cells.map(c=>'<td style="width:'+(100/4*0.62).toFixed(1)+'%">'+e(c[0])+'</td><td class="bx" style="width:'+(100/4*0.38).toFixed(1)+'%">'+e(c[1])+'</td>').join('')+'</tr></table></div></div>'}
+    else if(b.k=='stat'){h+='<div class="sc"><span class="l">'+e(b.lab)+'</span><div style="flex:1"><table class="st" style="margin:0"><tr>'+b.cells.map(c=>'<td style="width:16.67%">'+e(c[0])+'</td><td class="bx" style="width:8.33%">'+e(c[1])+'</td>').join('')+'</tr></table></div></div>'}
     else if(b.k=='tbl'){const S=b.w.reduce((x,y)=>x+y,0);h+='<table><colgroup>'+b.w.map(x=>'<col style="width:'+(x/S*100).toFixed(2)+'%">').join('')+'</colgroup><thead><tr>'+b.head.map(x=>'<th>'+e(x)+'</th>').join('')+'</tr></thead><tbody>'+b.rows.map(r=>'<tr'+(b.rh?' style="height:'+Math.round(b.rh/15)+'px"':'')+'>'+r.map((c,i)=>'<td class="'+(b.al[i]=='c'?'c':'')+(b.va&&b.va[i]=='c'?' v':'')+'">'+(nl2(c)||'&nbsp;')+'</td>').join('')+'</tr>').join('')+'</tbody></table>'}
     else if(b.k=='sig')h+='<table><colgroup><col style="width:12%"><col style="width:55%"><col style="width:33%"></colgroup><thead><tr><th>ক্রমিক নং</th><th>নাম</th><th>স্বাক্ষর</th></tr></thead><tbody>'+b.items.map(x=>'<tr style="height:60px"><td class="c">'+e(x.no)+'</td><td>'+(x.n?e(x.n):'<span class="dot">'+dots(24)+'</span>')+sigD(x.d).map(t=>'<br>'+e(t)).join('')+'</td><td></td></tr>').join('')+'</tbody></table>';
     else if(b.k=='blank')h+='<div style="height:1.2em"></div>';
@@ -3803,7 +3810,7 @@ async function kpList(){
   let h='<div class="catCur">বর্তমান রেকর্ড: '+(rec?'<b>'+e(rec)+'</b> → '+(cn?'<b>'+e(cn[1])+'</b>':'<span class="mut">তালিকায় নেই</span>'):'<span class="mut">কোনো রেকর্ড খোলা নেই</span>')+'</div><div class="catG">';
   CT.forEach(([k,t])=>{if(k=='u'&&!g.u.length)return;
     h+='<div class="catC"><h4><b>'+e(t)+'</b><span>'+g[k].length+'</span></h4><small>'+e(CD[k])+'</small><ul>'+
-    (g[k].length?g[k].map(x=>'<li class="kpLi'+(x.name==rec?' cur':'')+'"><div class="kpTop"><span class="kpNm" data-n="'+e(x.name)+'">'+e(x.name)+'</span><button type="button" class="p kpMk" data-n="'+e(x.name)+'">📋 কার্যবিবরণী প্রস্তুত</button></div><i>'+e(x.post||'—')+(x.grade?' · গ্রেড-'+e(x.grade):'')+'</i></li>').join(''):'<li class="mut">কোনো রেকর্ড নেই</li>')+'</ul></div>'});
+    (g[k].length?g[k].map(x=>'<li class="kpLi'+(x.name==rec?' cur':'')+'"><div class="kpTop"><span class="kpNm" data-n="'+e(x.name)+'">'+e(x.name)+'</span><button type="button" class="p kpMk'+((META[x.name]&&META[x.name].fin)?' kpDone':'')+'" data-n="'+e(x.name)+'"'+((META[x.name]&&META[x.name].fin)?' title="চূড়ান্ত কার্যবিবরণী সম্পন্ন"':'')+'>📋 কার্যবিবরণী প্রস্তুত</button></div><i>'+e(x.post||'—')+(x.grade?' · গ্রেড-'+e(x.grade):'')+'</i></li>').join(''):'<li class="mut">কোনো রেকর্ড নেই</li>')+'</ul></div>'});
   box.innerHTML=h+'</div>';
   box.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>kpOpen(b.dataset.n))}
 
@@ -3823,7 +3830,7 @@ function kpDlg(){
   const miss=FLD.filter(f=>!sp(a[f[0]]));
   const got=[['স্মারক নং',sp(a.memo)&&('ঢাপ্রপ্রবি/'+B(a.memo))],['বিজ্ঞপ্তির তারিখ',sp(a.date)&&B(a.date)],['পদ',sp(a.post)],['বিভাগ/দপ্তর',sp(a.dept)],['গ্রেড ও বেতন',sp(a.grade)&&(py.gr+' '+py.amt)],['পদসংখ্যা',sp(a.count)&&B(a.count)],['মোট প্রার্থী',B(ctx.R.length+ctx.RJ.length)+' জন'],['কমিটি',mem.length?B(mem.length)+' জন সদস্য':'']].filter(x=>x[1]);
   const fld=(f)=>'<label>'+e(f[1])+'<input data-k="'+f[0]+'" value="" placeholder="'+e(f[2])+'"></label>';
-  let h='<div class="kpSum"><b>টুল থেকে নেওয়া হয়েছে:</b> '+got.map(x=>'<span class="kpChip"><i>'+e(x[0])+'</i> '+e(x[1])+'</span>').join('')+'</div>';
+  let h='<div class="kpSum"><b>টুল থেকে নেওয়া হয়েছে:</b> '+got.map(x=>'<span class="kpChip"><i>'+e(x[0])+'</i> '+e(x[1])+'</span>').join('')+'<button type="button" id="kpFin" class="kpFin" title="কার্যবিবরণী সম্পূর্ণ হলে ক্লিক করুন — তালিকায় এই পদের বাটনের রং বদলে যাবে"></button></div>';
   if(miss.length)h+='<div class="kpHint w">নিচের লাল ঘরগুলোর তথ্য টুলে পাওয়া যায়নি — পূরণ করুন:</div><div class="kpGrid need">'+miss.map(fld).join('')+'</div>';
   h+='<div class="kpGrid"><label>সিলেকশন কমিটির অধিবেশনের তারিখ<input data-s="date" autocomplete="off" value="'+e(s.date||'')+'" placeholder="যেমন: ২৩/০৬/২০২৬"><span class="kpHint" id="kpDay">'+(s.date?(dayOf(s.date)?'বার: '+e(dayOf(s.date)):'⚠ দিন/মাস/বছর ফরম্যাটে লিখুন'):'')+'</span></label>'+
      '<label>সময়<span class="inl"><select data-s="tp"><option value="">—</option>'+['সকাল','দুপুর','বিকাল','রাত'].map(x=>'<option'+(s.tp==x?' selected':'')+'>'+x+'</option>').join('')+'</select><input data-s="time" autocomplete="off" value="'+e(s.time||'')+'" placeholder="যেমন: ৪.০০"><em style="font-style:normal">ঘটিকা</em></span></label>'+
@@ -3878,6 +3885,10 @@ function kpDlg(){
   ov.querySelector('#kpDirOpen').onclick=dirDlg;
   kpRefresh=()=>{if(!document.body.contains(ov))return;if(!Array.isArray(KP.mem))tx.value=memTxt(kpMemDef(ctxNow(),kpAd(ctxNow())));pv()};
   ov.querySelector('#kpDx').onclick=kpDownload;ov.querySelector('#kpPr').onclick=kpPrint;
+  const fb=ov.querySelector('#kpFin');
+  const fbUp=()=>{const on=!!KP.fin;fb.classList.toggle('on',on);fb.textContent=on?'✅ চূড়ান্ত করা হয়েছে (বাতিল করতে ক্লিক)':'☑ চূড়ান্ত কার্যবিবরণী'};
+  fbUp();
+  fb.onclick=async()=>{KP.fin=!KP.fin;fbUp();await svNow();try{kpList()}catch(x){}toast(KP.fin?'✅ কার্যবিবরণী চূড়ান্ত করা হয়েছে — তালিকায় বাটনের রং বদলেছে':'↩ চূড়ান্ত চিহ্ন তুলে নেওয়া হয়েছে')};
   showPv()}
 
 /* ---------- নামের তালিকা: DOCX আপলোড + সম্পাদনা ডায়ালগ ---------- */
