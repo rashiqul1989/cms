@@ -765,7 +765,7 @@ const fd=x=>x?new Date(x).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'
 function recList(){const q=bn($('#rq').value).toLowerCase().split(/\s+/).filter(Boolean),k=rsort.k;
 return Object.values(META).filter(m=>q.every(w=>bn(m.name+' '+m.src+' '+fd(m.ts)+' '+fd(m.created)).toLowerCase().includes(w))).sort((x,y)=>rsort.d*(typeof x[k]=='string'?x[k].localeCompare(y[k],'bn',{numeric:true}):(x[k]||0)-(y[k]||0)))}
 /* ---- আপগ্রেডেশন: স্থায়ীভাবে সংরক্ষিত; বর্তমান রেকর্ড ড্রপডাউনে নির্বাচন ও সংখ্যা ---- */
-window.UPGS=(()=>{try{const a=JSON.parse(localStorage.getItem('duet_upg_v1')||'{}');return Array.isArray(a.l)?a.l.map(u=>({...u,letters:u.letters||[]})):[]}catch(e){return[]}})();
+window.UPGS=(()=>{try{const a=JSON.parse(localStorage.getItem('duet_upg_v1')||'{}');return Array.isArray(a.l)?a.l.map(u=>({...u,letters:u.letters||[],tm:Array.isArray(u.tm)?u.tm.map(x=>String(x).split('খ্রিঃ').join('খ্রি.')):u.tm,cc:Array.isArray(u.cc)?u.cc.map(x=>x&&typeof x.t=='string'?{...x,t:x.t.split('এডিশনাল কম্পট্রোলার (অডিট) (চলতি দায়িত্ব), অডিট সেল').join('অফিস প্রধান, অডিট সেল')}:x):u.cc})):[]}catch(e){return[]}})();
 var UPGSEL='';
 window.upgLive=u=>!(u&&u.recName&&typeof AMETA!='undefined'&&AMETA&&AMETA[u.recName]);
 function upgPut(){try{localStorage.setItem('duet_upg_v1',JSON.stringify({l:UPGS}))}catch(e){}}
@@ -816,7 +816,11 @@ $('#rXl').onclick=()=>xlsOut(listRows(),'records_list','Records');
 $('#rCsv').onclick=async()=>{const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';await dl('\ufeff'+listRows().map(r=>r.map(q).join(',')).join('\n'),'records_list.csv','text/csv')};
 async function recExp(n){const o=n==rec?{R}:await store.get(n);if(!o)return;const vc=C.filter(c=>!c.ph),rs=(o.R||[]).map(nr);await xlsOut([vc.map(c=>c.l)].concat(rs.map(r=>vc.map(c=>{const v=c.g(r);return v==null?'':String(v)}))),safe(n),n)}
 async function recRen(n){const x=prompt('রেকর্ডের নতুন নাম:',n);if(x==null)return;const nn=x.replace(/\s+/g,' ').trim().slice(0,200);if(!nn||nn==n)return;if(META[nn]||AMETA[nn]){alert('এই নামে আগেই একটি রেকর্ড আছে');return}if(rec==n)await svNow();const o=await store.get(n);if(!o)return;o.name=nn;await store.set(nn,o);await store.del(n);delete META[n];META[nn]=metaOf(o);rsel.delete(n);if(rec==n){rec=nn;$('#jobId').textContent='📁 '+nn+' — ';try{localStorage.setItem('duet_last',nn)}catch(e){}}recRender();toast('✓ নাম বদলানো হয়েছে')}
-async function recDel(names){names=names.filter(n=>META[n]);if(!names.length){toast('কোনো রেকর্ড নির্বাচিত নেই');return}if(!confirm(names.length+' টি রেকর্ড স্থায়ীভাবে মুছে ফেলবেন?\n(আগে Backup নিয়ে রাখা ভালো)'))return;clearTimeout(svT);for(const n of names){await store.del(n);delete META[n];rsel.delete(n)}
+/* রেকর্ড মুছলে তার আপগ্রেডেশন এন্ট্রি ও চূড়ান্ত নিয়োগপত্র-ও মুছে যাবে */
+function upgDropByRec(names){try{const L=window.UPGS||[],ids=[];for(let i=L.length-1;i>=0;i--){if(names.includes(L[i].recName)){ids.push(L[i].id);if(UPGSEL==L[i].id)UPGSEL='';L.splice(i,1)}}
+const fm=JSON.parse(localStorage.getItem('duet_final_np_v1')||'{}');let ch=0;Object.keys(fm).forEach(k=>{if(names.includes(fm[k].rec)||ids.includes(fm[k].uid)){delete fm[k];ch=1}});if(ch)localStorage.setItem('duet_final_np_v1',JSON.stringify(fm));
+if(ids.length){upgPut();if(window.upgRefresh)upgRefresh()}}catch(e){}}
+async function recDel(names){names=names.filter(n=>META[n]);if(!names.length){toast('কোনো রেকর্ড নির্বাচিত নেই');return}if(!confirm(names.length+' টি রেকর্ড স্থায়ীভাবে মুছে ফেলবেন?\n(আগে Backup নিয়ে রাখা ভালো)'))return;clearTimeout(svT);for(const n of names){await store.del(n);delete META[n];rsel.delete(n)}upgDropByRec(names);
 if(names.includes(rec)){rec='';R=[];RJ=[];D=new Set();PM={};NM={};AD={};KP={};hist=[];sel.clear();flt=[];$('#jobId').textContent='';try{localStorage.removeItem('duet_last')}catch(e){}init()}recRender();toast(names.length+' টি রেকর্ড মুছে ফেলা হয়েছে')}
 $('#rDelSel').onclick=()=>recDel([...rsel]);
 /* ---- পুন:বিজ্ঞপ্তি: অন্য রেকর্ড (ক্যাটাগরি অনুযায়ী) বেছে বর্তমান রেকর্ডের সাথে একত্র করা ---- */
@@ -892,7 +896,7 @@ for(const n of names){const o=await store.get(n);if(!o)continue;delete o.arch;de
 if(!rec&&META[names[0]])await openRecord(names[0],true);recRender();toast('↩ '+names.length+' টি রেকর্ড রিস্টোর হয়েছে')}
 async function arcDel(names){names=names.filter(n=>AMETA[n]);if(!names.length){toast('কোনো রেকর্ড নির্বাচিত নেই');return}
 if(!confirm(names.length+' টি আর্কাইভ করা রেকর্ড স্থায়ীভাবে মুছে ফেলবেন?\n(আর ফেরানো যাবে না — আগে Backup নিয়ে রাখা ভালো)'))return;
-for(const n of names){await store.del(n);delete AMETA[n];asel.delete(n)}
+for(const n of names){await store.del(n);delete AMETA[n];asel.delete(n)}upgDropByRec(names);
 recRender();toast(names.length+' টি রেকর্ড স্থায়ীভাবে মুছে ফেলা হয়েছে')}
 $('#aRes').onclick=()=>arcRestore([...asel]);$('#aDel').onclick=()=>arcDel([...asel]);$('#aq').oninput=arcRender;
 async function recSave(){if(!rec){toast('⚠ আগে একটি ফাইল আপলোড করুন বা রেকর্ড খুলুন');return}const ok=await svNow();if(ok)toast('💾 সংরক্ষিত হয়েছে: '+rec)}
@@ -3310,7 +3314,7 @@ async function info(name){
   return{name,post:post||'',grade:grade||'',cat:catOf(post,grade)}}
 async function all(){const a=[];for(const n of Object.keys(META||{}))a.push(await info(n));return a}
 /* ---- আপগ্রেডেশন: শুধু নিয়োগপত্র তৈরির জন্য, মেমোরিতে থাকে (অন্য কোনো রেকর্ড/ডাটায় সংরক্ষিত হয় না) ---- */
-const UPG=window.UPGS,UPG_POSTS=[['অধ্যাপক','3'],['সহযোগী অধ্যাপক','4'],['সহকারী অধ্যাপক','6']],UPG_DEPTS=["পুরকৌশল বিভাগ", "আর্কিটেকচার বিভাগ", "তড়িৎ ও ইলেকট্রনিক কৌশল বিভাগ", "কম্পিউটার সায়েন্স এন্ড ইঞ্জিনিয়ারিং বিভাগ", "যন্ত্রকৌশল বিভাগ", "টেক্সটাইল ইঞ্জিনিয়ারিং বিভাগ", "ইন্ডাস্ট্রিয়াল এন্ড প্রোডাকশন ইঞ্জিনিয়ারিং বিভাগ", "গণিত বিভাগ", "পদার্থবিজ্ঞান বিভাগ", "রসায়ন বিভাগ", "মানবিক ও সামাজিক বিজ্ঞান বিভাগ", "ম্যাটেরিয়ালস এন্ড মেটালার্জিক্যাল ইঞ্জিনিয়ারিং বিভাগ", "কেমিক্যাল ইঞ্জিনিয়ারিং বিভাগ", "ফুড ইঞ্জিনিয়ারিং বিভাগ", "ইনস্টিটিউট অব এনার্জি ইঞ্জিনিয়ারিং", "ইনস্টিটিউট অব ওয়াটার এন্ড এনভায়রনমেন্ট", "ইনস্টিটিউট অব ইনফরমেশন এন্ড কমিউনিকেশন টেকনোলজি (আইআইসিটি)", "সেন্টার ফর ক্লাইমেট চেঞ্জ এন্ড সাসটেইনেবিলিটি রিসার্চ"];
+const UPG=window.UPGS,UPG_POSTS=[['অধ্যাপক','3'],['সহযোগী অধ্যাপক','4'],['সহকারী অধ্যাপক','6'],['অধ্যাপক (পার্সোনাল)','3']],UPG_DEPTS=["পুরকৌশল বিভাগ", "আর্কিটেকচার বিভাগ", "তড়িৎ ও ইলেকট্রনিক কৌশল বিভাগ", "কম্পিউটার সায়েন্স এন্ড ইঞ্জিনিয়ারিং বিভাগ", "যন্ত্রকৌশল বিভাগ", "টেক্সটাইল ইঞ্জিনিয়ারিং বিভাগ", "ইন্ডাস্ট্রিয়াল এন্ড প্রোডাকশন ইঞ্জিনিয়ারিং বিভাগ", "গণিত বিভাগ", "পদার্থবিজ্ঞান বিভাগ", "রসায়ন বিভাগ", "মানবিক ও সামাজিক বিজ্ঞান বিভাগ", "ম্যাটেরিয়ালস এন্ড মেটালার্জিক্যাল ইঞ্জিনিয়ারিং বিভাগ", "কেমিক্যাল ইঞ্জিনিয়ারিং বিভাগ", "ফুড ইঞ্জিনিয়ারিং বিভাগ", "ইনস্টিটিউট অব এনার্জি ইঞ্জিনিয়ারিং", "ইনস্টিটিউট অব ওয়াটার এন্ড এনভায়রনমেন্ট", "ইনস্টিটিউট অব ইনফরমেশন এন্ড কমিউনিকেশন টেকনোলজি (আইআইসিটি)", "সেন্টার ফর ক্লাইমেট চেঞ্জ এন্ড সাসটেইনেবিলিটি রিসার্চ"];
 let upgSeq=0;
 function upgLis(){return UPG.filter(upgLive).map(u=>'<li class="npLi'+(u.id==UPGSEL?' cur':'')+'"><div class="npT">'+esc(u.post)+' <span class="npUpgTag">আপগ্রেডেশন</span><i>'+esc(u.dept)+' · গ্রেড-'+esc(u.grade)+' · পদ সংখ্যা: '+(u.count||1)+((u.letters||[]).length?' · সংরক্ষিত: '+u.letters.length+' টি':'')+'</i></div><button type="button" class="npUpgX" data-x="'+u.id+'" title="আপগ্রেডেশন মুছুন" aria-label="আপগ্রেডেশন মুছুন"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><button type="button" class="npBtn" data-upg="'+u.id+'">নিয়োগপত্র</button></li>').join('')}
 function upgCss(){if(document.getElementById('npUpgCss'))return;const s=document.createElement('style');s.id='npUpgCss';
@@ -4216,6 +4220,8 @@ window.npEmpOpen=async function(info){
   let D0;try{D0=await loadData(info)}catch(err){toast('⚠ '+(err&&err.message||err));return}
   const L=lastGet();
   const NPC=info.cat=='t'?'t':info.cat=='o'?'o':'e';
+  const KIND=npKind(info);const UU0=(info.upg&&info.uid&&window.UPGS)?UPGS.find(x=>x.id==info.uid):null;
+  const CMN=(UU0&&UU0.common)||{};
   const NPX={e:{p:'ঢাপ্রপ্রবি/প্রশা/ক:নি:/৪৬৭/১১/',d:'(অংশ-১০)/',h:'(অংশ-১০)/১৭৪৪',t:'কর্মচারী'},o:{p:'ঢাপ্রপ্রবি/প্রশা/অনি/৪৬৬/১১/',d:'(অংশ-০৬)/',h:'(অংশ-০৬)/১৮',t:'কর্মকর্তা'},t:{p:'ঢাপ্রপ্রবি/প্রশা/শিনি/',d:'(অংশ-১৫)/',h:'(অংশ-১৫)/৪৬৫/১১/১৩',t:'শিক্ষক'}}[NPC];
   const MK='memo'+(NPC=='e'?'':'_'+NPC);
   const opts=D0.list.map((r,i)=>'<option value="'+i+'">'+e((r._no?r._no+' — ':'')+(r.name||'?')+' ('+(r.id||'')+')')+'</option>').join('');
@@ -4234,7 +4240,8 @@ window.npEmpOpen=async function(info){
   '<label id="npMw">স্মারক নং ('+e(NPX.p)+' এর পরের অংশ)<span id="npMc" style="color:var(--ac,#0a7a3d)"></span><input id="npM" value="'+e(L[MK]||NPX.d)+'" placeholder="'+e(NPX.h)+'"></label>'+
   '<label>তারিখ<input id="npDt" value="'+e(todayBn())+'" placeholder="৩০/০৬/২০২৬"></label>'+
   '<label>সিন্ডিকেটের সভা নং (…তম)<input id="npY" value="'+e(L.synd||'')+'" placeholder="১৩৬"></label>'+
-  '<label>অবেক্ষাকাল<input id="npPr" value="'+e(L.prob||'০২ (দুই)')+'"></label>'+
+  '<label id="npPrw"'+(KIND?' style="display:none"':'')+'>অবেক্ষাকাল<input id="npPr" value="'+e(L.prob||'০২ (দুই)')+'"></label>'+
+  (KIND?'<label>বর্তমান পদ (আপগ্রেডের আগে)<input id="npCp" value="'+e(CMN.cp!=null?CMN.cp:(NPK_CURP[info.post]||''))+'" placeholder="যেমন: প্রভাষক"></label><label>সিন্ডিকেটের সভার তারিখ<input id="npSd" value="'+e(CMN.sd||'')+'" placeholder="০৮/০২/২০২৬"></label>'+(KIND=='q'?'<label>নিয়োগ কার্যকরের তারিখ<input id="npEd" value="'+e(CMN.ed||'')+'" placeholder="২৩/০৪/২০২৪"></label>':'')+'<label>অনুলিপিতে বিভাগের নাম<input id="npDs" value="'+e(CMN.ds!=null?CMN.ds:npDeptShort(D0.dept))+'" placeholder="যেমন: আইপিই বিভাগ"></label>':'')+
   '</div><div id="npTm"></div><h4>৫) অনুলিপি তালিকা (ক্রম পরিবর্তন ও নতুন যোগ)</h4><div id="npCc"></div>'+
   '<div class="hint">ফাঁকা রাখা ঘরের জায়গায় Word-এ ……… বসবে, যাতে হাতে লিখে নেওয়া যায়। রেজিস্ট্রার/অতিরিক্ত রেজিস্ট্রারের নাম ও অন্যান্য স্থির অংশ নমুনার মতোই থাকবে।</div>'+
   '</div><div class="npPrev"><div class="npPvBar"><span>👁 লাইভ প্রিভিউ — নিয়োগপত্র (Word ফাইলের হুবহু রূপ)</span><button type="button" id="npZo" title="ছোট করুন">－</button><b id="npZl" style="min-width:44px;text-align:center">100%</b><button type="button" id="npZi" title="বড় করুন">＋</button><button type="button" id="npZf" title="প্যানেলের প্রস্থে ফিট">ফিট</button><button type="button" id="npHl" title="ডাটা/অনুবাদ থেকে বসা অংশগুলো হলুদ রঙে চিহ্নিত করুন (শুধু দেখার জন্য — Word ফাইলে এই রঙ থাকে না)">হাইলাইট</button></div><div class="npPvSc" id="npPvSc"><div class="npPaper" id="npPv"></div></div></div></div><div class="uxFt"><button type="button" class="p" id="npDx">📄 Word (.docx) ডাউনলোড</button><button type="button" class="uxCancel">বন্ধ</button></div></div>';
@@ -4242,8 +4249,10 @@ window.npEmpOpen=async function(info){
   if(info.upg){const c=ov.querySelector('#npCand');for(let i=0;i<3;i++)c.children[i].style.display='none';let k=0;ov.querySelectorAll('.npForm h4').forEach(h=>{if(h===c.children[0])return;h.textContent=h.textContent.replace(/^[১-৯]\)/,bnD(++k)+')')});c.children[3].textContent=c.children[3].textContent.replace(/\(ডাটা থেকে\)/,'(হাতে লিখুন)')}
   q(ov,'.uxX').onclick=q(ov,'.uxCancel').onclick=closeNp;
   const $$=id=>q(ov,'#'+id);
+  if(KIND){const pl=$$('npP').closest('label');if(pl)pl.style.display='none';const sb=$$('npSm');if(sb)sb.style.display='none'} /* আপগ্রেডেশন/পার্সোনাল পত্রে শুধু স্থায়ী ঠিকানা লাগে */
     const DEF=[['t','পিএস টু ভিসি (ভাইস-চ্যান্সেলর মহোদয়ের সদয় অবগতির জন্য)।'],['t','এপিএস টু প্রো-ভিসি (প্রো-ভাইস-চ্যান্সেলর মহোদয়ের সদয় অবগতির জন্য)।'],['t','কম্পট্রোলার (অতিরিক্ত দায়িত্ব)।'],['t','অফিস প্রধান (অতিরিক্ত দায়িত্ব), অডিট সেল।'],['o',L.off||''],['t','জনাব মোঃ শাহাদাৎ হোসেন, সিনিয়র অফিস এসিসটেন্ট কাম কম্পিউটার অপারেটর, সংস্থাপন শাখা\n(জনবলের তথ্য হালনাগাদ করার জন্য অনুরোধ করা হইল)।'],['c',''],['t','সংরক্ষণ নথি/ব্যক্তিগত নথি/গার্ড ফাইল।']];
-    const cc=((Array.isArray(L.cc)&&L.cc.some(x=>x&&x[0]=='c'))?L.cc:DEF).map(x=>({k:x[0],t:String(x[1]||'').split('কম্পট্রোলার (অতিরিক্ত দায়িত্ব), কম্পট্রোলার অফিস').join('কম্পট্রোলার (অতিরিক্ত দায়িত্ব)')}));
+    const cc=(KIND?((UU0&&Array.isArray(UU0.cc)&&UU0.cc.some(x=>x&&x.k=='c'))?UU0.cc.map(x=>[x.k,x.t,x.dn]):(KIND=='q'?NPQ_CC:NPU_CC)):((Array.isArray(L.cc)&&L.cc.some(x=>x&&x[0]=='c'))?L.cc:DEF)).map(x=>({k:x[0],dn:x[2]?1:0,t:String(x[1]||'').split('কম্পট্রোলার (অতিরিক্ত দায়িত্ব), কম্পট্রোলার অফিস').join('কম্পট্রোলার (অতিরিক্ত দায়িত্ব)')}));
+    cc.forEach(x=>{x.t=String(x.t).split('এডিশনাল কম্পট্রোলার (অডিট) (চলতি দায়িত্ব), অডিট সেল').join('অফিস প্রধান, অডিট সেল')});
     const offT=()=>{const it=cc.find(x=>x.k=='o');return it?sp(it.t):''};
     const grow=f=>{f.style.height='auto';f.style.height=(f.scrollHeight+2)+'px'};
     const mv=(i,d)=>{const j=i+d;if(j<0||j>=cc.length)return;const t=cc[i];cc[i]=cc[j];cc[j]=t;renderCc();renderPv()};
@@ -4251,9 +4260,13 @@ window.npEmpOpen=async function(info){
     if(!cc.some(x=>x.k=='o'))cc.splice(Math.max(0,cc.findIndex(x=>x.k=='c')),0,{k:'o',t:''});
     const OFFP=d=>/ইনস্টিটিউট/.test(d)?'পরিচালক':/সেল\s*$/.test(d)?'সেল প্রধান':/শাখা\s*$/.test(d)?'শাখা প্রধান':/(অফিস|দপ্তর)\s*$/.test(d)?'অফিস প্রধান':'বিভাগীয় প্রধান';
     const autoOff=()=>{const d=sp($$('npD').value);return d?OFFP(d)+', '+d:''};
-    let ooAuto=true;
-    {const oi=cc.findIndex(x=>x.k=='o');const oo=cc.splice(oi,1)[0];oo.t=autoOff()||oo.t;cc.splice(Math.min(2,cc.length),0,oo)}
-    const syncOff=()=>{if(!ooAuto)return;const it=cc.find(x=>x.k=='o');if(it){it.t=autoOff();renderCc()}};
+    let ooAuto=true,deAuto=true;
+    const autoDean=()=>npDeanOf($$('npD').value);
+    if(KIND){const oo=cc.find(x=>x.k=='o'),dn=cc.find(x=>x.dn);
+      if(UU0&&Array.isArray(UU0.cc)&&UU0.cc.length){ooAuto=!oo||!sp(oo.t)||sp(oo.t)==autoOff();deAuto=!dn||!sp(dn.t)||sp(dn.t)==autoDean()}
+      if(oo&&ooAuto)oo.t=autoOff()||oo.t;if(dn&&deAuto)dn.t=autoDean()}
+    else{const oi=cc.findIndex(x=>x.k=='o');const oo=cc.splice(oi,1)[0];oo.t=autoOff()||oo.t;cc.splice(Math.min(2,cc.length),0,oo)}
+    const syncOff=()=>{if(KIND&&deAuto){const d=cc.find(x=>x.dn);if(d){d.t=autoDean()}}if(!ooAuto){if(KIND)renderCc();return}const it=cc.find(x=>x.k=='o');if(it){it.t=autoOff()}renderCc()};
     $$('npD').addEventListener('input',syncOff);
     let ccAll=false;
     function renderCc(focusI){const box=$$('npCc');box.innerHTML='';
@@ -4270,23 +4283,24 @@ window.npEmpOpen=async function(info){
         if(it.k=='c'){f=document.createElement('div');f.className='ccAuto';f.textContent='👤 প্রার্থীর নাম, পিতার নাম ও ঠিকানা (স্বয়ংক্রিয়)'}
         else{f=document.createElement('textarea');f.rows=1;f.value=it.t;
           f.placeholder=it.k=='o'?'অফিস প্রধান/কর্মকর্তার পদবি ও শাখা — যেমন: নিরাপত্তা কর্মকর্তা, নিরাপত্তা শাখা, রেজিস্ট্রার অফিস':'অনুলিপির প্রাপক (পদবি ও শাখা)';
-          f.oninput=()=>{it.t=f.value;grow(f);if(it.k=='o')ooAuto=false}}
+          f.oninput=()=>{it.t=f.value;grow(f);if(it.k=='o')ooAuto=false;if(it.dn)deAuto=false}}
         const bx=document.createElement('div');bx.className='ccBt';
         if(it.k!='o'){bx.append(mkB('▲','উপরে নিন',()=>mv(i,-1),i==0),mkB('▼','নিচে নিন',()=>mv(i,1),i==cc.length-1));
-          if(it.k!='c')bx.append(mkB('✕','মুছুন',()=>{cc.splice(i,1);renderCc();renderPv()}))}else bx.append(mkB('↻','বিভাগ/দপ্তর থেকে স্বয়ংক্রিয়ভাবে আবার বসান (ক্রমিক ৩)',()=>{ooAuto=true;const x=cc.splice(cc.indexOf(it),1)[0];x.t=autoOff();cc.splice(Math.min(2,cc.length),0,x);renderCc();renderPv()}));
+          if(it.k!='c')bx.append(mkB('✕','মুছুন',()=>{cc.splice(i,1);renderCc();renderPv()}))}else bx.append(mkB('↻','বিভাগ/দপ্তর থেকে স্বয়ংক্রিয়ভাবে আবার বসান',()=>{ooAuto=true;if(KIND){it.t=autoOff();renderCc();renderPv();return}const x=cc.splice(cc.indexOf(it),1)[0];x.t=autoOff();cc.splice(Math.min(2,cc.length),0,x);renderCc();renderPv()}));
         r.append(n,f,bx);box.append(r);if(f.tagName=='TEXTAREA'&&r.style.display!='none')grow(f)});
       const add=mkB('＋ নতুন অনুলিপি যোগ করুন','',()=>{cc.push({k:'t',t:''});ccAll=true;renderCc(cc.length-1);renderPv()});add.className='ccAdd';box.append(add);
       if(ccAll)box.querySelectorAll('textarea').forEach(grow);
       if(focusI!=null){const ta=box.querySelectorAll('.ccRow')[focusI];const t=ta&&ta.querySelector('textarea');if(t)t.focus()}}
     renderCc();
     /* নিয়োগের শর্তাবলী — ডিফল্টে লুকানো; বাটনে ক্লিক করলে সম্পাদনা/ক্রম/যোগ-মোছা */
-    const tm=((Array.isArray(L.tm)&&L.tm.length)?L.tm:NP_TM_DEF).map(x=>String(x).split('তদনুযায়ী').join('তদানুযায়ী'));
+    const tm=KIND?((UU0&&Array.isArray(UU0.tm)&&UU0.tm.length)?UU0.tm.slice():(KIND=='q'?NPQ_TM:NPU_TM).slice()):((Array.isArray(L.tm)&&L.tm.length)?L.tm:NP_TM_DEF).map(x=>String(x).split('তদনুযায়ী').join('তদানুযায়ী'));
+    tm.forEach((x,i)=>{tm[i]=String(x).split('খ্রিঃ').join('খ্রি.')});
     let tmShow=false;
     const tmMv=(i,d)=>{const j=i+d;if(j<0||j>=tm.length)return;const x=tm[i];tm[i]=tm[j];tm[j]=x;renderTm();renderPv()};
     function renderTm(focusI){const box=$$('npTm');box.innerHTML='';
       const tg=mkB(tmShow?'▴ নিয়োগের শর্তাবলী লুকান':'▾ নিয়োগের শর্তাবলী সম্পাদনা ('+bnD(tm.length)+' টি)','',()=>{tmShow=!tmShow;renderTm()});tg.className='ccTg';box.append(tg);
       if(!tmShow)return;
-      const h=document.createElement('div');h.className='hint';h.textContent='অবেক্ষাকালের জায়গায় {PROB} লিখলে ঘর ৪-এর অবেক্ষাকাল বসবে। ফাঁকা রাখলে শর্তটি বাদ যাবে।';box.append(h);
+      const h=document.createElement('div');h.className='hint';h.textContent=KIND?'তারিখের জায়গায় {SDATE} (সিন্ডিকেটের তারিখ)'+(KIND=='q'?' / {EDATE} (কার্যকরের তারিখ)':'')+' লিখলে ঘর ৪-এর তারিখ বসবে। ফাঁকা রাখলে শর্তটি বাদ যাবে।':'অবেক্ষাকালের জায়গায় {PROB} লিখলে ঘর ৪-এর অবেক্ষাকাল বসবে। ফাঁকা রাখলে শর্তটি বাদ যাবে।';box.append(h);
       tm.forEach((tx,i)=>{const r=document.createElement('div');r.className='ccRow';
         const n=document.createElement('b');n.className='ccN';n.textContent=bnD(i+1)+'।';
         const f=document.createElement('textarea');f.rows=2;f.value=tx;f.oninput=()=>{tm[i]=f.value;grow(f)};
@@ -4294,7 +4308,7 @@ window.npEmpOpen=async function(info){
         bx.append(mkB('▲','উপরে নিন',()=>tmMv(i,-1),i==0),mkB('▼','নিচে নিন',()=>tmMv(i,1),i==tm.length-1),mkB('✕','মুছুন',()=>{tm.splice(i,1);renderTm();renderPv()}));
         r.append(n,f,bx);box.append(r);grow(f)});
       const add=mkB('＋ নতুন শর্ত যোগ করুন','',()=>{tm.push('');renderTm(tm.length-1);renderPv()});add.className='ccAdd';box.append(add);
-      const rs=mkB('↺ ডিফল্ট শর্তাবলীতে ফিরুন','',()=>{tm.splice(0,tm.length,...NP_TM_DEF);renderTm();renderPv()});rs.className='ccAdd';box.append(rs);
+      const rs=mkB('↺ ডিফল্ট শর্তাবলীতে ফিরুন','',()=>{tm.splice(0,tm.length,...(KIND=='q'?NPQ_TM:KIND=='u'?NPU_TM:NP_TM_DEF));renderTm();renderPv()});rs.className='ccAdd';box.append(rs);
       if(focusI!=null){const ta=box.querySelectorAll('.ccRow textarea')[focusI];if(ta)ta.focus()}}
     renderTm();
     const dirNames=()=>{let o={};try{o=JSON.parse(localStorage.getItem('duet_kp_dir')||'{}')||{}}catch(x){}
@@ -4302,12 +4316,13 @@ window.npEmpOpen=async function(info){
       (Array.isArray(o.list)?o.list:[]).forEach(x=>{if(Array.isArray(x)&&/^অতিরিক্ত\s*রেজিস্ট্রার$/.test(sp(x[0]).replace(/\s*,.*$/,'')))areg=un(x[1])});
       return{reg:un(o.reg||''),areg}};
     const getV=st=>({memo:sp((st||rd()).m),date:sp($$('npDt').value),synd:sp($$('npY').value),prob:sp($$('npPr').value),off:offT()});
+    const gv=id=>{const x=$$(id);return x?sp(x.value):''};
     const getVal=st=>{st=st||rd();const V=getV(st),nm=sp(st.n),ft=st.ft,fa=sp(st.a);
       return{
         MEMO:V.memo||NPX.d+DOT,DATE:V.date?(/^\//.test(V.date)?'\u00a0\u00a0\u00a0\u00a0\u00a0'+V.date:V.date):DOT,SYND:V.synd||'……',
         NAME:sp(st.t+' '+nm),FATHER:sp((ft?ft+' ':'')+(fa||DOT)),
         DEPT:(sp($$('npD').value)||DOT)+' এর ',POST:'“'+(sp($$('npPo').value)||DOT)+'”',
-        SCALE:sp($$('npS').value)||DOT,GRADE:' (গ্রেড-'+(sp($$('npG').value)||'……')+')',PROB:V.prob||'০২ (দুই)',
+        SCALE:sp($$('npS').value)||DOT,GRADE:' (গ্রেড-'+(sp($$('npG').value)||'……')+')',PROB:V.prob||'০২ (দুই)',KIND:KIND,CURPOST:gv('npCp')||DOT,SDATE:gv('npSd')||DOT,EDATE:gv('npEd')||DOT,DEPTS:gv('npDs')||sp($$('npD').value)||DOT,DEPTG:npDeptForms(sp($$('npD').value)||DOT).deptG,DEPTL:npDeptForms(sp($$('npD').value)||DOT).deptL,UNITG:npDeptForms(sp($$('npD').value)).unitG,
         OFFHEAD:(V.off||DOT).replace(/[।.\s]+$/,'')+'।',
         PRESENT:(sp(st.p)||DOT).replace(/[।\s]+$/,''),PERM:(sp(st.q)||DOT).replace(/[।\s]+$/,''),REGN:dirNames().reg,AREGN:dirNames().areg,PFX:NPX.p,NOSEMI:(!V.memo||V.memo.replace(/\s/g,'')==NPX.d),CC:cc.map(x=>({k:x.k,t:x.t})),TERMS:tm.slice()}};
     /* ---- লাইভ প্রিভিউ (Word টেমপ্লেটের লেখা অনুযায়ী) ---- */
@@ -4338,11 +4353,12 @@ const letterH=v=>{
   const memoDate=(sz)=>[para(memo,{sz}),para('তারিখ : '+V('DATE')+' খ্রি.',{sz,jc:'right'})];
   const tbl=(w1,w2,rows,topRule)=>'<table class="npT" style="width:'+px(w1+w2)+'"><colgroup><col style="width:'+px(w1)+'"><col style="width:'+px(w2)+'"></colgroup>'+rows.map(r=>'<tr>'+r.map((c,i)=>'<td'+(topRule?' style="border-top:1.5pt solid #000"':'')+'>'+c+'</td>').join('')+'</tr>').join('')+'</table>';
   const tmPv=()=>{let o=gapT(6),n=0;tm.forEach((t,i)=>{const tx0=sp(t);if(!tx0)return;
-      const tx=tx0.split('{PROB}').map(e).join(V('PROB')).replace('(Probation Period)','<span class="lat" style="font-size:'+Math.min(B,20)/2+'pt">(Probation Period)</span>');
+      const tx=tx0.split(/(\{PROB\}|\{SDATE\}|\{EDATE\})/).map(pp=>/^\{(PROB|SDATE|EDATE)\}$/.test(pp)?V(pp.slice(1,-1)):e(pp)).join('').replace('(Probation Period)','<span class="lat" style="font-size:'+Math.min(B,20)/2+'pt">(Probation Period)</span>');
       o+=para(num(bnD(i+1)+'।',720)+tx,{jc:'justify',l:720,h:720})+gapT(6);n++});
     return n?o.slice(0,o.length-gapT(6).length)+para('',{sz:B,sp:2}):o};
   const ccPv=()=>{let o='';cc.forEach((it,i)=>{const no=num(bnD(i+1)+'।',486),H={l:486,h:486},C={l:486};
-      if(it.k=='c'){o+=para(no+b(V('NAME')+', পিতা-'+V('FATHER')),H)+para(b('বর্তমান ঠিকানা : ')+b(V('PRESENT')+'।'),C)+para(b('স্থায়ী ঠিকানা : ')+V('PERM')+'।',C)}
+      if(it.k=='c'&&v.KIND){o+=para(no+V('NAME')+', '+V('CURPOST')+', '+V('DEPTS')+', ডুয়েট, গাজীপুর।',H)+para(b('স্থায়ী ঠিকানা: ')+V('PERM')+'।',C)}
+      else if(it.k=='c'){o+=para(no+b(V('NAME')+', পিতা-'+V('FATHER')),H)+para(b('বর্তমান ঠিকানা : ')+b(V('PRESENT')+'।'),C)+para(b('স্থায়ী ঠিকানা : ')+V('PERM')+'।',C)}
       else if(it.k=='o')o+=para(no+V('OFFHEAD'),H);
       else{const ls_=String(it.t||'').split(/\n/).map(sp).filter(Boolean);if(!ls_.length)ls_.push(DOT);
         ls_.forEach((l,j)=>{const t='<span class="v">'+e(j==ls_.length-1?npEnd(l):l)+'</span>';o+=j?para(t,Object.assign({},C,/^\(/.test(l)?{sz:Math.min(B,18)}:{})):para(no+t,H)})}});return o};
@@ -4359,11 +4375,11 @@ const letterH=v=>{
     gap(8),
     para(b('অফিস আদেশ'),{sz:36,mk:50,jc:'center',mf:1}),
     gap(6),
-    para('সিলেকশন কমিটির সুপারিশ ও সিন্ডিকেটের '+V('SYND')+' তম সভার অনুমোদনক্রমে '+b(V('NAME')+', পিতা-'+V('FATHER'))+'-কে শারীরিক উপযুক্ততার প্রমাণ স্বরূপ ডাক্তারী পরীক্ষার সনদপত্র দাখিল ও চরিত্র পূর্ব পরিচয় পুলিশের তদন্ত রিপোর্ট এবং জাতীয় নিরাপত্তা গোয়েন্দা সংস্থা (এনএসআই)-এর রিপোর্টে নির্দোষ প্রমাণ সাপেক্ষে অত্র বিশ্ববিদ্যালয়ের '+V('DEPT')+b(V('POST')+' ')+'পদে '+b(V('SCALE'))+V('GRADE')+' টাকা বেতনস্কেলে ও বিশ্ববিদ্যালয়ের নিয়মানুযায়ী দেয় অন্যান্য ভাতায় যোগদানের তারিখ হইতে নিম্নবর্ণিত শর্তে এতদ্বারা সম্পূর্ণ অস্থায়ী ভিত্তিতে নিয়োগদান করা হইল।',{jc:'justify',f:720}),
+    v.KIND?para(npIntroParts(v).map(p=>{const x=p[2]=='NAME'?V('NAME')+', পিতা-'+V('FATHER'):(p[2]?V(p[2]):e(p[0]));return p[1]?b(x):x}).join(''),{jc:'justify',f:720}):para('সিলেকশন কমিটির সুপারিশ ও সিন্ডিকেটের '+V('SYND')+' তম সভার অনুমোদনক্রমে '+b(V('NAME')+', পিতা-'+V('FATHER'))+'-কে শারীরিক উপযুক্ততার প্রমাণ স্বরূপ ডাক্তারী পরীক্ষার সনদপত্র দাখিল ও চরিত্র পূর্ব পরিচয় পুলিশের তদন্ত রিপোর্ট এবং জাতীয় নিরাপত্তা গোয়েন্দা সংস্থা (এনএসআই)-এর রিপোর্টে নির্দোষ প্রমাণ সাপেক্ষে অত্র বিশ্ববিদ্যালয়ের '+V('DEPT')+b(V('POST')+' ')+'পদে '+b(V('SCALE'))+V('GRADE')+' টাকা বেতনস্কেলে ও বিশ্ববিদ্যালয়ের নিয়মানুযায়ী দেয় অন্যান্য ভাতায় যোগদানের তারিখ হইতে নিম্নবর্ণিত শর্তে এতদ্বারা সম্পূর্ণ অস্থায়ী ভিত্তিতে নিয়োগদান করা হইল।',{jc:'justify',f:720}),
     gap(2),
-    para('<u>'+b('নিয়োগের শর্তাবলী')+'</u>'+b(' :-'),{f:720}),
+    para('<u>'+b(v.KIND=='u'?'শর্তাবলী':'নিয়োগের শর্তাবলী')+'</u>'+b(v.KIND=='q'?' :':' :-'),{f:720}),
     tmPv(),
-    para('এই আদেশ বিশ্ববিদ্যালয়ের স্বার্থে জারী করা হইল এবং উক্ত পদে যোগদানের তারিখ হইতে এই নিয়োগ কার্যকর হইবে।',{jc:'justify',f:720}),
+    (v.KIND=='u'?'':para(v.KIND=='q'?'এই আদেশ বিশ্ববিদ্যালয়ের স্বার্থে জারী করা হইল।':'এই আদেশ বিশ্ববিদ্যালয়ের স্বার্থে জারী করা হইল এবং উক্ত পদে যোগদানের তারিখ হইতে এই নিয়োগ কার্যকর হইবে।',{jc:'justify',f:720})),
     gap(P[3]),gap(8),
     tbl(5418,4050,[['',para(regN,{jc:'center'})+para('রেজিস্ট্রার (অতিরিক্ত দায়িত্ব)',{jc:'center'})+para('ফোন : ৪৯২৭৪০০৩ (অফিস)',{jc:'center'})],[para(memo),para('তারিখ : '+V('DATE')+' খ্রি.',{jc:'right'})]]),
     para(b('অনুলিপি : সদয় জ্ঞাতার্থে ও কার্যার্থে (প্রযোজ্য ক্ষেত্রে)-')),
@@ -4387,7 +4403,7 @@ const letterH=v=>{
   const UU=(info.upg&&info.uid&&window.UPGS)?UPGS.find(x=>x.id==info.uid):null;const NC=UU?Math.max(1,Math.min(20,Math.max(UU.count||1,(UU.letters||[]).length))):Math.max(1,Math.min(20,D0.count||1));
   const blankC=()=>({sm:false,c:'',f:'',t:'জনাব',n:'',ft:'জনাব',a:'',p:'',q:'',ne:'',fe:'',pe:'',qe:'',m:null,min:false});
   const cands=Array.from({length:NC},blankC);cands[0].m=L[MK]||NPX.d;let act=0;
-  if(UU&&UU.letters&&UU.letters.length){UU.letters.forEach((l,i)=>{if(cands[i])Object.assign(cands[i],blankC(),l,{min:false})});const cm=UU.common||{};if(cm.dt)$$('npDt').value=cm.dt;if(cm.synd!=null)$$('npY').value=cm.synd;if(cm.prob)$$('npPr').value=cm.prob}
+  if(UU&&UU.letters&&UU.letters.length){UU.letters.forEach((l,i)=>{if(cands[i])Object.assign(cands[i],blankC(),l,{min:false})});const cm=UU.common||{};if(cm.dt)$$('npDt').value=cm.dt;if(cm.synd!=null)$$('npY').value=cm.synd;if(cm.prob)$$('npPr').value=cm.prob;if(KIND){if(cm.sd!=null)$$('npSd').value=cm.sd;if(cm.ed!=null&&$$('npEd'))$$('npEd').value=cm.ed;if(cm.cp!=null)$$('npCp').value=cm.cp;if(cm.ds!=null)$$('npDs').value=cm.ds}}
   const incM=m=>/[০-৯]+$/.test(m)?m.replace(/[০-৯]+$/,x=>bnD(parseInt(bn(x),10)+1)):m;
   const setSm=on=>{const b=$$('npSm');b.dataset.on=on?'1':'0';b.classList.toggle('on',!!on);b.textContent=(on?'✔ ':'☐ ')+'বর্তমান ও স্থায়ী ঠিকানা একই';$$('npQ').readOnly=!!on;$$('npQ').style.opacity=on?'.7':''};
   $$('npSm').onclick=()=>{const on=$$('npSm').dataset.on!='1';setSm(on);if(on)$$('npQ').value=$$('npP').value;ov.dispatchEvent(new Event('input'))};
@@ -4422,7 +4438,7 @@ const letterH=v=>{
     const m=finAll();
     if(m[FNK]&&confirm('এটি আগেই চূড়ান্ত করা আছে।\n\nOK = চূড়ান্ত চিহ্ন তুলে নিন\nCancel = বর্তমান তথ্য দিয়ে হালনাগাদ করুন')){delete m[FNK];finPut(m);finUi();toast('চূড়ান্ত চিহ্ন তুলে নেওয়া হয়েছে');return}
     const vals=idx.map(i=>{const v=getVal(cands[i]);delete v.CC;delete v.TERMS;return v});
-    m[FNK]={rec:info.name,cat:NPC,catT:NPX.t,upg:!!info.upg,uid:info.uid||'',post:sp($$('npPo').value),dept:sp($$('npD').value),grade:sp($$('npG').value),scale:sp($$('npS').value),date:sp($$('npDt').value),synd:sp($$('npY').value),prob:sp($$('npPr').value),pfx:NPX.p,cands:vals,ts:Date.now()};
+    m[FNK]={rec:info.name,cat:NPC,catT:NPX.t,upg:!!info.upg,uid:info.uid||'',post:sp($$('npPo').value),dept:sp($$('npD').value),grade:sp($$('npG').value),scale:sp($$('npS').value),date:sp($$('npDt').value),synd:sp($$('npY').value),prob:sp($$('npPr').value),kind:KIND,sdate:gv('npSd'),edate:gv('npEd'),curpost:gv('npCp'),pfx:NPX.p,cands:vals,ts:Date.now()};
     if(finPut(m)){finUi();toast('✔ চূড়ান্ত নিয়োগপত্র সংরক্ষিত ('+bnD(vals.length)+' জন) — নোটশীটে এই তথ্যই যাবে')}else toast('⚠ সংরক্ষণ করা যায়নি');
   };
   window.finalNpAll=finAll;window.finalNpGet=k=>finAll()[k]||null;
@@ -4457,17 +4473,17 @@ const letterH=v=>{
     const idx=cands.map((c,i)=>i).filter(i=>sp(cands[i].n));
     if(!idx.length){toast('⚠ আগে প্রার্থী বাছুন বা নাম লিখুন');$$('npC').focus();return}
     const V=getV(cands[idx[idx.length-1]]);
-    lastSet({[MK]:V.memo,synd:V.synd,prob:V.prob,off:offT(),tm:tm.slice(),cc:cc.map(x=>[x.k,x.k=='c'?'':x.t])});
+    if(KIND)lastSet(Object.assign(lastGet(),{[MK]:V.memo,synd:V.synd}));else lastSet({[MK]:V.memo,synd:V.synd,prob:V.prob,off:offT(),tm:tm.slice(),cc:cc.map(x=>[x.k,x.k=='c'?'':x.t])});
     const b=$$('npDx'),old=b.textContent;b.disabled=true;b.textContent='⏳ তৈরি হচ্ছে...';
     try{
       const vals=idx.map(i=>getVal(cands[i])),val=vals[0],nm=sp(cands[idx[0]].n);
       if(vals.length>1)val.LIST=vals;
-      const fname=safe('নিয়োগপত্র - '+nm+(vals.length>1?' ও আরও '+bnD(vals.length-1)+' জন':'')+' - '+(sp($$('npPo').value)||'কর্মচারী'))+'.docx';
+      const fname=safe((KIND=='u'?'আপগ্রেডেশন আদেশ - ':'নিয়োগপত্র - ')+nm+(vals.length>1?' ও আরও '+bnD(vals.length-1)+' জন':'')+' - '+(sp($$('npPo').value)||'কর্মচারী'))+'.docx';
       val.FNAME=fname;
       const blob=await npDocx(val);await dl(blob,fname,'');toast('📄 নিয়োগপত্র তৈরি হয়েছে: '+nm+(vals.length>1?' সহ '+bnD(vals.length)+'টি (প্রতিটি আলাদা পাতায়)':''));
     }catch(err){console.error(err);toast('⚠ নিয়োগপত্র তৈরি করা যায়নি: '+(err&&err.message||err))}
     b.disabled=false;b.textContent=old};
-  const upgSave=()=>{if(!UU)return;try{sync()}catch(x){}UU.letters=cands.map((c,i)=>stOf(i)).filter(z=>sp(z.n)).map(z=>({sm:z.sm,c:z.c,f:z.f,t:z.t,n:z.n,ft:z.ft,a:z.a,p:z.p,q:z.q,ne:z.ne,fe:z.fe,pe:z.pe,qe:z.qe,m:z.m}));UU.common={dt:$$('npDt').value,synd:$$('npY').value,prob:$$('npPr').value};UU.ts=Date.now();upgPut();if(window.upgRefresh)upgRefresh();if(window.upgToRec)upgToRec(UU)};
+  const upgSave=()=>{if(!UU)return;try{sync()}catch(x){}UU.letters=cands.map((c,i)=>stOf(i)).filter(z=>sp(z.n)).map(z=>({sm:z.sm,c:z.c,f:z.f,t:z.t,n:z.n,ft:z.ft,a:z.a,p:z.p,q:z.q,ne:z.ne,fe:z.fe,pe:z.pe,qe:z.qe,m:z.m}));UU.common={dt:$$('npDt').value,synd:$$('npY').value,prob:$$('npPr').value,sd:gv('npSd'),ed:gv('npEd'),cp:gv('npCp'),ds:gv('npDs')};UU.tm=tm.slice();UU.cc=cc.map(x=>({k:x.k,t:x.k=='c'?'':x.t,dn:x.dn?1:0}));UU.ts=Date.now();upgPut();if(window.upgRefresh)upgRefresh();if(window.upgToRec)upgToRec(UU)};
   let upT=0;const upgAuto=()=>{if(!UU)return;clearTimeout(upT);upT=setTimeout(upgSave,300)};
   if(UU)['input','change','click','keyup'].forEach(ev=>ov.addEventListener(ev,upgAuto));
   /* আপগ্রেডেশন: নাম ঘরে Teacher List থেকে সংশ্লিষ্ট বিভাগ/ইনস্টিটিউট/সেন্টারের শিক্ষকদের নাম সাজেস্ট */
@@ -4506,7 +4522,10 @@ function npCcXml(t,val){
     const PPC='<w:pPr><w:spacing w:line="221" w:lineRule="auto"/><w:ind w:left="486"/></w:pPr>';
     let out='';
     (val.CC||[]).forEach((it,i)=>{const no=bnD(i+1)+'।';
-      if(it.k=='c'){
+      if(it.k=='c'&&val.KIND){
+        out+='<w:p>'+PPH+R(no)+TAB+R(val.NAME+', '+val.CURPOST+', '+val.DEPTS+', ডুয়েট, গাজীপুর।')+'</w:p>';
+        out+='<w:p>'+PPC+R('স্থায়ী ঠিকানা: ',1)+R(val.PERM+'।',0)+'</w:p>';
+      }else if(it.k=='c'){
         out+='<w:p>'+PPH+R(no)+TAB+R(val.NAME+', পিতা-'+val.FATHER,1)+'</w:p>';
         out+='<w:p>'+PPC+R('বর্তমান ঠিকানা : ',1)+R(val.PRESENT+'।',1)+'</w:p>';
         out+='<w:p>'+PPC+R('স্থায়ী ঠিকানা : ',1)+R(val.PERM+'।',0)+'</w:p>';
@@ -4526,6 +4545,49 @@ const NP_TM_DEF=['তাঁহাকে এই পত্র ইস্যুর �
 'তিনি বিশ্ববিদ্যালয়ের চাকরি হইতে অব্যাহতি গ্রহণ করিতে চাহিলে তাঁহাকে এক মাসের নোটিশ অথবা এক মাসের বেতন ও ভাতাদি সমর্পণ করিতে হইবে;',
 'তাঁহার চাকরি বিশ্ববিদ্যালয় আইন, প্রচলিত বিধি-বিধান, ষ্ট্যাটিউটস ও অর্ডিন্যান্স এবং ভবিষ্যতে যাহা প্রণীত হইবে তদানুযায়ী পরিচালিত হইবে;',
 'তিনি বা তাঁহার পরিবারের কোন সদস্য যৌতুক গ্রহণ বা প্রদান করিবেন না- এই মর্মে একটি অঙ্গীকারনামা যোগদান পত্রের সহিত দাখিল করিতে হইবে।'];
+/* ===== আপগ্রেডেশন (KIND 'u') ও অধ্যাপক (পার্সোনাল) (KIND 'q') — নমুনা অফিস আদেশ অনুযায়ী ===== */
+const NPU_TM=['তাঁহার এই আপগ্রেডেশন সিন্ডিকেটের অনুমোদনের তারিখ অর্থাৎ {SDATE} খ্রি. এর পরবর্তী কর্মদিবসে বিশ্ববিদ্যালয়ে তাঁহার উপস্থিত থাকা সাপেক্ষে কার্যকর হইবে এবং উক্ত কার্যকর দিবস হইতে তাঁহার চাকুরীর অভিজ্ঞতা গণনা এবং পে-ফিক্সেশন ও অন্যান্য আর্থিক সুবিধা প্রাপ্য হইবেন;',
+'আপগ্রেডেশন প্রাপ্তির পর আপগ্রেডেশন প্রাপ্ত পদের সমপর্যায়ের রাজস্ব পদ শূন্য হইলে আপগ্রেডেশন প্রাপ্ত শিক্ষকবৃন্দের আবেদনের প্রেক্ষিতে জ্যেষ্ঠতার ভিত্তিতে প্রশাসনিক আদেশের মাধ্যমে উক্ত রাজস্ব শূন্য পদে স্থানান্তর করা হইবে;',
+'আপগ্রেডেশন প্রাপ্ত শিক্ষক-কে আপগ্রেডেশন প্রাপ্ত পদের সমপর্যায়ের রাজস্ব শূন্য পদে স্থানান্তর করা সম্ভব না হইলে অবসর গ্রহণের ক্ষেত্রে আর্থিক সুবিধাদি সরকারি বিধি মোতাবেক প্রদেয় হইবে;',
+'আপগ্রেডেড পদটি কোন কারনে শূন্য হইলে সংশ্লিষ্ট মূল পদটি পুনরুজ্জীবিত হইবে;',
+'বিশ্ববিদ্যালয় কর্তৃপক্ষ কমপক্ষে এক মাসের নোটিশ অথবা এক মাসের বেতন ও ভাতাদি প্রদান পূর্বক তাঁহাকে চাকরি হইতে অব্যাহতি প্রদান করিতে পারিবেন;',
+'তিনি বিশ্ববিদ্যালয়ের চাকরি হইতে অব্যাহতি গ্রহণ করিতে চাহিলে তাঁহাকে এক মাসের নোটিশ অথবা এক মাসের বেতন ও ভাতাদি সমর্পণ করিতে হইবে;',
+'তাঁহার চাকরি বিশ্ববিদ্যালয় আইন, প্রচলিত বিধি-বিধান, ষ্ট্যাটিউটস্ ও অর্ডিন্যান্স এবং ভবিষ্যতে যাহা প্রণীত হইবে তদনুযায়ী পরিচালিত হইবে;',
+'উল্লিখিত আপগ্রেডেশন প্রদানের কারণে ভবিষ্যতে কোনরূপ অডিট আপত্তি উত্থাপিত হইলে সংশ্লিষ্ট শিক্ষককে ব্যক্তিগতভাবে উহা নিষ্পত্তি/পরিশোধ করিতে হইবে;'];
+const NPQ_TM=['তাঁহাকে এই পত্র ইস্যুর তারিখ হইতে ১৫ (পনের) দিনের মধ্যে (অফিস চলাকালীন) যোগদান করিতে হইবে। অন্যথায় অন্য কোন নোটিশ ছাড়াই এই নিয়োগপত্র বাতিল বলিয়া গণ্য হইবে;',
+'তাঁহার এই নিয়োগ উক্ত পদে নিয়োগ কার্যকারিতার তারিখ {EDATE} খ্রি. হইতে কার্যকর হইবে;',
+'তাঁহার সিনিয়রিটি ও পে-ফিক্সেশন নতুন পদে নিয়োগ কার্যকর হওয়ার তারিখ হইতে হইবে। তবে সিন্ডিকেট কর্তৃক নিয়োগ অনুমোদনের পরবর্তী কার্যদিবস হইতে তিনি নতুন পদের আর্থিক সুবিধা প্রাপ্য হইবেন;',
+'তাঁহার এই নিয়োগ সম্পূর্ণ অস্থায়ী এবং যে কোন সময় কোন কারণ দর্শানো ব্যতিরেকে বাতিলযোগ্য;',
+'বিশ্ববিদ্যালয় কর্তৃপক্ষ কমপক্ষে এক মাসের নোটিশ অথবা এক মাসের বেতন ও ভাতাদি প্রদান পূর্বক তাঁহাকে চাকরি হইতে অব্যাহতি প্রদান করিতে পারিবেন;',
+'তিনি বিশ্ববিদ্যালয়ের চাকরি হইতে অব্যাহতি গ্রহণ করিতে চাহিলে তাঁহাকে এক মাসের নোটিশ অথবা এক মাসের বেতন ও ভাতাদি সমর্পণ করিতে হইবে;',
+'তাঁহার চাকরি বিশ্ববিদ্যালয় আইন, প্রচলিত বিধি-বিধান, ষ্ট্যাটিউটস্ ও অর্ডিন্যান্স এবং ভবিষ্যতে যাহা প্রণীত হইবে তদনুযায়ী পরিচালিত হইবে;',
+'তিনি বা তাঁহার পরিবারের কোন সদস্য যৌতুক গ্রহণ বা প্রদান করিবেন না - এই মর্মে একটি অঙ্গীকারনামা যোগদান পত্রের সহিত দাখিল করিতে হইবে।'];
+const NPK_CURP={'অধ্যাপক':'সহযোগী অধ্যাপক','সহযোগী অধ্যাপক':'সহকারী অধ্যাপক','সহকারী অধ্যাপক':'প্রভাষক','অধ্যাপক (পার্সোনাল)':'সহযোগী অধ্যাপক'};
+function npKind(info){return info&&info.upg?(/পার্সোনাল/.test(info.post||'')?'q':'u'):''}
+function npDeptForms(d){d=String(d||'').replace(/\s+/g,' ').trim();
+  const unit=/^ইনস্টিটিউট/.test(d)?'ইনস্টিটিউট':/^সেন্টার/.test(d)?'সেন্টার':'বিভাগ';
+  const isB=/বিভাগ$/.test(d);
+  return{unitG:unit+'ের',deptG:isB?d+'ের':d+'-এর',deptL:isB?d+'ে':d+'-এ'}}
+function npDeptShort(d){d=String(d||'').trim();return /^ইন্ডাস্ট্রিয়াল এন্ড প্রোডাকশন/.test(d)?'আইপিই বিভাগ':d}
+function npDeanOf(d){d=String(d||'');
+  if(/পুরকৌশল/.test(d))return'ডীন, সিভিল ইঞ্জিনিয়ারিং অনুষদ।';
+  if(/ইন্ডাস্ট্রিয়াল এন্ড প্রোডাকশন|যন্ত্রকৌশল|টেক্সটাইল/.test(d))return'ডীন, মেকানিক্যাল ইঞ্জিনিয়ারিং অনুষদ।';
+  return'ডীন, ……… অনুষদ।'}
+const NPU_CC=[['t','পিএস টু ভিসি (ভাইস-চ্যান্সেলর মহোদয়ের সদয় অবগতির জন্য)।'],['t','এপিএস টু প্রো-ভিসি (প্রো-ভাইস-চ্যান্সেলর মহোদয়ের সদয় অবগতির জন্য)।'],['t','',1],['o',''],['t','পরিচালক (কম্পিউটার সেন্টার)।'],['t','কম্পট্রোলার (অতিরিক্ত দায়িত্ব)।'],['t','অফিস প্রধান, অডিট সেল।'],['c',''],['t','জনাব মোঃ শাহাদাৎ হোসেন, সিনিয়র অফিস এসিসটেন্ট কাম কম্পিউটার অপারেটর, সংস্থাপন শাখা\n(জনবলের তথ্য হালনাগাদ করার জন্য অনুরোধ করা হইল)।'],['t','সংরক্ষণ নথি/ব্যক্তিগত নথি/গার্ড ফাইল।']];
+const NPQ_CC=[['t','পিএস টু ভিসি/প্রো-ভিসি (ভাইস-চ্যান্সেলর ও প্রো-ভাইস চ্যান্সেলর মহোদয়ের সদয় অবগতির জন্য)।'],['t','',1],['o',''],['t','পরিচালক (কম্পিউটার সেন্টার)।'],['c',''],['t','কম্পট্রোলার (অতিরিক্ত দায়িত্ব)।'],['t','অফিস প্রধান, অডিট সেল।'],['t','জনাব মোঃ শাহাদাৎ হোসেন, সিনিয়র অফিস এসিসটেন্ট কাম কম্পিউটার অপারেটর, সংস্থাপন শাখা\n(জনবলের তথ্য হালনাগাদ করার জন্য অনুরোধ করা হইল)।'],['t','সংরক্ষণ নথি/ব্যক্তিগত নথি/গার্ড ফাইল।']];
+function npTmFill(tx,val){return String(tx).split('খ্রিঃ').join('খ্রি.').split('{PROB}').join(String(val.PROB==null?'':val.PROB)).split('{SDATE}').join(String(val.SDATE==null?'':val.SDATE)).split('{EDATE}').join(String(val.EDATE==null?'':val.EDATE))}
+/* অনুচ্ছেদের লেখা: [[লেখা, মোটা?], ...] — প্রিভিউ, Word ও পৃষ্ঠা-মাপ হিসাব তিনটিতেই এটি ব্যবহার হয় */
+function npIntroParts(v){
+  if(v.KIND=='u')return[['অত্র বিশ্ববিদ্যালয়ের শিক্ষকবৃন্দের আপগ্রেডেশন প্রদান সংক্রান্ত নীতিমালা-২০২৫ অনুযায়ী তাঁহার আবেদনের পরিপ্রেক্ষিতে সিলেকশন কমিটির সুপারিশ ও সিন্ডিকেটের ',0],[v.SYND,0,'SYND'],[' তম সভার অনুমোদনক্রমে ',0],[v.DEPTL,0,'DEPTL'],[' ',0],[v.CURPOST,0,'CURPOST'],[' পদে কর্মরত ',0],[v.NAME+', পিতা-'+v.FATHER,1,'NAME'],['-কে উক্ত '+v.UNITG+' ',0],[v.POST,1,'POST'],[' পদে ',0],[v.SCALE,1,'SCALE'],[v.GRADE+' বেতনস্কেলে নিম্নবর্ণিত শর্তে আপগ্রেডেশন প্রদান করা হইল।',0]];
+  return[['সিলেকশন কমিটির সুপারিশ ও ',0],[v.SDATE,0,'SDATE'],[' তারিখে অনুষ্ঠিত সিন্ডিকেটের ',0],[v.SYND,0,'SYND'],[' তম সভার অনুমোদনক্রমে ',0],[v.NAME+', পিতা-'+v.FATHER,1,'NAME'],['-কে শারীরিক উপযুক্ততার প্রমাণ স্বরূপ ডাক্তারী পরীক্ষার সনদপত্র দাখিল এবং চরিত্র পূর্ব পরিচয় পুলিশের তদন্ত রিপোর্টে সন্তোষজনক হওয়া সাপেক্ষে অত্র বিশ্ববিদ্যালয়ের ',0],[v.DEPTG,0,'DEPTG'],[' ',0],[v.POST,1,'POST'],[' পদে ',0],[v.SCALE,1,'SCALE'],[' টাকা বেতনস্কেলে ও বিশ্ববিদ্যালয়ের নিয়মানুযায়ী দেয় অন্যান্য ভাতায় যোগদানের তারিখ হইতে নিম্নবর্ণিত শর্তে এতদ্বারা সম্পূর্ণ অস্থায়ী ভিত্তিতে নিয়োগদান করা হইল।',0]]}
+function npKindXml(t,val){
+  const K=val.KIND;if(!K)return t;
+  const R=(x,b)=>'<w:r><w:rPr><w:rFonts w:ascii="Kalpurush" w:eastAsia="Kalpurush" w:hAnsi="Kalpurush" w:cs="Kalpurush"/>'+(b?'<w:b/><w:bCs/>':'')+'<w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t xml:space="preserve">'+XE(x)+'</w:t></w:r>';
+  const pa=(id,fn)=>{const k=t.indexOf('w14:paraId="'+id+'"');if(k<0)return;const a=t.lastIndexOf('<w:p ',k),b=t.indexOf('</w:p>',k)+6;t=t.slice(0,a)+fn(t.slice(a,b))+t.slice(b)};
+  pa('1CFFB200',old=>{const pPr=old.slice(old.indexOf('<w:pPr>'),old.indexOf('</w:pPr>')+8);return '<w:p>'+pPr+'<w:r><w:tab/></w:r>'+npIntroParts(val).map(p=>R(p[0],p[1])).join('')+'</w:p>'});
+  t=t.replace('<w:t>নিয়োগের শর্তাবলী</w:t>',K=='u'?'<w:t>শর্তাবলী</w:t>':'<w:t>নিয়োগের শর্তাবলী</w:t>').replace('<w:t xml:space="preserve"> :-</w:t>',K=='q'?'<w:t xml:space="preserve"> :</w:t>':'<w:t xml:space="preserve"> :-</w:t>');
+  pa('10A477C3',old=>K=='u'?'':old.replace('এই আদেশ বিশ্ববিদ্যালয়ের স্বার্থে জারী করা হইল এবং উক্ত পদে যোগদানের তারিখ হইতে এই নিয়োগ কার্যকর হইবে।','এই আদেশ বিশ্ববিদ্যালয়ের স্বার্থে জারী করা হইল।'));
+  return t}
 /* নিয়োগের শর্তাবলী (সম্পাদনাযোগ্য) → Word XML */
 function npTmXml(t,val){
   const tm=val.TERMS;if(!Array.isArray(tm))return t;
@@ -4539,17 +4601,18 @@ function npTmXml(t,val){
   const SPL='<w:p><w:pPr><w:spacing w:line="221" w:lineRule="auto"/><w:rPr><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr></w:pPr></w:p>';
   let out=SP,n=0;
   tm.forEach((x,i)=>{const tx=String(x||'').replace(/\s+/g,' ').trim();if(!tx)return;
-    out+='<w:p>'+PP+R(bn(i+1)+'।')+'<w:r><w:tab/></w:r>'+R(tx.split('{PROB}').join(String(val.PROB==null?'':val.PROB)))+'</w:p>'+SP;n++});
+    out+='<w:p>'+PP+R(bn(i+1)+'।')+'<w:r><w:tab/></w:r>'+R(npTmFill(tx,val))+'</w:p>'+SP;n++});
   if(n)out=out.slice(0,out.length-SP.length)+SPL; /* শেষ শর্তের পর পুরো এক লাইন ফাঁকা */
   return t.slice(0,a)+out+t.slice(b)}
 function npFitLines(val){
   const S=x=>String(x==null?'':x),ln=(x,c)=>Math.max(1,Math.ceil(S(x).length/c));
-  let n=ln('সিলেকশন কমিটির সুপারিশ ও সিন্ডিকেটের '+S(val.SYND)+' তম সভার অনুমোদনক্রমে '+S(val.NAME)+' পিতা-'+S(val.FATHER)+'-কে শারীরিক উপযুক্ততার প্রমাণ স্বরূপ ডাক্তারী পরীক্ষার সনদপত্র দাখিল ও চরিত্র পূর্ব পরিচয় পুলিশের তদন্ত রিপোর্ট এবং জাতীয় নিরাপত্তা গোয়েন্দা সংস্থা (এনএসআই)-এর রিপোর্টে নির্দোষ প্রমাণ সাপেক্ষে অত্র বিশ্ববিদ্যালয়ের '+S(val.DEPT)+S(val.POST)+' পদে '+S(val.SCALE)+S(val.GRADE)+' টাকা বেতনস্কেলে ও বিশ্ববিদ্যালয়ের নিয়মানুযায়ী দেয় অন্যান্য ভাতায় যোগদানের তারিখ হইতে নিম্নবর্ণিত শর্তে এতদ্বারা সম্পূর্ণ অস্থায়ী ভিত্তিতে নিয়োগদান করা হইল।',NP_CPL);
+  let n=val.KIND?ln(npIntroParts(val).map(p=>S(p[0])).join(''),NP_CPL):ln('সিলেকশন কমিটির সুপারিশ ও সিন্ডিকেটের '+S(val.SYND)+' তম সভার অনুমোদনক্রমে '+S(val.NAME)+' পিতা-'+S(val.FATHER)+'-কে শারীরিক উপযুক্ততার প্রমাণ স্বরূপ ডাক্তারী পরীক্ষার সনদপত্র দাখিল ও চরিত্র পূর্ব পরিচয় পুলিশের তদন্ত রিপোর্ট এবং জাতীয় নিরাপত্তা গোয়েন্দা সংস্থা (এনএসআই)-এর রিপোর্টে নির্দোষ প্রমাণ সাপেক্ষে অত্র বিশ্ববিদ্যালয়ের '+S(val.DEPT)+S(val.POST)+' পদে '+S(val.SCALE)+S(val.GRADE)+' টাকা বেতনস্কেলে ও বিশ্ববিদ্যালয়ের নিয়মানুযায়ী দেয় অন্যান্য ভাতায় যোগদানের তারিখ হইতে নিম্নবর্ণিত শর্তে এতদ্বারা সম্পূর্ণ অস্থায়ী ভিত্তিতে নিয়োগদান করা হইল।',NP_CPL);
   (val.CC||[]).forEach(it=>{
-    if(it.k=='c')n+=ln(S(val.NAME)+', পিতা-'+S(val.FATHER),NP_CPL-6)+ln('বর্তমান ঠিকানা : '+S(val.PRESENT)+'।',NP_CPL-6)+ln('স্থায়ী ঠিকানা : '+S(val.PERM)+'।',NP_CPL-6);
+    if(it.k=='c'&&val.KIND)n+=ln(S(val.NAME)+', '+S(val.CURPOST)+', '+S(val.DEPTS)+', ডুয়েট, গাজীপুর।',NP_CPL-6)+ln('স্থায়ী ঠিকানা: '+S(val.PERM)+'।',NP_CPL-6);
+    else if(it.k=='c')n+=ln(S(val.NAME)+', পিতা-'+S(val.FATHER),NP_CPL-6)+ln('বর্তমান ঠিকানা : '+S(val.PRESENT)+'।',NP_CPL-6)+ln('স্থায়ী ঠিকানা : '+S(val.PERM)+'।',NP_CPL-6);
     else if(it.k=='o')n+=ln(S(val.OFFHEAD),NP_CPL-6);
     else{const ls=S(it.t).split(/\n/).map(x=>x.trim()).filter(Boolean);n+=ls.length?ls.reduce((a,l)=>a+ln(l,NP_CPL-6),0):1}});
-  if(Array.isArray(val.TERMS)){const f=x=>ln(S(x).split('{PROB}').join(S(val.PROB)),NP_CPL-6);n+=val.TERMS.reduce((a,x)=>a+f(x),0)-NP_TM_DEF.reduce((a,x)=>a+f(x),0)}
+  if(Array.isArray(val.TERMS)){const f=x=>ln(npTmFill(x,val),NP_CPL-6);n+=val.TERMS.reduce((a,x)=>a+f(x),0)-NP_TM_DEF.reduce((a,x)=>a+f(x),0)}
   return n}
 const NP_CPL=92,NP_L0=20,NP_L1=28,NP_L2=38;
 function npFitLvl(val){
@@ -4567,7 +4630,7 @@ function npFit(t,val){
   pa('654B396D',sz(8));pa('47E81EC9',sz(6));pa('30EA52B1',sz(P[3]));pa('413E4E16',sz(2));
   ['7496DE69','75115092','05D59473','1751202C','6526F669','70AAA562','19CAB593'].forEach(id=>pa(id,sz(6)));
   /* "নিয়োগের শর্তাবলী :-" লাইনের উপরে একটু ফাঁকা জায়গা */
-  {const hk=t.indexOf('<w:t>নিয়োগের শর্তাবলী</w:t>');if(hk>0){const a=t.lastIndexOf('<w:p ',hk),g=[26,24,22,20][lv];t=t.slice(0,a)+'<w:p><w:pPr><w:spacing w:line=\"221\" w:lineRule=\"auto\"/><w:rPr><w:sz w:val=\"'+g+'\"/><w:szCs w:val=\"'+g+'\"/></w:rPr></w:pPr></w:p>'+t.slice(a)}}
+  {let hk=t.indexOf('<w:t>নিয়োগের শর্তাবলী</w:t>');if(hk<0)hk=t.indexOf('<w:t>শর্তাবলী</w:t>');if(hk>0){const a=t.lastIndexOf('<w:p ',hk),g=[26,24,22,20][lv];t=t.slice(0,a)+'<w:p><w:pPr><w:spacing w:line=\"221\" w:lineRule=\"auto\"/><w:rPr><w:sz w:val=\"'+g+'\"/><w:szCs w:val=\"'+g+'\"/></w:rPr></w:pPr></w:p>'+t.slice(a)}}
   t=t.replace(/w:line=\"221\"/g,'w:line=\"'+P[1]+'\"');
   if(P[2]!=22)t=t.replace(/(<w:sz(?:Cs)? w:val=\")22(\")/g,'$1'+P[2]+'$2');
   /* ফুটার রেফারেন্স বাদ + মার্জিন (ফুটার না থাকায় নিচের জায়গা ফাঁকা) */
@@ -4575,7 +4638,7 @@ function npFit(t,val){
   t=t.replace(/<w:pgMar [^>]*\/>/,'<w:pgMar w:top=\"'+P[0]+'\" w:right=\"1296\" w:bottom=\"'+P[0]+'\" w:left=\"1584\" w:header=\"0\" w:footer=\"0\" w:gutter=\"0\"/>');
   return t}
 /* একটি প্রার্থীর নিয়োগপত্রের document.xml */
-function npBuildDoc(t,val){t=npCcXml(t,val);t=npTmXml(t,val);t=t.replace(/>\s{2,}পিতা-/,'> পিতা-');if(val.REGN)t=t.replace('(অধ্যাপক ড. মো: মোস্তাকুর রহমান)','('+XE(val.REGN)+')');if(val.AREGN)t=t.replace('(মো: মফিজুর রহমান)','('+XE(val.AREGN)+')');if(val.NOSEMI)t=t.replace(/(\{\{MEMO\}\}<\/w:t><\/w:r><w:r>(?:<w:rPr>(?:(?!<\/w:rPr>)[\s\S])*<\/w:rPr>)?)<w:t>;<\/w:t>/g,'$1<w:t></w:t>');t=t.replace(/\{\{([A-Z]+)\}\}/g,(m,k)=>XE(val[k]==null?'':val[k]));return npFit(t,val)}
+function npBuildDoc(t,val){t=npKindXml(t,val);t=npCcXml(t,val);t=npTmXml(t,val);t=t.replace(/>\s{2,}পিতা-/,'> পিতা-');if(val.REGN)t=t.replace('(অধ্যাপক ড. মো: মোস্তাকুর রহমান)','('+XE(val.REGN)+')');if(val.AREGN)t=t.replace('(মো: মফিজুর রহমান)','('+XE(val.AREGN)+')');if(val.NOSEMI)t=t.replace(/(\{\{MEMO\}\}<\/w:t><\/w:r><w:r>(?:<w:rPr>(?:(?!<\/w:rPr>)[\s\S])*<\/w:rPr>)?)<w:t>;<\/w:t>/g,'$1<w:t></w:t>');t=t.replace(/\{\{([A-Z]+)\}\}/g,(m,k)=>XE(val[k]==null?'':val[k]));return npFit(t,val)}
 /* পরের প্রার্থীর পত্র নতুন পাতায় (একই ডকুমেন্টে) জোড়া */
 function npAppendLetter(base,add,k){
   const a=add.indexOf('<w:body>')+8,b=add.lastIndexOf('<w:sectPr');
@@ -4814,10 +4877,10 @@ window.noteOpen=function(CAT){
       fld('sdate','সিন্ডিকেট সভার তারিখ','০৮/০২/২০২৬')+fldv('synd','সিন্ডিকেটের সভা নং (…তম) — নিয়োগপত্র থেকে',S.synd||autoSynd(a),'১৩৫')+fld('pb','পতাকা (সুপারিশ)','খ')+'</div>'+
     '<h4>৩) যোগদানের সময়সীমা</h4><div class="nsG">'+fld('join','যোগদানের তারিখ (সব পদের)','০৯/০২/২০২৬')+fld('days','দিন','১৫')+'</div>'+
     '<h4>৪) নিয়োগ — চূড়ান্ত নিয়োগপত্র থেকে ('+LB+')</h4>'+rowsForm(F.filter(f=>!f.upg),'r')+
-    (CAT=='t'?('<h4>৫) আপগ্রেডেশন — চূড়ান্ত নিয়োগপত্র থেকে</h4><div class="nsG">'+fld('upMemo','নীতিমালার স্মারক নং')+fld('upDate','নীতিমালার তারিখ','৩০/০৬/২০২৬')+fld('upSdate','সিন্ডিকেট সভার তারিখ','ফাঁকা = উপরের মতো')+fld('upSynd','সিন্ডিকেটের সভা নং (…তম)','ফাঁকা = উপরের মতো')+fld('pc','পতাকা','গ')+'</div>'+rowsForm(F.filter(f=>f.upg),'u')):'')+'<h4>৬) স্বাক্ষর</h4><div class="nsG">'+fld('dr','বাম পাশের পদবি')+fld('drSub','বাম পাশের শাখা')+fld('ar','ডান পাশের পদবি')+'</div>'+
+    (CAT=='t'?('<h4>৫) আপগ্রেডেশন — চূড়ান্ত নিয়োগপত্র থেকে</h4><div class="nsG">'+fld('upMemo','নীতিমালার স্মারক নং')+fld('upDate','নীতিমালার তারিখ','৩০/০৬/২০২৬')+fld('upSdate','সিন্ডিকেট সভার তারিখ','ফাঁকা = ………')+fld('upSynd','সিন্ডিকেটের সভা নং (…তম)','ফাঁকা = ………')+fld('pc','পতাকা','গ')+'</div>'+rowsForm(F.filter(f=>f.upg),'u')):'')+'<h4>৬) স্বাক্ষর</h4><div class="nsG">'+fld('dr','বাম পাশের পদবি')+fld('drSub','বাম পাশের শাখা')+fld('ar','ডান পাশের পদবি')+'</div>'+
     '<div class="nsHint" style="margin-top:12px"><button type="button" id="nsRf">↻ চূড়ান্ত নিয়োগপত্রের তালিকা হালনাগাদ</button><br>এখানে শুধু “চূড়ান্ত নিয়োগপত্র” করা তথ্যই আসে। ফাঁকা ঘরে প্রিভিউতে ……… বসবে।</div>';
     $('nsRf').onclick=()=>{F=finals(CAT);buildForm();render()};updPh()};
-  const updPh=()=>{const m=model(),f=(k,v)=>{const i=ov.querySelector('[data-k="'+k+'"]');if(i)i.placeholder='ফাঁকা = উপরের মতো'+(v?': '+bnD(v):'')};f('upSdate',sp(S.sdate));f('upSynd',m.synd||autoSynd(upgs()))};
+  const updPh=()=>{const m=model(),f=(k,v)=>{const i=ov.querySelector('[data-k="'+k+'"]');if(i)i.placeholder='ফাঁকা = ………'};f('upSdate');f('upSynd')};
   const onIn=ev=>{const t=ev.target;
     if(t.dataset&&t.dataset.k!=null)S[t.dataset.k]=t.value;
     else if(t.dataset&&t.dataset.rj!=null)S.rowJoin[t.dataset.rj]=t.value;
@@ -4836,7 +4899,7 @@ window.noteOpen=function(CAT){
       memo:bnD(sp(S.memo)||(nt&&nt.memo)||''),
       mdate:sp(S.mdate)||(nt&&nt.date)||'',
       synd:sp(S.synd)||autoSynd(a),usynd:'',usdate:''};
-    m.usynd=sp(S.upSynd)||m.synd||autoSynd(u);m.usdate=sp(S.upSdate)||sp(S.sdate);
+    m.usynd=sp(S.upSynd);m.usdate=sp(S.upSdate);
     const seen=[];a.forEach(f=>{const x=notice(f.rec);if(x&&!seen.some(y=>y.short==x.short&&y.date==x.date))seen.push(x)});
     m.nts=seen;
     m.noticeTxt=(sp(S.memo)||sp(S.mdate)||seen.length<2)?'স্মারক নং-'+(m.memo||DOT)+'; তারিখ : '+D(m.mdate)+' খ্রি.':
