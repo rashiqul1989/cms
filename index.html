@@ -200,7 +200,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 .rgbox.bad{border-color:var(--dg)}.rgbox.bad .rgn{color:var(--dg)}
 .rgi{margin-top:6px;font-size:11.5px;color:var(--mut);line-height:1.4;word-break:break-word}
 </style>
-<style id="anxCss">#t-att .anxw{display:inline-flex;gap:6px;align-items:center}#t-att .anxw input{width:86px;padding:7px 8px}#t-att #aVenueDd{position:absolute;left:0;right:0;top:100%;z-index:60;background:#fff;border:1px solid var(--bd,#cfd8dc);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.16);max-height:240px;overflow:auto;margin-top:2px}#t-att #aVenueDd .vRow{display:flex;align-items:center;gap:8px;padding:6px 10px;cursor:pointer;font-size:13px;font-weight:400}#t-att #aVenueDd .vRow:hover{background:var(--hl,#eef6f0)}#t-att #aVenueDd .vT{flex:1;min-width:0;white-space:normal}#t-att #aVenueDd .vX{border:0!important;background:none!important;color:#c0392b!important;font-size:14px;line-height:1;cursor:pointer;padding:3px 7px!important;border-radius:5px;box-shadow:none!important}#t-att #aVenueDd .vX:hover{background:#fde8e8!important}#t-att #aRoomV{padding:7px 12px;font-size:17px;line-height:1}#t-att #aAnxV{padding:7px 12px;font-size:17px;line-height:1}#t-att .anxw[style*="none"]{display:none!important}</style>
+<style id="anxCss">#t-att .anxw{display:inline-flex;gap:6px;align-items:center}#t-att .anxw input{width:86px;padding:7px 8px}#aVenueDd{position:fixed;z-index:100000;box-sizing:border-box;background:#fff;border:1px solid var(--bd,#cfd8dc);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.16);max-height:240px;overflow:auto;margin-top:2px}#aVenueDd .vRow{display:flex;align-items:center;gap:8px;padding:6px 10px;cursor:pointer;font-size:13px;font-weight:400}#aVenueDd .vRow:hover{background:var(--hl,#eef6f0)}#aVenueDd .vT{flex:1;min-width:0;white-space:normal}#aVenueDd .vX{border:0!important;background:none!important;color:#c0392b!important;font-size:14px;line-height:1;cursor:pointer;padding:3px 7px!important;border-radius:5px;box-shadow:none!important}#aVenueDd .vX:hover{background:#fde8e8!important}#t-att #aRoomV{padding:7px 12px;font-size:17px;line-height:1}#t-att #aAnxV{padding:7px 12px;font-size:17px;line-height:1}#t-att .anxw[style*="none"]{display:none!important}</style>
 <style>
 /* কাস্টম প্রিন্ট — ফিল্ড টিক বক্স: রিপোর্টের ক্রমে দুই লাইনে; আপলোড বাটন বাটন-সারিতে; জায়গা সংকুচিত */
 #cpDRow{display:none!important}
@@ -231,6 +231,9 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 .catBox .catC li .npT{min-width:0;flex:1}
 .catBox .catC li .npBtn{flex:none;cursor:pointer;border:1px solid var(--pr);background:var(--pr);color:var(--prt);border-radius:8px;padding:3px 10px;font-size:12.5px;font-family:inherit;white-space:nowrap}
 .catBox .catC li .npBtn:hover{filter:brightness(1.1)}
+.catBox .catC li .npBtn.fin{background:#1565c0;border-color:#1565c0;color:#fff}
+.npCatRst{margin:0 -2px 0 auto;flex:none;width:26px;height:24px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;border:1px solid #c62828;color:#c62828;background:#fff;border-radius:14px;cursor:pointer;transition:.15s}
+.npCatRst:hover{background:#c62828;color:#fff}
 @media(max-width:900px){.catBox .catG{grid-template-columns:1fr}}
 </style>
 <style id="smsCss">
@@ -272,7 +275,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 
 <div class="sec" id="t-rec"><div class="card noprint">
 <div class="row"><input id="rq" class="grow" placeholder="🔍 রেকর্ড খুঁজুন (নাম, ফাইল, তারিখ...)">
-<button class="p" id="rSave">💾 Save<kbd>Ctrl+S</kbd></button><button id="rBak">⬇ Backup<kbd>Alt+B</kbd></button><button id="rRes">⬆ Restore<kbd>Alt+R</kbd></button><input type="file" id="rResF" accept=".json,application/json" hidden></div>
+<button class="p" id="rFold" title="ব্যাকআপ রাখার ফোল্ডার বেছে নিন / বদলান">📁 ব্যাকআপ ফোল্ডার</button><button id="rBak">⬇ Backup<kbd>Alt+B</kbd></button><button id="rRes">⬆ Restore<kbd>Alt+R</kbd></button><input type="file" id="rResF" accept=".json,application/json" hidden></div>
 <div class="row" style="margin:8px 0"><span id="rinfo" class="mut"></span><span id="rcat" style="margin-left:16px;font-size:13px"></span><span class="grow"></span>
 <button id="rXl">Excel (রেকর্ড তালিকা)</button><button id="rCsv">CSV (রেকর্ড তালিকা)</button><button class="d" id="rDelSel">নির্বাচিত মুছুন</button></div>
 <div class="tw"><table id="rt"></table></div>
@@ -348,30 +351,31 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 </div>
 </div>
 
-</div><div class="agc"><div class="ag"><div class="agt"><span class="ai">⚙️</span>পাতা ও তালিকা</div>
-<div class="agb g3">
+</div><div class="agc"><div class="ag" id="aPgBox"><div class="agt" id="aPgT" style="cursor:pointer;user-select:none" title="ক্লিক করে দেখান / লুকান"><span class="ai">⚙️</span>পাতা ও তালিকা <span id="aPgC" style="margin-left:auto;font-size:12px;color:var(--mut);font-weight:400">▸ দেখান</span></div>
+<div class="agb g3" id="aPgB" style="display:none">
 <label class="f"><span>প্রতি পাতায় সারি</span><input id="aRows" type="number" min="5" max="60" placeholder="অটো" title="ফাঁকা রাখলে অটো: পাতায় যতটা ধরে ততটাই সারি বসবে, এক পাতার তথ্য অন্য পাতায় যাবে না"><small class="mut">ফাঁকা = অটো (পাতা অনুযায়ী নিজে ঠিক হবে)</small></label>
 <label class="f"><span>সাজান</span><select id="aSort"></select></label>
 <label class="f"><span>উৎস</span><select id="aSrc"><option value="f">ফিল্টার করা সারি</option><option value="a">সব সারি</option></select></label>
 </div></div>
 
 <div class="ag" id="aRmBox"><div class="agt"><span class="ai">🏫</span>কক্ষ অনুযায়ী ভাগ <small class="mut">(লিখিত পরীক্ষা — প্রথম থেকে ধারাবাহিকভাবে নির্ধারিত জন করে প্রতি কক্ষে)</small><span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:12px"><span>বেতন স্কেল ও গ্রেড</span><select id="aGradeW" style="max-width:190px;padding:3px 8px;font-weight:400" title="গ্রেড বাছলে লিখিত পরীক্ষার হাজিরা শীটে বিভাগ/দপ্তরের পরের লাইনে বেতন স্কেল ও গ্রেড বসবে"></select></span></div>
-<div class="agb"><div id="aRmList"></div><div id="aStOpt" style="display:inline-flex;gap:12px;align-items:center;font-size:12.5px;font-weight:600;margin:0 4px 0 auto;white-space:nowrap" title="স্টিকারে কী কী থাকবে — টিক তুলে দিলে সেটি স্টিকারে আসবে না (কক্ষ অনুযায়ী ও সকলের স্টিকার, দুটিতেই প্রযোজ্য)"><span>স্টিকারে:</span><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aStSl" checked style="width:auto;margin:0">SL</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aStPh" checked style="width:auto;margin:0">ছবি</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer" title="টিক দিলে কক্ষ অনুযায়ী স্টিকারে Applicant ID-এর পরে কক্ষ নং আসবে (সকলের স্টিকারে কক্ষ নেই)"><input type="checkbox" id="aStRm" style="width:auto;margin:0">কক্ষ নং</label></div><div class="row" style="margin-top:8px"><button type="button" id="aRmAdd">＋ কক্ষ যোগ</button><button type="button" id="aRoomV" title="কক্ষ অনুযায়ী শীটগুলো প্রিভিউ দেখুন" aria-label="কক্ষ অনুযায়ী প্রিভিউ">👁</button><button type="button" class="p" id="aRoomDocx">📄 কক্ষ অনুযায়ী</button><span id="aRmNbW" style="position:relative;display:inline-block"><button class="p" id="aRmNb" type="button" title="কক্ষ অনুযায়ী ভাগ করা নোটিশ বোর্ড লিস্ট — প্রতি কক্ষের জন্য আলাদা তালিকা">📋 কক্ষ অনুযায়ী নোটিশ বোর্ড লিস্ট</button></span><button class="p" id="aRmSt" type="button" title="কক্ষ অনুযায়ী স্টিকার — প্রতি কক্ষের জন্য আলাদা Word ফাইল (Legal, ২ কলাম, ডানে ছবি)">🏷 কক্ষ অনুযায়ী স্টিকার</button><span class="mut" id="aRmInfo"></span></div></div></div>
+<div class="agb"><div id="aRmList"></div><div id="aStOpt" style="display:inline-flex;gap:12px;align-items:center;font-size:12.5px;font-weight:600;margin:0 4px 0 auto;white-space:nowrap" title="স্টিকারে কী কী থাকবে — টিক তুলে দিলে সেটি স্টিকারে আসবে না (কক্ষ অনুযায়ী ও সকলের স্টিকার, দুটিতেই প্রযোজ্য)"><span>স্টিকারে:</span><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aStSl" checked style="width:auto;margin:0">SL</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aStPh" checked style="width:auto;margin:0">ছবি</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer" title="টিক দিলে কক্ষ অনুযায়ী স্টিকারে Applicant ID-এর পরে কক্ষ নং আসবে (সকলের স্টিকারে কক্ষ নেই)"><input type="checkbox" id="aStRm" style="width:auto;margin:0">কক্ষ নং</label></div><div class="row" style="margin-top:8px"><button type="button" id="aRmAdd">＋ কক্ষ যোগ</button><button type="button" id="aRoomV" title="কক্ষ অনুযায়ী শীটগুলো প্রিভিউ দেখুন" aria-label="কক্ষ অনুযায়ী প্রিভিউ">👁</button><button type="button" class="p" id="aRoomDocx">📄 হাজিরা শীট</button><span id="aRmNbW" style="position:relative;display:inline-block"><button class="p" id="aRmNb" type="button" title="কক্ষ অনুযায়ী ভাগ করা নোটিশ বোর্ড লিস্ট — প্রতি কক্ষের জন্য আলাদা তালিকা">📋 নোটিশ বোর্ড লিস্ট</button></span><button class="p" id="aRmSt" type="button" title="কক্ষ অনুযায়ী স্টিকার — প্রতি কক্ষের জন্য আলাদা Word ফাইল (Legal, ২ কলাম, ডানে ছবি)">🏷 স্টিকার</button><span class="mut" id="aRmInfo"></span></div></div></div>
 <div class="ag" id="aVivaBox" style="display:none"><div class="agt"><span class="ai">🎤</span>মৌখিক পরীক্ষার প্রার্থী নির্বাচন</div>
 <div class="agb g3">
 <label class="f"><span>নির্বাচনের ধরন</span><select id="aSlMode" class="slMode" title="কোনটি দিয়ে নির্বাচন করবেন"><option value="sl">SL নম্বর</option><option value="id">আইডির শেষ ৩ ডিজিট</option></select></label>
 <label class="f w2"><span>মৌখিক পরীক্ষার প্রার্থী</span><input id="aSl" placeholder="মৌখিক পরীক্ষার SL: 1,3,5-10" title="ডাটা টেবিলের SL নম্বর; কমা দিয়ে লিখুন, ধারাবাহিক হলে 5-10"></label>
 <label class="f"><span>গ্রেড (বেতন স্কেল)</span><select id="aGrade" title="গ্রেড বাছলে মেধা তালিকা ফরমে বেতন স্কেল ও গ্রেড (জা.বে.স্কে. ২০২৬) বসবে"><option value="">— গ্রেড বাছুন —</option></select></label>
 <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px"><label class="f" style="flex-direction:row;align-items:center;gap:8px;cursor:pointer" title="টিক থাকলে মেধা তালিকা ফরমে SL-এর পরে আইডি (ID No.) কলাম থাকবে; টিক তুলে দিলে কলামটি বাদ যাবে"><input type="checkbox" id="aIdc" checked style="width:auto;margin:0"><span>আইডি (ID No.) কলাম রাখুন <small class="mut">(ডিফল্টে চালু — SL-এর পরে)</small></span></label>
-<label class="f" style="flex-direction:row;align-items:center;gap:8px;cursor:pointer" title="টিক দিলে মেধা তালিকা ফরমে (৪) নং কলাম 'ব্যবহারিক' এবং শিরোনামে ব্যবহারিক শব্দটি যুক্ত হবে"><input type="checkbox" id="aPrac" style="width:auto;margin:0"><span>ব্যবহারিক পরীক্ষা যোগ করুন <small class="mut">(ডিফল্টে লুকানো — কলাম ও শিরোনামের 'ব্যবহারিক' শব্দ)</small></span></label></div>
+<label class="f" style="flex-direction:row;align-items:center;gap:8px;cursor:pointer" title="টিক দিলে মেধা তালিকা ফরমে (৪) নং কলাম 'ব্যবহারিক' এবং শিরোনামে ব্যবহারিক শব্দটি যুক্ত হবে"><input type="checkbox" id="aPrac" style="width:auto;margin:0"><span>ব্যবহারিক পরীক্ষা যোগ করুন <small class="mut">(ডিফল্টে লুকানো — কলাম ও শিরোনামের 'ব্যবহারিক' শব্দ)</small></span></label>
+<label class="f" style="flex-direction:row;align-items:center;gap:8px;cursor:pointer" title="টিক থাকলে OK বাটনে ক্লিক করামাত্র নির্বাচিত প্রার্থীরা এই পদের কার্যবিবরণীর সাক্ষাৎকারের প্রার্থী হিসেবে যুক্ত হবে (কার্যবিবরণী ফরম থেকে ইচ্ছামতো মুছতে পারবেন)"><input type="checkbox" id="aKpUse" checked style="width:auto;margin:0"><span>কার্যবিবরণীতে ব্যবহার করুন <small class="mut">(ডিফল্টে চালু — OK চাপলে নির্বাচিত প্রার্থী কার্যবিবরণীতে যোগ হবে)</small></span></label><button type="button" id="aKpOk" title="নির্বাচিত প্রার্থীদের নাম ও পিতার নাম এই পদের কার্যবিবরণীতে যোগ করুন" style="padding:3px 16px;font-weight:700;border:1px solid var(--ac,#0a7a3d);background:var(--ac,#0a7a3d);color:#fff;border-radius:6px;cursor:pointer">OK</button></div>
 <div class="mut" id="aSlInfo" style="grid-column:1/-1"></div>
 </div></div>
 
 </div></div>
-<div class="ag"><div class="agt"><span class="ai">☑️</span>হাজিরা শীটে যে ফিল্ড থাকবে <small class="mut">(ছবিসহ দেওয়া যায়)</small><span style="margin-left:auto;display:inline-flex;align-items:center;gap:14px;font-weight:600;font-size:12.5px" title="নতুন ফরম্যাটের ফাইলে নাম ইংরেজি ও বাংলা দুটোই থাকে। হাজিরা শীট ও মেধা তালিকা ফরমে কোনটি যাবে এখান থেকে টিক দিন (দুটো টিক দিলে পাশাপাশি আসবে)।"><span>নাম ও পিতার নাম:</span><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aLnE" checked style="width:auto;margin:0">ইংরেজি</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aLnB" style="width:auto;margin:0">বাংলা</label></span></div>
-<div class="agb"><div class="cols" id="aCols"></div></div></div>
+<div class="ag"><div class="agt" id="aFlT" style="cursor:pointer;user-select:none" title="ক্লিক করে দেখান / লুকান"><span class="ai">☑️</span>হাজিরা শীটে যে ফিল্ড থাকবে <small class="mut">(ছবিসহ দেওয়া যায়)</small> <span id="aFlC" style="font-size:12px;color:var(--mut);font-weight:400;margin-left:8px">▸ দেখান</span><span style="margin-left:auto;display:inline-flex;align-items:center;gap:14px;font-weight:600;font-size:12.5px" title="নতুন ফরম্যাটের ফাইলে নাম ইংরেজি ও বাংলা দুটোই থাকে। হাজিরা শীট ও মেধা তালিকা ফরমে কোনটি যাবে এখান থেকে টিক দিন (দুটো টিক দিলে পাশাপাশি আসবে)।"><span>নাম ও পিতার নাম:</span><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aLnE" checked style="width:auto;margin:0">ইংরেজি</label><label style="margin:0;display:inline-flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="aLnB" style="width:auto;margin:0">বাংলা</label></span></div>
+<div class="agb" id="aFlB" style="display:none"><div class="cols" id="aCols"></div></div></div>
 
-<div class="abar"><label style="display:inline-flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="aAdUse"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><button class="p" id="aGen">👁 শীট তৈরি করুন</button><button id="aPrint">⬇ PDF ডাউনলোড</button><button class="p" id="aDocx">📄 Word (.docx) — Legal</button><span class="anxw" id="aAnxW" style="display:none"><button id="aAnxV" type="button" title="মেধা তালিকা ফরম দেখুন (প্রিভিউ)" aria-label="মেধা তালিকা ফরম দেখুন">👁</button><button class="p" id="aAnx" title="মৌখিক পরীক্ষায় নির্বাচিত প্রার্থীদের নিয়ে প্রাপ্ত নম্বর ও মেধা তালিকা ফরম (Word)">📄 মেধা তালিকা ফরম</button></span><button class="p" id="aRes" title="লিখিত পরীক্ষার ফলাফল শীট (xlsx) — All Marks ও Viva List, ২টি শীটসহ">📊 Result Sheet (Draft)</button><span id="aNbW" style="position:relative;display:inline-block"><button class="p" id="aNb" type="button" title="লিখিত পরীক্ষার নোটিশ বোর্ড লিস্ট — Word (.docx), Legal, দুই কলামে, ৮ পয়েন্ট ফন্ট">📋 নোটিশ বোর্ড লিস্ট</button></span><span id="aStW" style="position:relative;display:inline-block"><button class="p" id="aSt" type="button" title="নির্বাচিত পদের সকল প্রার্থীর স্টিকার — Word (.docx), Legal, ২ কলাম, ডানে ছবি">🏷 স্টিকার ডাউনলোড</button></span></div></div>
+<div class="abar"><label style="display:inline-flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="aAdUse"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><button class="p" id="aGen">👁 শীট তৈরি করুন</button><button class="p" id="aDocx">📄 Word (.docx) — Legal</button><span class="anxw" id="aAnxW" style="display:none"><button id="aAnxV" type="button" title="মেধা তালিকা ফরম দেখুন (প্রিভিউ)" aria-label="মেধা তালিকা ফরম দেখুন">👁</button><button class="p" id="aAnx" title="মৌখিক পরীক্ষায় নির্বাচিত প্রার্থীদের নিয়ে প্রাপ্ত নম্বর ও মেধা তালিকা ফরম (Word)">📄 মেধা তালিকা ফরম</button></span><button class="p" id="aRes" title="লিখিত পরীক্ষার ফলাফল শীট (xlsx) — All Marks ও Viva List, ২টি শীটসহ">📊 Result Sheet (Draft)</button><span id="aNbW" style="position:relative;display:inline-block"><button class="p" id="aNb" type="button" title="লিখিত পরীক্ষার নোটিশ বোর্ড লিস্ট — Word (.docx), Legal, দুই কলামে, ৮ পয়েন্ট ফন্ট">📋 নোটিশ বোর্ড লিস্ট</button></span><span id="aStW" style="position:relative;display:inline-block"><button class="p" id="aSt" type="button" title="নির্বাচিত পদের সকল প্রার্থীর স্টিকার — Word (.docx), Legal, ২ কলাম, ডানে ছবি">🏷 স্টিকার ডাউনলোড</button></span></div></div>
 <div id="sheet"></div></div>
 <div class="sec" id="t-wr"><div class="card noprint">
 <h3 style="margin:0 0 8px">✍️ লিখিত পরীক্ষার দায়িত্ব</h3>
@@ -670,18 +674,22 @@ return{...r,name:pick(r.name,r.nameBn),father:pick(r.fBn?'':r.father,r.fatherBn)
 window.attRow=attRow;
 ['aLnE','aLnB'].forEach(id=>{const x=$('#'+id);if(x)x.addEventListener('change',()=>{if(!$('#aLnE').checked&&!$('#aLnB').checked)x.checked=true})});
 function sdata(){const cs=$$('#aCols input:checked').filter(x=>x.dataset.a!='sig').map(x=>col(x.dataset.a));const sg=!$('#aCols input[data-a=sig]')||$('#aCols input[data-a=sig]').checked;const vv=$('#aType').value.includes('মৌখিক');let a=vv?vivaSel().a:($('#aSrc').value=='a'?R.slice():view());if($('#aSort').value)a=srt(a,$('#aSort').value,1);a=a.map(attRow);return{cs,sg,a,viva:$('#aType').value.includes('মৌখিক'),per:(+$('#aRows').value>0?Math.max(5,Math.min(60,+$('#aRows').value)):0)}}
-const VK='duet_venues';
-const vGet=()=>{try{const a=JSON.parse(localStorage.getItem(VK)||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}};
+const VK_W='duet_venues',VK_V='duet_venues_v',VD_W=['শহিদ আবু সাঈদ প্রশাসনিক ভবন','শহিদ সৈয়দ নজরুল ইসলাম একাডেমিক ভবন'],VD_V=['ভাইস-চ্যান্সেলর মহোদয়ের দপ্তর'];
+const isVivaT=()=>{const t=$('#aType');return !!(t&&t.value.includes('মৌখিক'))};
+const vKey=()=>isVivaT()?VK_V:VK_W;
+const vGet=()=>{let a=[];try{a=JSON.parse(localStorage.getItem(vKey())||'[]');if(!Array.isArray(a))a=[]}catch(e){a=[]}a=a.slice(0,2);/* শুধু সর্বশেষ দুটি নাম; কম থাকলে ডিফল্ট দিয়ে ভরাট */(isVivaT()?VD_V:VD_W).forEach(d=>{if(a.length<2&&!a.includes(d))a.push(d)});return a};
 const vFill=()=>{const dl=$('#aVenueList');if(dl)dl.innerHTML=vGet().map(v=>'<option value="'+String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')+'">').join('')};
-const vSave=()=>{const v=($('#aVenue').value||'').replace(/\s+/g,' ').trim();if(!v)return;try{const a=vGet().filter(x=>x!==v);a.unshift(v);localStorage.setItem(VK,JSON.stringify(a.slice(0,50)))}catch(e){}vFill()};
+const vSave=()=>{const v=($('#aVenue').value||'').replace(/\s+/g,' ').trim();if(!v)return;try{const a=vGet().filter(x=>x!==v);a.unshift(v);localStorage.setItem(vKey(),JSON.stringify(a.slice(0,2)))}catch(e){}vFill()};
 vFill();$('#aVenue').addEventListener('change',vSave);$('#aVenue').addEventListener('blur',vSave);
-(()=>{const inp=$('#aVenue'),box=document.createElement('div');box.id='aVenueDd';box.style.display='none';inp.parentElement.style.position='relative';inp.parentElement.appendChild(box);
+(()=>{const inp=$('#aVenue'),box=document.createElement('div');box.id='aVenueDd';box.style.display='none';document.body.appendChild(box);
 let cur=[],all=true;
+const place=()=>{const r=inp.getBoundingClientRect(),h=Math.max(120,Math.min(240,window.innerHeight-r.bottom-12));box.style.left=r.left+'px';box.style.top=(r.bottom+2)+'px';box.style.width=r.width+'px';box.style.maxHeight=h+'px'};
+const rePlace=()=>{if(box.style.display!='none')place()};window.addEventListener('scroll',rePlace,true);window.addEventListener('resize',rePlace);
 const render=()=>{const q=all?'':(inp.value||'').trim().toLowerCase();cur=vGet().filter(v=>!q||String(v).toLowerCase().includes(q));
-box.innerHTML=cur.map((v,i)=>`<div class="vRow" data-i="${i}"><span class="vT">${esc(v)}</span><button type="button" class="vX" title="তালিকা থেকে মুছুন" aria-label="মুছুন">✕</button></div>`).join('');box.style.display=cur.length?'block':'none'};
+box.innerHTML=cur.map((v,i)=>`<div class="vRow" data-i="${i}"><span class="vT">${esc(v)}</span><button type="button" class="vX" title="তালিকা থেকে মুছুন" aria-label="মুছুন">✕</button></div>`).join('');box.style.display=cur.length?'block':'none';if(cur.length)place()};
 box.addEventListener('mousedown',e=>{e.preventDefault();const r=e.target.closest('.vRow');if(!r)return;const v=cur[+r.dataset.i];
-if(e.target.closest('.vX')){try{localStorage.setItem(VK,JSON.stringify(vGet().filter(x=>x!==v)))}catch(_){}if((inp.value||'').replace(/\s+/g,' ').trim()==v)inp.value='';render()}
-else{inp.value=v;inp.dispatchEvent(new Event('change'));box.style.display='none'}});
+if(e.target.closest('.vX')){try{localStorage.setItem(vKey(),JSON.stringify(vGet().filter(x=>x!==v)))}catch(_){}if((inp.value||'').replace(/\s+/g,' ').trim()==v)inp.value='';render()}
+else{inp.value=v;inp.dispatchEvent(new Event('change',{bubbles:true}));box.style.display='none'}});
 const open=()=>{all=true;render()};
 inp.addEventListener('focus',open);inp.addEventListener('click',open);
 inp.addEventListener('input',()=>{all=false;render()});
@@ -691,8 +699,8 @@ const tmTxt=()=>{const t=($('#aTime').value||'').trim().replace(/\s*ঘটিক
 let aRoomCur='';const roomFmt=x=>{x=String(x||'').replace(/\s+/g,' ').trim();if(!x)return'';return /^কক্ষ\s*নং/.test(x)?x:'কক্ষ নং-'+x};
 const sinfo=()=>{vSave();const tm=tmTxt();return[$('#aDate').value&&'তারিখ: '+window.khri($('#aDate').value),tm&&'সময়: '+tm,$('#aVenue').value&&($('#aType').value.includes('মৌখিক')?'স্থান/ভেন্যু : ':'ভবনের নাম: ')+$('#aVenue').value,aRoomCur].filter(Boolean)};
 function gen(ov){ov=ov&&ov.a?ov:null;const{cs,sg,a:a0,viva,per:per0}=sdata();const a=ov?ov.a:a0;if(viva&&!a.length){toast('⚠ মৌখিক পরীক্ষার জন্য SL নম্বর লিখুন বা ডাটা ট্যাবে টিক দিন');$('#sheet').innerHTML='';return}const auto=!per0,rh=auto?(cs.some(c=>c.ph)?16:10):Math.max(9,Math.min(22,Math.floor(2100/per0)/10)),per=auto?Math.max(5,Math.floor(196/rh)):per0,pages=Math.ceil(a.length/per)||1;let h='';
-for(let p=0;p<pages;p++){const rs=a.slice(p*per,(p+1)*per);
-h+=`<div class="pg"><h2 style="display:flex;align-items:center;justify-content:center;gap:12px"><img src="${LOGO}" style="height:58px;width:auto"><span>${esc($('#aInst').value)}</span></h2>${$('#aAddr').value?`<p>${esc($('#aAddr').value)}</p>`:''}${adOn('a')?adHtml('a'):`${$('#aPost').value?`<h3>পদের নাম : ${esc($('#aPost').value)}</h3>`:''}${$('#aDept').value?`<h3>বিভাগ/দপ্তর : ${esc($('#aDept').value)}</h3>`:''}${(!viva&&payLn())?`<h3>${esc(payLn())}</h3>`:''}`}<h3>হাজিরা শীট — ${esc($('#aType').value)}</h3><p>${sinfo().map(esc).join(' &nbsp;|&nbsp; ')}</p>
+for(let p=0;p<pages;p++){const rs=a.slice(p*per,(p+1)*per),l1=[$('#aPost').value&&'পদের নাম : '+esc($('#aPost').value),$('#aDept').value&&'বিভাগ/দপ্তর : '+esc($('#aDept').value)].filter(Boolean).join(' &nbsp;|&nbsp; ');
+h+=`<div class="pg">${p==0?`<h2 style="display:flex;align-items:center;justify-content:center;gap:12px"><img src="${LOGO}" style="height:58px;width:auto"><span>${esc($('#aInst').value)}</span></h2>${$('#aAddr').value?`<p>${esc($('#aAddr').value)}</p>`:''}${adOn('a')?adHtml('a'):`${$('#aPost').value?`<h3>পদের নাম : ${esc($('#aPost').value)}</h3>`:''}${$('#aDept').value?`<h3>বিভাগ/দপ্তর : ${esc($('#aDept').value)}</h3>`:''}${(!viva&&payLn())?`<h3>${esc(payLn())}</h3>`:''}`}<h3>হাজিরা শীট — ${esc($('#aType').value)}</h3><p>${sinfo().map(esc).join(' &nbsp;|&nbsp; ')}</p>`:`${l1?`<h3>${l1}</h3>`:''}<p>${sinfo().map(esc).join(' &nbsp;|&nbsp; ')}</p><h3>হাজিরা শীট — ${esc($('#aType').value)}</h3>`}
 <table><thead><tr><th>ক্রম</th>${cs.map(c=>`<th>${esc(c.l)}</th>`).join('')}${sg?'<th>স্বাক্ষর</th>':''}</tr></thead><tbody>`+
 rs.map((r,n)=>`<tr style="height:${rh}mm"><td>${(r.no||p*per+n+1)}</td>${cs.map(c=>`<td${c.k=='name'||c.k=='father'?' class="l"':''}>${c.ph?ph(r):c.k=='mobile'?mk(r):esc(c.g(r))}</td>`).join('')}${sg?'<td class="sg"></td>':''}</tr>`).join('')+
 `</tbody></table><p style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:14px"><span style="font-size:7pt;text-align:left">${esc(rec||'')}</span><span>পাতা ${p+1}/${pages} · মোট পরীক্ষার্থী: ${a.length}</span></p></div>`}
@@ -758,7 +766,7 @@ const tb=document.querySelector('.tabs button[data-t=att]');if(tb)tb.addEventLis
 document.addEventListener('change',e=>{const t=e.target;if(t&&t.id=='sbRec'&&!/^upg:/.test(t.value)){const n=t.value;let k=0;const iv=setInterval(()=>{if(rec==n||++k>60){clearInterval(iv);if(onT())sched('sheet')}},100)}});
 if(onT())sched('sheet');
 })();
-$('#aGen').onclick=gen;$('#aPrint').onclick=()=>pdfDl('aPrint','sheet',gen,{w:210,h:297,m:12,px:703},safe((rec?rec+' - ':'')+'হাজিরা শীট')+'.pdf');
+$('#aGen').onclick=gen;
 /* ---- রেকর্ড ট্যাব ---- */
 let rsort={k:'ts',d:-1};
 const fd=x=>x?new Date(x).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'}):'—';
@@ -905,16 +913,37 @@ const BAK_TOOL='Applicant-Tool';var bakRepick=false;
 const bakDb=()=>new Promise((res,rej)=>{const q=indexedDB.open('duet_bak',1);q.onupgradeneeded=()=>q.result.createObjectStore('h');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)});
 const bakGet=async()=>{try{const d=await bakDb();return await new Promise(r=>{const q=d.transaction('h').objectStore('h').get('dir');q.onsuccess=()=>r(q.result||null);q.onerror=()=>r(null)})}catch(e){return null}};
 const bakSet=async h=>{const d=await bakDb();return new Promise(r=>{const t=d.transaction('h','readwrite');t.objectStore('h').put(h,'dir');t.oncomplete=()=>r();t.onerror=()=>r()})};
-async function bakDisk(text,fn){
- if(!window.showDirectoryPicker)return '';
- try{let h=bakRepick?null:await bakGet();bakRepick=false;
-  if(h){let p=await h.queryPermission({mode:'readwrite'});if(p!='granted')p=await h.requestPermission({mode:'readwrite'});if(p!='granted')h=null}
-  if(!h){toast('📁 E ড্রাইভের “All Backup” ফোল্ডারটি বেছে নিন (শুধু প্রথমবার)');h=await showDirectoryPicker({id:'duetbak',mode:'readwrite'});await bakSet(h)}
-  const root=h.name=='All Backup'?h:await h.getDirectoryHandle('All Backup',{create:true});
-  const td=await root.getDirectoryHandle(BAK_TOOL,{create:true});
-  const fh=await td.getFileHandle(fn,{create:true}),w=await fh.createWritable();await w.write(text);await w.close();
-  return 'All Backup\\'+BAK_TOOL+'\\'+fn}
- catch(e){if(e&&e.name=='AbortError')return 'abort';console.error(e);return ''}}
+let bakCache=null,bakBusy=false;bakGet().then(h=>{bakCache=h}).catch(()=>{});
+async function bakWrite(h,text,fn){const root=h.name=='All Backup'?h:await h.getDirectoryHandle('All Backup',{create:true});const td=await root.getDirectoryHandle(BAK_TOOL,{create:true});const fh=await td.getFileHandle(fn,{create:true}),w=await fh.createWritable();await w.write(text);await w.close();return 'All Backup\\'+BAK_TOOL+'\\'+fn}
+/* Alt+B / Backup বাটন: ১) সংরক্ষিত লোকেশনে সেভ ২) না পেলে/অনুমতি না থাকলে লোকেশন যোগ করার অপশন ৩) ১৫ সেকেন্ডে কিছু না করলে ব্রাউজারে ডাউনলোড */
+function bakFlow(txt,fn,cnt,pm){return new Promise(async fin=>{
+ const bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+ const fb=async why=>{try{await dl(txt,fn,'application/json');toast('⬇ ব্যাকআপ ব্রাউজারে ডাউনলোড হয়েছে ('+cnt+' টি রেকর্ড, সব সেটিংসহ)'+why+pm)}catch(e){toast('⚠ ব্যাকআপ ডাউনলোড হয়নি: '+(e&&e.message||e))}fin()};
+ const ok=async p=>{toast('💾 ব্যাকআপ সেভ হয়েছে ('+cnt+' টি রেকর্ড, সব সেটিংসহ): '+p+pm);fin()};
+ if(!window.showDirectoryPicker){await fb(' — এই ব্রাউজারে ফোল্ডারে সেভ সাপোর্ট নেই');return}
+ let h=bakRepick?null:(bakCache||await bakGet());bakRepick=false;let note='';
+ if(h){try{const q=await h.queryPermission({mode:'readwrite'});if(q=='granted'){try{return await ok(await bakWrite(h,txt,fn))}catch(e){console.error(e);note='সংরক্ষিত লোকেশনে লেখা যায়নি ('+(e&&e.name||'ত্রুটি')+') — ফোল্ডারটি সরানো/মুছে গেছে কি না দেখুন বা নতুন লোকেশন দিন।';h=null}}}catch(e){h=null}}
+ /* পপআপ */
+ const ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px';
+ const bx=document.createElement('div');bx.style.cssText='background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:14px;padding:20px 22px;max-width:520px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,.35);font-size:15px;line-height:1.6';
+ const bs='border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:8px;padding:9px 14px;font:inherit;cursor:pointer;';
+ bx.innerHTML='<div style="font-weight:700;font-size:17px;margin-bottom:6px">💾 ব্যাকআপ সেভ লোকেশন</div><div id="bkM"></div><div id="bkE" style="color:var(--dg);margin-top:6px"></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button id="bkL" style="'+bs+'background:var(--pr);color:var(--prt);border-color:var(--pr);font-weight:700"></button><button id="bkD" style="'+bs+'">⬇ এখনই ব্রাউজারে ডাউনলোড</button></div><div id="bkT" style="margin-top:10px;color:var(--mut);font-size:13px"></div>';
+ ov.appendChild(bx);document.body.appendChild(ov);
+ const $b=id=>bx.querySelector('#'+id);let left=15,iv=null,hv=h;
+ $b('bkM').textContent=hv?'এই লোকেশনে সেভ করতে ব্রাউজারের অনুমতি লাগবে: “'+hv.name+'”':'কোনো সেভ লোকেশন পাওয়া যায়নি। E ড্রাইভে “All Backup” নামে ফোল্ডার খুলে সেটি বেছে নিন (ড্রাইভের রুট E:\\ সরাসরি নেওয়া যায় না)।';
+ if(note)$b('bkE').textContent=note;
+ $b('bkL').textContent=hv?'✅ অনুমতি দিয়ে সেভ করুন':'📁 লোকেশন যোগ করুন';
+ const close=()=>{clearInterval(iv);iv=null;ov.remove()};
+ const tick=()=>{$b('bkT').textContent='কিছু না করলে '+bn(left)+' সেকেন্ড পরে নিজে থেকেই ব্রাউজারে ডাউনলোড হবে।'};
+ const start=()=>{clearInterval(iv);left=15;tick();iv=setInterval(()=>{left--;if(left<=0){close();fb(' — ১৫ সেকেন্ডে কোনো লোকেশন দেওয়া হয়নি');return}tick()},1000)};
+ $b('bkD').onclick=()=>{close();fb('')};
+ $b('bkL').onclick=async()=>{clearInterval(iv);$b('bkT').textContent='অপেক্ষা করা হচ্ছে…';$b('bkE').textContent='';
+  try{let t=hv;if(t){const p=await t.requestPermission({mode:'readwrite'});if(p!='granted'){hv=null;throw new Error('অনুমতি দেওয়া হয়নি')}}
+   else{t=await showDirectoryPicker({id:'duetbak',mode:'readwrite'});await bakSet(t);bakCache=t}
+   const path=await bakWrite(t,txt,fn);close();ok(path)}
+  catch(e){if(e&&e.name=='AbortError'){$b('bkE').textContent='লোকেশন বাছাই বাতিল হয়েছে।'}else{console.error(e);$b('bkE').textContent='⚠ '+(e&&e.message||e)+(e&&e.name=='SecurityError'?' — ড্রাইভের রুট/সিস্টেম ফোল্ডার নয়, একটি সাধারণ ফোল্ডার (যেমন E:\\All Backup) বেছে নিন।':'')}
+   if(hv===null)$b('bkL').textContent='📁 লোকেশন যোগ করুন';start()}};
+ start()})}
 /* ব্যাকআপে রেকর্ডের পাশাপাশি টুলের অন্যান্য সংরক্ষিত তথ্যও (Teacher List, কমিটি, বিজ্ঞপ্তি, কক্ষ, SMS রিপোর্ট ও লগ, সেটিং…) যায়; SMS API Key যায় না */
 const BK_RE=/^(duet_|cms_|aRooms)/,bkSkip=k=>!BK_RE.test(k)||k.startsWith('duet_rec:')||k=='duet_bak';
 function bkExtra(){const x={};try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(bkSkip(k))continue;let v=localStorage.getItem(k);if(k=='cms_sms_cfg'){try{const c=JSON.parse(v);delete c.key;v=JSON.stringify(c)}catch(e){}}x[k]=v}}catch(e){}return x}
@@ -923,14 +952,33 @@ function bkApply(ex,ow){let n=0;if(!ex||typeof ex!='object')return 0;for(const [
   else if(k=='cms_sms_cfg'){if(ow||cur==null){const c=JSON.parse(v),e=JSON.parse(cur||'{}');if(e&&e.key)c.key=e.key;localStorage.setItem(k,JSON.stringify(c));n++}}
   else if(ow||cur==null){localStorage.setItem(k,v);n++}}catch(e){}}return n}
 const noPhoto=rs=>rs.reduce((q,r)=>q+(r.R||[]).filter(x=>!(x.photo&&String(x.photo).startsWith('data:'))).length,0);
-async function recBackup(){if(rec)await svNow();const all=await store.all();if(!all.length){toast('ব্যাকআপ করার মতো কোনো রেকর্ড নেই');return}const nph=noPhoto(all),pm=nph?` · ⚠ ${nph} জনের ছবি যুক্ত নেই (ছবির ফোল্ডার দিয়ে যুক্ত করে আবার ব্যাকআপ নিন)`:' · সব ছবি আছে';const d=new Date(),p=n=>String(n).padStart(2,'0'),h12=d.getHours()%12||12,fn=`Applicant-Tool_${p(d.getDate())}-${p(d.getMonth()+1)}-${d.getFullYear()}_${p(h12)}-${p(d.getMinutes())}_${d.getHours()<12?'AM':'PM'}.json`,o={app:'duet-applicant-tool',v:1,ts:Date.now(),records:{}};all.forEach(r=>o.records[r.name]=r);o.extra=bkExtra();const txt=JSON.stringify(o),sv=await bakDisk(txt,fn);if(sv=='abort'){toast('ব্যাকআপ বাতিল হয়েছে');return}if(sv){toast('💾 ব্যাকআপ সেভ হয়েছে ('+all.length+' টি রেকর্ড, সব সেটিংসহ): '+sv+pm);return}await dl(txt,fn,'application/json');toast('⬇ ব্যাকআপ নেওয়া হয়েছে ('+all.length+' টি রেকর্ড, সব সেটিংসহ) — ফোল্ডারে সেভ করা যায়নি, ডাউনলোডে গেছে'+pm)}
+async function recBackup(){if(bakBusy)return;bakBusy=true;try{await recBackup_()}catch(e){console.error(e);toast('⚠ ব্যাকআপ ত্রুটি: '+(e&&e.message||e))}finally{bakBusy=false}}
+async function recBackup_(){if(rec)await svNow();const all=await store.all();if(!all.length){toast('ব্যাকআপ করার মতো কোনো রেকর্ড নেই');return}const nph=noPhoto(all),pm=nph?` · ⚠ ${nph} জনের ছবি যুক্ত নেই (ছবির ফোল্ডার দিয়ে যুক্ত করে আবার ব্যাকআপ নিন)`:' · সব ছবি আছে';const d=new Date(),p=n=>String(n).padStart(2,'0'),h12=d.getHours()%12||12,fn=`Applicant-Tool_${p(d.getDate())}-${p(d.getMonth()+1)}-${d.getFullYear()}_${p(h12)}-${p(d.getMinutes())}_${d.getHours()<12?'AM':'PM'}.json`,o={app:'duet-applicant-tool',v:1,ts:Date.now(),records:{}};all.forEach(r=>o.records[r.name]=r);o.extra=bkExtra();const txt=JSON.stringify(o);await bakFlow(txt,fn,all.length,pm)}
 $('#rResF').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const d=JSON.parse((await f.text()).replace(/^\ufeff/,'')),rs=d&&d.records&&typeof d.records=='object'?Object.values(d.records):[];if(!rs.length||!rs.every(r=>r&&r.name&&Array.isArray(r.R)))throw 0;
 const cf=rs.filter(r=>META[r.name]||AMETA[r.name]);let ow=true;if(cf.length)ow=confirm(`${rs.length} টি রেকর্ড পাওয়া গেছে। এর মধ্যে ${cf.length} টি একই নামে আগে থেকেই আছে।\n\nOK = পুরনোগুলো প্রতিস্থাপন করুন\nCancel = শুধু নতুনগুলো যোগ করুন`);
 if(rec)await svNow();clearTimeout(svT);let n=0;for(const r of rs){if((META[r.name]||AMETA[r.name])&&!ow)continue;await store.set(r.name,r);putMeta(r);n++}const xn=bkApply(d.extra,ow),nph=noPhoto(rs);
 if(rec&&ow&&rs.some(r=>r.name==rec))await openRecord(rec,true);else if(!rec&&n)await openRecord(rs[0].name,true);recRender();toast(`⬆ ${n} টি রেকর্ড রিস্টোর হয়েছে`+(xn?` · ${xn} টি সেটিং/তালিকা ফিরেছে (পেজ রিলোড হচ্ছে…)`:'')+(nph?` · ⚠ ${nph} জনের ছবি নেই`:''));if(xn)setTimeout(()=>location.reload(),1600)}catch(err){alert('⚠ ব্যাকআপ ফাইলটি পড়া যায়নি। এই টুলের তৈরি করা .json ব্যাকআপ ফাইলটি দিন।')}};
-$('#rSave').onclick=recSave;$('#rBak').onclick=recBackup;$('#rRes').onclick=()=>$('#rResF').click();$('#rq').oninput=recRender;
+async function bakPick(){if(!window.showDirectoryPicker){toast('⚠ এই ব্রাউজারে ফোল্ডার বাছাই সাপোর্ট নেই (Chrome/Edge ব্যবহার করুন)');return}
+ try{const t=await showDirectoryPicker({id:'duetbak',mode:'readwrite'});await bakSet(t);bakCache=t;toast('📁 ব্যাকআপ ফোল্ডার সেট হয়েছে: '+t.name+' — এখন থেকে Backup এখানেই সেভ হবে')}
+ catch(e){if(e&&e.name=='AbortError')return;console.error(e);toast('⚠ ফোল্ডার বাছাই হয়নি: '+(e&&e.message||e)+' — ড্রাইভের রুট নয়, একটি সাধারণ ফোল্ডার (যেমন E:\\All Backup) বেছে নিন')}}
+
+(function(){const t=document.getElementById('aPgT'),b=document.getElementById('aPgB'),c=document.getElementById('aPgC');if(!t||!b)return;t.addEventListener('click',()=>{const h=b.style.display=='none';b.style.display=h?'':'none';c.textContent=h?'▾ লুকান':'▸ দেখান'})})();
+
+(function(){const t=document.getElementById('aFlT'),b=document.getElementById('aFlB'),c=document.getElementById('aFlC');if(!t||!b)return;t.addEventListener('click',e=>{if(e.target.closest('label,input'))return;const h=b.style.display=='none';b.style.display=h?'':'none';c.textContent=h?'▾ লুকান':'▸ দেখান'})})();
+$('#rFold').onclick=bakPick;(async()=>{try{const h=bakCache||await bakGet();if(h)$('#rFold').title='বর্তমান ফোল্ডার: '+h.name+' (বদলাতে ক্লিক করুন)'}catch(e){}})();$('#rBak').onclick=recBackup;$('#rRes').onclick=()=>$('#rResF').click();$('#rq').oninput=recRender;
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.code=='KeyS'){e.preventDefault();recSave()}else if(e.altKey&&!e.ctrlKey&&!e.metaKey&&e.code=='KeyB'){e.preventDefault();bakRepick=e.shiftKey;recBackup()}else if(e.altKey&&!e.ctrlKey&&!e.metaKey&&e.code=='KeyR'){e.preventDefault();$('#rResF').click()}},true);
 /* ---- মৌখিক পরীক্ষা: SL / টিক দিয়ে নির্বাচন ---- */
+/* OK বাটনে ক্লিক করলেই নির্বাচিত প্রার্থীরা (নাম, পিতার নাম সহ) এই পদের কার্যবিবরণীর সাক্ষাৎকারের তালিকায় যুক্ত হয় */
+function vivaToKp(){try{const cb=$('#aKpUse');
+  if(!rec){toast('⚠ আগে একটি রেকর্ড খুলুন');return}
+  if(cb&&!cb.checked){toast('⚠ আগে “কার্যবিবরণীতে ব্যবহার করুন” এ টিক দিন');return}
+  const a=vivaSel().a;if(!a.length){toast('⚠ আগে মৌখিক পরীক্ষার প্রার্থী নির্বাচন করুন');return}
+  const ids=a.map(r=>String(r.id));
+  KP=KP||{};KP.s=KP.s||{};const cid=cur&&cur.created;if(cid){if(KP.sr&&KP.sr!==cid){KP.s={};KP.ov={};delete KP.fin}KP.sr=cid}
+  KP.s.iv=ids.join(', ');KP.s.ivt='id';sv();
+  const f=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+  toast('✔ '+f(a.length)+' জন প্রার্থী কার্যবিবরণীতে যোগ হয়েছে')}catch(x){console.error(x);toast('⚠ যোগ করা যায়নি')}}
+$('#aKpOk')&&$('#aKpOk').addEventListener('click',vivaToKp);
 function vivaSel(){const f=slFind($('#aSl').value||'',$('#aSlMode').value),have=new Set(f.rows.map(r=>r.id));
 const a=R.filter(r=>have.has(r.id)||sel.has(r.id));return{a,bad:f.bad,miss:f.miss,multi:f.multi,nSl:f.rows.length,nCk:R.filter(r=>sel.has(r.id)).length}}
 function vivaInfo(){const viva=$('#aType').value.includes('মৌখিক');$('#aVivaBox').style.display=viva?'block':'none';$('#aSrc').disabled=viva;if(!viva)return;
@@ -1270,9 +1318,9 @@ if(S>avail){const fs=cs.reduce((s,c,i)=>s+(FX(c)?ws[i]:0),0),fl=S-fs,room=Math.m
 if(!sg){const S0=ws.reduce((x,y)=>x+y,0),ex=TW-SERIAL-VIVA-S0;if(S0>0&&ex>0){ws=ws.map(w=>w+Math.floor(ex*w/S0));ws[ws.length-1]+=TW-SERIAL-VIVA-ws.reduce((x,y)=>x+y,0)}}
 const sig=TW-SERIAL-VIVA-ws.reduce((x,y)=>x+y,0),grid=sg?[SERIAL,...ws,sig]:[SERIAL,...ws];
 const hasPhD=cs.some(c=>c.ph),rowH=hasPhD?1000:560,LN=300,CW=118;
-const headH=850+($('#aAddr').value?340:0)+($('#aPost').value?370:0)+($('#aDept').value?370:0)+((!viva&&payLn())?370:0)+370+(sinfo().length?400:200)+500,BUD=18540-headH-400;
+const headH=850+($('#aAddr').value?340:0)+($('#aPost').value?370:0)+($('#aDept').value?370:0)+((!viva&&payLn())?370:0)+370+(sinfo().length?400:200)+500,BUD=18540-headH-400,headH2=150+(($('#aPost').value||$('#aDept').value)?370:0)+370+(sinfo().length?400:200)+500,BUD2=18540-headH2-400;
 const est=r=>{let m=1;cs.forEach((c,i)=>{if(c.ph)return;const tx=String(c.g(r)==null?'':c.g(r));m=Math.max(m,Math.ceil(tx.length*CW/Math.max(300,grid[i+1]-140)))});return Math.max(rowH,m*LN+60)};
-const PL=[];{let cur=[],used=0;for(const r of a){const h=est(r);if(cur.length&&(used+h>BUD||cur.length>=(per0||1e9))){PL.push({rs:cur});cur=[];used=0}cur.push(r);used+=h}if(cur.length)PL.push({rs:cur})}
+const PL=[];{let cur=[],used=0;for(const r of a){const h=est(r);if(cur.length&&(used+h>(PL.length?BUD2:BUD)||cur.length>=(per0||1e9))){PL.push({rs:cur});cur=[];used=0}cur.push(r);used+=h}if(cur.length)PL.push({rs:cur})}
 let offA=0;PL.forEach(x=>{x.off=offA;offA+=x.rs.length});const pages=PL.length;
 const files=[],rels=[];let nImg=0,docId=1;
 const LH=460000,logoRun=()=>{const id=docId++;return`<w:r><w:rPr><w:position w:val="-22"/></w:rPr><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="228600"><wp:extent cx="${LH}" cy="${LH}"/><wp:docPr id="${id}" name="Logo ${id}"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="${id}" name="logo.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${LH}" cy="${LH}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r><w:r><w:t xml:space="preserve">  </w:t></w:r>`};
@@ -1286,14 +1334,15 @@ const hasPh=cs.some(c=>c.ph);
 let body='';
 for(let p=0;p<pages;p++){const rs=PL[p].rs,off=PL[p].off,first=p==0;
 if(!first)body+='<w:p><w:pPr><w:pageBreakBefore/><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p>';
-{const tc=(w,c)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${c}</w:tc>`,po={af:10};
+if(first){const tc=(w,c)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${c}</w:tc>`,po={af:10};
 body+=`<w:tbl><w:tblPr><w:tblW w:w="10540" w:type="dxa"/><w:jc w:val="center"/><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="1000"/><w:gridCol w:w="8540"/><w:gridCol w:w="1000"/></w:tblGrid><w:tr>${tc(1000,wp(logoRun(),{...po,jc:'right'}))}${tc(8540,wp(wr($('#aInst').value,{b:1,s:36}),{...po,jc:'center'}))}${tc(1000,wp('',{...po,jc:'center'}))}</w:tr></w:tbl>`}
-if($('#aAddr').value)body+=wp(wr($('#aAddr').value,{s:20}),{jc:'center',af:20});
+if(first){if($('#aAddr').value)body+=wp(wr($('#aAddr').value,{s:20}),{jc:'center',af:20});
 if(adOn('a'))body+=adDocx(wp,wr,10540);else if($('#aPost').value)body+=wp(wr('পদের নাম : '+$('#aPost').value,{b:1,s:22}),{jc:'center',af:10});
 if(!adOn('a')&&$('#aDept').value)body+=wp(wr('বিভাগ/দপ্তর : '+$('#aDept').value,{b:1,s:22}),{jc:'center',af:10});
 if(!adOn('a')&&!viva&&payLn())body+=wp(wr(payLn(),{b:1,s:22}),{jc:'center',af:10});
 body+=wp(wr('হাজিরা শীট — '+$('#aType').value,{b:1,s:22}),{jc:'center',af:20});
-const inf=sinfo().join('   |   ');body+=wp(inf?wr(inf,{s:19}):'',{jc:'center',af:100});
+const inf=sinfo().join('   |   ');body+=wp(inf?wr(inf,{s:19}):'',{jc:'center',af:100})}
+else{const l1=[$('#aPost').value&&'পদের নাম : '+$('#aPost').value,$('#aDept').value&&'বিভাগ/দপ্তর : '+$('#aDept').value].filter(Boolean).join('   |   '),inf=sinfo().join('   |   ');if(l1)body+=wp(wr(l1,{b:1,s:22}),{jc:'center',af:10});if(inf)body+=wp(wr(inf,{s:19}),{jc:'center',af:10});body+=wp(wr('হাজিরা শীট — '+$('#aType').value,{b:1,s:22}),{jc:'center',af:100})}
 let tb=`<w:tbl><w:tblPr><w:tblW w:w="${TW}" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders>${['top','left','bottom','right','insideH','insideV'].map(s=>`<w:${s} w:val="single" w:sz="4" w:space="0" w:color="000000"/>`).join('')}</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="70" w:type="dxa"/><w:right w:w="70" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${grid.map(g=>`<w:gridCol w:w="${g}"/>`).join('')}</w:tblGrid>`;
 const hd=['ক্রম',...cs.map(c=>c.l),...(sg?['স্বাক্ষর']:[])];
 tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="450" w:hRule="atLeast"/><w:tblHeader/></w:trPr>${hd.map((h,i)=>wtc(grid[i],wp(wr(h,{b:1,s:19}),{jc:'center'}),1)).join('')}</w:tr>`;
@@ -2514,7 +2563,12 @@ upF.onchange=async()=>{const f=upF.files&&upF.files[0];upF.value='';if(!f)return
 $('#adX').onclick=()=>$('#modal').classList.remove('on');
 pv();$('#modal').classList.add('on')}
 document.getElementById('aAdUse').addEventListener('change',e=>adTog('a',e.target));document.getElementById('cpAd').addEventListener('change',e=>adTog('c',e.target));
-(()=>{const v=$('#aVenue'),t=$('#aType');if(!v||!t)return;const f=()=>{const m=t.value.includes('মৌখিক'),l=v.previousElementSibling;if(l)l.textContent=m?'স্থান/ভেন্যু':'ভবনের নাম';v.placeholder=m?'স্থান/ভেন্যু':'ভবনের নাম'};t.addEventListener('change',f);f()})();
+(()=>{const v=$('#aVenue'),t=$('#aType');if(!v||!t)return;const f=ev=>{const m=t.value.includes('মৌখিক'),l=v.previousElementSibling;if(l)l.textContent=m?'স্থান/ভেন্যু':'ভবনের নাম';v.placeholder=m?'স্থান/ভেন্যু':'ভবনের নাম';
+try{const cv=(v.value||'').trim();let nv=null;
+if(m){if(!cv||(ev&&!vGet().includes(cv)))nv=VD_V[0]}
+else if(cv&&VD_V.includes(cv))nv='';
+if(nv!==null){v.value=nv;v.dispatchEvent(new Event('input',{bubbles:true}))}
+if(typeof vFill=='function')vFill()}catch(e){}};t.addEventListener('change',f);f()})();
 </script>
 <style id="uxCss">
 .uxUpRow{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin:6px 0 0}
@@ -3288,7 +3342,7 @@ inp.onchange=async()=>{const f=inp.files&&inp.files[0];inp.value='';if(!f)return
     const xt=src.type=='docx'?parseDocxExtra(src):{terms:[],signer:''};
     r={fromFile:true,__pending:true,memo:bnD(memo),date:bnD(String(pm.date||'')).replace(/\s*খ্রি\.?/,''),title:'নিয়োগ বিজ্ঞপ্তি',full:memo,deadline:'',site:'',signer:xt.signer,age:'',fees:[],terms:xt.terms,posts};
     note='প্রিভিউ — “সংরক্ষণ” বাটনে ক্লিক করলে ডাটাবেজে যোগ হবে'}}
-  if(r.__pending){showDone(r,[],note,true);toast('প্রিভিউ দেখানো হয়েছে — সংরক্ষণ বাটনে ক্লিক করুন')}else{const done=await applyNotice(r);showDone(r,done,note);toast('✓ বিজ্ঞপ্তি টুলে যোগ হয়েছে')}}
+  if(r.__pending){const okS=saveNotice(r);if(okS){showDone(r,[],'আপলোডের সাথে সাথে নিজে থেকেই সংরক্ষিত',false);toast('✓ নিয়োগ বিজ্ঞপ্তি সংরক্ষিত হয়েছে (Backup-এও যাবে)')}else{r.__pending=1;showDone(r,[],note,true);toast('⚠ ব্রাউজারে সংরক্ষণ হয়নি — সংরক্ষণ বাটনে আবার চেষ্টা করুন')}}else{const done=await applyNotice(r);showDone(r,done,note);toast('✓ বিজ্ঞপ্তি টুলে যোগ হয়েছে')}}
  catch(e){console.error(e);toast('⚠ '+(e.message||e))}};
 })();
 </script>
@@ -3336,6 +3390,10 @@ function upgDlg(id){upgCss();const old=document.querySelector('.uxOv.npUpgOv');i
   ov.querySelector('.uxX').onclick=close;ov.addEventListener('mousedown',e=>{if(e.target==ov)close()});
   ov.querySelector('#upAdd').onclick=()=>{const r=rec;if(!r){toast('⚠ আগে একটি রেকর্ড খুলুন/আপলোড করুন');return}
     const nu={id:'u'+Date.now().toString(36)+(++upgSeq),post:P.value,dept:ov.querySelector('#upD').value,grade:G.value,rec:r,count:Math.max(1,Math.min(20,parseInt(bn(ov.querySelector('#upN').value),10)||1)),letters:[],ts:Date.now()};UPG.push(nu);upgSel(nu.id);close();render(id);toast('✓ আপগ্রেডেশন যোগ হয়েছে — বর্তমান রেকর্ডে নির্বাচিত (সংখ্যা ০)')}}
+function npFinMark(){let m={};try{m=JSON.parse(localStorage.getItem('duet_final_np_v1')||'{}')||{}}catch(x){}
+  document.querySelectorAll('.catBox .npBtn[data-np]').forEach(b=>b.classList.toggle('fin',!!m[b.getAttribute('data-np')]));
+  document.querySelectorAll('.catBox .npBtn[data-upg]').forEach(b=>{const u=UPG.find(x=>x.id==b.getAttribute('data-upg'));b.classList.toggle('fin',!!(u&&m[u.rec+'|'+u.id]))})}
+window.npFinMark=npFinMark;
 async function render(id){
   upgCss();const box=document.getElementById(id);if(!box)return;
   box.innerHTML='<p class="mut">লোড হচ্ছে…</p>';
@@ -3343,10 +3401,21 @@ async function render(id){
   const e=esc,hl=t=>e(t).replace(/\(আপগ্রেডেশন\)/g,'<mark class="npUpgHl">(আপগ্রেডেশন)</mark>'),cur=a.find(x=>x.name==rec),cn=cur&&CATS.find(c=>c.k==cur.cat);
   let h='<div class="catCur">'+(rec?('বর্তমান রেকর্ড: <b>'+hl(rec)+'</b> → '+(cn?'<b>'+e(cn.t)+'</b>':'<span class="mut">তালিকায় নেই</span>')):'<span class="mut">কোনো রেকর্ড খোলা নেই</span>')+'</div><div class="catG">';
   CATS.forEach(c=>{if(c.k=='u'&&!g.u.length)return;
-    h+='<div class="catC"><h4><b>'+e(c.t)+'</b><span>'+(g[c.k].length+(c.k=='t'?UPG.filter(upgLive).length:0))+'</span></h4>'+(c.k=='t'?'<div class="npUpgRow"><small>'+e(c.d)+'</small><button type="button" class="npUpgAdd" data-note="t" title="চূড়ান্ত নিয়োগপত্রের তথ্য থেকে নোটশীট">📝 নোটশীট</button><button type="button" class="npUpgAdd" id="npUpgAdd" title="শুধু নিয়োগপত্র তৈরির জন্য — অন্য কোথাও সংরক্ষিত হয় না">⬆ আপগ্রেডেশন</button></div>':'<div class="npUpgRow"><small>'+e(c.d)+'</small><button type="button" class="npUpgAdd" data-note="'+c.k+'" title="চূড়ান্ত নিয়োগপত্রের তথ্য থেকে নোটশীট">📝 নোটশীট</button></div>')+'<ul>'+
+    h+='<div class="catC"><h4><b>'+e(c.t)+'</b><span>'+(g[c.k].length+(c.k=='t'?UPG.filter(upgLive).length:0))+'</span></h4>'+(c.k=='t'?'<div class="npUpgRow"><small>'+e(c.d)+'</small><button type="button" class="npCatRst" data-rk="t" title="এই ক্যাটাগরির সব নিয়োগপত্র রিসেট করুন" aria-label="রিসেট">↺</button><button type="button" class="npUpgAdd" data-note="t" title="চূড়ান্ত নিয়োগপত্রের তথ্য থেকে নোটশীট">📝 নোটশীট</button><button type="button" class="npUpgAdd" id="npUpgAdd" title="শুধু নিয়োগপত্র তৈরির জন্য — অন্য কোথাও সংরক্ষিত হয় না">⬆ আপগ্রেডেশন</button></div>':'<div class="npUpgRow"><small>'+e(c.d)+'</small><button type="button" class="npCatRst" data-rk="'+c.k+'" title="এই ক্যাটাগরির সব নিয়োগপত্র রিসেট করুন" aria-label="রিসেট">↺</button><button type="button" class="npUpgAdd" data-note="'+c.k+'" title="চূড়ান্ত নিয়োগপত্রের তথ্য থেকে নোটশীট">📝 নোটশীট</button></div>')+'<ul>'+
     (g[c.k].length?g[c.k].map(x=>'<li class="npLi '+(x.name==rec?'cur':'')+'"><div class="npT">'+hl(x.name)+'<i>'+e(x.post||'—')+(x.grade?' · গ্রেড-'+e(x.grade):'')+'</i></div>'+((UPG.some(u=>u.recName==x.name)||(META[x.name]&&META[x.name].src=='আপগ্রেডেশন'))?'<button type="button" class="npUpgX" data-x="'+e((UPG.find(u=>u.recName==x.name)||{}).id||'')+'" data-rn="'+e(x.name)+'" title="আপগ্রেডেশন মুছুন" aria-label="আপগ্রেডেশন মুছুন"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>':'')+'<button type="button" class="npBtn" data-np="'+e(x.name)+'">নিয়োগপত্র</button></li>').join(''):'<li class="mut">কোনো রেকর্ড নেই</li>')+(c.k=='t'?upgLis():'')+'</ul></div>'});
-  box.innerHTML=h+'</div>';
+  box.innerHTML=h+'</div>';npFinMark();
   box.querySelectorAll('.npBtn[data-np]').forEach(b=>b.onclick=()=>window.npOpen(b.getAttribute('data-np')));
+  /* ক্যাটাগরি অনুযায়ী সব নিয়োগপত্র (চূড়ান্ত) রিসেট */
+  box.querySelectorAll('.npCatRst').forEach(b=>b.onclick=()=>{
+    const k=b.getAttribute('data-rk'),ct=CATS.find(x=>x.k==k)||{},names=new Set((g[k]||[]).map(x=>x.name)),bd=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+    let m={};try{m=JSON.parse(localStorage.getItem('duet_final_np_v1')||'{}')||{}}catch(x){}
+    const keys=Object.keys(m).filter(key=>{const f=m[key]||{};return f.cat==k||(names.has(f.rec)&&!f.upg)||(k=='t'&&f.upg)});
+    if(!keys.length){toast('এই ক্যাটাগরিতে রিসেট করার মতো নিয়োগপত্র নেই');return}
+    const ans=prompt('⚠ “'+(ct.t||'')+'” ক্যাটাগরির সব নিয়োগপত্র ('+bd(keys.length)+'টি পদের চূড়ান্ত নিয়োগপত্র) রিসেট করবেন?\n\nচূড়ান্ত করা সব তথ্য মুছে যাবে, নিয়োগপত্র বাটনের নীল রংও উঠে যাবে এবং নোটশীটে এই তথ্য আর আসবে না।\n\nএই কাজ ফেরানো যাবে না।\n\nনিশ্চিত হলে নিচের ঘরে RESET (বা রিসেট) লিখে OK দিন:');
+    if(ans===null)return;if(!['reset','রিসেট'].includes(ans.trim().toLowerCase())){toast('⚠ সঠিক শব্দ লেখা হয়নি — রিসেট করা হয়নি');return}
+    keys.forEach(key=>delete m[key]);
+    try{localStorage.setItem('duet_final_np_v1',JSON.stringify(m))}catch(x){toast('⚠ রিসেট করা যায়নি');return}
+    npFinMark();toast('↺ '+(ct.t||'')+' — '+bd(keys.length)+'টি নিয়োগপত্র রিসেট হয়েছে')});
   box.querySelectorAll('li.npLi .npT').forEach(t=>{t.style.cursor='pointer';t.title='ক্লিক করলে বর্তমান রেকর্ডে এই তথ্য নির্বাচিত হবে';t.onclick=async()=>{const li=t.closest('li'),bu=li.querySelector('.npBtn[data-upg]'),bn_=li.querySelector('.npBtn[data-np]');
     const nm=bn_?bn_.getAttribute('data-np'):'';let u=bu?UPG.find(x=>x.id==bu.getAttribute('data-upg')):(nm?UPG.find(x=>x.recName==nm):null);
     try{if(u){upgSel(u.id);toast('✓ আপগ্রেডেশন নির্বাচিত: '+u.post)}else if(nm){if(UPGSEL)upgSel('');if(nm!=rec){await openRecord(nm,true)}toast('✓ বর্তমান রেকর্ড: '+nm)}}catch(err){toast('⚠ রেকর্ড খোলা যায়নি')}
@@ -3452,6 +3521,16 @@ setTimeout(fix,300);
 #kpBox button.p.kpMk.kpDone:hover{background:#0d47a1;border-color:#0d47a1}
 .kpMd .kpFin{margin-left:auto;border:2px solid #1565c0;background:#fff;color:#1565c0;border-radius:8px;padding:3px 12px;font-size:13px;font-weight:700;cursor:pointer}
 .kpMd .kpFin.on{background:#1565c0;color:#fff}
+.kpMd .kpRst{margin-left:auto;border:2px solid #c62828;background:#fff;color:#c62828;border-radius:8px;padding:3px 12px;font-size:13px;font-weight:700;cursor:pointer}
+.kpMd .kpRst:hover{background:#c62828;color:#fff}
+.kpMd .kpDel{flex:none;border:1px solid #c62828;background:#fff;color:#c62828;border-radius:6px;width:28px;height:28px;padding:0;font-size:13px;font-weight:700;cursor:pointer}
+.kpMd .kpDel:hover{background:#c62828;color:#fff}
+.kpMd .kpRst+.kpFin{margin-left:0}
+.kpCatHd{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
+.kpCatHd small{margin:0!important}
+.kpCatRst{flex:none;border:2px solid #c62828;background:#fff;color:#c62828;border-radius:8px;padding:2px 10px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.kpCatRst:hover{background:#c62828;color:#fff}
+.kpCatRst:disabled{opacity:.4;cursor:not-allowed;background:#fff;color:#c62828}
 .kpMd{width:min(940px,100%)}
 .kpMd .kpSum{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px;font-size:13px}
 .kpFill{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-end;border:1px dashed var(--bd,#b8c4d6);border-radius:8px;padding:8px 10px;margin:0 0 8px}.kpFill .c1{flex:2 1 300px;min-width:0}.kpFill .c2,.kpFill .c5{flex:1 1 150px;min-width:0}.kpFill label{display:block;font-size:12.5px;font-weight:600;margin:0 0 3px}.kpFill .kpPkIn{display:flex;gap:6px}.kpMd .kpFill select{width:78px!important;flex:0 0 78px;height:34px;padding:0 6px}.kpMd .kpFill input{height:34px;padding:4px 8px;box-sizing:border-box;min-width:0;width:100%;margin:0}.kpMd .kpFill .kpPkIn input{flex:1 1 auto;width:auto}.kpFill .c3,.kpFill .c4{flex:0 0 84px;min-width:0}.kpFill .kpChkBox{height:34px;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd,#b8c4d6);border-radius:6px;background:#fff}.kpMd .kpFill .kpChkBox input{width:18px;height:18px;margin:0;padding:0;cursor:pointer}.kpMd .kpFill input:disabled{opacity:.5}.kpFill .kpPr{flex:1 1 100%}.kpFill .kpPr:empty{display:none}.kpFill .kpHint{flex:1 1 100%;font-size:11.5px;margin:0}.kpPr .kpRow{display:flex;gap:6px;align-items:center;margin-top:3px}.kpPr .kpRow i{flex:0 0 auto;font-style:normal;font-size:11.5px;color:var(--mut,#667);white-space:nowrap}.kpMd .kpPr .kpRow input{flex:1 1 0;min-width:90px;height:30px;font-size:13px}.kpPr .kpRs{padding:0 7px;height:30px}
@@ -3612,10 +3691,13 @@ function kpFind(tok,mode){const R=ctxNow().R||[],t=bn(sp(tok)).toLowerCase();
 /* নামের শুরুতে ড./অধ্যাপক ইত্যাদি না থাকলে "জনাব" (মহিলা হলে "জনাবা") যোগ */
 const KP_HON=/^(ড\.|ডা\.|ডঃ|ডক্টর|ডাক্তার|(সহযোগী|সহকারী)\s*অধ্যাপক|অধ্যাপক|প্রফেসর|প্রফ\.|জনাবা?)(\s|$)/,KP_FEM=/\b(begum|khatun|khatoon|bibi|mst|mosammat|musammat|mosa)\b/i;
 function kpCandHon(n,r){n=String(n==null?'':n).trim();if(!n)return n;if(KP_HON.test(n)||/^(dr|prof|professor)\b/i.test(String((r&&r.name)||'').trim()))return n;return (KP_FEM.test((r&&r.name)||'')?'জনাবা ':'জনাব ')+n}
+/* পিতার নামের শুরুতে মৃত/মরহুম/প্রয়াত/ড./অধ্যাপক ইত্যাদি না থাকলে “জনাব” */
+const KP_FHON=/^(মৃত|মরহুম|মরহুমা|প্রয়াত|ড\.|ডা\.|ডঃ|ডক্টর|ডাক্তার|(সহযোগী|সহকারী)\s*অধ্যাপক|অধ্যাপক|প্রফেসর|প্রফ\.|জনাবা?|late|dr|prof|professor)(\s|\.|$)/i;
+function kpFatherHon(n){n=String(n==null?'':n).trim();if(!n)return n;return KP_FHON.test(n)?n:'জনাব '+n}
 function kpPick(str,mode){return String(str||'').split(/[,،;\s]+/).filter(Boolean).map(tok=>{
   const r=kpFind(tok,mode);if(!r)return{tok,miss:1};
   const o=((KP.ov||{})[r.id])||{};
-  return{tok,r,n:o.n!=null?o.n:kpCandHon(enBn(r.nameBn||r.name),r),f:o.f!=null?o.f:enBn(r.fatherBn||r.father),u:o.u!=null?o.u:kpUni(r),c:o.c!=null?o.c:kpCg(r)}})}
+  return{tok,r,n:o.n!=null?o.n:kpCandHon(enBn(r.nameBn||r.name),r),f:o.f!=null?o.f:kpFatherHon(enBn(r.fatherBn||r.father)),u:o.u!=null?o.u:kpUni(r),c:o.c!=null?o.c:kpCg(r)}})}
 
 /* ---------- শিক্ষকদের গ) অংশ: স্নাতক পর্যায়ের বিশ্ববিদ্যালয় (সংক্ষেপে) ও সিজিপিএ — ডাটা থেকে ---------- */
 function kpGr(r){const L=x=>{try{if(typeof lv=='function')return lv(x)}catch(z){}return /^(b\.?\s*sc|bsc|b\.?\s*a|bba|bachelor|b\.?\s*tech|b\.?\s*e\.?\s*d|honou?rs)/i.test(String(x||'').trim())?'gr':''};
@@ -3813,10 +3895,26 @@ async function kpList(){
   const cur=all.find(x=>x.name==rec),cn=cur&&CT.find(c=>c[0]==cur.cat);
   let h='<div class="catCur">বর্তমান রেকর্ড: '+(rec?'<b>'+e(rec)+'</b> → '+(cn?'<b>'+e(cn[1])+'</b>':'<span class="mut">তালিকায় নেই</span>'):'<span class="mut">কোনো রেকর্ড খোলা নেই</span>')+'</div><div class="catG">';
   CT.forEach(([k,t])=>{if(k=='u'&&!g.u.length)return;
-    h+='<div class="catC"><h4><b>'+e(t)+'</b><span>'+g[k].length+'</span></h4><small>'+e(CD[k])+'</small><ul>'+
+    h+='<div class="catC"><h4><b>'+e(t)+'</b><span>'+g[k].length+'</span></h4><div class="kpCatHd"><small>'+e(CD[k])+'</small><button type="button" class="kpCatRst" data-rk="'+k+'"'+(g[k].length?'':' disabled')+' title="এই ক্যাটাগরির সব কার্যবিবরণী রিসেট করুন">↺ রিসেট</button></div><ul>'+
     (g[k].length?g[k].map(x=>'<li class="kpLi'+(x.name==rec?' cur':'')+'"><div class="kpTop"><span class="kpNm" data-n="'+e(x.name)+'">'+e(x.name)+'</span><button type="button" class="p kpMk'+((META[x.name]&&META[x.name].fin)?' kpDone':'')+'" data-n="'+e(x.name)+'"'+((META[x.name]&&META[x.name].fin)?' title="চূড়ান্ত কার্যবিবরণী সম্পন্ন"':'')+'>📋 কার্যবিবরণী প্রস্তুত</button></div><i>'+e(x.post||'—')+(x.grade?' · গ্রেড-'+e(x.grade):'')+'</i></li>').join(''):'<li class="mut">কোনো রেকর্ড নেই</li>')+'</ul></div>'});
   box.innerHTML=h+'</div>';
-  box.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>kpOpen(b.dataset.n))}
+  box.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>kpOpen(b.dataset.n));
+  /* ক্যাটাগরি অনুযায়ী সব কার্যবিবরণী রিসেট */
+  box.querySelectorAll('[data-rk]').forEach(b=>b.onclick=async()=>{
+    const k=b.dataset.rk,L=g[k]||[],cn=(CT.find(c=>c[0]==k)||[])[1]||'';
+    if(!L.length)return;
+    if(!confirm('⚠ “'+cn+'” ক্যাটাগরির '+B(L.length)+'টি পদের সব কার্যবিবরণী রিসেট করবেন?\n\nপ্রতিটি পদের অধিবেশনের তারিখ/সময়, প্রার্থী, প্যানেল, কমিটির সম্পাদনা ও হাতে লেখা সব তথ্য মুছে যাবে এবং “চূড়ান্ত” চিহ্নও উঠে যাবে।\n\nএই কাজ ফেরানো যাবে না। নিশ্চিত?'))return;
+    let n=0;
+    for(const x of L){
+      try{
+        if(x.name==rec){KP.s={};KP.ov={};delete KP.mem;delete KP.fin;await svNow();n++;continue}
+        const o=await store.get(x.name);if(!o||o.arch)continue;
+        o.kp=(o.kp&&o.kp.sr)?{sr:o.kp.sr}:{};
+        await store.set(x.name,o);META[x.name]=metaOf(o);n++
+      }catch(err){console.error(err)}}
+    try{recRender()}catch(x){}
+    await kpList();
+    toast('↺ '+cn+' — '+B(n)+'টি কার্যবিবরণী রিসেট হয়েছে')})}
 
 /* ---------- "কার্যবিবরণী প্রস্তুত" ডায়ালগ ---------- */
 /* টুলে না পাওয়া গেলে যে ঘরগুলো চাওয়া হবে (পাওয়া গেলে দেখানোই হয় না) */
@@ -3834,7 +3932,7 @@ function kpDlg(){
   const miss=FLD.filter(f=>!sp(a[f[0]]));
   const got=[['স্মারক নং',sp(a.memo)&&('ঢাপ্রপ্রবি/'+B(a.memo))],['বিজ্ঞপ্তির তারিখ',sp(a.date)&&B(a.date)],['পদ',sp(a.post)],['বিভাগ/দপ্তর',sp(a.dept)],['গ্রেড ও বেতন',sp(a.grade)&&(py.gr+' '+py.amt)],['পদসংখ্যা',sp(a.count)&&B(a.count)],['মোট প্রার্থী',B(ctx.R.length+ctx.RJ.length)+' জন'],['কমিটি',mem.length?B(mem.length)+' জন সদস্য':'']].filter(x=>x[1]);
   const fld=(f)=>'<label>'+e(f[1])+'<input data-k="'+f[0]+'" value="" placeholder="'+e(f[2])+'"></label>';
-  let h='<div class="kpSum"><b>টুল থেকে নেওয়া হয়েছে:</b> '+got.map(x=>'<span class="kpChip"><i>'+e(x[0])+'</i> '+e(x[1])+'</span>').join('')+'<button type="button" id="kpFin" class="kpFin" title="কার্যবিবরণী সম্পূর্ণ হলে ক্লিক করুন — তালিকায় এই পদের বাটনের রং বদলে যাবে"></button></div>';
+  let h='<div class="kpSum"><b>টুল থেকে নেওয়া হয়েছে:</b> '+got.map(x=>'<span class="kpChip"><i>'+e(x[0])+'</i> '+e(x[1])+'</span>').join('')+'<button type="button" id="kpRst" class="kpRst" title="এই পদের কার্যবিবরণীর ফরম রিসেট করুন — সব ইনপুট মুছে প্রথম অবস্থায় ফিরবে">↺ রিসেট</button><button type="button" id="kpFin" class="kpFin" title="কার্যবিবরণী সম্পূর্ণ হলে ক্লিক করুন — তালিকায় এই পদের বাটনের রং বদলে যাবে"></button></div>';
   if(miss.length)h+='<div class="kpHint w">নিচের লাল ঘরগুলোর তথ্য টুলে পাওয়া যায়নি — পূরণ করুন:</div><div class="kpGrid need">'+miss.map(fld).join('')+'</div>';
   h+='<div class="kpGrid"><label>সিলেকশন কমিটির অধিবেশনের তারিখ<input data-s="date" autocomplete="off" value="'+e(s.date||'')+'" placeholder="যেমন: ২৩/০৬/২০২৬"><span class="kpHint" id="kpDay">'+(s.date?(dayOf(s.date)?'বার: '+e(dayOf(s.date)):'⚠ দিন/মাস/বছর ফরম্যাটে লিখুন'):'')+'</span></label>'+
      '<label>সময়<span class="inl"><select data-s="tp"><option value="">—</option>'+['সকাল','দুপুর','বিকাল','রাত'].map(x=>'<option'+(s.tp==x?' selected':'')+'>'+x+'</option>').join('')+'</select><input data-s="time" autocomplete="off" value="'+e(s.time||'')+'" placeholder="যেমন: ৪.০০"><em style="font-style:normal">ঘটিকা</em></span></label>'+
@@ -3874,7 +3972,8 @@ function kpDlg(){
   /* প্রার্থী বসানো */
   const pkDraw=k=>{const box=ov.querySelector('#kpPr_'+k);const L=kpPick(getS()[k],getS()[k+'t']);
     box.innerHTML=L.map((x,i)=>x.miss?'<div class="kpHint w">⚠ “'+e(x.tok)+'” — এই রেকর্ডের যোগ্য প্রার্থীর মধ্যে মেলেনি (SL/আইডি বাছাই ঠিক আছে কিনা দেখুন)</div>':
-      '<div class="kpRow"><i>('+B(i+1)+') SL '+e(B(String(x.r.no!=null?x.r.no:x.r.sl||'—')))+' · '+e(x.r.id)+'</i><input data-ov="'+e(x.r.id)+'" data-f="n" value="'+e(x.n)+'" placeholder="নাম"><input data-ov="'+e(x.r.id)+'" data-f="f" value="'+e(x.f)+'" placeholder="পিতার নাম">'+(kpIsT(kpAd(ctxNow()))?'<input data-ov="'+e(x.r.id)+'" data-f="u" value="'+e(x.u)+'" placeholder="বিশ্ববিদ্যালয়/ইনস্টিটিউট (যেমন: DUET)"><input data-ov="'+e(x.r.id)+'" data-f="c" value="'+e(x.c)+'" placeholder="সিজিপিএ (যেমন: 3.88)" style="max-width:110px">':'')+'<button type="button" class="kpRs" data-rs="'+e(x.r.id)+'" title="স্বয়ংক্রিয় অনুবাদে ফেরান">↺</button></div>').join('');
+      '<div class="kpRow"><i>('+B(i+1)+') SL '+e(B(String(x.r.no!=null?x.r.no:x.r.sl||'—')))+' · '+e(x.r.id)+'</i><input data-ov="'+e(x.r.id)+'" data-f="n" value="'+e(x.n)+'" placeholder="নাম"><input data-ov="'+e(x.r.id)+'" data-f="f" value="'+e(x.f)+'" placeholder="পিতার নাম">'+(kpIsT(kpAd(ctxNow()))?'<input data-ov="'+e(x.r.id)+'" data-f="u" value="'+e(x.u)+'" placeholder="বিশ্ববিদ্যালয়/ইনস্টিটিউট (যেমন: DUET)"><input data-ov="'+e(x.r.id)+'" data-f="c" value="'+e(x.c)+'" placeholder="সিজিপিএ (যেমন: 3.88)" style="max-width:110px">':'')+'<button type="button" class="kpRs" data-rs="'+e(x.r.id)+'" title="স্বয়ংক্রিয় অনুবাদে ফেরান">↺</button><button type="button" class="kpDel" data-del="'+i+'" title="এই প্রার্থীকে সাক্ষাৎকারের তালিকা থেকে মুছুন" aria-label="মুছুন">✕</button></div>').join('');
+    box.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{const S=getS(),toks=String(S[k]||'').split(/[,،;\s]+/).filter(Boolean);toks.splice(+b.dataset.del,1);S[k]=toks.join(', ');const inp=ov.querySelector('[data-pk="'+k+'"]');if(inp)inp.value=S[k];wrAuto();sv();pkDraw(k);pv()});
     box.querySelectorAll('[data-ov]').forEach(inp=>inp.addEventListener('input',()=>{KP.ov=KP.ov||{};(KP.ov[inp.dataset.ov]=KP.ov[inp.dataset.ov]||{})[inp.dataset.f]=inp.value;sv();pv()}));
     box.querySelectorAll('[data-rs]').forEach(b=>b.onclick=()=>{if(KP.ov)delete KP.ov[b.dataset.rs];sv();ovAll();pv()})};
   const wrAuto=()=>{const S=getS();if(S.wrM)return;const n=kpPick(S.iv,S.ivt).filter(x=>!x.miss).length,w=ov.querySelector('[data-s=wr]');if(w)w.value=n||'';S.wr=n?String(n):''};
@@ -3893,6 +3992,16 @@ function kpDlg(){
   const fbUp=()=>{const on=!!KP.fin;fb.classList.toggle('on',on);fb.textContent=on?'✅ চূড়ান্ত করা হয়েছে (বাতিল করতে ক্লিক)':'☑ চূড়ান্ত কার্যবিবরণী'};
   fbUp();
   fb.onclick=async()=>{KP.fin=!KP.fin;fbUp();await svNow();try{kpList()}catch(x){}toast(KP.fin?'✅ কার্যবিবরণী চূড়ান্ত করা হয়েছে — তালিকায় বাটনের রং বদলেছে':'↩ চূড়ান্ত চিহ্ন তুলে নেওয়া হয়েছে')};
+  /* রিসেট — এই পদের কার্যবিবরণীর ফরম প্রথম অবস্থায় ফেরানো */
+  ov.querySelector('#kpRst').onclick=async()=>{
+    if(!confirm('এই পদের কার্যবিবরণীর ফরম রিসেট করবেন?\n\nতারিখ, সময়, প্রার্থী, প্যানেল, কমিটি ও হাতে লেখা সব তথ্য মুছে প্রথম অবস্থায় ফিরবে এবং চূড়ান্ত চিহ্নও উঠে যাবে।'))return;
+    clearTimeout(tm);
+    KP.s={};KP.ov={};delete KP.mem;delete KP.fin;
+    ov.querySelectorAll('[data-k]').forEach(x=>{delete AD[x.dataset.k]});
+    await svNow();
+    try{kpList()}catch(x){}
+    kpDlg();
+    toast('↺ কার্যবিবরণীর ফরম রিসেট হয়েছে')};
   showPv()}
 
 /* ---------- নামের তালিকা: DOCX আপলোড + সম্পাদনা ডায়ালগ ---------- */
@@ -4428,7 +4537,7 @@ const letterH=v=>{
   const FNK=info.name+(info.upg?'|'+(info.uid||''):'');
   const finAll=()=>{try{return JSON.parse(localStorage.getItem('duet_final_np_v1')||'{}')||{}}catch(x){return{}}};
   const finPut=m=>{try{localStorage.setItem('duet_final_np_v1',JSON.stringify(m));return true}catch(x){return false}};
-  const finUi=()=>{const f=finAll()[FNK],b=$$('npFin');if(!b)return;b.classList.toggle('on',!!f);
+  const finUi=()=>{const f=finAll()[FNK],b=$$('npFin');if(window.npFinMark)window.npFinMark();if(!b)return;b.classList.toggle('on',!!f);
     b.textContent=f?'✔ চূড়ান্ত নিয়োগপত্র (সংরক্ষিত)':'✔ চূড়ান্ত নিয়োগপত্র';
     b.title=f?('চূড়ান্ত হিসেবে সংরক্ষিত ('+f.cands.length+' জন) — আবার ক্লিক করলে হালনাগাদ বা চিহ্ন তুলে নেওয়া যাবে'):'এই নিয়োগপত্রের বর্তমান তথ্য চূড়ান্ত হিসেবে সংরক্ষণ হবে — পরে নোটশীটে শুধু চূড়ান্ত নিয়োগপত্রের তথ্যই যাবে'};
   $$('npFin').onclick=()=>{
