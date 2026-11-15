@@ -276,7 +276,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div class="sec" id="t-rec"><div class="card noprint">
 <div class="row"><input id="rq" class="grow" placeholder="🔍 রেকর্ড খুঁজুন (নাম, ফাইল, তারিখ...)">
 <button class="p" id="rFold" title="ব্যাকআপ রাখার ফোল্ডার বেছে নিন / বদলান">📁 ব্যাকআপ ফোল্ডার</button><button id="rBak">⬇ Backup<kbd>Alt+B</kbd></button><button id="rRes">⬆ Restore<kbd>Alt+R</kbd></button><input type="file" id="rResF" accept=".json,application/json" hidden></div>
-<div class="row" style="margin:8px 0"><span id="rinfo" class="mut"></span><span id="rcat" style="margin-left:16px;font-size:13px"></span><span class="grow"></span>
+<div class="row" style="margin:8px 0"><span id="rinfo" class="mut"></span><span id="rcat" style="margin-left:16px;font-size:13px"></span><span id="rcatStat" style="margin-left:16px;font-size:13px;display:inline-flex;flex-wrap:wrap;gap:4px 16px;align-items:center"></span><span class="grow"></span>
 <button id="rXl">Excel (রেকর্ড তালিকা)</button><button id="rCsv">CSV (রেকর্ড তালিকা)</button><button class="d" id="rDelSel">নির্বাচিত মুছুন</button></div>
 <div class="tw"><table id="rt"></table></div>
 <p class="mut">প্রতিটি ফাইল আপলোড করলে আপলোড করা ফাইলের নামেই (এক্সটেনশন ছাড়া, যেমন “Assistant Section Officer [TE] [2026-05-05 - 1263]”) একটি রেকর্ড তৈরি হয়। একই নামের ফাইল আবার আপলোড করলে ওই রেকর্ডই হালনাগাদ হয় (মুছে ফেলা আবেদনকারী ও ছবি মনে থাকে)। নামে ক্লিক করলে রেকর্ডটি খোলে। কলামের নামে ক্লিক করে সাজানো যায়। ডাটা পরিবর্তন করলে নিজে নিজেই সংরক্ষিত হয়; Backup নিলে সব রেকর্ড একটি .json ফাইলে নামে, Restore দিয়ে সেটি ফিরিয়ে আনা যায়।</p></div></div>
@@ -300,7 +300,9 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div class="smsSub"><button data-p="send" class="on">✉ SMS পাঠান</button><button data-p="dlr">📬 ডেলিভারি রিপোর্ট</button><button data-p="log">🧾 লগ রিপোর্ট</button><button data-p="cfg">⚙ সেটিং</button><span class="grow"></span><span id="smsBal" class="mut"></span><button id="smsBalBtn" title="bulksmsbd.net অ্যাকাউন্টের ব্যালেন্স দেখুন">💰 ব্যালেন্স</button></div>
 
 <div class="smsP on" id="smsP-send">
-<div class="row"><label>প্রাপক: <select id="smsSrc"><option value="f">ডাটা ট্যাবের ফিল্টার করা সারি</option><option value="a">সব সারি</option><option value="m">শুধু ম্যানুয়াল নম্বর</option></select></label><span id="smsRcInfo" class="mut"></span><label title="একটি পদ/রেকর্ড বাছলে শুধু সেই রেকর্ডের যোগ্য (Reject ছাড়া) প্রার্থীদের মোবাইল নম্বর তালিকায় আসবে; কেউ আগে থেকে টিক দেওয়া থাকবে না">পদ / রেকর্ড: <select id="smsRec" style="max-width:230px"><option value="">— পদ / রেকর্ড বাছাই করুন —</option><option value="__cur">বর্তমান রেকর্ড (প্রাপক অনুযায়ী)</option></select></label><label title="মোবাইল নম্বরের সমস্যা ইস্যু অনুযায়ী দেখুন">Issue: <select id="smsIss" style="max-width:150px"><option value="">— সব —</option></select></label><span class="grow"></span><span style="display:inline-flex;gap:6px;white-space:nowrap;flex:none"><button id="smsAll">✔ Select All</button><button id="smsNone">✖ Deselect All</button></span></div>
+<div class="row"><label style="display:none">প্রাপক: <select id="smsSrc"><option value="f">ডাটা ট্যাবের ফিল্টার করা সারি</option><option value="a">সব সারি</option><option value="m">শুধু ম্যানুয়াল নম্বর</option></select></label><label title="একটি পদ/রেকর্ড বাছলে শুধু সেই রেকর্ডের যোগ্য (Reject ছাড়া) প্রার্থীদের মোবাইল নম্বর তালিকায় আসবে; কেউ আগে থেকে টিক দেওয়া থাকবে না">পদ / রেকর্ড: <select id="smsRec" style="max-width:230px"><option value="">— পদ / রেকর্ড বাছাই করুন —</option><option value="__cur">বর্তমান রেকর্ড (প্রাপক অনুযায়ী)</option></select></label><label title="মোবাইল নম্বরের সমস্যা ইস্যু অনুযায়ী দেখুন">Issue: <select id="smsIss" style="max-width:150px"><option value="">— সব —</option></select></label>
+<label title="ক্রম (SL), আইডি, নাম বা পিতার নাম লিখে তালিকা ছেঁকে নিন; একাধিক শব্দ দিলে সবকটি মিলতে হবে। ছাঁকা তালিকায় Select All / Deselect All শুধু দেখানো সারিতে কাজ করে">🔍 <input id="smsQ" type="search" placeholder="ক্রম / আইডি / নাম / পিতার নাম দিয়ে খুঁজুন" style="width:250px"></label><span class="grow"></span><span style="display:inline-flex;gap:6px;white-space:nowrap;flex:none"><button id="smsAll">✔ Select All</button><button id="smsNone">✖ Deselect All</button></span></div>
+<div class="row" style="margin:6px 0;flex-wrap:wrap;gap:8px 10px;align-items:center"><label title="ক্রম বা আইডির রেঞ্জ ও একাধিক নম্বর দিয়ে একসাথে বাছুন">বাছাই: <select id="smsRgM" style="max-width:150px"><option value="sl">ক্রম (SL)</option><option value="id">আইডির শেষ ৩ ডিজিট</option></select></label><input id="smsRg" placeholder="যেমন: 1-50, 60, 75-90" style="width:190px"><button id="smsRgOk" title="এই ক্রম/আইডিগুলোর প্রার্থীদের টিক দিন (আগের টিক থাকবে)">✔ বাছুন</button><button id="smsRgNo" title="এই ক্রম/আইডিগুলোর প্রার্থীদের টিক তুলে নিন">✖ বাদ দিন</button><span id="smsRcInfo" class="mut" style="font-size:13px;margin-left:6px"></span></div>
 <div class="tw" style="max-height:230px;margin:8px 0"><table id="smsRcT"></table></div>
 <details style="margin-bottom:10px"><summary class="mut">➕ ম্যানুয়াল নম্বর যোগ করুন (কমা / স্পেস / নতুন লাইনে আলাদা)</summary><textarea id="smsMan" placeholder="01XXXXXXXXX, 8801XXXXXXXXX" style="min-height:70px;margin-top:6px"></textarea></details>
 <div class="row" style="margin-bottom:6px"><b>বার্তা</b><span class="mut">ব্যক্তিগত করতে বসান:</span><button type="button" data-ins="{name}">{name}</button><button type="button" data-ins="{id}">{id}</button><span class="grow"></span></div>
@@ -310,9 +312,9 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 </div>
 
 <div class="smsP" id="smsP-dlr">
-<div class="row"><select id="dlB" title="কোন ব্যাচ"></select><select id="dlS"><option value="">সব স্ট্যাটাস</option><option value="ok">✓ সফল (সার্ভারে গৃহীত)</option><option value="fail">✗ ব্যর্থ</option><option value="unk">? অনিশ্চিত</option></select><input id="dlQ" class="grow" placeholder="🔍 নাম, আইডি, নম্বর, বার্তা…"></div>
+<div class="row"><select id="dlB" title="কোন ব্যাচ"></select><select id="dlS"><option value="">সব স্ট্যাটাস</option><option value="ok" selected>✓ সফল (সার্ভারে গৃহীত)</option><option value="fail">✗ ব্যর্থ</option><option value="unk">? অনিশ্চিত</option></select><input id="dlQ" class="grow" placeholder="🔍 নাম, আইডি, নম্বর, বার্তা…"></div>
 <div class="row" style="margin:8px 0" id="dlSum"></div>
-<div class="row" style="margin-bottom:8px"><button id="dlRetry">↻ ব্যর্থগুলো আবার পাঠান</button><button id="dlRetryU">↻ অনিশ্চিতগুলো আবার</button><button id="dlCsv">⬇ CSV</button><button id="dlWeb">🌐 bulksmsbd.net রিপোর্ট খুলুন</button><select id="dlP" title="পদ / রেকর্ড অনুযায়ী ডেলিভারি রিপোর্ট" style="max-width:300px"><option value="">পদ / রেকর্ড — সব</option></select><select id="dlA" title="আর্কাইভ করা রেকর্ডে পাঠানো SMS" style="max-width:300px"><option value="">আর্কাইভ SMS</option></select><button id="dlPdfR" style="display:none" title="নির্বাচিত পদ/রেকর্ডের SMS রিপোর্ট PDF">⬇ PDF রিপোর্ট</button><button id="dlDocxR" style="display:none" title="নির্বাচিত পদ/রেকর্ডের SMS রিপোর্ট Word">⬇ Word (.docx)</button><span class="grow"></span><button class="d" id="dlClr">রিপোর্ট মুছুন</button></div>
+<div class="row" style="margin-bottom:8px"><button id="dlRetry">↻ ব্যর্থগুলো আবার পাঠান</button><button id="dlRetryU">↻ অনিশ্চিতগুলো আবার</button><button id="dlWeb">🌐 bulksmsbd.net রিপোর্ট খুলুন</button><select id="dlP" title="পদ / রেকর্ড অনুযায়ী ডেলিভারি রিপোর্ট" style="max-width:230px"><option value="">পদ / রেকর্ড — সব</option></select><select id="dlA" title="আর্কাইভ করা রেকর্ডে পাঠানো SMS" style="max-width:200px"><option value="">আর্কাইভ SMS</option></select><span class="grow"></span><button class="d" id="dlClr">রিপোর্ট মুছুন</button><span id="dlAllW" style="position:relative;display:inline-block"><button id="dlAllBtn" type="button" title="বর্তমানে দেখানো (ফিল্টার করা) সব SMS-এর ডেলিভারি রিপোর্ট — Legal, Landscape">📬 ডেলিভারি রিপোর্ট ডাউনলোড ▾</button><div id="dlAllMenu" style="display:none;position:absolute;right:0;left:auto;top:calc(100% + 4px);min-width:100%;z-index:70;background:#fff;border:1px solid #cfd8d3;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.18);padding:4px;white-space:nowrap"><button type="button" data-f="docx" style="display:block;width:100%;text-align:left;margin:2px 0">📄 Word (.docx)</button><button type="button" data-f="pdf" style="display:block;width:100%;text-align:left;margin:2px 0">📕 PDF</button><button type="button" data-f="xlsx" style="display:block;width:100%;text-align:left;margin:2px 0">📊 Excel (.xlsx)</button></div></span></div>
 <div class="tw"><table id="dlT"></table></div>
 <p class="mut">“সফল” মানে bulksmsbd.net সার্ভার SMS গ্রহণ করেছে (কোড 202)। হ্যান্ডসেটে পৌঁছানোর চূড়ান্ত অবস্থা (Delivered/Failed) দেখতে “bulksmsbd.net রিপোর্ট খুলুন” ব্যবহার করুন।</p>
 </div>
@@ -1557,32 +1559,34 @@ finally{bRm.disabled=false;bRm.textContent=ot}
 toast('✅ '+n+'টি কক্ষের স্টিকার ডাউনলোড হয়েছে'+(over?' (⚠ বণ্টিত সংখ্যা মোটের চেয়ে বেশি)':miss>0?' (⚠ '+miss+' জন কোনো কক্ষে বণ্টিত হয়নি)':'')+(np?' — ⚠ '+np+'টি ছবি যুক্ত হয়নি':''))};
 })();
 /* ===== SMS ডেলিভারি রিপোর্ট (পদ/রেকর্ড অনুযায়ী) — PDF ও Word ===== */
+/* ডুয়েটের ছোট লোগো (Word হেডারের জন্য) */
+const dlrLogoRun=h=>`<w:r><w:rPr><w:position w:val="-6"/></w:rPr><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="114300"><wp:extent cx="${h}" cy="${h}"/><wp:docPr id="900" name="Logo"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="900" name="logo.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${h}" cy="${h}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r><w:r><w:t xml:space="preserve"> </w:t></w:r>`;
 window.dlrExport=async function(fmt,d){
-  const HD=['ক্রম','আইডি','নাম (বাংলায়)','পিতার নাম (বাংলায়)','পদ ও বিভাগ/দপ্তরের নাম','SMS Text','SMS পাঠানোর তারিখ ও সময়','SMS Status'];
+  const HD=['ক্রম','আইডি','নাম','পিতার নাম','মোবাইল নম্বর','SMS Text','SMS পাঠানোর তারিখ ও সময়','SMS Status'],CN=[0,1,4,6,7];
   const inst=($('#aInst')&&$('#aInst').value)||'ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর';
   const sum=`মোট SMS: ${d.rows.length} · সফল: ${d.ok} · ব্যর্থ: ${d.fail} · অনিশ্চিত: ${d.unk}`;
   const fname=safe((d.rec||'')+' - SMS রিপোর্ট');
   if(fmt=='pdf'){
-    const W=[4,8,14,14,19,21,11,9],FS=12,PXW=1229,BUD=505;
+    const W=[4,9,15,15,11,26,12,8],FS=12,PXW=1229,BUD=505;
     const lines=(t,chars)=>Math.max(1,Math.ceil(String(t||'').length/chars));
-    const rh=r=>Math.max(lines(r[2],20),lines(r[3],20),lines(r[4],26),lines(r[5],32),lines(r[6],14),lines(r[7],10))*17+12;
+    const rh=r=>Math.max(lines(r[2],20),lines(r[3],20),lines(r[4],14),lines(r[5],38),lines(r[6],20),lines(r[7],8))*17+12;
     const pages=[];let cur=[],used=0;for(const r of d.rows){const h=rh(r);if(cur.length&&used+h>BUD){pages.push(cur);cur=[];used=0}cur.push(r);used+=h}if(cur.length)pages.push(cur);if(!pages.length)pages.push([]);
     const td='border:1px solid #000;padding:5px;vertical-align:middle;word-break:break-word;font-size:'+FS+'px;color:#000;background:#fff';
     const html=pages.map((rs,pi)=>`<div class="pg" style="width:${PXW}px;padding:6px 4px;background:#fff;color:#000;font-family:'KalpurushEmb','Kalpurush',sans-serif">`+
-      (pi==0?`<div style="text-align:center;font-size:20px;font-weight:700">${XE(inst)}</div><div style="text-align:center;font-size:16px;font-weight:700;margin-top:2px">SMS ডেলিভারি রিপোর্ট</div><div style="text-align:center;font-size:14px;margin-top:2px">${XE(d.post)}</div><div style="text-align:center;font-size:12px;margin:2px 0 6px">${XE(sum)}</div>`:`<div style="text-align:center;font-size:13px;font-weight:700;margin-bottom:6px">${XE(d.post)} — SMS ডেলিভারি রিপোর্ট (পাতা ${pi+1})</div>`)+
-      `<table style="width:100%;table-layout:fixed;border-collapse:collapse"><colgroup>${W.map(w=>`<col style="width:${w}%">`).join('')}</colgroup><thead><tr>${HD.map(h=>`<th style="${td};font-weight:700;text-align:center;background:#eee">${XE(h)}</th>`).join('')}</tr></thead><tbody>${rs.map(r=>`<tr>${r.map((v,i)=>`<td style="${td};text-align:${i==0||i==1||i==6||i==7?'center':'left'}">${XE(v)}</td>`).join('')}</tr>`).join('')}</tbody></table><div style="text-align:right;font-size:11px;margin-top:6px">পাতা ${pi+1}/${pages.length}</div></div>`).join('');
+      (pi==0?`<div style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:20px;font-weight:700"><img src="${LOGO}" style="height:36px;width:auto"><span>${XE(inst)}</span></div><div style="text-align:center;font-size:16px;font-weight:700;margin-top:2px">SMS ডেলিভারি রিপোর্ট</div><div style="text-align:center;font-size:14px;margin-top:2px">${XE(d.post)}</div><div style="text-align:center;font-size:12px;margin:2px 0 6px">${XE(sum)}</div>`:`<div style="text-align:center;font-size:13px;font-weight:700;margin-bottom:6px">${XE(d.post)} — SMS ডেলিভারি রিপোর্ট (পাতা ${pi+1})</div>`)+
+      `<table style="width:100%;table-layout:fixed;border-collapse:collapse"><colgroup>${W.map(w=>`<col style="width:${w}%">`).join('')}</colgroup><thead><tr>${HD.map(h=>`<th style="${td};font-weight:700;text-align:center;background:#eee">${XE(h)}</th>`).join('')}</tr></thead><tbody>${rs.map(r=>`<tr>${r.map((v,i)=>`<td style="${td};text-align:${CN.includes(i)?'center':'left'}">${XE(v)}</td>`).join('')}</tr>`).join('')}</tbody></table><div style="text-align:right;font-size:11px;margin-top:6px">পাতা ${pi+1}/${pages.length}</div></div>`).join('');
     let root=document.getElementById('dlrSheet');if(root)root.remove();root=document.createElement('div');root.id='dlrSheet';root.style.cssText='position:absolute;left:-30000px;top:0;width:'+PXW+'px';root.innerHTML=html;document.body.appendChild(root);
     try{await pdfDl('dlPdfR','dlrSheet',()=>true,{w:355.6,h:215.9,m:15.24,px:PXW},fname+'.pdf')}finally{root.remove()}
     return}
   /* ---- Word ---- */
   const bt=$('#dlDocxR'),old=bt.textContent;bt.disabled=true;bt.textContent='⏳ তৈরি হচ্ছে...';
   try{
-    const TW=18432,cw=[700,1300,2400,2400,3500,4200,1950,1982],bd='<w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="000000"/>';
+    const TW=18432,cw=[600,1300,2600,2600,1700,5100,2700,1832],bd='<w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="000000"/>';
     const cell=(w,t,o={})=>wtc(w,wp(wr(t,{b:o.b,s:o.s||18}),{jc:o.jc||'left'}),o.h);
-    let body=wp(wr(inst,{b:1,s:30}),{jc:'center',af:20})+wp(wr('SMS ডেলিভারি রিপোর্ট',{b:1,s:26}),{jc:'center',af:20})+wp(wr(d.post,{b:1,s:22}),{jc:'center',af:20})+wp(wr(sum,{s:19}),{jc:'center',af:140});
+    let body=wp(dlrLogoRun(360000)+wr(inst,{b:1,s:30}),{jc:'center',af:20})+wp(wr('SMS ডেলিভারি রিপোর্ট',{b:1,s:26}),{jc:'center',af:20})+wp(wr(d.post,{b:1,s:22}),{jc:'center',af:20})+wp(wr(sum,{s:19}),{jc:'center',af:140});
     let tb=`<w:tbl><w:tblPr><w:tblW w:w="${TW}" w:type="dxa"/><w:tblBorders>${bd}</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="60" w:type="dxa"/><w:right w:w="60" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${cw.map(w=>`<w:gridCol w:w="${w}"/>`).join('')}</w:tblGrid>`;
     tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="450" w:hRule="atLeast"/><w:tblHeader/></w:trPr>${HD.map((h,i)=>cell(cw[i],h,{b:1,jc:'center',h:1})).join('')}</w:tr>`;
-    d.rows.forEach(r=>{tb+=`<w:tr><w:trPr><w:cantSplit/></w:trPr>${r.map((v,i)=>cell(cw[i],v,{jc:(i==0||i==1||i==6||i==7)?'center':'left'})).join('')}</w:tr>`});
+    d.rows.forEach(r=>{tb+=`<w:tr><w:trPr><w:cantSplit/></w:trPr>${r.map((v,i)=>cell(cw[i],v,{jc:CN.includes(i)?'center':'left'})).join('')}</w:tr>`});
     body+=tb+'</w:tbl>'+'<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p>';
     const sect=`<w:sectPr><w:footerReference w:type="default" r:id="rId4"/><w:pgSz w:w="20160" w:h="12240" w:orient="landscape"/><w:pgMar w:top="864" w:right="864" w:bottom="864" w:left="864" w:header="400" w:footer="400" w:gutter="0"/></w:sectPr>`;
     const X0='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',te=t=>new TextEncoder().encode(t);
@@ -1592,19 +1596,100 @@ window.dlrExport=async function(fmt,d){
     const guid='{'+(crypto.randomUUID?crypto.randomUUID():'D2F4A1B3-5C6E-4F70-8A9B-0C1D2E3F4A5B').toUpperCase()+'}';
     const font=b64u(KB64),hex=guid.replace(/[{}-]/g,''),key=[];for(let i=0;i<16;i++)key.push(parseInt(hex.substr(30-2*i,2),16));for(let i=0;i<32;i++)font[i]^=key[i%16];
     const files=[
-    {n:'[Content_Types].xml',d:te(X0+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/></Types>')},
+    {n:'[Content_Types].xml',d:te(X0+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/></Types>')},
     {n:'_rels/.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>')},
     {n:'word/document.xml',d:te(doc)},
-    {n:'word/_rels/document.xml.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/><Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/></Relationships>')},
+    {n:'word/_rels/document.xml.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/><Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/><Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/logo.png"/></Relationships>')},
     {n:'word/styles.xml',d:te(X0+`<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr>${FN}<w:sz w:val="20"/><w:szCs w:val="20"/><w:lang w:val="en-US" w:eastAsia="en-US" w:bidi="bn-BD"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>`)},
     {n:'word/settings.xml',d:te(X0+'<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:embedTrueTypeFonts/><w:saveSubsetFonts w:val="0"/><w:defaultTabStop w:val="720"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>')},
     {n:'word/fontTable.xml',d:te(X0+`<w:fonts xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:font w:name="Kalpurush"><w:charset w:val="01"/><w:family w:val="auto"/><w:pitch w:val="variable"/><w:embedRegular r:id="rId1" w:fontKey="${guid}"/></w:font></w:fonts>`)},
     {n:'word/_rels/fontTable.xml.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/font" Target="fonts/font1.odttf"/></Relationships>')},
     {n:'word/fonts/font1.odttf',d:font},
-    {n:'word/footer1.xml',d:te(ftr)}];
+    {n:'word/footer1.xml',d:te(ftr)},{n:'word/media/logo.png',d:b64u(LOGO.split(',')[1])}];
     const blob=await zipMake(files);await dl(blob,fname+'.docx','');toast('📄 Word রিপোর্ট তৈরি হয়েছে ('+d.rows.length+' টি SMS)')
   }catch(err){alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
   finally{bt.disabled=false;bt.textContent=old}
+};
+
+/* ===== সব SMS ডেলিভারি রিপোর্ট — Word / PDF / Excel (Legal, Landscape, চারদিকে ০.৫", প্রতি SMS এক লাইনে) ===== */
+window.dlrExportAll=async function(fmt,d){
+  const HD=['ক্রম','আইডি','নাম','পিতার নাম','মোবাইল নম্বর','স্ট্যাটাস','তারিখ ও সময়','ম্যাসেজ'],CEN=[0,1,4,5,6];
+  const inst=($('#aInst')&&$('#aInst').value)||'ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর';
+  const sum=`মোট SMS: ${d.rows.length} · সফল: ${d.ok} · ব্যর্থ: ${d.fail} · অনিশ্চিত: ${d.unk}`,sub=d.scope||'';
+  const fname=safe((d.fname||'SMS ডেলিভারি রিপোর্ট'));
+  const rows=d.rows.map(r=>r.map(v=>String(v==null?'':v).replace(/\s+/g,' ').trim()));
+  /* ফন্ট ও কলামের প্রস্থ: সবচেয়ে লম্বা লেখা এক লাইনে ধরাতে ফন্ট ছোট (৮pt → ৪.৫pt) করা হয় */
+  const K=0.68,Kc=i=>i==6?0.48:K,pc=i=>{const a=rows.map(r=>(r[i]||'').length).sort((x,y)=>x-y);return a.length?a[Math.min(a.length-1,Math.floor(a.length*0.95))]:0},mx=HD.map((h,i)=>Math.max(String(h).length,pc(i)));
+  /* বেশি লম্বা (৯৫% এর ওপরের) লেখা শুধু ওই ঘরেই ফন্ট ছোট করে এক লাইনে রাখা হয় */
+  const layout=(upt,pad,total)=>{let f=8,need;const nM=mx.length-1,fit=ff=>mx.map((m,i)=>Math.ceil(m*Kc(i)*ff*upt)+pad),others=n=>n.slice(0,nM).reduce((x,y)=>x+y,0);
+    /* ম্যাসেজ ছাড়া বাকি কলাম লেখা অনুযায়ী ফিট (সর্বোচ্চ মোট প্রস্থের ৬০%); বাকি সব জায়গা ম্যাসেজ কলামের */
+    for(;f>=4.5;f-=0.5){need=fit(f);if(others(need)<=total*0.6)break}
+    if(f<4.5)f=4.5;need=fit(f);let o=others(need);if(o>total*0.6){const sc=total*0.6/o;for(let i=0;i<nM;i++)need[i]=Math.floor(need[i]*sc);o=others(need)}
+    const w=need.slice(0,nM);w.push(total-o);return{f,w}};
+  const X0='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',te=t=>new TextEncoder().encode(t);
+  if(fmt=='pdf'){
+    const PXW=1248,BUDH=519,{f,w}=layout(1.3333,10,PXW),fp=Math.round(f*1.3333*10)/10,rh=Math.ceil(fp*1.45)+6;
+    const td=`border:1px solid #000;padding:2px 3px;white-space:nowrap;overflow:hidden;vertical-align:middle;font-size:${fp}px;line-height:${Math.ceil(fp*1.3)}px;color:#000;background:#fff`;
+    const perFirst=Math.max(1,Math.floor((BUDH-120)/rh)),perNext=Math.max(1,Math.floor((BUDH-40)/rh)),pages=[];let i=0;
+    pages.push(rows.slice(0,perFirst));i=perFirst;while(i<rows.length){pages.push(rows.slice(i,i+perNext));i+=perNext}
+    const head=`<tr>${HD.map(h=>`<th style="${td};font-weight:700;text-align:center;background:#eee">${XE(h)}</th>`).join('')}</tr>`;
+    const html=pages.map((rs,pi)=>`<div class="pg" style="width:${PXW}px;padding:2px 0;background:#fff;color:#000;font-family:'KalpurushEmb','Kalpurush',sans-serif">`+
+      (pi==0?`<div style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:20px;font-weight:700"><img src="${LOGO}" style="height:36px;width:auto"><span>${XE(inst)}</span></div><div style="text-align:center;font-size:16px;font-weight:700;margin-top:2px">SMS ডেলিভারি রিপোর্ট</div>${sub?`<div style="text-align:center;font-size:13px;margin-top:2px">${XE(sub)}</div>`:''}<div style="text-align:center;font-size:12px;margin:2px 0 6px">${XE(sum)}</div>`:`<div style="text-align:center;font-size:12px;font-weight:700;margin-bottom:4px">SMS ডেলিভারি রিপোর্ট (পাতা ${pi+1})</div>`)+
+      `<table style="width:100%;table-layout:fixed;border-collapse:collapse"><colgroup>${w.map(x=>`<col style="width:${x}px">`).join('')}</colgroup><thead>${head}</thead><tbody>${rs.map(r=>`<tr style="height:${rh}px">${r.map((v,j)=>{const cap=Math.max(1,Math.floor((w[j]-10)/(Kc(j)*fp))),px=v.length>cap?Math.max(4,Math.round(fp*cap/v.length*10)/10):fp;return `<td style="${td};font-size:${px}px;text-align:${CEN.includes(j)?'center':'left'}">${XE(v)}</td>`}).join('')}</tr>`).join('')}</tbody></table><div style="text-align:right;font-size:10px;margin-top:3px">পাতা ${pi+1}/${pages.length}</div></div>`).join('');
+    let root=document.getElementById('dlrSheet');if(root)root.remove();root=document.createElement('div');root.id='dlrSheet';root.style.cssText='position:absolute;left:-30000px;top:0;width:'+PXW+'px';root.innerHTML=html;document.body.appendChild(root);
+    try{await pdfDl('dlAllBtn','dlrSheet',()=>true,{w:355.6,h:215.9,m:12.7,px:PXW},fname+'.pdf')}finally{root.remove()}
+    return}
+  if(fmt=='xlsx'){
+    const col=n=>{let s='';n++;while(n>0){const m=(n-1)%26;s=String.fromCharCode(65+m)+s;n=Math.floor((n-1)/26)}return s},f=8,wch=mx.map((m,i)=>Math.min(160,Math.max(6,Math.ceil(m*Kc(i)*f/5.25)+2)));
+    const st=(c,r,v,sid)=>`<c r="${col(c)}${r}" s="${sid}" t="inlineStr"><is><t xml:space="preserve">${XE(v)}</t></is></c>`;
+    let sd=`<row r="1" ht="34" customHeight="1">${st(0,1,inst,4)}</row><row r="2" ht="18" customHeight="1">${st(0,2,'SMS ডেলিভারি রিপোর্ট',5)}</row>`+(sub?`<row r="3">${st(0,3,sub,5)}</row>`:'<row r="3"/>')+`<row r="4">${st(0,4,sum,5)}</row>`;
+    const hr=5;sd+=`<row r="${hr}" ht="18" customHeight="1">${HD.map((h,i)=>st(i,hr,h,1)).join('')}</row>`;
+    rows.forEach((r,k)=>{const n=hr+1+k;sd+=`<row r="${n}">${r.map((v,j)=>st(j,n,v,CEN.includes(j)?3:2)).join('')}</row>`});
+    const last=hr+rows.length,lc=col(HD.length-1);
+    const sheet=`${X0}<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView workbookViewId="0"><pane ySplit="${hr}" topLeftCell="A${hr+1}" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="14"/><cols>${wch.map((x,i)=>`<col min="${i+1}" max="${i+1}" width="${x}" customWidth="1"/>`).join('')}</cols><sheetData>${sd}</sheetData><autoFilter ref="A${hr}:${lc}${Math.max(last,hr)}"/><mergeCells count="4"><mergeCell ref="A1:${lc}1"/><mergeCell ref="A2:${lc}2"/><mergeCell ref="A3:${lc}3"/><mergeCell ref="A4:${lc}4"/></mergeCells><pageMargins left="0.5" right="0.5" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup paperSize="5" orientation="landscape" fitToWidth="1" fitToHeight="0"/><headerFooter><oddFooter>&amp;C&amp;9পাতা &amp;P / &amp;N</oddFooter></headerFooter><drawing r:id="rId1"/></worksheet>`;
+    const bdr='<border><left style="thin"><color auto="1"/></left><right style="thin"><color auto="1"/></right><top style="thin"><color auto="1"/></top><bottom style="thin"><color auto="1"/></bottom><diagonal/></border>';
+    const styles=`${X0}<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="4"><font><sz val="8"/><name val="Nirmala UI"/></font><font><b/><sz val="9"/><name val="Nirmala UI"/></font><font><b/><sz val="14"/><name val="Nirmala UI"/></font><font><sz val="10"/><name val="Nirmala UI"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE8E8E8"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border>${bdr}</borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="6"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="49" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="left" vertical="center"/></xf><xf numFmtId="49" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="3" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+    const files=[
+      {n:'[Content_Types].xml',d:te(X0+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Override PartName="/xl/drawings/drawing1.xml" ContentType="application/vnd.openxmlformats-officedocument.drawing+xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>')},
+      {n:'_rels/.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>')},
+      {n:'xl/workbook.xml',d:te(X0+`<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="ডেলিভারি রিপোর্ট" sheetId="1" r:id="rId1"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">'ডেলিভারি রিপোর্ট'!$${hr}:$${hr}</definedName><definedName name="_xlnm._FilterDatabase" localSheetId="0" hidden="1">'ডেলিভারি রিপোর্ট'!$A$${hr}:$${lc}$${Math.max(last,hr)}</definedName></definedNames></workbook>`)},
+      {n:'xl/_rels/workbook.xml.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>')},
+      {n:'xl/styles.xml',d:te(styles)},{n:'xl/worksheets/sheet1.xml',d:te(sheet)},
+      {n:'xl/worksheets/_rels/sheet1.xml.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing" Target="../drawings/drawing1.xml"/></Relationships>')},
+      {n:'xl/drawings/drawing1.xml',d:te(X0+'<xdr:wsDr xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><xdr:oneCellAnchor><xdr:from><xdr:col>0</xdr:col><xdr:colOff>38100</xdr:colOff><xdr:row>0</xdr:row><xdr:rowOff>38100</xdr:rowOff></xdr:from><xdr:ext cx="381000" cy="381000"/><xdr:pic><xdr:nvPicPr><xdr:cNvPr id="2" name="Logo"/><xdr:cNvPicPr><a:picLocks noChangeAspect="1"/></xdr:cNvPicPr></xdr:nvPicPr><xdr:blipFill><a:blip xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></xdr:blipFill><xdr:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="381000" cy="381000"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></xdr:spPr></xdr:pic><xdr:clientData/></xdr:oneCellAnchor></xdr:wsDr>')},
+      {n:'xl/drawings/_rels/drawing1.xml.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/logo.png"/></Relationships>')},
+      {n:'xl/media/logo.png',d:b64u(LOGO.split(',')[1])}];
+    const blob=await zipMake(files);await dl(blob,fname+'.xlsx','');toast('📊 Excel রিপোর্ট তৈরি হয়েছে ('+rows.length+' টি SMS)');return}
+  /* ---- Word ---- */
+  const bt=$('#dlAllBtn'),old=bt?bt.textContent:'';if(bt){bt.disabled=true;bt.textContent='⏳ তৈরি হচ্ছে...'}
+  try{
+    const TW=18720,{f,w:cw}=layout(20,140,TW),sz=Math.round(f*2),bd='<w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="000000"/>';
+    const cell=(wd,t,o={})=>`<w:tc><w:tcPr><w:tcW w:w="${wd}" w:type="dxa"/><w:noWrap/><w:vAlign w:val="center"/>${o.h?'<w:shd w:val="clear" w:color="auto" w:fill="E8E8E8"/>':''}</w:tcPr>${wp(wr(t,{b:o.b,s:o.s||sz}),{jc:o.jc||'left'})}</w:tc>`;
+    let body=wp(dlrLogoRun(360000)+wr(inst,{b:1,s:30}),{jc:'center',af:10})+wp(wr('SMS ডেলিভারি রিপোর্ট',{b:1,s:26}),{jc:'center',af:10})+(sub?wp(wr(sub,{s:20}),{jc:'center',af:10}):'')+wp(wr(sum,{s:19}),{jc:'center',af:100});
+    let tb=`<w:tbl><w:tblPr><w:tblW w:w="${TW}" w:type="dxa"/><w:tblBorders>${bd}</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="50" w:type="dxa"/><w:right w:w="50" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${cw.map(x=>`<w:gridCol w:w="${x}"/>`).join('')}</w:tblGrid>`;
+    tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="300" w:hRule="atLeast"/><w:tblHeader/></w:trPr>${HD.map((h,i)=>cell(cw[i],h,{b:1,jc:'center',h:1})).join('')}</w:tr>`;
+    rows.forEach(r=>{tb+=`<w:tr><w:trPr><w:cantSplit/></w:trPr>${r.map((v,i)=>{const cap=Math.max(1,Math.floor((cw[i]-140)/(Kc(i)*f*20)));return cell(cw[i],v,{jc:CEN.includes(i)?'center':'left',s:v.length>cap?Math.max(7,Math.floor(sz*cap/v.length)):sz})}).join('')}</w:tr>`});
+    body+=tb+'</w:tbl>'+'<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr></w:p>';
+    const sect=`<w:sectPr><w:footerReference w:type="default" r:id="rId4"/><w:pgSz w:w="20160" w:h="12240" w:orient="landscape"/><w:pgMar w:top="720" w:right="720" w:bottom="720" w:left="720" w:header="360" w:footer="360" w:gutter="0"/></w:sectPr>`;
+    const doc=`${X0}<w:document ${NS}><w:body>${body}${sect}</w:body></w:document>`;
+    const fld=(i,v)=>`<w:fldSimple w:instr=" ${i} "><w:r><w:rPr>${FN}<w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${v}</w:t></w:r></w:fldSimple>`;
+    const ftr=`${X0}<w:ftr ${NS}><w:p><w:pPr><w:tabs><w:tab w:val="right" w:pos="${TW}"/></w:tabs></w:pPr>${wr('SMS ডেলিভারি রিপোর্ট',{s:14})}<w:r><w:tab/></w:r>${wr('পাতা ',{s:18})}${fld('PAGE','1')}${wr(' / ',{s:18})}${fld('NUMPAGES','1')}${wr(' · মোট SMS: '+rows.length,{s:18})}</w:p></w:ftr>`;
+    const guid='{'+(crypto.randomUUID?crypto.randomUUID():'D2F4A1B3-5C6E-4F70-8A9B-0C1D2E3F4A5B').toUpperCase()+'}';
+    const font=b64u(KB64),hex=guid.replace(/[{}-]/g,''),key=[];for(let i=0;i<16;i++)key.push(parseInt(hex.substr(30-2*i,2),16));for(let i=0;i<32;i++)font[i]^=key[i%16];
+    const files=[
+    {n:'[Content_Types].xml',d:te(X0+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/></Types>')},
+    {n:'_rels/.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>')},
+    {n:'word/document.xml',d:te(doc)},
+    {n:'word/_rels/document.xml.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/><Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/><Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/logo.png"/></Relationships>')},
+    {n:'word/styles.xml',d:te(X0+`<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr>${FN}<w:sz w:val="20"/><w:szCs w:val="20"/><w:lang w:val="en-US" w:eastAsia="en-US" w:bidi="bn-BD"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>`)},
+    {n:'word/settings.xml',d:te(X0+'<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:embedTrueTypeFonts/><w:saveSubsetFonts w:val="0"/><w:defaultTabStop w:val="720"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>')},
+    {n:'word/fontTable.xml',d:te(X0+`<w:fonts xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:font w:name="Kalpurush"><w:charset w:val="01"/><w:family w:val="auto"/><w:pitch w:val="variable"/><w:embedRegular r:id="rId1" w:fontKey="${guid}"/></w:font></w:fonts>`)},
+    {n:'word/_rels/fontTable.xml.rels',d:te(X0+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/font" Target="fonts/font1.odttf"/></Relationships>')},
+    {n:'word/fonts/font1.odttf',d:font},
+    {n:'word/footer1.xml',d:te(ftr)},{n:'word/media/logo.png',d:b64u(LOGO.split(',')[1])}];
+    const blob=await zipMake(files);await dl(blob,fname+'.docx','');toast('📄 Word রিপোর্ট তৈরি হয়েছে ('+rows.length+' টি SMS)')
+  }catch(err){alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
+  finally{if(bt){bt.disabled=false;bt.textContent=old}}
 };
 
 /* ===== কক্ষ অনুযায়ী হাজিরা শীট ===== */
@@ -3451,9 +3536,15 @@ async function refresh(){
   [...sel.options].forEach(o=>{if(!o.value){o.textContent='সব ('+names.length+')';return}
     o.textContent=LB[o.value]+' ('+c[o.value]+')';o.hidden=(o.value=='u'&&!c.u&&sel.value!='u')});
   return changed}
-async function upd(){const ch=await refresh();if(ch&&sel.value)recRender()}
+/* নির্বাচিত ক্যাটাগরির মোট আবেদনকারী / Rejected / যোগ্য প্রার্থী (প্রতিটি রেকর্ডের আবেদনকারী ও মুছে ফেলা/Reject সংখ্যার যোগফল) */
+const st=document.getElementById('rcatStat');
+function stat(){if(!st)return;const f=sel.value;let n=0,rj=0;
+  for(const k of Object.keys(META||{})){if(f&&cache[k]!==f)continue;const m=META[k]||{};n+=+m.n||0;rj+=+m.del||0}
+  st.innerHTML='<span>মোট আবেদনকারীর সংখ্যা : <b style="color:#0a7a3d">'+(n+rj)+'</b></span><span>Rejected : <b style="color:#c62828">'+rj+'</b></span><span>যোগ্য প্রার্থীর সংখ্যা : <b style="color:#0a7a3d">'+n+'</b></span>';
+  st.title=(f?LB[f]:'সব ক্যাটাগরি')+' — মোট রেকর্ড: '+Object.keys(META||{}).filter(k=>!f||cache[k]===f).length}
+async function upd(){const ch=await refresh();stat();if(ch&&sel.value)recRender()}
 sel.onchange=async()=>{
-  await refresh();
+  await refresh();stat();
   const f=sel.value;if(f)[...rsel].forEach(n=>{if(cache[n]!==f)rsel.delete(n)}); /* লুকানো রেকর্ড নির্বাচিত থাকবে না */
   recRender()};
 new MutationObserver(()=>{clearTimeout(tm);tm=setTimeout(upd,60)}).observe(inf,{childList:true,characterData:true,subtree:true});
@@ -5133,6 +5224,7 @@ const sv=(k,v)=>{mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e)
 let DLR=ld(K.dlr,[]),LOG=ld(K.log,[]),busy=false;const off=new Set();let RECR=null,recCur=false,RECN='';const seenRc=new Set();
 const cfg=()=>Object.assign({key:'',sender:'8809617611020',base:'https://bulksmsbd.net',type:'text'},ld(K.cfg,{}));
 const p2=n=>String(n).padStart(2,'0');
+const fDT=t=>{const d=new Date(t),h=d.getHours();return p2(d.getDate())+'-'+p2(d.getMonth()+1)+'-'+d.getFullYear()+', '+p2(h%12||12)+':'+p2(d.getMinutes())+':'+p2(d.getSeconds())+' '+(h<12?'AM':'PM')};
 const fT=t=>{const d=new Date(t);return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())+' '+p2(d.getHours())+':'+p2(d.getMinutes())+':'+p2(d.getSeconds())};
 const CODES={202:'সফল — SMS সার্ভারে গৃহীত',1001:'অবৈধ নম্বর',1002:'Sender ID ভুল',1003:'প্রয়োজনীয় তথ্য অনুপস্থিত',1005:'সার্ভারের অভ্যন্তরীণ ত্রুটি',1007:'ব্যালেন্স অপর্যাপ্ত',1011:'ইউজার পাওয়া যায়নি',1032:'আইপি হোয়াইটলিস্টে নেই'};
 const toast_=m=>{try{toast(m)}catch(e){alert(m)}};
@@ -5148,7 +5240,7 @@ const normNum=s=>{const m=BN(s).replace(/[\s\-()]/g,'').match(/^(?:\+?88)?(01[3-
 function rcAll(){
   const src=$('#smsSrc').value,seen=new Set(),out=[],dupC={};
   if(RECR||(recCur&&src!='m')){let rows=[];try{rows=RECR?RECR.R:src=='a'?R:view()}catch(e){}
-    rows.forEach(r=>(BN(r.mobile||'').replace(/[\s\-()]/g,'').match(/(?:\+?88)?01[3-9]\d{8}/g)||[]).forEach(m=>{const n=m.slice(-11);if(!seen.has(n)){seen.add(n);out.push({n,name:r.name||'',id:r.id||'',rec:RECR?RECN:rec})}else dupC[n]=(dupC[n]||0)+1}))}
+    rows.forEach(r=>(BN(r.mobile||'').replace(/[\s\-()]/g,'').match(/(?:\+?88)?01[3-9]\d{8}/g)||[]).forEach(m=>{const n=m.slice(-11);if(!seen.has(n)){seen.add(n);out.push({n,name:r.name||'',id:r.id||'',rec:RECR?RECN:rec,r})}else dupC[n]=(dupC[n]||0)+1}))}
   out.forEach(o=>{if(dupC[o.n]){o.issue='ডুপ্লিকেট নম্বর';o.note=' ('+(dupC[o.n]+1)+' জনের একই নম্বর)'}});
   BN($('#smsMan').value).split(/[\s,;]+/).forEach(t=>{const n=normNum(t);if(n&&!seen.has(n)){seen.add(n);out.push({n,name:'ম্যানুয়াল',id:''})}});
   return out}
@@ -5174,13 +5266,28 @@ function rcBad(){return rcRows().map(r=>({r,i:mobIssue(r.mobile)})).filter(x=>x.
 function rcInfo(a){const k=a.filter(x=>x.issue).length+rcBad().length;return `মোট ${a.length} টি নম্বর · নির্বাচিত ${a.filter(x=>!off.has(x.n)).length}`+(!RECR&&!recCur?' · তালিকা দেখাতে পদ / রেকর্ড বাছাই করুন':'')+(k?` · ⚠ সমস্যা ${k} টি`:'')}
 function fillIss(all){const e=$('#smsIss');if(!e)return;const v=e.value,c={};all.forEach(x=>{if(x.issue)c[x.issue]=(c[x.issue]||0)+1});const ks=Object.keys(c),tot=ks.reduce((q,k)=>q+c[k],0);
   e.innerHTML=`<option value="">— সব${tot?' (সমস্যা '+tot+' টি)':''} —</option>`+ks.map(k=>`<option value="${E(k)}">${E(k)} (${c[k]})</option>`).join('');e.value=c[v]?v:''}
+/* খোঁজা: ক্রম / আইডি / নাম / পিতার নাম (সব শব্দ মিলতে হবে) */
+let Q='';
+function qMatch(x){const toks=BN(Q).toLowerCase().split(/\s+/).filter(Boolean);if(!toks.length)return true;const r=x.r||{},nm=BN([x.name,r.name,r.nameBn,r.nameEn,r.father,r.fatherBn,r.fatherEn,r.mother].filter(Boolean).join(' ')).toLowerCase(),id=BN(String(x.id==null?'':x.id)),no=r.no==null?'':String(r.no);
+  return toks.every(t=>/^\d+$/.test(t)?(t.length<=4?(no===t||id.endsWith(t)||nm.includes(t)):id.includes(t)):nm.includes(t)||id.toLowerCase().includes(t))}
+const qFilter=a=>Q.trim()?a.filter(x=>!x.bad&&qMatch(x)):a;
+/* ক্রম/আইডির রেঞ্জ ও একাধিক নম্বর দিয়ে বাছাই (on=true টিক দেবে, false টিক তুলবে) */
+function rgApply(on){const v=$('#smsRg').value.trim(),m=$('#smsRgM').value;
+  if(!v){toast_('⚠ ক্রম/আইডি লিখুন (যেমন 1-50, 60, 75-90)');return}
+  const a=rcAll().filter(x=>x.name!=='ম্যানুয়াল');if(!a.length){toast_('⚠ আগে পদ / রেকর্ড বাছাই করুন');return}
+  const{set,bad}=slParse(v),hit=new Set(),got=new Set();
+  a.forEach(x=>{const ks=slKeys(x.r||{no:null,id:x.id},m).filter(k=>set.has(k));if(ks.length){hit.add(x.n);ks.forEach(k=>got.add(k))}});
+  hit.forEach(n=>on?off.delete(n):off.add(n));
+  const miss=[...set].filter(k=>!got.has(k)).slice(0,15);
+  renderRc();
+  toast_((on?'✔ ':'✖ ')+hit.size+' টি নম্বর '+(on?'বাছা হয়েছে':'বাদ দেওয়া হয়েছে')+(miss.length?' · মেলেনি: '+miss.join(', ')+(set.size-got.size>15?'…':''):'')+(bad.length?' · বোঝা যায়নি: '+bad.join(', '):''))}
 function renderRc(){
   const a=rcAll();
   /* প্রার্থীর নম্বর প্রথমবার তালিকায় এলে ডিফল্টে টিক ছাড়া (ম্যানুয়াল নম্বর টিকসহ) */
   a.forEach(x=>{if(!seenRc.has(x.n)){seenRc.add(x.n);if(x.name!=='ম্যানুয়াল')off.add(x.n)}});
-  const b=rcBad(),all=b.concat(a);fillIss(all);const f=$('#smsIss').value,rows=f?all.filter(x=>x.issue===f):all;
+  const b=rcBad(),all=b.concat(a);fillIss(all);const f=$('#smsIss').value,rows=qFilter(f?all.filter(x=>x.issue===f):all);
   $('#smsRcT').innerHTML='<tr><th style="width:34px"></th><th>#</th><th>নাম</th><th>আইডি</th><th>মোবাইল</th><th>সমস্যা</th></tr>'+rows.map((x,i)=>x.bad?`<tr style="background:#fde8e8"><td></td><td>${i+1}</td><td>${E(x.name)}</td><td>${E(x.id)}</td><td style="color:#b91c1c;font-weight:600">${E(x.raw)||'—'}</td><td style="color:#b91c1c;font-weight:600">⚠ ${E(x.issue)}</td></tr>`:`<tr${x.issue?' style="background:#fff4d6"':''}><td><input type="checkbox" data-n="${x.n}" ${off.has(x.n)?'':'checked'}></td><td>${i+1}</td><td>${E(x.name)}</td><td>${E(x.id)}</td><td${x.issue?' style="color:#a15c00;font-weight:600"':''}>${x.n}</td><td${x.issue?' style="color:#a15c00;font-weight:600"':''}>${x.issue?'⚠ '+E(x.issue)+E(x.note||''):''}</td></tr>`).join('');
-  $('#smsRcInfo').textContent=rcInfo(a);
+  $('#smsRcInfo').textContent=rcInfo(a)+(Q.trim()?' · খোঁজার ফলাফল '+rows.length+' টি':'');
   cnt()}
 function cnt(){
   const m=$('#smsMsg').value,u=/[^\x00-\x7F]/.test(m),L=m.length,parts=!L?0:u?(L<=70?1:Math.ceil(L/67)):(L<=160?1:Math.ceil(L/153)),n=picked().length;
@@ -5256,7 +5363,7 @@ function renderDlr(selB){
    const ks=Object.keys(cnt).sort((p,q)=>last[q]-last[p]),isA=k=>k!='__none'&&!!AMETA[k],lb=k=>k=='__none'?'রেকর্ডহীন (টেস্ট / ম্যানুয়াল / পুরোনো)':k;
    const op=k=>`<option value="${E(k)}">${E(lb(k))} (${cnt[k]})</option>`,P=$('#dlP'),A=$('#dlA'),vp=P.value,va=A.value,ka=ks.filter(isA),kp=ks.filter(k=>!isA(k));
    P.innerHTML='<option value="">পদ / রেকর্ড — সব</option>'+kp.map(op).join('');P.value=kp.includes(vp)?vp:'';
-   A.innerHTML=`<option value="">আর্কাইভ SMS${ka.length?'':' (কোনোটি নেই)'}</option>`+ka.map(op).join('');A.value=ka.includes(va)?va:'';const sp=P.value||A.value,sh=sp&&sp!='__none'?'':'none';$('#dlPdfR').style.display=sh;$('#dlDocxR').style.display=sh}
+   A.innerHTML=`<option value="">আর্কাইভ SMS${ka.length?'':' (কোনোটি নেই)'}</option>`+ka.map(op).join('');A.value=ka.includes(va)?va:'';const sp=P.value||A.value,sh=sp&&sp!='__none'?'':'none';}
   const a=dlrF(),c={ok:0,fail:0,unk:0};a.forEach(x=>c[x.st]++);
   $('#dlSum').innerHTML=`<span class="smsChip">মোট ${a.length}</span><span class="smsChip">${PILL.ok} ${c.ok}</span><span class="smsChip">${PILL.fail} ${c.fail}</span><span class="smsChip">${PILL.unk} ${c.unk}</span>`;
   const sh=a.slice().reverse().slice(0,500);
@@ -5273,16 +5380,33 @@ async function dlrReport(fmt){
   const post=p;
   const ST={ok:'সফল',fail:'ব্যর্থ',unk:'অনিশ্চিত'};let ok=0,fail=0,unk=0;
   const rows=a.map((x,i)=>{const r=byId[String(x.id)]||byMob[x.n]||{};if(x.st=='ok')ok++;else if(x.st=='fail')fail++;else unk++;
-    return [String(i+1),String(x.id||r.id||''),r.nameBn||en(r.name||x.name),r.fatherBn||en(r.father||''),post,x.msg||'',fT(x.t),ST[x.st]||'']});
+    return [String(r.no||r.sl||i+1),String(x.id||r.id||''),r.nameBn||en(r.name||x.name),r.fatherBn||en(r.father||''),x.n||'',x.msg||'',fDT(x.t),ST[x.st]||'']});
   await window.dlrExport(fmt,{rec:p,post,rows,ok,fail,unk})}
-$('#dlPdfR').onclick=()=>dlrReport('pdf');$('#dlDocxR').onclick=()=>dlrReport('docx');
+/* সব SMS ডেলিভারি রিপোর্ট ডাউনলোড (Word / PDF / Excel) — বর্তমান ফিল্টার অনুযায়ী */
+async function dlrAll(fmt){
+  const a=dlrF().slice().sort((x,y)=>x.t-y.t);if(!a.length){toast_('ডাউনলোড করার মতো কোনো SMS রিপোর্ট নেই');return}
+  if(typeof window.dlrExportAll!='function'){toast_('রিপোর্ট ফাংশন পাওয়া যায়নি');return}
+  const en=t=>{t=String(t||'');try{return typeof enBn=='function'?enBn(t):t}catch(e){return t}},cache={};
+  const info=async rn=>{if(cache[rn])return cache[rn];let o=null;try{o=rn==rec?{R,ad:AD}:(rn?await store.get(rn):null)}catch(e){}
+    const byId={},byMob={};((o&&o.R)||[]).forEach(r=>{if(r.id!=null)byId[String(r.id)]=r;(String(r.mobile||'').match(/01[3-9]\d{8}/g)||[]).forEach(m=>byMob[m]=r)});
+    let ad=(o&&o.ad)||{},post=ad.post||'',dept=ad.dept||'';if(!post&&!dept&&rn){try{const df=adDef(rn);post=df.post||'';dept=df.dept||''}catch(e){}}
+    try{if(typeof adSp=='function'){post=adSp(post);dept=adSp(dept)}}catch(e){}
+    return cache[rn]={byId,byMob,post,dept}};
+  const ST={ok:'সফল',fail:'ব্যর্থ',unk:'অনিশ্চিত'};let ok=0,fail=0,unk=0;const rows=[];
+  for(let i=0;i<a.length;i++){const x=a[i],c=await info(x.rec||''),r=c.byId[String(x.id)]||c.byMob[x.n]||{};if(x.st=='ok')ok++;else if(x.st=='fail')fail++;else unk++;
+    rows.push([String(r.no||r.sl||i+1),String(x.id||r.id||''),r.nameBn||en(r.name||x.name),r.fatherBn||en(r.father||''),x.n,ST[x.st]||'',fDT(x.t),x.msg||''])}
+  const p=$('#dlP').value||$('#dlA').value;
+  await window.dlrExportAll(fmt,{rows,ok,fail,unk,scope:p&&p!='__none'?p:'',fname:'SMS ডেলিভারি রিপোর্ট'+(p&&p!='__none'?' - '+p:'')})}
+$('#dlAllBtn').onclick=e=>{e.stopPropagation();const m=$('#dlAllMenu');m.style.display=m.style.display=='none'?'block':'none'};
+document.addEventListener('click',()=>{const m=$('#dlAllMenu');if(m)m.style.display='none'});
+$$('#dlAllMenu [data-f]').forEach(b=>b.onclick=async e=>{e.stopPropagation();$('#dlAllMenu').style.display='none';try{await dlrAll(b.dataset.f)}catch(err){toast_('⚠ রিপোর্ট তৈরি হয়নি: '+(err&&err.message||err))}});
+
 function retry(st){
   if(busy)return;const a=dlrF().filter(x=>x.st==st);if(!a.length){toast_('এই অবস্থার কোনো এন্ট্রি নেই');return}
   if(!confirm(st=='unk'?`⚠ ${a.length} টি “অনিশ্চিত” এন্ট্রি আবার পাঠানো হবে।\nআগে bulksmsbd.net রিপোর্টে দেখে নিন — আগেরগুলো গিয়ে থাকলে দ্বিগুণ SMS যাবে ও ক্রেডিট কাটবে।\n\nনিশ্চিত?`:`${a.length} টি ব্যর্থ SMS আবার পাঠানো হবে। নিশ্চিত?`))return;
   run(a.map(x=>({n:x.n,name:x.name,id:x.id,rec:x.rec,msg:x.msg})),null)}
 $('#dlRetry').onclick=()=>retry('fail');$('#dlRetryU').onclick=()=>retry('unk');
-$('#dlCsv').onclick=()=>{const a=dlrF();if(!a.length){toast_('রিপোর্ট খালি');return}csvOut([['সময়','নাম','আইডি','মোবাইল','অবস্থা','কোড','মেসেজ আইডি','বিবরণ','পদ / রেকর্ড','বার্তা']].concat(a.map(x=>[fT(x.t),x.name,x.id,x.n,x.st=='ok'?'সফল':x.st=='fail'?'ব্যর্থ':'অনিশ্চিত',x.code,x.mid,x.err,x.rec||'',x.msg])),'sms-delivery-report.csv')};
-$('#dlClr').onclick=()=>{if(!DLR.length||!confirm('ডেলিভারি রিপোর্টের সব এন্ট্রি মুছে যাবে। নিশ্চিত?'))return;DLR=[];persist();renderDlr()};
+$('#dlClr').onclick=()=>{if(!DLR.length)return;const W='DELETE';const t=prompt('সতর্কতা: ডেলিভারি রিপোর্টের সব এন্ট্রি ('+DLR.length+' টি) স্থায়ীভাবে মুছে যাবে।\n\nনিশ্চিত করতে নিচে ইংরেজিতে '+W+' লিখে OK চাপুন:','');if(t===null)return;if(t.trim()!==W){alert('লেখাটি মেলেনি। রিপোর্ট মোছা হয়নি।');return}DLR=[];persist();renderDlr()};
 const web=p=>window.open(cfg().base.replace(/\/+$/,'')+(p||''),'_blank','noopener');
 $('#dlWeb').onclick=()=>web('/');$('#cfOpen').onclick=()=>web('/developers');
 
@@ -5317,7 +5441,9 @@ function showP(p){$$('.smsSub button[data-p]').forEach(b=>b.classList.toggle('on
 $$('.smsSub button[data-p]').forEach(b=>b.onclick=()=>showP(b.dataset.p));
 $('#smsRcT').addEventListener('change',e=>{const n=e.target.dataset&&e.target.dataset.n;if(!n)return;e.target.checked?off.delete(n):off.add(n);renderRc2()});
 function renderRc2(){$('#smsRcInfo').textContent=rcInfo(rcAll());cnt()}
-$('#smsAll').onclick=()=>{off.clear();renderRc()};$('#smsNone').onclick=()=>{rcAll().forEach(x=>off.add(x.n));renderRc()};
+$('#smsAll').onclick=()=>{if(Q.trim()){qFilter(rcAll()).forEach(x=>off.delete(x.n))}else off.clear();renderRc()};$('#smsNone').onclick=()=>{(Q.trim()?qFilter(rcAll()):rcAll()).forEach(x=>off.add(x.n));renderRc()};
+$('#smsQ').oninput=()=>{Q=$('#smsQ').value;renderRc()};
+$('#smsRgOk').onclick=()=>rgApply(true);$('#smsRgNo').onclick=()=>rgApply(false);$('#smsRg').onkeydown=e=>{if(e.key=='Enter')rgApply(true)};
 $('#smsSrc').onchange=renderRc;$('#smsRec').onchange=pickRec;$('#smsIss').onchange=renderRc;$('#smsMan').oninput=renderRc;$('#smsMsg').oninput=cnt;
 $$('#smsP-send [data-ins]').forEach(b=>b.onclick=()=>{const t=$('#smsMsg'),s=t.selectionStart||0,e=t.selectionEnd||0;t.value=t.value.slice(0,s)+b.dataset.ins+t.value.slice(e);t.focus();t.selectionStart=t.selectionEnd=s+b.dataset.ins.length;cnt()});
 const tb=$('.tabs button[data-t="sms"]');if(tb)tb.addEventListener('click',()=>{fillRec();fillCfg();renderRc();renderDlr();renderLog()});
