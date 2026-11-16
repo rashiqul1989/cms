@@ -402,6 +402,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div id="csheet"></div></div><div class="sec" id="t-dup"><div class="card noprint">
 <div class="row"><input id="dTitle" class="grow" value="দ্বৈত আবেদনকারীর তালিকা" placeholder="শিরোনাম"><label>কাগজ: <select id="dPaper"><option value="l">Legal</option><option value="a">A4</option></select></label><label><input type="checkbox" id="dRj"> Reject করা আবেদনকারীও ধরুন</label></div>
 <p class="mut" style="margin:8px 0 2px">যে পদের রেকর্ডগুলো তুলনা করা হবে (কমপক্ষে ১টি): <a href="#" id="dAll">সব</a> · <a href="#" id="dNone">কিছুই না</a> · <span id="dCnt"></span></p>
+<div class="row" id="dFlt" style="margin:4px 0 6px;gap:6px;flex-wrap:wrap"><select id="dCat" title="পদের ক্যাটাগরি"><option value="">সব ক্যাটাগরি</option><option value="t">শিক্ষক</option><option value="o">কর্মকর্তা</option><option value="e">কর্মচারী</option><option value="u">শ্রেণি অনির্ধারিত</option></select><input id="dQ" class="grow" placeholder="🔍 পদ / রেকর্ডের নাম খুঁজুন"></div>
 <div id="dRecs"></div>
 <p class="mut" style="margin:6px 0 0">নাম, পিতার নাম ও জন্ম তারিখ — তিনটিই মিললে একই ব্যক্তি ধরা হয় (Md/Mohammad, ফাঁকা ঘর ও চিহ্ন উপেক্ষা করা হয়)। একজন একাধিক পদে (অথবা একই পদে একাধিকবার) আবেদন করলে তবেই তালিকায় আসবে। ১টি পদ নির্বাচিত থাকলে সেই পদের ভেতরের দ্বৈত আবেদনই দেখাবে।</p>
 <div class="row" style="margin-top:8px"><button class="p" id="dGen">দ্বৈত আবেদন খুঁজুন</button><button id="dPdf">⬇ PDF ডাউনলোড</button><button class="p" id="dDocx">📄 Word (.docx)</button><span id="dInfo" class="mut"></span></div></div>
@@ -1982,7 +1983,7 @@ $('#cpDocx').onclick=cpDocx;
 /* ---- দ্বৈত আবেদন: একাধিক পদের রেকর্ড তুলনা করে ---- */
 (function(){
 const PAPER={l:{w:215.9,h:355.6,px:725,tw:[12240,20160]},a:{w:210,h:297,px:703,tw:[11906,16838]}};
-const dOff=new Set(),MON={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12};
+const dOn=new Set(),MON={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12};
 const dTT=()=>$('#dTitle').value.trim()||'দ্বৈত আবেদনকারীর তালিকা';
 /* রেকর্ডের নামে স্মারক নং ও তারিখের আগের অংশই পদ নাম ও বিভাগ/দপ্তর */
 const dPost=n=>{n=String(n||'');const i=n.search(/\[[^\]]*\d{1,4}[-\/.]\d{1,2}[-\/.]\d{1,4}/);return(i<0?n:n.slice(0,i)).replace(/\s+/g,' ').trim()||n};
@@ -2078,13 +2079,17 @@ const blob=await zipMake(files);await dl(blob,safe(T)+'.docx','');toast('📄 Wo
 catch(err){alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
 bt.disabled=false;bt.textContent=old}
 /* ---- রেকর্ড নির্বাচন ও বোতাম ---- */
-const dupCnt=()=>{$('#dCnt').textContent='মোট '+$$('#dRecs input').length+' টি রেকর্ড · নির্বাচিত '+$$('#dRecs input:checked').length+' টি'};
+const dupCnt=()=>{const al=$$('#dRecs input'),vs=al.filter(x=>x.closest('label').style.display!='none');$('#dCnt').textContent='মোট '+al.length+' টি রেকর্ড · নির্বাচিত '+$$('#dRecs input:checked').length+' টি'+(vs.length<al.length?' · দেখানো '+vs.length+' টি':'')};
+let dCats={};
+const dFlt=()=>{const c=$('#dCat').value,q=$('#dQ').value.trim().toLowerCase();$$('#dRecs label').forEach(l=>{const n=l.querySelector('input').dataset.n;l.style.display=((!c||dCats[n]===c)&&(!q||n.toLowerCase().includes(q)))?'':'none'});dupCnt()};
+$('#dCat').onchange=dFlt;$('#dQ').oninput=dFlt;
 function dupList(){const a=Object.values(META).sort((x,y)=>x.name.localeCompare(y.name,'bn',{numeric:true}));
-$('#dRecs').innerHTML=a.length?a.map(m=>`<label><input type=checkbox data-n="${esc(m.name)}" ${dOff.has(m.name)?'':'checked'}><span>${esc(m.name)} <span class="mut">— ${m.n} জন</span></span></label>`).join(''):'<span class="mut">কোনো রেকর্ড নেই — আগে ফাইল আপলোড করুন</span>';
-$$('#dRecs input').forEach(x=>x.onchange=()=>{x.checked?dOff.delete(x.dataset.n):dOff.add(x.dataset.n);dupCnt()});dupCnt()}
+$('#dRecs').innerHTML=a.length?a.map(m=>`<label><input type=checkbox data-n="${esc(m.name)}" ${dOn.has(m.name)?'checked':''}><span>${esc(m.name)} <span class="mut">— ${m.n} জন</span></span></label>`).join(''):'<span class="mut">কোনো রেকর্ড নেই — আগে ফাইল আপলোড করুন</span>';
+$$('#dRecs input').forEach(x=>x.onchange=()=>{x.checked?dOn.add(x.dataset.n):dOn.delete(x.dataset.n);dupCnt()});dFlt();
+if(window.__recCats)window.__recCats().then(m=>{dCats=m;dFlt()}).catch(()=>{})}
 $('.tabs button[data-t=dup]').addEventListener('click',dupList);
-$('#dAll').onclick=e=>{e.preventDefault();dOff.clear();dupList()};
-$('#dNone').onclick=e=>{e.preventDefault();Object.keys(META).forEach(n=>dOff.add(n));dupList()};
+$('#dAll').onclick=e=>{e.preventDefault();$$('#dRecs input').forEach(x=>{if(x.closest('label').style.display!='none'){x.checked=true;dOn.add(x.dataset.n)}});dupCnt()};
+$('#dNone').onclick=e=>{e.preventDefault();$$('#dRecs input').forEach(x=>{if(x.closest('label').style.display!='none'){x.checked=false;dOn.delete(x.dataset.n)}});dupCnt()};
 $('#dGen').onclick=dupGen;$('#dDocx').onclick=dupDocx;
 $('#dPdf').onclick=async()=>{if(!(await dupGen()))return;const P=PAPER[$('#dPaper').value];pdfDl('dPdf','dsheet',()=>true,{w:P.w,h:P.h,m:12,px:P.px},safe(dTT())+'.pdf')};
 window._dup={dPost,dNm,dDob};
@@ -3532,6 +3537,7 @@ async function info(name){
   if(!grade){try{const g=adGrFor(post,name);if(g)grade=String(g)}catch(e){}}
   return{name,post:post||'',grade:grade||'',cat:catOf(post,grade)}}
 async function all(){const a=[];for(const n of Object.keys(META||{}))a.push(await info(n));return a}
+window.__recCats=async()=>{const m={};for(const x of await all())m[x.name]=x.cat;return m};
 /* ---- আপগ্রেডেশন: শুধু নিয়োগপত্র তৈরির জন্য, মেমোরিতে থাকে (অন্য কোনো রেকর্ড/ডাটায় সংরক্ষিত হয় না) ---- */
 const UPG=window.UPGS,UPG_POSTS=[['অধ্যাপক','3'],['সহযোগী অধ্যাপক','4'],['সহকারী অধ্যাপক','6'],['অধ্যাপক (পার্সোনাল)','3']],UPG_DEPTS=["পুরকৌশল বিভাগ", "আর্কিটেকচার বিভাগ", "তড়িৎ ও ইলেকট্রনিক কৌশল বিভাগ", "কম্পিউটার সায়েন্স এন্ড ইঞ্জিনিয়ারিং বিভাগ", "যন্ত্রকৌশল বিভাগ", "টেক্সটাইল ইঞ্জিনিয়ারিং বিভাগ", "ইন্ডাস্ট্রিয়াল এন্ড প্রোডাকশন ইঞ্জিনিয়ারিং বিভাগ", "গণিত বিভাগ", "পদার্থবিজ্ঞান বিভাগ", "রসায়ন বিভাগ", "মানবিক ও সামাজিক বিজ্ঞান বিভাগ", "ম্যাটেরিয়ালস এন্ড মেটালার্জিক্যাল ইঞ্জিনিয়ারিং বিভাগ", "কেমিক্যাল ইঞ্জিনিয়ারিং বিভাগ", "ফুড ইঞ্জিনিয়ারিং বিভাগ", "ইনস্টিটিউট অব এনার্জি ইঞ্জিনিয়ারিং", "ইনস্টিটিউট অব ওয়াটার এন্ড এনভায়রনমেন্ট", "ইনস্টিটিউট অব ইনফরমেশন এন্ড কমিউনিকেশন টেকনোলজি (আইআইসিটি)", "সেন্টার ফর ক্লাইমেট চেঞ্জ এন্ড সাসটেইনেবিলিটি রিসার্চ"];
 let upgSeq=0;
