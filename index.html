@@ -383,12 +383,14 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 
 <div class="abar"><button class="p" id="aGen">👁 শীট তৈরি করুন</button><button class="p" id="aDocx">📄 Word (.docx) — Legal</button><span class="anxw" id="aAnxW" style="display:none"><button id="aAnxV" type="button" title="মেধা তালিকা ফরম দেখুন (প্রিভিউ)" aria-label="মেধা তালিকা ফরম দেখুন">👁</button><button class="p" id="aAnx" title="মৌখিক পরীক্ষায় নির্বাচিত প্রার্থীদের নিয়ে প্রাপ্ত নম্বর ও মেধা তালিকা ফরম (Word)">📄 মেধা তালিকা ফরম</button></span><button class="p" id="aRes" title="লিখিত পরীক্ষার ফলাফল শীট (xlsx) — All Marks ও Viva List, ২টি শীটসহ">📊 Result Sheet (Draft)</button><span id="aNbW" style="position:relative;display:inline-block"><button class="p" id="aNb" type="button" title="লিখিত পরীক্ষার নোটিশ বোর্ড লিস্ট — Word (.docx), Legal, দুই কলামে, ৮ পয়েন্ট ফন্ট">📋 নোটিশ বোর্ড লিস্ট</button></span><span id="aStW" style="position:relative;display:inline-block"><button class="p" id="aSt" type="button" title="নির্বাচিত পদের সকল প্রার্থীর স্টিকার — Word (.docx), Legal, ২ কলাম, ডানে ছবি">🏷 স্টিকার ডাউনলোড</button></span></div></div>
 <div id="sheet"></div></div>
-<div class="sec" id="t-wr"><div class="card noprint">
-<h3 style="margin:0 0 8px">✍️ লিখিত পরীক্ষার দায়িত্ব</h3>
-<p class="mut" style="margin:0 0 8px">প্রথমে রেকর্ড বাছাই করুন — তারপর সেই রেকর্ডের পদের জন্য লিখিত/ব্যবহারিক পরীক্ষার দায়িত্বপ্রাপ্ত শিক্ষক/কর্মকর্তাদের তালিকা (সংযুক্তি-৩) তৈরির এন্ট্রি ফরম আসবে।</p>
-<div class="row"><select id="wrRec" class="grow" title="রেকর্ড বাছাই করুন"><option value="">— রেকর্ড বাছাই করুন —</option></select><div id="wrMore" class="wrMore" hidden></div></div>
+<div class="sec" id="t-wr"><div class="wrSub noprint" id="wrSub"><button type="button" data-ws="e" class="on">✍️ Entry</button><button type="button" data-ws="a">🗂 All Written Committee <span id="wrCnt" class="wrCnt">0</span></button></div><div class="card noprint">
+<h3 style="margin:0 0 8px">✍️ লিখিত পরীক্ষার দায়িত্ব — Entry</h3>
+<p class="mut" style="margin:0 0 8px">প্রথমে স্মারক নং বাছাই করুন — তারপর সেই স্মারকের এক বা একাধিক রেকর্ড/পদ টিক দিন; নির্বাচিত পদগুলোর জন্য একটি কমিটির এন্ট্রি ফরম আসবে। যতটুকু কাজ হবে তা খসড়া হিসেবে নিজে থেকেই থাকবে; “💾 সংরক্ষণ” চাপলে All Written Committee-তে যাবে। (শুধু যেসব পদে লিখিত পরীক্ষা হয় সেগুলো দেখানো হয়: শিক্ষক — প্রভাষক; কর্মকর্তা — গ্রেড ৯ ও ১০; কর্মচারী — সব।)</p>
+<div id="wrPick"><div class="wrPk2c"><div class="f"><span>১) স্মারক নং বাছাই করুন <small class="mut">(একাধিক টিক দেওয়া যাবে)</small></span><div class="wrDd" id="wrMemo"><button type="button" id="wrMemoBtn" class="wrDdB">— স্মারক নং বাছাই করুন —</button><div class="wrDdP" id="wrMemoPanel" hidden></div></div></div><label class="f"><span>২) ক্যাটাগরি বাছাই করুন</span><select id="wrCat" disabled><option value="">— সব ক্যাটাগরি —</option></select></label></div><div id="wrRecBox" hidden><div class="wrPkH"><b>৩) রেকর্ড / পদ বাছাই করুন <small class="mut">(একাধিক হতে পারে)</small></b><span><button type="button" id="wrSave2" class="p" title="এই কমিটি All Written Committee-তে রেকর্ড হিসেবে সংরক্ষিত হবে">💾 সংরক্ষণ</button><button type="button" id="wrAllSel">☑ সব নির্বাচন</button><button type="button" id="wrNoSel">☐ বাদ দিন</button></span></div><div id="wrRecList"></div><div class="mut wrLg">📢 বিজ্ঞপ্তির পদ (রেকর্ড এখনো নেই) · 📝 খসড়া · ✅ সংরক্ষিত · 🔗 মূল রেকর্ড যুক্ত · সংরক্ষিত কমিটির রং: 🟩 ১ স্মারক · 🟧 ২ স্মারক · 🟪 ৩+ স্মারক — নাম/বিবরণ পুরোটা দেখতে লাইনের ওপর মাউস রাখুন</div></div><label class="wrChk" style="margin-top:6px"><input type="checkbox" id="wrUnk"> শ্রেণি/গ্রেড অনির্ধারিত রেকর্ডও দেখান</label><div id="wrSelSum" class="mut"></div></div>
+<div class="row" style="display:none"><select id="wrRec" class="grow" title="রেকর্ড বাছাই করুন"><option value="">— রেকর্ড বাছাই করুন —</option></select><div id="wrMore" class="wrMore" hidden></div></div>
 <div id="wrBody" hidden></div>
-</div><div id="wrSheet" hidden></div></div>
+</div><div id="wrSheet" hidden></div>
+<div class="card noprint" id="wrAll" hidden><div class="row" style="align-items:center;margin:0 0 8px"><h3 style="margin:0">🗂 All Written Committee</h3><span class="grow"></span><span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap" title="সব কমিটির নিচের স্বাক্ষরের প্রথম পদবী"><b>স্বাক্ষর:</b><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgD"> ডেপুটি রেজিস্ট্রার</label><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgA"> অতিরিক্ত রেজিস্ট্রার</label></span><button type="button" id="wrAllPdf">📕 সব কমিটি PDF</button><button type="button" id="wrAllDocx">📄 সব কমিটি Word (.docx)</button><button type="button" id="wrAdir" title="ক্রম উল্টান">⬇ নতুন আগে</button></div><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><p class="mut" style="margin:0">Entry ট্যাবে “💾 সংরক্ষণ” চাপলে কমিটিগুলো এখানে রেকর্ড আকারে জমা থাকে। এগুলো ব্যাকআপেও যায়। <b>একটি কার্ড টেনে অন্য কার্ডের ওপর ছাড়লে দুটি কমিটি জয়েন হয়ে একটি হবে (আগে অনুমতি চাইবে)।</b></p><span class="grow"></span><label style="display:flex;gap:6px;align-items:center" title="তালিকা সাজানোর ধরন"><b>↕ সর্ট:</b><select id="wrAsort" style="width:auto"><option value="t">সর্বশেষ সংরক্ষণ</option><option value="p">পদের নাম</option><option value="g">গ্রেড</option><option value="d">দপ্তর</option></select></label></div><div class="row"><input id="wrAq" class="grow" placeholder="🔍 রেকর্ড / পদ / বিভাগ দিয়ে খুঁজুন" autocomplete="off"></div><div id="wrAundo"></div><div id="wrAList"></div></div></div>
 <div class="sec" id="t-cp"><div class="card noprint">
 <div class="row"><input id="cpTitle" class="grow" placeholder="শিরোনাম (যেমন: আবেদনকৃত প্রার্থীদের তথ্য)" value="আবেদনকৃত প্রার্থীদের তথ্য"><input id="cpQ" type="search" autocomplete="off" placeholder="🔍 খুঁজুন (নাম, আইডি, মোবাইল, বিশ্ববিদ্যালয়, ঠিকানা…)" title="এখানে লিখলে শুধু মিলে যাওয়া আবেদনকারীরাই প্রিভিউ/PDF/Word-এ আসবে" style="flex:0 0 340px;width:340px;max-width:34%"><label><input type="checkbox" id="cpHead" checked> প্রতিষ্ঠানের নাম ও লোগো</label><label style="font-weight:600"><input type="checkbox" id="cpAd"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><input type="checkbox" id="cpQt" checked hidden></div>
 <div class="row" style="margin-top:8px"><label>লেআউট: <select id="cpLay"><option value="d">Landscape (বিস্তারিত)</option><option value="t">Portrait (কাস্টম ফিল্ড — Legal)</option><option value="l">Landscape (কাস্টম ফিল্ড — Legal)</option></select></label>
@@ -428,7 +430,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 <div id="modal"><div id="mb"></div></div><div id="toast"></div>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-let R=[],RJ=[],rjSel=new Set(),hist=[],hid=new Set(),flt=[],sort={k:'',d:1},D=new Set(),sel=new Set(),rec='',cur={},PM={},NM={},TT='',META={},AMETA={},rsel=new Set(),AD={},KP={};
+let R=[],RJ=[],rjSel=new Set(),hist=[],hid=new Set(),flt=[],sort={k:'',d:1},D=new Set(),sel=new Set(),rec='',cur={},PM={},NM={},TT='',META={},AMETA={},rsel=new Set(),AD={},KP={},NPD={};
 const bn=s=>String(s).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d));
 /* সব তারিখ DD-MM-YYYY ফরমেটে */
 const MN_={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12};
@@ -496,7 +498,7 @@ const ttFrom=s=>{s=String(s||'').replace(/\s+/g,' ');const m=s.match(/All Paid A
 const store=(()=>{let db=null,ls=false;
 const open=()=>new Promise(res=>{if(!window.indexedDB){ls=true;return res()}try{const q=indexedDB.open('duet_tool',1);q.onupgradeneeded=()=>q.result.createObjectStore('rec');q.onsuccess=()=>{db=q.result;res()};q.onerror=()=>{ls=true;res()}}catch(e){ls=true;res()}});
 const tx=(m,f)=>new Promise((res,rej)=>{const t=db.transaction('rec',m),s=t.objectStore('rec'),r=f(s);t.oncomplete=()=>res(r&&r.result);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)});
-return{open,
+return{open,isLS:()=>ls,
 get:async n=>ls?JSON.parse(localStorage.getItem('duet_rec:'+n)||'null'):tx('readonly',s=>s.get(n)),
 set:async(n,v)=>ls?localStorage.setItem('duet_rec:'+n,JSON.stringify(v)):tx('readwrite',s=>s.put(v,n)),
 del:async n=>ls?localStorage.removeItem('duet_rec:'+n):tx('readwrite',s=>s.delete(n)),
@@ -506,12 +508,15 @@ const putMeta=o=>{const m=metaOf(o);if(o.arch){AMETA[o.name]=m;delete META[o.nam
 const nr=r=>({...r,name:tc(r.name),father:tc(r.father),mobile:fixm(r.mobile),dob:fmtD(r.dob),exp:(r.exp||[]).map(x=>({...x,f:fmtD(x.f),e:fmtD(x.e)}))});
 let svT=0,tT=0;
 function ensureNo(){let mx=Math.max(0,...Object.values(NM));R.forEach(r=>{if(NM[r.id]==null)NM[r.id]=r.no||++mx;r.no=NM[r.id]})}
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),2800)}
+function toast(m,ms){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),ms||2800)}
 function sv(){clearTimeout(svT);svT=setTimeout(svNow,250)}
-async function svNow(){clearTimeout(svT);if(!rec)return false;const o=JSON.parse(JSON.stringify({name:rec,R,RJ,hid:[...hid],D:[...D],nm:NM,ts:Date.now(),created:cur.created||(cur.created=Date.now()),src:cur.src||'',ad:AD,kp:KP},(k,v)=>k[0]=='_'?undefined:v));
-try{await store.set(rec,o);META[rec]=metaOf(o);delete AMETA[rec];recRender();return true}catch(e){toast('⚠ ব্রাউজারে সংরক্ষণ হয়নি — Backup নিয়ে রাখুন');return false}}
-async function startRec(name,src){if(UPGSEL){UPGSEL='';upgPut()}name=String(name).replace(/\s+/g,' ').trim().slice(0,200)||'নামহীন রেকর্ড';if(rec&&rec!=name)await svNow();const ex=await store.get(name);if(ex&&ex.arch)toast('ℹ এই নামের রেকর্ড আর্কাইভে ছিল — আর্কাইভ থেকে ফিরিয়ে আনা হয়েছে');rec=name;cur={created:ex?ex.created:Date.now(),src:src||''};D=new Set(ex?ex.D:[]);RJ=ex&&ex.RJ?ex.RJ.map(nr):[];NM=ex&&ex.nm?{...ex.nm}:{};AD=ex&&ex.ad?{...ex.ad}:{};KP=ex&&ex.kp?JSON.parse(JSON.stringify(ex.kp)):{};try{adApply()}catch(e){}PM={};(ex?(ex.R||[]):[]).forEach(r=>{if(r.photo&&String(r.photo).startsWith('data:'))PM[r.id]={photo:r.photo,big:r.big,pn:r.pn}});try{localStorage.setItem('duet_last',name)}catch(e){}$('#jobId').textContent='📁 '+name+' — '}
-async function openRecord(name,quiet){const o=await store.get(name);if(!o||o.arch)return false;if(UPGSEL){UPGSEL='';upgPut()}if(rec&&rec!=name)await svNow();clearTimeout(svT);rec=name;cur={created:o.created,src:o.src};R=(o.R||[]).map(nr);hid=new Set(o.hid||[...DH]);D=new Set(o.D||[]);RJ=(o.RJ||[]).map(nr);NM=o.nm?{...o.nm}:{};AD=o.ad?{...o.ad}:{};KP=o.kp?JSON.parse(JSON.stringify(o.kp)):{};ensureNo();hist=[];sel.clear();flt=[];sort={k:'',d:1};$('#q').value='';try{localStorage.setItem('duet_last',name)}catch(e){}$('#jobId').textContent='📁 '+name+' — ';init();try{adApply()}catch(e){}if(!quiet){$('#stat').textContent='✓ রেকর্ড খোলা হয়েছে ('+R.length+' জন)';$('.tabs button[data-t="data"]').click()}recRender();try{phs()}catch(e){}return true}
+async function svNow(){clearTimeout(svT);if(!rec)return false;const o=JSON.parse(JSON.stringify({name:rec,R,RJ,hid:[...hid],D:[...D],nm:NM,ts:Date.now(),created:cur.created||(cur.created=Date.now()),src:cur.src||'',ad:AD,kp:KP,npd:NPD},(k,v)=>k[0]=='_'?undefined:v));
+try{await store.set(rec,o);META[rec]=metaOf(o);delete AMETA[rec];recRender();stWarn();return true}catch(e){const q=e&&(e.name=='QuotaExceededError'||e.code==22||e.code==1014||/quota/i.test(String(e.message||e)));toast(q?'⚠ ব্রাউজারের স্টোরেজ ভরে গেছে — সংরক্ষণ হয়নি! এখনই Backup নিন, পুরনো রেকর্ড আর্কাইভ/মুছুন':'⚠ ব্রাউজারে সংরক্ষণ হয়নি — Backup নিয়ে রাখুন',q?8000:0);return false}}
+let stT=0;
+async function stWarn(force){try{if(!force&&Date.now()-stT<120000)return;stT=Date.now();if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();if(e&&e.quota&&e.usage/e.quota>0.8)toast('⚠ ব্রাউজারের স্টোরেজ '+Math.round(e.usage/e.quota*100)+'% ভরা — পুরনো রেকর্ড আর্কাইভ/Backup করুন',7000)}}catch(x){}}
+async function stGuard(){try{if(navigator.storage&&navigator.storage.persist&&navigator.storage.persisted){if(!(await navigator.storage.persisted()))await navigator.storage.persist()}}catch(x){}try{if(store.isLS()){toast('⚠ ব্রাউজারের ডেটাবেস (IndexedDB) চালু হয়নি — সীমিত জায়গা (প্রায় ৫ MB), নিয়মিত Backup নিন',7000);return}}catch(x){}stWarn(true)}
+async function startRec(name,src){if(UPGSEL){UPGSEL='';upgPut()}name=String(name).replace(/\s+/g,' ').trim().slice(0,200)||'নামহীন রেকর্ড';if(rec&&rec!=name)await svNow();const ex=await store.get(name);if(ex&&ex.arch)toast('ℹ এই নামের রেকর্ড আর্কাইভে ছিল — আর্কাইভ থেকে ফিরিয়ে আনা হয়েছে');rec=name;cur={created:ex?ex.created:Date.now(),src:src||''};D=new Set(ex?ex.D:[]);RJ=ex&&ex.RJ?ex.RJ.map(nr):[];NM=ex&&ex.nm?{...ex.nm}:{};AD=ex&&ex.ad?{...ex.ad}:{};KP=ex&&ex.kp?JSON.parse(JSON.stringify(ex.kp)):{};NPD=ex&&ex.npd?JSON.parse(JSON.stringify(ex.npd)):{};try{adApply()}catch(e){}PM={};(ex?(ex.R||[]):[]).forEach(r=>{if(r.photo&&String(r.photo).startsWith('data:'))PM[r.id]={photo:r.photo,big:r.big,pn:r.pn}});try{localStorage.setItem('duet_last',name)}catch(e){}$('#jobId').textContent='📁 '+name+' — '}
+async function openRecord(name,quiet){const o=await store.get(name);if(!o||o.arch)return false;if(UPGSEL){UPGSEL='';upgPut()}if(rec&&rec!=name)await svNow();clearTimeout(svT);rec=name;cur={created:o.created,src:o.src};R=(o.R||[]).map(nr);hid=new Set(o.hid||[...DH]);D=new Set(o.D||[]);RJ=(o.RJ||[]).map(nr);NM=o.nm?{...o.nm}:{};AD=o.ad?{...o.ad}:{};KP=o.kp?JSON.parse(JSON.stringify(o.kp)):{};NPD=o.npd?JSON.parse(JSON.stringify(o.npd)):{};ensureNo();hist=[];sel.clear();flt=[];sort={k:'',d:1};$('#q').value='';try{localStorage.setItem('duet_last',name)}catch(e){}$('#jobId').textContent='📁 '+name+' — ';init();try{adApply()}catch(e){}if(!quiet){$('#stat').textContent='✓ রেকর্ড খোলা হয়েছে ('+R.length+' জন)';$('.tabs button[data-t="data"]').click()}recRender();try{phs()}catch(e){}return true}
 function fin(rs){
 if(!rs.length){$('#stat').textContent='⚠ কোনো আবেদনকারী পাওয়া যায়নি। টেবিলের HTML দিয়েছেন তো?';return}
 const b=rs.length;{let mx=Math.max(0,...Object.values(NM));rs.forEach(r=>{if(NM[r.id]==null)NM[r.id]=++mx;r.no=NM[r.id]})}rs.filter(r=>D.has(r.id)).forEach(r=>{const i=RJ.findIndex(x=>x.id==r.id),o=i<0?null:RJ[i],keep=o&&o.photo&&String(o.photo).startsWith('data:');const n={...r,rjAt:o?o.rjAt:Date.now()};if(keep){n.photo=o.photo;n.big=o.big;n.pn=o.pn}if(i<0)RJ.push(n);else RJ[i]=n});rs=rs.filter(r=>!D.has(r.id));rs.forEach(r=>{const p=PM[r.id];if(p){r.pn=p.pn||String(r.photo||'').split('/').pop();r.photo=p.photo;r.big=p.big}});hist=[];sel.clear();flt=[];R=rs;hid=new Set(DH);
@@ -874,7 +879,7 @@ function upgDropByRec(names){try{const L=window.UPGS||[],ids=[];for(let i=L.leng
 const fm=JSON.parse(localStorage.getItem('duet_final_np_v1')||'{}');let ch=0;Object.keys(fm).forEach(k=>{if(names.includes(fm[k].rec)||ids.includes(fm[k].uid)){delete fm[k];ch=1}});if(ch)localStorage.setItem('duet_final_np_v1',JSON.stringify(fm));
 if(ids.length){upgPut();if(window.upgRefresh)upgRefresh()}}catch(e){}}
 async function recDel(names){names=names.filter(n=>META[n]);if(!names.length){toast('কোনো রেকর্ড নির্বাচিত নেই');return}if(!confirm(names.length+' টি রেকর্ড স্থায়ীভাবে মুছে ফেলবেন?\n(আগে Backup নিয়ে রাখা ভালো)'))return;clearTimeout(svT);for(const n of names){await store.del(n);delete META[n];rsel.delete(n)}upgDropByRec(names);
-if(names.includes(rec)){rec='';R=[];RJ=[];D=new Set();PM={};NM={};AD={};KP={};hist=[];sel.clear();flt=[];$('#jobId').textContent='';try{localStorage.removeItem('duet_last')}catch(e){}init()}recRender();toast(names.length+' টি রেকর্ড মুছে ফেলা হয়েছে')}
+if(names.includes(rec)){rec='';R=[];RJ=[];D=new Set();PM={};NM={};AD={};KP={};NPD={};hist=[];sel.clear();flt=[];$('#jobId').textContent='';try{localStorage.removeItem('duet_last')}catch(e){}init()}recRender();toast(names.length+' টি রেকর্ড মুছে ফেলা হয়েছে')}
 $('#rDelSel').onclick=()=>recDel([...rsel]);
 /* ---- পুন:বিজ্ঞপ্তি: অন্য রেকর্ড (ক্যাটাগরি অনুযায়ী) বেছে বর্তমান রেকর্ডের সাথে একত্র করা ---- */
 const rnCats={t:'শিক্ষক',o:'কর্মকর্তা',e:'কর্মচারী',u:'শ্রেণি অনির্ধারিত'};
@@ -941,7 +946,7 @@ const lb=names.length==1?'“'+names[0]+'”':names.length+' টি রেকর
 if(!confirm('⚠ সতর্কতা!\n\n'+lb+' আর্কাইভে পাঠানো হবে।\n\n• আর্কাইভ করলে এই ডাটা আর কোনো ট্যাবে (রেকর্ড, Reject, মোবাইল নম্বর, হাজিরা শীট, কাস্টম প্রিন্ট, দ্বৈত আবেদন ও পাশের তথ্য) দেখা যাবে না।\n• ডাটা মুছে যাবে না — “আর্কাইভ” ট্যাব থেকে যেকোনো সময় রিস্টোর করা যাবে।\n\nআপনি কি নিশ্চিত?'))return;
 const was=names.includes(rec);if(was)await svNow();clearTimeout(svT);
 for(const n of names){const o=await store.get(n);if(!o)continue;o.arch=true;o.archAt=Date.now();await store.set(n,o);putMeta(o);rsel.delete(n)}
-if(was){rec='';R=[];RJ=[];D=new Set();PM={};NM={};AD={};KP={};hist=[];sel.clear();flt=[];$('#jobId').textContent='';try{localStorage.removeItem('duet_last')}catch(e){}init();const a=Object.values(META).sort((x,y)=>y.ts-x.ts);if(a[0])await openRecord(a[0].name,true)}
+if(was){rec='';R=[];RJ=[];D=new Set();PM={};NM={};AD={};KP={};NPD={};hist=[];sel.clear();flt=[];$('#jobId').textContent='';try{localStorage.removeItem('duet_last')}catch(e){}init();const a=Object.values(META).sort((x,y)=>y.ts-x.ts);if(a[0])await openRecord(a[0].name,true)}
 recRender();toast('🗃️ '+names.length+' টি রেকর্ড আর্কাইভে পাঠানো হয়েছে')}
 async function arcRestore(names){names=names.filter(n=>AMETA[n]);if(!names.length){toast('কোনো রেকর্ড নির্বাচিত নেই');return}
 if(!confirm(names.length+' টি রেকর্ড আর্কাইভ থেকে রিস্টোর করবেন?'))return;
@@ -995,6 +1000,7 @@ function bkExtra(){const x={};try{for(let i=0;i<localStorage.length;i++){const k
 function bkApply(ex,ow){let n=0;if(!ex||typeof ex!='object')return 0;for(const [k,v] of Object.entries(ex)){if(bkSkip(k)||typeof v!='string')continue;try{const cur=localStorage.getItem(k);
   if(k=='cms_sms_dlr'||k=='cms_sms_log'){const a=JSON.parse(cur||'[]'),b=JSON.parse(v),seen=new Set(a.map(x=>JSON.stringify(x)));b.forEach(x=>{const j=JSON.stringify(x);if(!seen.has(j)){seen.add(j);a.push(x)}});a.sort((p,q)=>(p.t||0)-(q.t||0));localStorage.setItem(k,JSON.stringify(a));n++}
   else if(k=='cms_sms_cfg'){if(ow||cur==null){const c=JSON.parse(v),e=JSON.parse(cur||'{}');if(e&&e.key)c.key=e.key;localStorage.setItem(k,JSON.stringify(c));n++}}
+  else if(k=='duet_wr_all_v1'||k=='duet_wr_v1'){/* Written কমিটি: বর্তমান কমিটির সাথে মার্জ — একই নামে ব্যাকআপেরটা (ow=হ্যাঁ) অথবা বর্তমানটা (ow=না) থাকবে */const a=JSON.parse(cur||'{}')||{},b=JSON.parse(v)||{};let ch=0;Object.keys(b).forEach(x=>{if(ow||!(x in a)){a[x]=b[x];ch++}});localStorage.setItem(k,JSON.stringify(a));if(ch)n++}
   else if(ow||cur==null){localStorage.setItem(k,v);n++}}catch(e){}}return n}
 const noPhoto=rs=>rs.reduce((q,r)=>q+(r.R||[]).filter(x=>!(x.photo&&String(x.photo).startsWith('data:'))).length,0);
 async function recBackup(){if(bakBusy)return;bakBusy=true;try{await recBackup_()}catch(e){console.error(e);toast('⚠ ব্যাকআপ ত্রুটি: '+(e&&e.message||e))}finally{bakBusy=false}}
@@ -1128,7 +1134,7 @@ RJI={file:f.name,title:d.title,rows:scrMatch(rows)};scrRender();$('#rjImp').scro
 catch(err){alert('⚠ ফাইলটি পড়া যায়নি: '+(err&&err.message||err))}};
 
 /* শুরু */
-(async()=>{hid=new Set(DH);await store.open();
+(async()=>{hid=new Set(DH);await store.open();stGuard();
 try{for(const k of Object.keys(localStorage).filter(k=>k.startsWith('duet_apl_'))){const d=JSON.parse(localStorage.getItem(k)||'null');if(d&&Array.isArray(d.R)&&d.R.length){const nm='আগের ডাটা (বিজ্ঞপ্তি '+k.slice(9)+')';if(!await store.get(nm))await store.set(nm,{name:nm,R:d.R,hid:d.hid,D:d.D,ts:Date.now(),created:Date.now(),src:''});localStorage.removeItem(k)}}}catch(e){}
 try{(await store.all()).forEach(o=>putMeta(o))}catch(e){}
 let last='';try{last=localStorage.getItem('duet_last')||''}catch(e){}
@@ -2604,6 +2610,9 @@ AD['u'+k]=v?1:0;adApply();await svNow();
 const pv=k=='a'?document.getElementById('sheet'):document.getElementById('csheet');
 if(v){try{if(k=='a'){if(pv&&pv.innerHTML.trim())gen()}else if(pv&&pv.innerHTML.trim())cpGen()}catch(e){}}else{try{if(k=='a'){if(pv&&pv.innerHTML.trim())gen()}else if(pv&&pv.innerHTML.trim())cpGen()}catch(e){}}
 toast(v?(adLines().parts.length&&AD.grade?'✓ নিয়োগ বিজ্ঞপ্তির তথ্য যোগ হয়েছে':'✓ যোগ হয়েছে — গ্রেড বাকি থাকলে রেকর্ডের 📢 আইকন থেকে দিন'):'নিয়োগ বিজ্ঞপ্তির তথ্য বাদ দেওয়া হয়েছে')}
+/* নিয়োগপত্রের সম্পাদিত তথ্য (নাম/ঠিকানাসহ) রেকর্ডের সাথেই সংরক্ষিত — তাই ব্যাকআপ/রিস্টোরেও যায় */
+window.npdGet=async function(n,k){try{if(n==rec)return NPD[k]?JSON.parse(JSON.stringify(NPD[k])):null;const o=await store.get(n);return o&&o.npd&&o.npd[k]?JSON.parse(JSON.stringify(o.npd[k])):null}catch(e){return null}};
+window.npdPut=async function(n,k,v){try{if(n==rec){NPD=NPD||{};if(v==null)delete NPD[k];else NPD[k]=v;await svNow();return true}const o=await store.get(n);if(!o)return false;o.npd=o.npd||{};if(v==null)delete o.npd[k];else o.npd[k]=v;o.ts=Date.now();await store.set(n,o);try{META[n]=metaOf(o)}catch(e){}return true}catch(e){console.error(e);return false}};
 async function adPut(n,obj){try{if(n==rec){obj.ua=AD.ua;obj.uc=AD.uc;obj.rmemo=AD.rmemo;obj.rdate=AD.rdate;obj.rname=AD.rname;AD=obj;adApply();await svNow()}else{const o=await store.get(n);if(!o)return false;obj.ua=o.ad&&o.ad.ua;obj.uc=o.ad&&o.ad.uc;if(o.ad){obj.rmemo=o.ad.rmemo;obj.rdate=o.ad.rdate;obj.rname=o.ad.rname}o.ad=obj;await store.set(n,o);if(META[n])META[n]=metaOf(o);else if(AMETA[n])AMETA[n]=metaOf(o);recRender()}return true}catch(e){toast('⚠ সংরক্ষণ হয়নি — Backup নিয়ে রাখুন');return false}}
 let adT=0;
 async function adOpen(n){let ad;if(n==rec)ad=AD||{};else{const o=await store.get(n);if(!o)return;ad=o.ad||{}}
@@ -3594,7 +3603,7 @@ async function render(id){
   box.querySelectorAll('.npBtn[data-upg]').forEach(b=>b.onclick=()=>{const u=UPG.find(x=>x.id==b.getAttribute('data-upg'));if(u&&window.npEmpOpen){upgSel(u.id);window.npEmpOpen({name:u.rec,post:u.post,dept:u.dept,grade:u.grade,cat:'t',upg:true,uid:u.id})}});
   box.querySelectorAll('.npUpgX').forEach(b=>b.onclick=()=>{const uid=b.getAttribute('data-x'),rn=b.getAttribute('data-rn')||'';const i=UPG.findIndex(x=>x.id==uid||(rn&&x.recName==rn));const u=i>=0?UPG[i]:null;const nm=rn||(u&&(u.recName||(u.post+' (আপগ্রেডেশন) — '+u.dept)))||'';const nl=u&&u.letters?u.letters.length:0;
 if(!confirm('⚠ সতর্কতা: আপগ্রেডেশন পদটি মুছে ফেলা হবে।\n\n'+nm+(nl?'\n\nএর '+nl+' টি সংরক্ষিত নিয়োগপত্র-এন্ট্রিও মুছে যাবে।':'')+'\n\nএই কাজ ফেরানো যাবে না। চালিয়ে যাবেন?'))return;
-const run=async()=>{if(u){UPG.splice(i,1);upgSel(UPGSEL==u.id?'':UPGSEL)}const r=rn||(u&&u.recName);if(r&&META[r]){try{await store.del(r)}catch(e){}delete META[r];if(rec==r){rec='';R=[];RJ=[];D=new Set();PM={};NM={};AD={};KP={};hist=[];sel.clear();flt=[];try{$('#jobId').textContent='';localStorage.removeItem('duet_last')}catch(e){}try{init()}catch(e){}}}try{const fm=JSON.parse(localStorage.getItem('duet_final_np_v1')||'{}');let ch=0;Object.keys(fm).forEach(k=>{if((r&&fm[k].rec==r)||(u&&fm[k].uid==u.id)){delete fm[k];ch=1}});if(ch)localStorage.setItem('duet_final_np_v1',JSON.stringify(fm))}catch(e){}try{recRender()}catch(e){}render(id);toast('আপগ্রেডেশন মুছে ফেলা হয়েছে')};run()});
+const run=async()=>{if(u){UPG.splice(i,1);upgSel(UPGSEL==u.id?'':UPGSEL)}const r=rn||(u&&u.recName);if(r&&META[r]){try{await store.del(r)}catch(e){}delete META[r];if(rec==r){rec='';R=[];RJ=[];D=new Set();PM={};NM={};AD={};KP={};NPD={};hist=[];sel.clear();flt=[];try{$('#jobId').textContent='';localStorage.removeItem('duet_last')}catch(e){}try{init()}catch(e){}}}try{const fm=JSON.parse(localStorage.getItem('duet_final_np_v1')||'{}');let ch=0;Object.keys(fm).forEach(k=>{if((r&&fm[k].rec==r)||(u&&fm[k].uid==u.id)){delete fm[k];ch=1}});if(ch)localStorage.setItem('duet_final_np_v1',JSON.stringify(fm))}catch(e){}try{recRender()}catch(e){}render(id);toast('আপগ্রেডেশন মুছে ফেলা হয়েছে')};run()});
   box.querySelectorAll('[data-note]').forEach(nb=>nb.onclick=()=>window.noteOpen&&window.noteOpen(nb.getAttribute('data-note')));const ab=box.querySelector('#npUpgAdd');if(ab)ab.onclick=()=>upgDlg(id)}
 /* নিয়োগপত্র বাটনের কাজ — পরে নির্ধারণ করা হবে (এখানে যোগ করুন) */
 window.npOpen=async function(name){try{const i=await info(name);if((i.cat=='e'||i.cat=='o'||i.cat=='t')&&window.npEmpOpen)return window.npEmpOpen(i);toast('নিয়োগপত্র — '+((CATS.find(c=>c.k==i.cat)||{}).t||'এই শ্রেণি')+'র ফরম্যাট পরে যোগ করা হবে')}catch(err){console.error(err);try{toast('⚠ '+err.message)}catch(x){}}};
@@ -4540,13 +4549,14 @@ function css(){if(document.getElementById('npCss'))return;const s=document.creat
   '.npMd .npPg .npEnd{position:absolute;left:0;right:0;height:0;border-top:1px dashed #c0392b;color:#c0392b;font:600 11px/1 sans-serif;text-align:right;padding:0 8px}.npMd .npPg .npEnd span{position:relative;top:3px;background:#fff;padding:0 4px}';
   document.head.appendChild(s)}
 
-function closeNp(){const o=document.querySelector('.uxOv.npOv');if(o)o.remove();document.removeEventListener('keydown',npEsc)}
+function closeNp(){try{if(window.npdFlush&&document.querySelector('.uxOv.npOv'))window.npdFlush()}catch(e){}const o=document.querySelector('.uxOv.npOv');if(o)o.remove();document.removeEventListener('keydown',npEsc)}
 function npEsc(ev){if(ev.key=='Escape')closeNp()}
 
 window.npEmpOpen=async function(info){
   css();closeNp();
   let D0;try{D0=await loadData(info)}catch(err){toast('⚠ '+(err&&err.message||err));return}
   const L=lastGet();
+  const SV=info.upg?null:await window.npdGet(info.name,'np');/* রেকর্ডে সংরক্ষিত সম্পাদিত নিয়োগপত্র (ঠিকানাসহ) */
   const NPC=info.cat=='t'?'t':info.cat=='o'?'o':'e';
   const KIND=npKind(info);const UU0=(info.upg&&info.uid&&window.UPGS)?UPGS.find(x=>x.id==info.uid):null;
   const CMN=(UU0&&UU0.common)||{};
@@ -4742,6 +4752,7 @@ const letterH=v=>{
   const blankC=()=>({sm:false,c:'',f:'',t:'জনাব',n:'',ft:'জনাব',a:'',p:'',q:'',ne:'',fe:'',pe:'',qe:'',m:null,min:false,ov:null});
   const cands=Array.from({length:NC},blankC);cands[0].m=L[MK]||NPX.d;let act=0;
   if(UU&&UU.letters&&UU.letters.length){UU.letters.forEach((l,i)=>{if(cands[i])Object.assign(cands[i],blankC(),l,{min:false})});const cm=UU.common||{};if(cm.dt)$$('npDt').value=cm.dt;if(cm.synd!=null)$$('npY').value=cm.synd;if(cm.prob)$$('npPr').value=cm.prob;if(KIND){if(cm.sd!=null)$$('npSd').value=cm.sd;if(cm.ed!=null&&$$('npEd'))$$('npEd').value=cm.ed;if(cm.cp!=null)$$('npCp').value=cm.cp;if(cm.ds!=null)$$('npDs').value=cm.ds}}
+  if(SV&&!UU&&Array.isArray(SV.letters)&&SV.letters.length){SV.letters.forEach((l,i)=>{if(cands[i])Object.assign(cands[i],blankC(),l,{min:false})});const cm=SV.common||{};if(cm.dt)$$('npDt').value=cm.dt;if(cm.synd!=null)$$('npY').value=cm.synd;if(cm.prob)$$('npPr').value=cm.prob}
   const incM=m=>/[০-৯]+$/.test(m)?m.replace(/[০-৯]+$/,x=>bnD(parseInt(bn(x),10)+1)):m;
   const setSm=on=>{const b=$$('npSm');b.dataset.on=on?'1':'0';b.classList.toggle('on',!!on);b.textContent=(on?'✔ ':'☐ ')+'বর্তমান ও স্থায়ী ঠিকানা একই';$$('npQ').readOnly=!!on;$$('npQ').style.opacity=on?'.7':''};
   $$('npSm').onclick=()=>{const on=$$('npSm').dataset.on!='1';setSm(on);if(on)$$('npQ').value=$$('npP').value;ov.dispatchEvent(new Event('input'))};
@@ -4777,7 +4788,8 @@ const letterH=v=>{
     if(m[FNK]&&confirm('এটি আগেই চূড়ান্ত করা আছে।\n\nOK = চূড়ান্ত চিহ্ন তুলে নিন\nCancel = বর্তমান তথ্য দিয়ে হালনাগাদ করুন')){delete m[FNK];finPut(m);finUi();toast('চূড়ান্ত চিহ্ন তুলে নেওয়া হয়েছে');return}
     const vals=idx.map(i=>{const v=getVal(cands[i]);delete v.CC;delete v.TERMS;return v});
     m[FNK]={rec:info.name,cat:NPC,catT:NPX.t,upg:!!info.upg,uid:info.uid||'',post:sp($$('npPo').value),dept:sp($$('npD').value),grade:sp($$('npG').value),scale:sp($$('npS').value),date:sp($$('npDt').value),synd:sp($$('npY').value),prob:sp($$('npPr').value),kind:KIND,sdate:gv('npSd'),edate:gv('npEd'),curpost:gv('npCp'),pfx:NPX.p,cands:vals,ts:Date.now()};
-    if(finPut(m)){finUi();toast('✔ চূড়ান্ত নিয়োগপত্র সংরক্ষিত ('+bnD(vals.length)+' জন) — নোটশীটে এই তথ্যই যাবে')}else toast('⚠ সংরক্ষণ করা যায়নি');
+    try{npdSave()}catch(x){}
+    if(finPut(m)){finUi();toast('✔ চূড়ান্ত নিয়োগপত্র সংরক্ষিত ('+bnD(vals.length)+' জন) — সম্পাদিত ঠিকানাসহ রেকর্ডে ও ব্যাকআপে থাকবে; নোটশীটে এই তথ্যই যাবে')}else toast('⚠ সংরক্ষণ করা যায়নি');
   };
   window.finalNpAll=finAll;window.finalNpGet=k=>finAll()[k]||null;
   finUi();
@@ -4824,6 +4836,12 @@ const letterH=v=>{
   const upgSave=()=>{if(!UU)return;try{sync()}catch(x){}UU.letters=cands.map((c,i)=>stOf(i)).filter(z=>sp(z.n)).map(z=>({sm:z.sm,c:z.c,f:z.f,t:z.t,n:z.n,ft:z.ft,a:z.a,p:z.p,q:z.q,ne:z.ne,fe:z.fe,pe:z.pe,qe:z.qe,m:z.m}));UU.common={dt:$$('npDt').value,synd:$$('npY').value,prob:$$('npPr').value,sd:gv('npSd'),ed:gv('npEd'),cp:gv('npCp'),ds:gv('npDs')};UU.tm=tm.slice();UU.cc=cc.map(x=>({k:x.k,t:x.k=='c'?'':x.t,dn:x.dn?1:0}));UU.ts=Date.now();upgPut();if(window.upgRefresh)upgRefresh();if(window.upgToRec)upgToRec(UU)};
   let upT=0;const upgAuto=()=>{if(!UU)return;clearTimeout(upT);upT=setTimeout(upgSave,300)};
   if(UU)['input','change','click','keyup'].forEach(ev=>ov.addEventListener(ev,upgAuto));
+  /* সাধারণ নিয়োগপত্র: সম্পাদিত নাম/ঠিকানা/তারিখ নিজে থেকেই রেকর্ডের সাথে সংরক্ষিত হয় (ব্যাকআপ ও রিস্টোরেও যায়) */
+  const npdSave=()=>{if(UU||info.upg)return;try{sync()}catch(x){}
+    const ls=cands.map((c,i)=>stOf(i)).filter(z=>sp(z.n)).map(z=>({sm:z.sm,c:z.c,f:z.f,t:z.t,n:z.n,ft:z.ft,a:z.a,p:z.p,q:z.q,ne:z.ne,fe:z.fe,pe:z.pe,qe:z.qe,m:z.m}));
+    return window.npdPut(info.name,'np',ls.length?{letters:ls,common:{dt:$$('npDt').value,synd:$$('npY').value,prob:$$('npPr').value},ts:Date.now()}:null)};
+  let npdT=0;const npdAuto=()=>{if(UU||info.upg)return;clearTimeout(npdT);npdT=setTimeout(npdSave,250)};
+  if(!UU&&!info.upg){['input','change','click','keyup'].forEach(ev=>ov.addEventListener(ev,npdAuto));window.npdFlush=npdSave}
   /* আপগ্রেডেশন: নাম ঘরে Teacher List থেকে সংশ্লিষ্ট বিভাগ/ইনস্টিটিউট/সেন্টারের শিক্ষকদের নাম সাজেস্ট */
   if(info.upg){(()=>{
     const norm=t=>String(t||'').replace(/\([^)]*\)/g,'').replace(/[\s\u200c\u200d]+/g,'').toLowerCase();
@@ -4845,7 +4863,7 @@ const letterH=v=>{
         $$('npT').dispatchEvent(new Event('change',{bubbles:true}));nI.dispatchEvent(new Event('input',{bubbles:true}));break}}});
     $$('npD').addEventListener('input',build);$$('npD').addEventListener('change',build);build()})()}
   wr(cands[0]);
-  if(D0.list.length==1&&!info.upg){$$('npC').value='0';pick(0)}
+  if(D0.list.length==1&&!info.upg&&!(SV&&SV.letters&&SV.letters.length)){$$('npC').value='0';pick(0)}
   renderCh();renderPv();setTimeout(()=>{fitMode=true;applyZoom()},0);
 };
 
@@ -5606,6 +5624,34 @@ fillCfg();
 nav.tabs button[data-t=wr]::before{content:"✍️ "}
 nav.tabs button[data-t=wr]{white-space:nowrap;line-height:1.5}
 #t-wr{overflow:auto}#t-wr>.card{flex:none;overflow:visible;max-height:none}
+#t-wr .wrSub{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}#t-wr .wrSub button{padding:8px 16px;border-radius:10px;font-weight:700}#t-wr .wrSub button.on{background:var(--pr);color:var(--prt);border-color:var(--pr)}#t-wr .wrCnt{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:10px;background:var(--hl);color:var(--thc);font-size:12px;text-align:center}#t-wr .wrSub button.on .wrCnt{background:rgba(255,255,255,.25);color:inherit}
+#t-wr.wrA>.card:not(#wrAll),#t-wr.wrA>#wrSheet{display:none!important}#t-wr:not(.wrA)>#wrAll{display:none!important}
+#t-wr .wrAi{border:1px solid var(--bd);border-radius:12px;margin:10px 0;padding:10px 12px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}#t-wr .wrAi .wrAm{flex:1;min-width:240px}#t-wr .wrAi .wrAm b{font-size:14.5px}#t-wr .wrAi .wrAm div{font-size:12.5px;color:var(--mut);margin-top:3px}#t-wr .wrAi .wrAb{display:flex;gap:6px;flex-wrap:wrap}
+#t-wr .wrAi[draggable=true]{cursor:grab}#t-wr .wrAi.dragging{opacity:.45}
+#t-wr .wrAi.dropOn{outline:3px dashed #c2185b;outline-offset:2px}
+#t-wr #wrAundo .wrUn{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#d9f2e1;color:#0b6b32;border:1px solid #2e9e5b;border-radius:10px;padding:8px 12px;margin:8px 0}
+#t-wr .wrAi{background:#c6ecd3;border-color:#2e9e5b;color:#0a3d20}
+#t-wr .wrAi .wrAm div{color:#1f5c3a}
+#t-wr .wrAi.s2{background:#ffe2b3;border-color:#e0962b;color:#4a2b00}#t-wr .wrAi.s2 .wrAm div{color:#7a4a08}
+#t-wr .wrAi.s3{background:#e3d6fb;border-color:#8a63d2;color:#2b1457}#t-wr .wrAi.s3 .wrAm div{color:#4f3590}
+#t-wr .wrAi .wrPrB{align-self:center;padding:6px 14px;border-radius:999px;background:#c2185b;color:#fff;font-weight:700;font-size:13px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) #t-wr .wrAi{background:#1d4a31;border-color:#2e9e5b;color:#d9f5e3}:root:not([data-theme=light]) #t-wr .wrAi .wrAm div{color:#a9dcbd}:root:not([data-theme=light]) #t-wr .wrAi.s2{background:#5a3d10;border-color:#e0962b;color:#ffe9c9}:root:not([data-theme=light]) #t-wr .wrAi.s2 .wrAm div{color:#f0c98a}:root:not([data-theme=light]) #t-wr .wrAi.s3{background:#3d2a66;border-color:#9b7be0;color:#eee6ff}:root:not([data-theme=light]) #t-wr .wrAi.s3 .wrAm div{color:#c9b6f0}}
+:root[data-theme=dark] #t-wr .wrAi{background:#1d4a31;border-color:#2e9e5b;color:#d9f5e3}:root[data-theme=dark] #t-wr .wrAi .wrAm div{color:#a9dcbd}:root[data-theme=dark] #t-wr .wrAi.s2{background:#5a3d10;border-color:#e0962b;color:#ffe9c9}:root[data-theme=dark] #t-wr .wrAi.s2 .wrAm div{color:#f0c98a}:root[data-theme=dark] #t-wr .wrAi.s3{background:#3d2a66;border-color:#9b7be0;color:#eee6ff}:root[data-theme=dark] #t-wr .wrAi.s3 .wrAm div{color:#c9b6f0}
+#t-wr #wrPick{border:1px solid var(--bd);border-radius:12px;padding:10px 12px;background:var(--hl);margin-bottom:6px}#t-wr .wrDd{position:relative;margin-top:4px}#t-wr .wrDdB{width:100%;text-align:left;padding:9px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--card);font-size:13.5px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#t-wr .wrDdB::after{content:'▾';float:right;margin-left:8px}#t-wr .wrDdP{position:absolute;z-index:40;left:0;right:0;top:calc(100% + 2px);max-height:280px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18)}#t-wr .wrDdP label{display:flex;gap:9px;align-items:flex-start;padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--bd)}#t-wr .wrDdP label:last-child{border-bottom:0}#t-wr .wrDdP label:hover{background:var(--hl)}#t-wr .wrDdP label.on{background:var(--hl);font-weight:700}#t-wr .wrDdP input{width:auto!important;flex:0 0 auto;margin:0!important;padding:0!important}#t-wr .wrDdP label{align-items:center!important;flex-direction:row}#t-wr .wrDdP label>span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#t-wr .wrDdP small{display:inline;color:var(--mut);font-weight:400;font-size:12.5px}#t-wr .wrMh{grid-column:1/-1;font-weight:700;color:var(--thc);margin-top:6px;padding:4px 2px;border-bottom:2px solid var(--bd)}#t-wr .wrPk2c{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:700px){#t-wr .wrPk2c{grid-template-columns:1fr}}#t-wr .wrPkH{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 4px}#t-wr .wrPkH button{margin-left:6px;padding:4px 10px}
+#t-wr #wrRecList{display:grid;grid-template-columns:repeat(var(--wrN,1),minmax(250px,1fr));gap:12px;align-items:start;overflow-x:auto;padding-bottom:4px}#t-wr .wrCol{min-width:0;display:flex;flex-direction:column;gap:3px}#t-wr .wrCol .wrMh{margin-top:0;font-size:13.5px}#t-wr .wrMh small{font-weight:400;color:var(--mut);font-size:12px}#t-wr .wrRc{display:flex;gap:6px;align-items:center;border:1px solid var(--bd);border-radius:8px;padding:4px 8px;background:var(--card);cursor:pointer;min-width:0}#t-wr .wrRc.on{border-color:var(--pr);box-shadow:0 0 0 1px var(--pr)}#t-wr .wrRc input{width:auto!important;flex:0 0 auto;margin:0!important;padding:0!important}#t-wr .wrRc b{flex:1 1 0;min-width:60px;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#t-wr .wrRc small{flex:0 0 auto;color:var(--mut);font-size:11.5px;white-space:nowrap}#t-wr .wrRc .wrTg{flex:0 0 auto;margin-left:0;padding:0 4px}#t-wr .wrLg{font-size:12px;margin-top:6px}@media(max-width:700px){#t-wr #wrRecList{grid-template-columns:1fr}}#t-wr .wrTg{display:inline-block;font-size:11px;font-weight:700;padding:0 6px;border-radius:8px;margin-left:4px;background:#fff3b0;color:#8a5a00}#t-wr .wrRc.virt{background:#e6eeff;border-color:#7a97e0;color:#10243f}#t-wr .wrRc.virt small{color:#33507f}#t-wr .wrRc.virt.on{border-color:#1b4fd8;box-shadow:0 0 0 1px #1b4fd8}
+#t-wr .wrRc.svd,#t-wr .wrRc.virt.svd{background:#c6ecd3;border-color:#2e9e5b;color:#0a3d20}
+#t-wr .wrRc.svd small,#t-wr .wrRc.virt.svd small{color:#1f5c3a}
+#t-wr .wrRc.svd.on,#t-wr .wrRc.virt.svd.on{border-color:#0f7a3c;box-shadow:0 0 0 1px #0f7a3c}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) #t-wr .wrRc.svd,:root:not([data-theme=light]) #t-wr .wrRc.virt.svd{background:#1d5236;border-color:#2fbf71;color:#d9f2e1}:root:not([data-theme=light]) #t-wr .wrRc.svd small{color:#9fd8b6}}
+:root[data-theme=dark] #t-wr .wrRc.svd,:root[data-theme=dark] #t-wr .wrRc.virt.svd{background:#1d5236;border-color:#2fbf71;color:#d9f2e1}:root[data-theme=dark] #t-wr .wrRc.svd small{color:#9fd8b6}
+#t-wr .wrRc.svd.s2,#t-wr .wrRc.virt.svd.s2{background:#ffe2b3;border-color:#e0962b;color:#4a2b00}
+#t-wr .wrRc.svd.s2 small{color:#7a4a08}
+#t-wr .wrRc.svd.s2.on{border-color:#b86e00;box-shadow:0 0 0 1px #b86e00}
+#t-wr .wrRc.svd.s3,#t-wr .wrRc.virt.svd.s3{background:#e3d6fb;border-color:#8a63d2;color:#2b1457}
+#t-wr .wrRc.svd.s3 small{color:#4f3590}
+#t-wr .wrRc.svd.s3.on{border-color:#6a3fc0;box-shadow:0 0 0 1px #6a3fc0}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) #t-wr .wrRc.svd.s2{background:#5a3d10;border-color:#e0962b;color:#ffe9c9}:root:not([data-theme=light]) #t-wr .wrRc.svd.s2 small{color:#f0c98a}:root:not([data-theme=light]) #t-wr .wrRc.svd.s3{background:#3d2a66;border-color:#9b7be0;color:#eee6ff}:root:not([data-theme=light]) #t-wr .wrRc.svd.s3 small{color:#c9b6f0}}
+:root[data-theme=dark] #t-wr .wrRc.svd.s2{background:#5a3d10;border-color:#e0962b;color:#ffe9c9}:root[data-theme=dark] #t-wr .wrRc.svd.s2 small{color:#f0c98a}:root[data-theme=dark] #t-wr .wrRc.svd.s3{background:#3d2a66;border-color:#9b7be0;color:#eee6ff}:root[data-theme=dark] #t-wr .wrRc.svd.s3 small{color:#c9b6f0}#t-wr .wrTg.nt{background:#cfe0ff;color:#12388a}#t-wr .wrTg.ok{background:#d9f2e1;color:#0b6b32}#t-wr #wrSelSum{margin-top:8px;font-size:13px}
 #t-wr .wrG{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
 #t-wr .f{display:flex;flex-direction:column;gap:3px;min-width:0}
 #t-wr .f>span{font-size:12.5px;font-weight:600;color:var(--mut)}
@@ -5649,16 +5695,17 @@ nav.tabs button[data-t=wr]{white-space:nowrap;line-height:1.5}
 #wrSheet .pg{min-width:1100px;color:#000}
 #wrSheet .wrH{display:flex;align-items:center;justify-content:center;gap:14px}
 #wrSheet .wrH img{height:58px;width:58px;object-fit:contain}
-#wrSheet .wrH .t1{font-size:24px;font-weight:700;text-align:center;line-height:1.3}
+#wrSheet .wrH .t1{font-size:22px;font-weight:700;text-align:center;line-height:1.3}
 #wrSheet .wrH .t2{font-size:15px;font-weight:700;text-align:center}
 #wrSheet .wrD{text-align:right;font-size:13px;font-weight:700;margin:6px 4px 4px}
-#wrSheet .wrI{text-align:center;font-weight:700;font-size:14.5px;line-height:1.55;margin:6px 30px 10px}
+#wrSheet .wrI{text-align:center;font-weight:700;font-size:12.5px;line-height:1.55;margin:6px 30px 10px}
 #wrSheet table{border-collapse:collapse;width:100%;table-layout:fixed;margin:0}
 #wrSheet table.wrM th,#wrSheet table.wrM td{border:1px solid #000;padding:5px 6px;text-align:center;vertical-align:middle;background:#fff;color:#000;white-space:normal;position:static;overflow-wrap:anywhere}
 #wrSheet table.wrM th{font-size:12px;background:#f2f2f2}
 #wrSheet table.wrM th .sb{font-weight:400;font-size:12px;margin-top:3px}
 #wrSheet table.wrM td{font-size:12px;height:60px}
 #wrSheet table.wrM td.l{text-align:left;vertical-align:top}
+#wrSheet table.wrM td.nc{text-align:center;vertical-align:top}
 #wrSheet table.wrM td .pb{display:flex;gap:4px;align-items:flex-start}
 #wrSheet table.wrM td .pb .no{flex:none;min-width:1.7em}
 #wrSheet table.wrM td .pb .tx{min-width:0}
@@ -5678,20 +5725,22 @@ const toEn=s=>String(s==null?'':s).replace(/[০-৯]/g,d=>BD.indexOf(d));
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const g=id=>document.getElementById(id);
 const YR=()=>toBn(new Date().getFullYear());
+const SGK='duet_wr_sign';/* স্বাক্ষরের প্রথম পদবী: d = ডেপুটি রেজিস্ট্রার, নইলে অতিরিক্ত রেজিস্ট্রার (ডিফল্ট) */
+const signT=()=>{try{return localStorage.getItem(SGK)=='d'?'ডেপুটি রেজিস্ট্রার':'অতিরিক্ত রেজিস্ট্রার'}catch(e){return'অতিরিক্ত রেজিস্ট্রার'}};
 const COLS=[
  {k:'d',t:'লিখিত ও ব্যবহারিক পরীক্ষা গ্রহণের তারিখ',w:1250},
  {k:'n',t:'প্রার্থীর সংখ্যা (জন)',w:1050},
- {k:'c',t:'লিখিত পরীক্ষা গ্রহণ কমিটির সভাপতি',r:0,w:2280},
- {k:'s',t:'প্রশ্নপত্র প্রণয়নকারী',r:1,w:2990},
+ {k:'c',t:'লিখিত পরীক্ষা গ্রহণ কমিটির সভাপতি',r:0,w:2950},
+ {k:'s',t:'প্রশ্নপত্র প্রণয়নকারী',r:1,w:2740},
  {k:'p',t:'ব্যবহারিক পরীক্ষা গ্রহণকারী',r:2,w:2506},
  {k:'m',t:'প্রশ্নপত্র মডারেশন, টাইপ, প্রিন্টিং, প্যাকিং',r:3,w:2906},
- {k:'r',t:'কক্ষ পরিদর্শক',r:4,w:3614},
- {k:'e',t:'উত্তরপত্র মূল্যায়নকারী',r:5,w:3659}];
+ {k:'r',t:'কক্ষ পরিদর্শক',r:4,w:3394},
+ {k:'e',t:'উত্তরপত্র মূল্যায়নকারী',r:5,w:3459}];
 const AC=()=>COLS.filter(c=>c.k!='p'||(W&&W.prac));
 const colT=c=>c.k=='d'&&!(W&&W.prac)?'লিখিত পরীক্ষা গ্রহণের তারিখ':(c.k=='p'&&W&&/পরিচ্ছন্ন/.test(W.post||'')?c.t+' (শুধু পরিচ্ছন্নতা কর্মী পদের জন্য প্রযোজ্য)':c.t);
 const wsum=()=>AC().reduce((a,c)=>a+c.w,0);
 const RATES0=['3000','3000','2000','3000','1000','120'];
-let cur='',W=null,pt=0;
+let cur='',W=null,pt=0;const VIRT={};/* বিজ্ঞপ্তির পদ (রেকর্ড এখনো নেই) — শুধু কমিটির জন্য, মূল রেকর্ডে যায় না */
 
 /* ---------- সংরক্ষণ ---------- */
 const loadAll=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){return{}}};
@@ -5709,8 +5758,9 @@ const joinO=(a,w)=>a.length>2?a.slice(0,-1).join(', ')+' '+w+' '+a[a.length-1]:a
 const splitP=t=>String(t||'').split(/\s*[;；]\s*/).map(x=>x.trim()).filter(Boolean);
 const postLabel=()=>{const ps=splitP(W.post);if(!ps.length)return'“.........”';if(ps.length>1){const gt=gradeTxt(W.grade);return qPosts(ps)+(gt?' ('+gt+')':'')}const p=ps[0],gt=gradeTxt(W.grade);return'“'+p+(gt&&!/গ্রেড/.test(p)?' ('+gt+')':'')+'”'};
 const multiInfo=()=>{const xs=(W.recs||[]).map(n=>(W.xi||{})[n]).filter(Boolean);if(!xs.length)return null;
- const xp=xs.map(x=>x.post).filter(Boolean),p0=splitP(W.post).filter(p=>!xp.includes(p));
- return[{memo:String(W.memo||'').trim(),mdate:String(W.mdate||'').trim(),dept:String(W.dept||'').trim(),posts:p0}].concat(xs.map(x=>({memo:String(x.memo||'').trim(),mdate:String(x.mdate||'').trim(),dept:String(x.dept||'').trim(),posts:splitP(x.post)})))};
+ const xp=xs.map(x=>x.post).filter(Boolean),all=splitP(W.post);let p0=all.filter(p=>!xp.includes(p));
+ if(!p0.length&&all.length)p0=[all[0]];/* প্রাথমিক পদের নাম অন্য পদের সাথে হুবহু এক হলে (ডুপ্লিকেট বাদ পড়ায়) প্রথমটিই তার নিজের পদ */
+ return[{memo:String(W.memo||'').trim(),mdate:String(W.mdate||'').trim(),dept:String(W.dept||'').trim(),posts:p0,grade:String(W.grade||'')}].concat(xs.map(x=>({memo:String(x.memo||'').trim(),mdate:String(x.mdate||'').trim(),dept:String(x.dept||'').trim(),posts:splitP(x.post),grade:String(x.grade!=null&&String(x.grade).trim()!==''?x.grade:(W.grade||''))})))};
 const intro=()=>{
  const M=multiInfo(),tail=' পদে '+(W.prac?'লিখিত ও ব্যবহারিক':'লিখিত')+' পরীক্ষা গ্রহণের নিমিত্ত দায়িত্ব প্রাপ্ত শিক্ষকবৃন্দের তালিকা :';
  if(!M)return 'নিয়োগ বিজ্ঞপ্তির স্মারক নং-'+(toBn(String(W.memo||'').trim())||'.........')+', তারিখ : '+fmtDate(W.mdate,dEmpty())+' অনুযায়ী '+(String(W.dept||'').trim()?rel(W.dept)+' ':'')+postLabel()+tail;
@@ -5721,7 +5771,12 @@ const intro=()=>{
  const depts=uq(M.map(m=>m.dept).filter(Boolean));let who;
  const gt=gradeTxt(W.grade),gs=gt?' ('+gt+')':'';
  if(depts.length<2){who=(depts[0]?rel(depts[0])+' ':'')+(()=>{const ps=uq(M.reduce((a,m)=>a.concat(m.posts),[]));return ps.length?qPosts(ps)+gs:'“.........”'})()}
- else who=joinO(M.filter(m=>m.posts.length||m.dept).map(m=>(m.dept?rel(m.dept)+' ':'')+(m.posts.length?qPosts(m.posts):'“.........”')),'এবং')+gs;
+ else{/* একাধিক দপ্তর: পদ ও গ্রেড একই হলে দুই দপ্তরের নামের পর একবারই; ভিন্ন হলে প্রতিটি দপ্তরের সাথে নিজ নিজ পদ ও গ্রেড */
+   const its=M.filter(m=>m.posts.length||m.dept),gd=m=>toEn(String(m.grade||'')).replace(/\D/g,''),
+    pg=m=>{const g=gradeTxt(m.grade);return(m.posts.length?qPosts(m.posts):'“.........”')+(g&&!m.posts.some(p=>/গ্রেড/.test(p))?' ('+g+')':'')},
+    sg=m=>nz(m.posts.join(';'))+'|'+gd(m);
+   if(its.length&&its.every(m=>m.posts.length)&&its.every(m=>sg(m)==sg(its[0])))who=joinO(uq(its.map(m=>m.dept).filter(Boolean)).map(d=>rel(d)),'এবং')+' '+pg(its[0]);
+   else who=joinO(its.map(m=>(m.dept?rel(m.dept)+' ':'')+pg(m)),'এবং')}
  return mt+who+tail};
 const blocks=s=>String(s||'').split(/\n\s*\n/).map(b=>b.split('\n').map(x=>x.trim()).filter(Boolean)).filter(b=>b.length);
 const rateSub=c=>c.r==null?'':(c.r==5?'(সম্মানী : পূর্ণ উত্তরপত্র '+money(W.rates[5])+' × উত্তরপত্রের সংখ্যা)':'(সম্মানী : '+money(W.rates[c.r])+')');
@@ -5816,6 +5871,7 @@ function addEntry(i,k,e,meta){
 
 /* ---------- রেকর্ডের তথ্য ---------- */
 async function recInfo(n){
+ if(VIRT[n]){const v=VIRT[n];return{memo:String(v.memo||''),mdate:String(v.mdate||''),post:String(v.post||''),dept:String(v.dept||''),grade:String(v.grade||''),count:null,virt:1}}
  let ad={},cnt=null;
  try{if(n===rec){ad=AD||{};cnt=R.length}else{const o=await store.get(n);if(o){ad=o.ad||{};cnt=(o.R||[]).length}}}catch(e){}
  let df={};try{df=adDef(n)||{}}catch(e){}
@@ -5862,7 +5918,7 @@ async function addMoreRec(n){
  const ps=String(W.post||'').split(/\s*[;；]\s*/).map(x=>x.trim()).filter(Boolean);
  if(i.post&&!ps.includes(i.post))ps.push(i.post);W.post=ps.join('; ');
  if(!W.grade&&i.grade)W.grade=i.grade;
- W.recs.push(n);W.recCnt=W.recCnt||{};W.recCnt[n]=i.count;W.xi=W.xi||{};W.xi[n]={memo:i.memo,mdate:i.mdate,post:i.post,dept:i.dept};
+ W.recs.push(n);W.recCnt=W.recCnt||{};W.recCnt[n]=i.count;W.xi=W.xi||{};W.xi[n]={memo:i.memo,mdate:i.mdate,post:i.post,dept:i.dept,grade:String(i.grade||'')};
  if(i.count!=null)W.rows.forEach(r=>{r.n=sumN(r.n,i.count)});
  buildForm();touch();renderPreview();
  const gd=toEn(String(i.grade||'')).replace(/\D/g,''),g0=toEn(String(W.grade||'')).replace(/\D/g,'');
@@ -5885,25 +5941,29 @@ function buildForm(){
  +'<details><summary>💰 সম্মানীর হার (প্রয়োজনে বদলান)</summary><div class="wrRt">'+AC().filter(c=>c.r!=null).map(c=>'<label class="f"><span>'+esc(c.t)+'</span><input data-rate="'+c.r+'" value="'+esc(W.rates[c.r])+'"></label>').join('')+'</div></details>'
  +'<div class="wrPh">👥 দায়িত্ব বণ্টন</div><div id="wrRows">'+W.rows.map(rowHtml).join('')+'</div>'
  +'<div class="wrAct"><button type="button" id="wrAdd">➕ আরেকটি পরীক্ষার তারিখ / সারি</button><span class="mut">প্রতিটি কলামের উপরের সার্চ বক্সে বিভাগ বেছে বা নাম লিখে শিক্ষক যোগ করুন — জ্যেষ্ঠতা অনুযায়ী (ভিসি, প্রো-ভিসি, তারপর অধ্যাপক → সহযোগী → সহকারী, একই পদে বর্তমান পদে যোগদানের তারিখ অনুযায়ী) নিজে থেকে সাজবে। হাতে লিখলে প্রতি লাইনে একজন (নাম, পদবি, বিভাগ); ক্রমিক নং (১।, ২।…) নিজে থেকে বসবে। প্রার্থীর সংখ্যায় “(১২৮+৩২) = ১৬০” লিখলে “=” থেকে পরের লাইনে যাবে।</span></div>'
- +'<div class="wrAct"><button type="button" class="p" id="wrDocx">📄 Word (.docx)</button><button type="button" id="wrPdf">🖨 PDF</button><button type="button" id="wrReload" title="রেকর্ড থেকে স্মারক নং, তারিখ, পদ, বিভাগ, গ্রেড আবার আনুন">↻ রেকর্ড থেকে শীর্ষ তথ্য নিন</button><button type="button" class="d" id="wrClear">🗑 ফরম খালি করুন</button><span class="mut" id="wrSaved">✓ স্বয়ংক্রিয়ভাবে সংরক্ষিত হয়</span></div><div class="mut" id="wrSen" style="font-size:12px;margin-top:4px">'+esc(teachers().info||'Teacher List আপলোড করা নেই — সার্চে শুধু ভিসি/প্রো-ভিসি পাওয়া যাবে (উপরে “Teacher List” বাটনে DOCX আপলোড করুন)')+'</div>';
+ +'<div class="wrAct"><button type="button" class="p" id="wrSave" title="এই কমিটি All Written Committee-তে রেকর্ড হিসেবে সংরক্ষিত হবে">💾 সংরক্ষণ</button><button type="button" class="p" id="wrDocx">📄 Word (.docx)</button><button type="button" id="wrPdf">🖨 PDF</button><button type="button" id="wrReload" title="রেকর্ড থেকে স্মারক নং, তারিখ, পদ, বিভাগ, গ্রেড আবার আনুন">↻ রেকর্ড থেকে শীর্ষ তথ্য নিন</button><button type="button" class="d" id="wrClear">🗑 ফরম খালি করুন</button><span class="mut" id="wrSaved">✓ খসড়া স্বয়ংক্রিয়ভাবে সংরক্ষিত হয় — কমিটি স্থায়ীভাবে রাখতে “💾 সংরক্ষণ” চাপুন</span></div><div class="mut" id="wrSen" style="font-size:12px;margin-top:4px">'+esc(teachers().info||'Teacher List আপলোড করা নেই — সার্চে শুধু ভিসি/প্রো-ভিসি পাওয়া যাবে (উপরে “Teacher List” বাটনে DOCX আপলোড করুন)')+'</div>';
  b.hidden=false;renderMore();
 }
 function renderPreview(){const s=g('wrSheet');if(!W){s.hidden=true;return}s.hidden=false;s.innerHTML=sheetHtml()}
 function touch(){saveW();clearTimeout(pt);pt=setTimeout(renderPreview,250)}
 
 /* ---------- প্রিভিউ ---------- */
+/* কোনো নাম এন্ট্রি না থাকলে সারিটি হাতে লেখার মতো ফাঁকা (লম্বা) থাকে; নাম এন্ট্রি করলেই আবার কলাম/সারি অনুযায়ী ফিট হয় */
+const rowBlank=r=>!AC().filter(c=>c.k!='d'&&c.k!='n').some(c=>persons(r[c.k]).length);
+const blankH=()=>{const nb=W.rows.filter(rowBlank).length||1;return Math.max(1800,Math.floor(5600/nb))};/* twips */
 function sheetHtml(){
  const th=AC().map(c=>'<th style="width:'+(c.w*100/wsum()).toFixed(2)+'%">'+esc(colT(c))+(c.r!=null?'<div class="sb">'+esc(rateSub(c))+'</div>':'')+'</th>').join('');
  const cell=(r,c)=>{if(c.k=='d')return esc(cellTxt(r,c));if(c.k=='n')return nLines(r).map(esc).join('<br>');return persons(r[c.k]).map((b,i)=>'<div class="pb"><span class="no">'+toBn(i+1)+'।</span><span class="tx">'+b.map(esc).join('<br>')+'</span></div>').join('')};
- const rows=W.rows.map(r=>'<tr>'+AC().map(c=>'<td'+(c.k=='n'?'':' class="l"')+'>'+cell(r,c)+'</td>').join('')+'</tr>').join('');
- const sg=['ডেপুটি রেজিস্ট্রার','রেজিস্ট্রার','ভাইস-চ্যান্সেলর'].map(t=>'<td>_________________<br>'+t+'</td>').join('');
+ const bh=blankH();const rows=W.rows.map(r=>'<tr'+(rowBlank(r)?' style="height:'+(bh/56.7).toFixed(1)+'mm"':'')+'>'+AC().map(c=>'<td'+(c.k=='n'?' class="nc"':' class="l"')+'>'+cell(r,c)+'</td>').join('')+'</tr>').join('');
+ const sg=[signT(),'রেজিস্ট্রার','ভাইস-চ্যান্সেলর'].map(t=>'<td>_________________<br>'+t+'</td>').join('');
  return '<div class="pg"><div class="wrH"><img src="'+LOGO+'" alt=""><div><div class="t1">ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর</div><div class="t2">গাজীপুর-১৭০৭</div></div></div>'
  +'<div class="wrD">তারিখ : '+esc(fmtDate(W.ldate,dEmpty()))+'</div><p class="wrI">'+esc(intro())+'</p>'
  +'<table class="wrM"><thead><tr>'+th+'</tr></thead><tbody>'+rows+'</tbody></table><table class="wrS"><tr>'+sg+'</tr></table></div>';
 }
 
 /* ---------- Word ---------- */
-async function makeDocx(){
+async function makeDocx(LIST){
+ LIST=LIST&&LIST.length?LIST:[{k:cur,w:W}];
  const files=[],NSX=NS;let docId=1;
  files.push({n:'word/media/logo.png',d:b64u(LOGO.split(',')[1])});
  const sz=o=>'<w:sz w:val="'+(o.s||22)+'"/><w:szCs w:val="'+(o.s||22)+'"/>';
@@ -5917,13 +5977,16 @@ async function makeDocx(){
  const LH=520000;
  const logo=()=>{const id=docId++;return'<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="'+LH+'" cy="'+LH+'"/><wp:docPr id="'+id+'" name="Logo '+id+'"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="'+id+'" name="logo.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+LH+'" cy="'+LH+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>'};
  const PW=20160,PH=12240,MG=432,TW=PW-2*MG;
- const ACs=AC();let ws=ACs.map(c=>Math.round(c.w*TW/wsum()));ws[ws.length-1]+=TW-ws.reduce((a,b)=>a+b,0);
+ const PB='<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/></w:pPr><w:r><w:rPr><w:sz w:val="2"/></w:rPr><w:br w:type="page"/></w:r></w:p>';
+const bodies=[],_oW=W,_oC=cur;
+ try{for(const _it of LIST){cur=_it.k;W=_it.w;
+const ACs=AC();let ws=ACs.map(c=>Math.round(c.w*TW/wsum()));ws[ws.length-1]+=TW-ws.reduce((a,b)=>a+b,0);
  let body='';
  /* শিরোনাম */
  const L1=4600,L3=4600,L2=TW-L1-L3;
- body+=tbl([L1,L2,L3],[tr([tc(L1,pp(logo(),{jc:'right'})),tc(L2,pp(rn('ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর',{b:1,s:46}),{jc:'center'})+pp(rn('গাজীপুর-১৭০৭',{b:1,s:30}),{jc:'center'})),tc(L3,pp(''))])],{nb:1});
+ body+=tbl([L1,L2,L3],[tr([tc(L1,pp(logo(),{jc:'right'})),tc(L2,pp(rn('ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর',{b:1,s:42}),{jc:'center'})+pp(rn('গাজীপুর-১৭০৭',{b:1,s:30}),{jc:'center'})),tc(L3,pp(''))])],{nb:1});
  body+=pp(rn('তারিখ : '+fmtDate(W.ldate,dEmpty()),{b:1,s:26}),{jc:'right',bf:80,af:60});
- body+=pp(rn(intro(),{b:1,s:30}),{jc:'center',af:140,ln:276});
+ body+=pp(rn(intro(),{b:1,s:26}),{jc:'center',af:140,ln:276});
  /* মূল টেবিল */
  const hdr=tr(ACs.map((c,i)=>tc(ws[i],pp(rn(colT(c),{b:1,s:18}),{jc:'center',ln:250})+(c.r!=null?pp(rn(rateSub(c),{s:18}),{jc:'center',bf:40,ln:250}):''),{sh:'F2F2F2'})),{hd:1,h:900});
  const cellP=(r,c,i)=>{
@@ -5932,14 +5995,16 @@ async function makeDocx(){
   const bl=persons(r[c.k]);if(!bl.length)return pp('');
   const hg=bl.length>=10?420:340;
   return bl.map((b,bi)=>'<w:p><w:pPr><w:tabs><w:tab w:val="left" w:pos="'+hg+'"/></w:tabs><w:spacing w:before="0" w:after="'+(bi<bl.length-1?40:0)+'" w:line="252" w:lineRule="auto"/><w:ind w:left="'+hg+'" w:hanging="'+hg+'"/><w:jc w:val="left"/></w:pPr>'+rn(toBn(bi+1)+'।',{s:18})+'<w:r><w:tab/></w:r>'+b.map((t,ti)=>(ti?br:'')+rn(t,{s:18})).join('')+'</w:p>').join('')};
- const rows=W.rows.map(r=>tr(ACs.map((c,i)=>tc(ws[i],cellP(r,c,i),{va:(c.k=='n'?'center':'top')})),{h:827}));
+ const bH=Math.max(1500,blankH()-1300);/* স্বাক্ষর যেন একই পাতায় থাকে */const rows=W.rows.map(r=>tr(ACs.map((c,i)=>tc(ws[i],cellP(r,c,i),{va:'top'})),{h:rowBlank(r)?bH:827}));
  body+=tbl(ws,[hdr].concat(rows));
  /* স্বাক্ষর */
  const sw=[Math.floor(TW/3),Math.floor(TW/3)];sw.push(TW-sw[0]-sw[1]);
  body+=pp('',{af:0,bf:0,ln:240,keep:1});
- body+=tbl(sw,[tr(['ডেপুটি রেজিস্ট্রার','রেজিস্ট্রার','ভাইস-চ্যান্সেলর'].map((t,i)=>tc(sw[i],pp(rn('_________________',{b:1,s:22}),{jc:'center',bf:700,keep:1})+pp(rn(t,{b:1,s:22}),{jc:'center'}))),{})],{nb:1});
+ body+=tbl(sw,[tr([signT(),'রেজিস্ট্রার','ভাইস-চ্যান্সেলর'].map((t,i)=>tc(sw[i],pp(rn('_________________',{b:1,s:22}),{jc:'center',bf:450,keep:1})+pp(rn(t,{b:1,s:22}),{jc:'center'}))),{})],{nb:1});
+ bodies.push(body)}}finally{W=_oW;cur=_oC}
+ const bodyAll=bodies.join(PB);
  const sect='<w:sectPr><w:footerReference w:type="default" r:id="rId10"/><w:pgSz w:w="'+PW+'" w:h="'+PH+'" w:orient="landscape"/><w:pgMar w:top="'+MG+'" w:right="'+MG+'" w:bottom="'+MG+'" w:left="'+MG+'" w:header="'+MG+'" w:footer="'+MG+'" w:gutter="0"/></w:sectPr>';
- const doc='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document '+NSX+'><w:body>'+body+sect+'</w:body></w:document>';
+ const doc='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document '+NSX+'><w:body>'+bodyAll+sect+'</w:body></w:document>';
  const guid='{'+(crypto.randomUUID?crypto.randomUUID():'D2F4A1B3-5C6E-4F70-8A9B-0C1D2E3F4A5B').toUpperCase()+'}';
  const font=b64u(KB64),hex=guid.replace(/[{}-]/g,''),key=[];for(let i=0;i<16;i++)key.push(parseInt(hex.substr(30-2*i,2),16));for(let i=0;i<32;i++)font[i]^=key[i%16];
  const X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',enc=s=>new TextEncoder().encode(s);
@@ -6023,6 +6088,333 @@ T.addEventListener('click',async e=>{
   finally{b.disabled=false;b.textContent=old}return}
  if(b.id=='wrPdf'){pdfDl('wrPdf','wrSheet',()=>{renderPreview()},{w:355.6,h:215.9,m:8,px:1284},safe(cur+' - লিখিত পরীক্ষার দায়িত্ব')+'.pdf');return}
 });
+
+/* ===== Entry / All Written Committee ===== */
+const AKEY='duet_wr_all_v1';
+const allLoad=()=>{try{const o=JSON.parse(localStorage.getItem(AKEY)||'{}')||{};return o&&typeof o=='object'&&!Array.isArray(o)?o:{}}catch(e){return{}}};
+const allSave=o=>{try{localStorage.setItem(AKEY,JSON.stringify(o));return true}catch(e){toast('⚠ সংরক্ষণ করা যায়নি (ব্রাউজারের স্টোরেজ ভরে গেছে?)');return false}};
+const fmtTs=t=>{const d=new Date(t||0);if(isNaN(d))return'';const p=n=>toBn(String(n).padStart(2,'0')),h=d.getHours()%12||12;return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+toBn(d.getFullYear())+' '+p(h)+':'+p(d.getMinutes())+(d.getHours()<12?' AM':' PM')};
+function setMode(m){T.classList.toggle('wrA',m=='a');g('wrSub').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.ws==m));if(m=='a')renderAll();else{try{fillSel()}catch(e){}}}
+/* ---- All Written Committee: সর্ট (সর্বশেষ সংরক্ষণ / পদের নাম / গ্রেড / দপ্তর) ---- */
+let aSortBy='t',aSortAsc=false;
+const aTitle=k=>String(k).replace(/^📢\s*/,'');
+const aDept=(k,w)=>{const bs=[...String(k).matchAll(/\[([^\]]*)\]/g)].map(m=>m[1]).filter(x=>!/^[^\]]*_\d{1,2}-\d{1,2}-\d{4}$/.test(x));return(bs[0]||(w&&w.dept)||'').trim()};
+const aGrade=w=>{const m=(typeof toEn=='function'?toEn:x=>x)(String((w&&w.grade)||'')).match(/\d+/);return m?+m[0]:Infinity};
+function allCmp(o){
+ const dir=aSortAsc?1:-1,ts=(a,b)=>(o[b].savedAt||0)-(o[a].savedAt||0),W_=k=>(o[k]&&o[k].w)||{};
+ const tx=(a,b)=>a.localeCompare(b,'en',{numeric:true,sensitivity:'base'});
+ return (a,b)=>{let r=0;
+  if(aSortBy=='t')return aSortAsc?-ts(a,b):ts(a,b);
+  if(aSortBy=='p')r=tx(aTitle(a),aTitle(b));
+  else if(aSortBy=='d')r=tx(aDept(a,W_(a)),aDept(b,W_(b)));
+  else if(aSortBy=='g'){const x=aGrade(W_(a)),y=aGrade(W_(b));if(x==y)r=0;else if(x==Infinity)return 1;else if(y==Infinity)return -1;else r=x<y?-1:1}
+  return r?r*(aSortAsc?1:-1):ts(a,b)}}
+function renderAll(){
+ try{renderRecs()}catch(e){}/* সংরক্ষণ/মুছলে রেকর্ড-তালিকার রঙও বদলায় */
+ const o=allLoad(),q=nz(g('wrAq').value),keys=Object.keys(o).sort(allCmp(o));
+ g('wrCnt').textContent=toBn(keys.length);
+ const L=keys.filter(k=>{const x=o[k],w=x.w||{};return!q||nz([k,w.post,w.dept,w.memo].join(' ')).includes(q)});
+ g('wrAList').innerHTML=L.length?L.map(k=>{const x=o[k],w=x.w||{},rows=w.rows||[];
+  const ds=rows.map(r=>toBn(String(r.d||'').trim())).filter(Boolean).join(', '),ns=rows.map(r=>toBn(String(r.n||'').trim())).filter(Boolean).join(', ');
+  const cnt=rows.reduce((a,r)=>a+['c','s','p','m','r','e'].reduce((b,f)=>b+persons(r[f]).length,0),0);
+  const nm=(()=>{const E=typeof toEn=='function'?toEn:x=>x,S=new Set(),add=v=>{v=E(String(v==null?'':v)).replace(/\s/g,'').split('/').pop();if(v)S.add(v)};add(w.memo);(w.recs||[]).forEach(m=>{const i=(w.xi&&w.xi[m])||(w.vk&&w.vk[m]);if(i)add(i.memo)});return Math.max(1,Math.min(3,S.size))})();
+   return'<div class="wrAi s'+nm+'" draggable="true" data-k="'+esc(k)+'"><div class="wrAm"><b>📁 '+esc(k)+'</b>'+((w.recs||[]).length?' <span class="wrTg nt" title="একাধিক পদ একত্রে — স্প্লিট করে আলাদা করা যায়">🔗 '+toBn(1+w.recs.length)+'টি পদ একত্রে</span>':'')+(w.vk&&Object.keys(w.vk).length?' <span class="wrTg nt">📢 বিজ্ঞপ্তির পদ'+(Object.values(w.vk).some(v=>v.link)?' · 🔗 রেকর্ড যুক্ত':' · রেকর্ড এখনো নেই')+'</span>':'')+'<div>পদ: '+esc(w.post||'—')+(w.dept?' · '+esc(w.dept):'')+' · পরীক্ষার তারিখ: '+esc(ds||'—')+' · প্রার্থী: '+esc(ns||'—')+' · দায়িত্বপ্রাপ্ত এন্ট্রি: '+toBn(cnt)+' · সংরক্ষিত: '+esc(fmtTs(x.savedAt))+'</div></div>'+(w.prac?'<div class="wrPrB">[ব্যবহারিকসহ]</div>':'')+'<div class="wrAb"><button type="button" class="p" data-wa="open">✏️ খুলুন / এডিট</button><button type="button" data-wa="docx">📄 Word</button>'+((w.recs||[]).length?'<button type="button" data-wa="split" title="একত্রিত পদগুলো আলাদা আলাদা একক কমিটিতে ভাগ করুন">✂ স্প্লিট</button>':'')+'<button type="button" class="d" data-wa="del">🗑 মুছুন</button></div></div>'}).join(''):'<p class="mut">'+(keys.length?'কোনো কমিটি মেলেনি।':'এখনো কোনো কমিটি সংরক্ষিত নেই — Entry ট্যাবে কমিটি তৈরি করে “💾 সংরক্ষণ” চাপুন।')+'</p>'}
+function saveCommittee(){
+ if(!cur||!W){toast('⚠ আগে রেকর্ড বাছাই করুন');return}
+ const any=W.rows.some(r=>['c','s','p','m','r','e'].some(f=>String(r[f]||'').trim()));
+ if(!any&&!confirm('কোনো দায়িত্বপ্রাপ্ত শিক্ষক/কর্মকর্তার নাম দেওয়া হয়নি। তবুও সংরক্ষণ করবেন?'))return;
+ const o=allLoad(),had=!!o[cur];
+ o[cur]={rec:cur,created:(o[cur]&&o[cur].created)||Date.now(),savedAt:Date.now(),w:JSON.parse(JSON.stringify(W))};
+ if(allSave(o)){renderAll();toast(had?'💾 কমিটি হালনাগাদ হয়েছে — All Written Committee':'💾 কমিটি সংরক্ষিত হয়েছে — All Written Committee')}}
+g('wrSub').addEventListener('click',e=>{const b=e.target.closest('button');if(b){if(b.dataset.ws=='e'&&window.__wrFocusOff)window.__wrFocusOff();setMode(b.dataset.ws)}});
+g('wrAq').addEventListener('input',renderAll);
+/* ---- কার্ড টেনে এনে জয়েন (merge) ---- */
+let aDrag='',lastMerge=null;
+async function mergeCommittee(sk,dk){
+ const o=allLoad(),S=o[sk],D=o[dk];if(!S||!D||sk==dk)return false;
+ const bak={restore:{[sk]:JSON.parse(JSON.stringify(S)),[dk]:JSON.parse(JSON.stringify(D))},remove:[]};
+ const sw=norm(JSON.parse(JSON.stringify(S.w))),dw=norm(JSON.parse(JSON.stringify(D.w)));
+ Object.assign(VIRT,sw.vk||{},dw.vk||{});
+ dw.recCnt=dw.recCnt||{};dw.xi=dw.xi||{};
+ for(const n of [sk].concat(sw.recs||[])){
+  if(n==dk||dw.recs.includes(n))continue;
+  const i=await recInfo(n);
+  const ps=String(dw.post||'').split(/\s*[;；]\s*/).map(x=>x.trim()).filter(Boolean);
+  if(i.post&&!ps.includes(i.post))ps.push(i.post);dw.post=ps.join('; ');
+  if(!dw.grade&&i.grade)dw.grade=i.grade;
+  dw.recs.push(n);dw.recCnt[n]=i.count;dw.xi[n]={memo:i.memo,mdate:i.mdate,post:i.post,dept:i.dept,grade:String(i.grade||'')};
+  if(i.count!=null)dw.rows.forEach(r=>{r.n=sumN(r.n,i.count)});
+  const v=sw.vk&&sw.vk[n];if(v){dw.vk=dw.vk||{};dw.vk[n]=Object.assign({},v)}}
+ dw.prac=!!(dw.prac||sw.prac);
+ try{if(dw.vk&&Object.keys(dw.vk).length)syncVirt(dw,dk)}catch(e){}
+ o[dk]={rec:dk,created:D.created||Date.now(),savedAt:Date.now(),w:dw};delete o[sk];
+ if(!allSave(o))return false;
+ try{const d=loadAll();if(d[dk]){d[dk]=JSON.parse(JSON.stringify(dw));localStorage.setItem(KEY,JSON.stringify(d))}}catch(e){}
+ if(cur==dk&&W)W=norm(JSON.parse(JSON.stringify(dw)));
+ lastMerge=bak;return true}
+async function splitCommittee(k){
+ const o=allLoad(),X=o[k];if(!X)return;
+ const w0=norm(JSON.parse(JSON.stringify(X.w))),mem=[k].concat(w0.recs||[]);
+ if(mem.length<2){toast('ℹ এই কমিটিতে একটিই পদ আছে — স্প্লিট করার কিছু নেই');return}
+ Object.assign(VIRT,w0.vk||{});
+ const inf={};for(const m of mem){try{inf[m]=await recInfo(m)}catch(e){inf[m]={memo:'',mdate:'',post:m,dept:'',grade:'',count:null}}}
+ const ex=mem.filter(m=>m!=k&&o[m]);
+ const lines=mem.map((m,i)=>(i+1)+') '+m.replace(/^📢\s*/,'')+(ex.includes(m)?'   ⚠ আগে থেকেই আলাদা কমিটি আছে — সেটি অপরিবর্তিত থাকবে':'')).join('\n');
+ if(!confirm('✂ কমিটি স্প্লিট করার অনুমতি\n\n“'+k+'” কমিটিতে '+mem.length+'টি পদ একত্রে আছে:\n'+lines+'\n\nস্প্লিট করলে প্রতিটি পদের জন্য আলাদা আলাদা একক কমিটি হবে।\n• প্রতিটি নতুন কমিটিতে বর্তমান দায়িত্ব বণ্টন, হার ও ব্যবহারিক সেটিং-এর কপি থাকবে (পরে আলাদাভাবে এডিট করা যাবে)।\n• প্রার্থীর সংখ্যা ও পদ/দপ্তর/স্মারক প্রতিটি পদের নিজস্ব তথ্য অনুযায়ী বসবে।\n• Entry-র খসড়া মুছবে না।\n\nস্প্লিট করতে চান?'))return;
+ const bak={restore:{[k]:JSON.parse(JSON.stringify(X))},remove:[]},made=[];
+ for(const m of mem){
+  if(m!=k&&o[m])continue;
+  const i=inf[m],w=JSON.parse(JSON.stringify(w0));
+  w.recs=[];w.recCnt={};w.xi={};w.vk={};if(w0.vk&&w0.vk[m])w.vk[m]=Object.assign({},w0.vk[m]);
+  w.memo=i.memo||w.memo;w.mdate=i.mdate||w.mdate;w.post=i.post||w.post;w.dept=i.dept||'';if(i.grade)w.grade=i.grade;
+  w.rows.forEach(r=>{if(isAutoN(r)){r.n=i.count!=null?String(i.count):'';r.na=r.n}});
+  if(w.vk[m]){try{syncVirt(w,m)}catch(e){}}
+  o[m]={rec:m,created:m==k?(X.created||Date.now()):Date.now(),savedAt:Date.now(),w};
+  if(m!=k)bak.remove.push(m);made.push(m)}
+ if(!allSave(o)){toast('⚠ স্প্লিট করা যায়নি');return}
+ try{const d=loadAll();if(d[k]){d[k]=JSON.parse(JSON.stringify(o[k].w));localStorage.setItem(KEY,JSON.stringify(d))}}catch(e){}
+ if(cur==k&&W)W=norm(JSON.parse(JSON.stringify(o[k].w)));
+ lastMerge=bak;renderAll();showUndo('“'+k+'” স্প্লিট হয়ে '+toBn(made.length)+'টি আলাদা কমিটি হয়েছে।');toast('✂ কমিটি স্প্লিট হয়েছে')}
+function showUndo(msg){/* সবুজ বার্তা-বার লুকানো — শুধু টোস্ট দেখানো হয় */const u=g('wrAundo');if(u)u.innerHTML=''}
+const aList=g('wrAList');
+aList.addEventListener('dragstart',e=>{const c=e.target.closest&&e.target.closest('.wrAi');if(!c)return;aDrag=c.dataset.k;c.classList.add('dragging');try{e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',aDrag)}catch(x){}});
+aList.addEventListener('dragend',()=>{aDrag='';aList.querySelectorAll('.dragging,.dropOn').forEach(n=>n.classList.remove('dragging','dropOn'))});
+aList.addEventListener('dragover',e=>{const c=e.target.closest&&e.target.closest('.wrAi');if(!c||!aDrag||c.dataset.k==aDrag)return;e.preventDefault();try{e.dataTransfer.dropEffect='move'}catch(x){}
+ aList.querySelectorAll('.dropOn').forEach(n=>{if(n!==c)n.classList.remove('dropOn')});c.classList.add('dropOn')});
+aList.addEventListener('dragleave',e=>{const c=e.target.closest&&e.target.closest('.wrAi');if(c&&!c.contains(e.relatedTarget))c.classList.remove('dropOn')});
+aList.addEventListener('drop',async e=>{const c=e.target.closest&&e.target.closest('.wrAi');if(!c||!aDrag)return;e.preventDefault();
+ const sk=aDrag,dk=c.dataset.k;aDrag='';aList.querySelectorAll('.dragging,.dropOn').forEach(n=>n.classList.remove('dragging','dropOn'));
+ if(!sk||sk==dk)return;
+ if(!confirm('🔗 কমিটি জয়েন করার অনুমতি\n\n“'+sk+'”\n   ⬇ জয়েন হবে ⬇\n“'+dk+'”\n\nজয়েনের পর দুটি পদ নিয়ে একটিই কমিটি হবে (“'+dk+'”)।\n• “'+dk+'”-এর দায়িত্ব বণ্টন (শিক্ষক/কর্মকর্তা) অপরিবর্তিত থাকবে।\n• “'+sk+'”-এর আলাদা কমিটি ও তার দায়িত্ব বণ্টন তালিকা থেকে সরে যাবে।\n• Entry-র খসড়া মুছবে না।\n\nজয়েন করতে চান?'))return;
+ const ok=await mergeCommittee(sk,dk);
+ if(ok){renderAll();showUndo('“'+sk+'” জয়েন হয়ে “'+dk+'” কমিটির সাথে একটি কমিটি হয়েছে।');toast('🔗 কমিটি জয়েন হয়েছে')}
+ else toast('⚠ জয়েন করা যায়নি')});
+g('wrAundo').addEventListener('click',e=>{if(e.target.id!='wrUndoBtn'||!lastMerge)return;
+ const o=allLoad(),rc=lastMerge.restore||{};(lastMerge.remove||[]).forEach(k=>delete o[k]);Object.keys(rc).forEach(k=>{o[k]=JSON.parse(JSON.stringify(rc[k]))});
+ if(allSave(o)){try{const d=loadAll();Object.keys(rc).forEach(k=>{if(d[k])d[k]=JSON.parse(JSON.stringify(rc[k].w))});localStorage.setItem(KEY,JSON.stringify(d))}catch(x){}
+  if(cur&&rc[cur])W=norm(JSON.parse(JSON.stringify(rc[cur].w)));
+  lastMerge=null;showUndo('');renderAll();toast('↩ আগের অবস্থায় ফেরানো হয়েছে')}});
+
+g('wrAsort').addEventListener('change',e=>{aSortBy=e.target.value;aSortAsc=aSortBy!='t'?true:false;syncDirBtn();renderAll()});
+const syncDirBtn=()=>{const b=g('wrAdir');b.textContent=aSortBy=='t'?(aSortAsc?'⬆ পুরোনো আগে':'⬇ নতুন আগে'):(aSortAsc?'⬆ ক্রমানুসারে (A→Z / ছোট→বড়)':'⬇ উল্টো ক্রমে (Z→A / বড়→ছোট)')};
+g('wrAdir').addEventListener('click',()=>{aSortAsc=!aSortAsc;syncDirBtn();renderAll()});
+syncDirBtn();
+
+T.addEventListener('click',e=>{const b=e.target.closest('button');if(b&&(b.id=='wrSave'||b.id=='wrSave2'))saveCommittee()});
+g('wrAll').addEventListener('click',async e=>{
+ const b=e.target.closest('button[data-wa]');if(!b)return;const k=b.closest('.wrAi').dataset.k,o=allLoad(),x=o[k];if(!x)return;
+ if(b.dataset.wa=='del'){if(!confirm('“'+k+'” রেকর্ডের সংরক্ষিত কমিটি মুছে ফেলবেন?\n(Entry-র খসড়া মুছবে না)'))return;delete o[k];if(allSave(o)){renderAll();toast('🗑 কমিটি মুছে ফেলা হয়েছে')}return}
+ if(b.dataset.wa=='split'){await splitCommittee(k);return}
+  if(b.dataset.wa=='open'){
+  const dr=loadAll()[k];if(dr&&JSON.stringify(dr)!=JSON.stringify(x.w)&&!confirm('এই রেকর্ডের Entry-তে অসংরক্ষিত পরিবর্তনসহ একটি খসড়া আছে।\n\nOK = সংরক্ষিত কমিটি দিয়ে খসড়া প্রতিস্থাপন করুন\nCancel = বাতিল'))return;
+  cur=k;W=norm(JSON.parse(JSON.stringify(x.w)));saveW();
+  const sel=g('wrRec');if(![...sel.options].some(op=>op.value==k)){const op=document.createElement('option');op.value=k;op.textContent=k;sel.appendChild(op)}sel.value=k;
+  setMode('e');buildForm();renderPreview();try{await window.__wrSyncSel()}catch(x){}toast('✏️ সংরক্ষিত কমিটি Entry-তে খোলা হয়েছে');return}
+ if(b.dataset.wa=='docx'){
+  const old=b.textContent,oc=cur,ow=W;b.disabled=true;b.textContent='⏳ তৈরি হচ্ছে...';
+  try{cur=k;W=norm(JSON.parse(JSON.stringify(x.w)));const blob=await makeDocx(),fn=safe(k+' - লিখিত পরীক্ষার দায়িত্ব')+'.docx';await dl(blob,fn,'');toast('📄 Word ফাইল তৈরি হয়েছে')}
+  catch(err){console.error(err);alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
+  finally{cur=oc;W=ow;b.disabled=false;b.textContent=old}}
+});
+if(tb)tb.addEventListener('click',()=>setTimeout(()=>{if(T.classList.contains('wrA'))renderAll()},0));
+try{g('wrCnt').textContent=toBn(Object.keys(allLoad()).length)}catch(e){}
+/* স্বাক্ষরের পদবী: দুটির একটিই টিক থাকবে (ডিফল্ট: অতিরিক্ত রেজিস্ট্রার) */
+const sgSync=()=>{const d=signT()=='ডেপুটি রেজিস্ট্রার';g('wrSgD').checked=d;g('wrSgA').checked=!d};
+['wrSgD','wrSgA'].forEach(id=>g(id).addEventListener('change',e=>{const d=id=='wrSgD'?e.target.checked:!e.target.checked;
+ try{localStorage.setItem(SGK,d?'d':'a')}catch(x){}
+ sgSync();try{renderPreview()}catch(x){}toast('✓ স্বাক্ষরের পদবী: '+signT())}));
+sgSync();
+/* সংরক্ষিত সকল কমিটি একসাথে PDF / Word */
+const allList=()=>{const o=allLoad();return Object.keys(o).sort((a,b)=>(o[b].savedAt||0)-(o[a].savedAt||0)).map(k=>({k,w:norm(JSON.parse(JSON.stringify(o[k].w||{})))}))};
+const allName=n=>safe('All Written Committee ('+toBn(n)+'টি)');
+g('wrAllDocx').addEventListener('click',async e=>{
+ const b=e.currentTarget,L=allList();if(!L.length){toast('⚠ কোনো সংরক্ষিত কমিটি নেই');return}
+ const old=b.textContent;b.disabled=true;b.textContent='⏳ তৈরি হচ্ছে...';
+ try{const blob=await makeDocx(L);await dl(blob,allName(L.length)+'.docx','');toast('📄 সব কমিটির Word ফাইল তৈরি হয়েছে ('+toBn(L.length)+'টি)')}
+ catch(err){console.error(err);alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
+ finally{b.disabled=false;b.textContent=old}});
+g('wrAllPdf').addEventListener('click',async()=>{
+ const L=allList();if(!L.length){toast('⚠ কোনো সংরক্ষিত কমিটি নেই');return}
+ const oc=cur,ow=W;
+ try{await pdfDl('wrAllPdf','wrSheet',()=>{const h=[];try{L.forEach(it=>{cur=it.k;W=it.w;h.push(sheetHtml())})}finally{cur=oc;W=ow}
+   const sh=g('wrSheet');sh.hidden=false;sh.innerHTML=h.join('')},{w:355.6,h:215.9,m:8,px:1284},allName(L.length)+'.pdf')}
+ catch(err){console.error(err)}
+ finally{cur=oc;W=ow;try{renderPreview()}catch(e){}}});
+
+
+/* ===== স্মারক নং → একাধিক রেকর্ড/পদ বাছাই (লিখিত পরীক্ষা হয় এমন পদই শুধু) ===== */
+const SEL=[];let RI={},chain=Promise.resolve();const pickMemos=new Set();
+const gdN=gr=>parseInt(toEn(String(gr||'')).replace(/[^\d]/g,''),10)||0;
+/* 1 = লিখিত পরীক্ষা হয়; 2 = শ্রেণি অনির্ধারিত; 0 = বাদ */
+const eligible=i=>{const p=String(i.post||''),gd=gdN(i.grade);
+ if(/অধ্যাপক|প্রভাষক|\b(professor|lecturer)\b/i.test(p))return(/প্রভাষক|\blecturer\b/i.test(p)&&!/অধ্যাপক|professor/i.test(p))?1:0;
+ if(gd>=11&&gd<=20)return 1;if(gd==9||gd==10)return 1;if(gd>=1&&gd<=8)return 0;return 2};
+const catK=i=>{const p=String(i.post||''),gd=gdN(i.grade);if(/অধ্যাপক|প্রভাষক|\b(professor|lecturer)\b/i.test(p))return't';if(gd>=11&&gd<=20)return'e';if(gd>=1&&gd<=10)return'o';return'u'};
+const CATN={t:'শিক্ষক (প্রভাষক)',o:'কর্মকর্তা (গ্রেড ৯ ও ১০)',e:'কর্মচারী',u:'শ্রেণি অনির্ধারিত'};let pickCat='';
+const mkey=i=>toBn(String(i.memo||'').trim());
+const mk2=m=>toEn(String(m||'')).split('/').pop().replace(/\s/g,'');
+/* ---- বিজ্ঞপ্তির পদের নাম ইংরেজিতে (১২৬৩-এর রেকর্ড-নামের মতো: Post [Dept] [স্মারক_দিন-মাস-সাল]) ---- */
+const EN_POST=[['অফিস সহকারী কাম কম্পিউটার টাইপিস্ট','Office Assistant cum Computer Typist'],['অফিস সহকারী কাম কম্পিউটার অপারেটর','Office Assistant cum Computer Operator'],['সিনিয়র অফিস সহকারী কাম কম্পিউটার অপারেটর','Senior Office Assistant cum Computer Operator'],['সিনিয়র অফিস এসিসটেন্ট কাম কম্পিউটার অপারেটর','Senior Office Assistant cum Computer Operator'],['সিনিয়র অফিস এ্যসিসটেন্ট কাম কম্পিউটার অপারেটর','Senior Office Assistant cum Computer Operator'],['ডেপুটি কম্পট্রোলার (অডিট)','Deputy Comptroller (Audit)'],['ডেপুটি কম্পট্রোলার','Deputy Comptroller'],['সহকারী কম্পট্রোলার','Assistant Comptroller'],['সহযোগী অধ্যাপক','Associate Professor'],['সহকারী অধ্যাপক','Assistant Professor'],['অধ্যাপক','Professor'],['প্রভাষক (উচ্চতর পদের বিপরীতে)','Lecturer'],['প্রভাষক','Lecturer'],['সিস্টেম অ্যানালিস্ট','System Analyst'],['সহকারী টেকনিক্যাল অফিসার','Assistant Technical Officer'],['টেকনিক্যাল অফিসার','Technical Officer'],['সহকারী সেকশন অফিসার','Assistant Section Officer'],['সেকশন অফিসার','Section Officer'],['ডাটা এন্ট্রি অপারেটর','Data Entry Operator'],['কম্পিউটার অপারেটর','Computer Operator'],['ল্যাব টেকনিশিয়ান','Lab Technician'],['ল্যাব এটেনডেন্ট','Lab Attendant'],['ল্যাব সহকারী','Lab Assistant'],['সহকারী টেকনিশিয়ান','Assistant Technician'],['টেকনিশিয়ান','Technician'],['জুনিয়র ইন্সট্রাক্টর','Junior Instructor'],['জুনিয়র ইনস্ট্রাক্টর','Junior Instructor'],['জুনিয়র ইন্সট্রাকটর','Junior Instructor'],['ড্রাইভার','Driver'],['লিফটম্যান/অপারেটর','Liftman/Operator'],['লিফটম্যান','Liftman'],['গ্রাউন্ডসম্যান','Grounds Man'],['অফিস সহায়ক','Office Shohayok'],['নিরাপত্তা প্রহরী','Security Guard'],['পরিচ্ছন্নতা কর্মী','Cleaner'],['পরিচ্ছন্নতাকর্মী','Cleaner'],['পাম্প অপারেটর','Pump Operator'],['মেসেঞ্জার পিওন','Messenger Peon'],['প্রধান অফিস সহকারী','Head Office Assistant'],['ইলেকট্রিশিয়ান','Electrician'],['সহকারী প্রকৌশলী','Assistant Engineer'],['উপ-সহকারী প্রকৌশলী','Sub-Assistant Engineer'],['হিসাবরক্ষক','Accountant'],['ক্যাশিয়ার','Cashier'],['স্টেনোগ্রাফার','Stenographer'],['গ্রন্থাগারিক','Librarian']];
+const EN_DEPT=[['ইনস্টিটিউট অব এনার্জি ইঞ্জিনিয়ারিং','IEE'],['তড়িৎ ও ইলেকট্রনিক কৌশল বিভাগ','EEE'],['ইলেকট্রিক্যাল এন্ড ইলেকট্রনিক ইঞ্জিনিয়ারিং বিভাগ','EEE'],['ইলেকট্রিক্যাল অ্যান্ড ইলেকট্রনিক ইঞ্জিনিয়ারিং বিভাগ','EEE'],['টেক্সটাইল ইঞ্জিনিয়ারিং বিভাগ','TE'],['ম্যাটেরিয়ালস এন্ড মেটালার্জিক্যাল ইঞ্জিনিয়ারিং বিভাগ','MME'],['ম্যাটেরিয়ালস অ্যান্ড মেটালার্জিক্যাল ইঞ্জিনিয়ারিং বিভাগ','MME'],['কম্পিউটার সায়েন্স এন্ড ইঞ্জিনিয়ারিং বিভাগ','CSE'],['কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগ','CSE'],['ইন্ডাস্ট্রিয়াল এন্ড প্রোডাকশন ইঞ্জিনিয়ারিং বিভাগ','IPE'],['ইন্ডাস্ট্রিয়াল অ্যান্ড প্রোডাকশন ইঞ্জিনিয়ারিং বিভাগ','IPE'],['কেমিক্যাল ইঞ্জিনিয়ারিং বিভাগ','ChE'],['ফুড ইঞ্জিনিয়ারিং বিভাগ','FE'],['যন্ত্রকৌশল বিভাগ','ME'],['মেকানিক্যাল ইঞ্জিনিয়ারিং বিভাগ','ME'],['সিভিল ইঞ্জিনিয়ারিং বিভাগ','CE'],['পুরকৌশল বিভাগ','CE'],['আর্কিটেকচার বিভাগ','Architecture'],['গণিত বিভাগ','Math.'],['পদার্থবিজ্ঞান বিভাগ','Phy'],['রসায়ন বিভাগ','Chemistry'],['মানবিক ও সামাজিক বিজ্ঞান বিভাগ','MSS'],['আইসিটি সেল','ICT Cell'],['অডিট সেল','Audit Cell'],['ফ্যাব ল্যাব','Fab. Lab.'],['পরিচালক (যানবাহন) অফিস','Director (Transport) Office'],['পরিচালক (শারীরিক শিক্ষা কেন্দ্র) অফিস','Director (Physical Education Center) Office'],['পরিচালক (শারীরিক শিক্ষা) কেন্দ্র','Director (Physical Education) Center'],['পরিচালক (পরিকল্পনা ও উন্নয়ন) অফিস','Director (Planning and Development) Office'],['পরিচালক (গবেষণা ও সম্প্রসারণ) অফিস','Director (Research and Extension) Office'],['পরিচালক (ছাত্র কল্যাণ) অফিস','Director (Student Welfare) Office'],['পরিচালক (সিআরটিএস) অফিস','Director (CRTS) Office'],['পরিচালক (আইকিউএসি) অফিস','Director (IQAC) Office'],['নিরাপত্তা শাখা, রেজিস্ট্রার অফিস','Security Section, Registrar Office'],['রেজিস্ট্রার অফিস, নিরাপত্তা শাখা','Registrar Office, Security Section'],['রেজিস্ট্রার অফিস, সংস্থাপন শাখা','Registrar Office, Establishment Section'],['রেজিস্ট্রার অফিস, শিক্ষা শাখা','Registrar Office, Education Section'],['রেজিস্ট্রার অফিস, কাউন্সিল শাখা','Registrar Office, Council Section'],['রেজিস্ট্রার অফিস','Registrar Office'],['প্রো-ভাইস চ্যান্সেলর মহোদয়ের দপ্তর','Pro-VC Office'],['প্রো-ভিসি মহোদয়ের অফিস ও রেসিডেন্স','Pro-VC Office and Residence'],['ভাইস-চ্যান্সেলর মহোদয়ের দপ্তর','VC Office'],['ভিসি মহোদয়ের দপ্তর','VC Office'],['প্রকৌশল অফিস','Engineering Office'],['কম্পট্রোলার অফিস','Comptroller Office'],['পরীক্ষা নিয়ন্ত্রক-এর দপ্তর','Controller of Examinations Office'],['কেন্দ্রীয় লাইব্রেরি','Central Library'],['মেডিকেল সেন্টার','Medical Center'],['কম্পিউটার সেন্টার','Computer Center'],['কাজী নজরুল ইসলাম হল','Kazi Nazrul Islam Hall'],['শহীদ তাজউদ্দিন আহমদ হল','Shaheed Tajuddin Ahmad Hall'],['শহীদ তাজউদ্দিন আহমেদ হল','Shaheed Tajuddin Ahmad Hall'],['শহীদ মুক্তিযোদ্ধা হল','Shaheed Muktijoddha Hall'],['ড. ফজলুর রহমান খান হল','Dr. Fazlur Rahman Khan Hall'],['ড. কুদরত-ই-খুদা হল','Dr. Kudrat-E-Khuda Hall'],['মাদাম কুরী হল','Madam Curie Hall'],['বিজয় ২৪ হল','Bijoy-24 Hall'],['কে এন আই (এক্সটেনশন) হল','KNI (Extension) Hall'],['ভিআইপি গেস্ট হাউস','VIP Guest House'],['কেন্দ্রীয় জামে মসজিদ','Central Jame Mosque'],['নিরাপত্তা শাখা','Security Section'],['সংস্থাপন শাখা','Establishment Section'],['শিক্ষা শাখা','Education Section'],['একাডেমিক শাখা','Academic Section'],['কাউন্সিল শাখা','Council Section'],['যানবাহন শাখা','Transport Section'],['ছাত্র কল্যাণ দপ্তর','Student Welfare Office'],['পরিকল্পনা ও উন্নয়ন দপ্তর','Planning and Development Office'],['গবেষণা ও সম্প্রসারণ দপ্তর','Research and Extension Office']];
+const enKey=t=>String(t||'').replace(/\u200c|\u200d/g,'').replace(/\s+/g,' ').replace(/\s*,\s*/g,', ').trim();
+const EN_PM=new Map(EN_POST.map(([b,e])=>[enKey(b),e])),EN_DM=new Map(EN_DEPT.map(([b,e])=>[enKey(b),e]));
+const enPost=t=>{const k=enKey(t);if(EN_PM.has(k))return EN_PM.get(k);if(/^জুনিয়র\s*ইন\S*ট্রাক\S*$/.test(k))return 'Junior Instructor';const k2=k.replace(/\s*\([^()]*উচ্চতর[^()]*\)\s*$/,'').trim();return EN_PM.get(k2)||t};
+const enDept=t=>{const k=enKey(t);if(EN_DM.has(k))return EN_DM.get(k);
+ if(/ম্যাটেরিয়াল/.test(k)&&/মেটালার্জি/.test(k))return 'MME';
+ if(/^পদার্থ/.test(k))return 'Phy';
+ const m=k.match(/^পরিচালক \((.+)\) অফিস$/);if(m&&EN_DM.has(enKey(m[1])))return 'Director ('+EN_DM.get(enKey(m[1]))+') Office';return t};
+async function loadRI(){
+ let ns=Object.keys(META||{});try{ns=ns.filter(n=>!UPGS.some(u=>u.recName==n))}catch(x){}
+ if(rec&&!ns.includes(rec))ns.push(rec);
+ const o={};for(const n of ns){try{const i=await recInfo(n);i.el=eligible(i);i.cat=catK(i);o[n]=i}catch(e){}}
+ RI=o;
+ /* সর্বশেষ আপলোডকৃত বিজ্ঞপ্তির যেসব পদের রেকর্ড এখনো নেই — আলাদা রঙে দেখানো হয় */
+ const nt=latestNotice();
+ if(nt){const used={};const nA=t=>String(t||'').replace(/&amp;|&/g,' ').replace(/\s+/g,' ').replace(/\s+([,।)])/g,'$1').trim();/* & চিহ্ন বাদ */
+ (nt.posts||[]).forEach(p=>{const post=nA(p.post);if(!post)return;
+  const v={memo:String(nt.memo||''),mdate:String(nt.date||''),post,dept:nA(p.dept),grade:String(p.grade||'')};
+  if(matchReal(v))return;
+  let nm='📢 '+enPost(post)+(v.dept?' ['+enDept(v.dept)+']':'')+' ['+mk2(v.memo)+'_'+String(v.mdate).replace(/\//g,'-')+']';if(used[nm]){used[nm]++;nm+=' #'+used[nm]}else used[nm]=1;
+  VIRT[nm]=v;const i=Object.assign({},v,{count:null,virt:1});i.el=eligible(i);i.cat=catK(i);RI[nm]=i})}
+ SEL.forEach(n=>{if(!RI[n]&&VIRT[n]){const i=Object.assign({},VIRT[n],{count:null,virt:1});i.el=eligible(i);i.cat=catK(i);RI[n]=i}})}
+const latestNotice=()=>{let x=null;try{const u=JSON.parse(localStorage.getItem('duet_notices_user')||'[]');if(Array.isArray(u)&&u.length){const y=u[u.length-1];if(y&&Array.isArray(y.posts))x=y}}catch(e){}
+ if(!x)return null;const N=window.__duetNotices||[];return N.find(r=>r.memo==x.memo&&r.date==x.date&&Array.isArray(r.posts))||x};
+const matchReal=v=>{const c=Object.keys(RI).filter(n=>!RI[n].virt&&mk2(RI[n].memo)==mk2(v.memo)&&nz(RI[n].post)==nz(v.post));if(c.length>1){const d=c.filter(n=>nz(RI[n].dept)==nz(v.dept));if(d.length)return d[0]}return c[0]||''};
+/* বিজ্ঞপ্তির পদের সাথে মূল রেকর্ড যুক্ত হলে যোগ্য প্রার্থীর সংখ্যা কমিটিতে নিজে থেকে আসে */
+const isAutoN=r=>{const t=toEn(String(r.n||'')).replace(/\s+/g,'');return!t||String(r.n)===String(r.na)||/^\(?(\d+|\.{3,})(\+(\d+|\.{3,}))*\)?(=(\d+|\.{3,}))?$/.test(t)};
+function syncVirt(w,primary){
+ const vk=w&&w.vk;if(!vk||!Object.keys(vk).length)return false;
+ const mem=[primary].concat(w.recs||[]);let ch=false;
+ mem.forEach(m=>{const v=vk[m];if(!v)return;const lk=matchReal(v),cn=lk&&RI[lk].count!=null?RI[lk].count:null;if((v.link||'')!==lk||(v.cnt==null?null:v.cnt)!==cn){v.link=lk;v.cnt=cn;ch=true}});
+ const DT='..........';/* রেকর্ড এখনো না থাকলে প্রার্থীর সংখ্যার জায়গায় ডট */
+ const parts=mem.map(m=>{if(vk[m])return vk[m].cnt!=null?String(vk[m].cnt):DT;const c=RI[m]&&RI[m].count;return c!=null&&!isNaN(c)?String(c):null}).filter(x=>x!=null);
+ const str=parts.length?(parts.length==1?parts[0]:'('+parts.join('+')+') = '+(parts.includes(DT)?DT:parts.reduce((a,b)=>a+Number(b),0))):'';
+ (w.rows||[]).forEach(r=>{if(isAutoN(r)&&(String(r.n||'')!==str||r.na!==str)){r.n=str;r.na=str;ch=true}});
+ return ch}
+async function syncAllVirt(){
+ let cw=false;if(W&&cur&&W.vk){Object.assign(VIRT,W.vk);cw=syncVirt(W,cur)}
+ if(cw){buildForm();touch();renderPreview()}
+ try{const d=loadAll();let c1=false;Object.keys(d).forEach(k=>{if(k==cur&&W)return;if(d[k]&&d[k].vk&&syncVirt(d[k],k))c1=true});if(c1)localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}
+ try{const a=allLoad();let c2=false;Object.keys(a).forEach(k=>{const w=a[k]&&a[k].w;if(w&&w.vk&&syncVirt(w,k))c2=true});if(c2)allSave(a)}catch(e){}}
+const showUnk=()=>!!g('wrUnk').checked;
+let focusOnly=false;/* All Written Committee থেকে খুললে শুধু সেই কমিটির রেকর্ড(গুলো) দেখানো হয় */
+const visible=n=>{const i=RI[n];return i&&(focusOnly?SEL.includes(n):(i.el==1||(i.el==2&&showUnk())||SEL.includes(n)))};
+function renderMemo(){
+ const groups={};
+ Object.keys(RI).filter(visible).forEach(n=>{const k=mkey(RI[n]);(groups[k]=groups[k]||[]).push(n)});
+ const ks=Object.keys(groups).sort((a,b)=>a.localeCompare(b,'bn',{numeric:true}));
+ [...pickMemos].forEach(k=>{if(!ks.includes(k))pickMemos.delete(k)});
+ g('wrMemoPanel').innerHTML=ks.length?ks.map(k=>{const f=RI[groups[k][0]],on=pickMemos.has(k),nv=groups[k].filter(n=>RI[n].virt).length;return'<label'+(on?' class="on"':'')+'><input type="checkbox" data-mk="'+esc(k)+'"'+(on?' checked':'')+'><span>'+esc(k?toBn(k):'(স্মারক নং নেই)')+(f.mdate?' — তারিখ: '+esc(toBn(f.mdate)):'')+'<small> — '+toBn(groups[k].length)+'টি পদ'+(nv?' (এর মধ্যে 📢 '+toBn(nv)+'টি বিজ্ঞপ্তির পদ)':'')+'</small></span></label>'}).join('')+'<div style="padding:8px 12px;text-align:right;position:sticky;bottom:0;background:var(--card);border-top:1px solid var(--bd)"><button type="button" class="p" id="wrDdOk">✔ নির্বাচন শেষ</button></div>':'<div class="mut" style="padding:10px">কোনো স্মারক পাওয়া যায়নি</div>';
+ const sl=[...pickMemos].sort((a,b)=>a.localeCompare(b,'bn',{numeric:true}));
+ g('wrMemoBtn').textContent=sl.length?'☑ '+sl.map(k=>k?toBn(k):'(নেই)').join(', ')+(sl.length>1?'  ('+toBn(sl.length)+'টি স্মারক)':''):'— স্মারক নং বাছাই করুন —';
+ renderRecs()}
+function renderCat(){
+ const cs=g('wrCat'),ns=Object.keys(RI).filter(n=>visible(n)&&pickMemos.has(mkey(RI[n]))),cn={};
+ ns.forEach(n=>{const c=RI[n].cat;cn[c]=(cn[c]||0)+1});
+ const ks=['t','o','e','u'].filter(k=>cn[k]);
+ cs.disabled=!pickMemos.size;
+ cs.innerHTML='<option value="">— সব ক্যাটাগরি — ('+toBn(ns.length)+'টি পদ)</option>'+ks.map(k=>'<option value="'+k+'">'+CATN[k]+' — '+toBn(cn[k])+'টি পদ</option>').join('');
+ if(!ks.includes(pickCat))pickCat='';cs.value=pickCat}
+function renderRecs(){
+ renderCat();
+ const box=g('wrRecBox'),L=g('wrRecList');
+ if(!pickMemos.size){box.hidden=true;L.innerHTML=''}
+ else{box.hidden=false;const dr=loadAll(),sv=allLoad(),svS=new Set(Object.keys(sv)),svN={};
+   Object.keys(sv).forEach(k=>{const x=sv[k],mem=[k].concat((x&&x.w&&x.w.recs)||[]),ms=new Set();mem.forEach(m=>{if(RI[m])ms.add(mkey(RI[m]))});const c=Math.max(1,ms.size);mem.forEach(m=>{svS.add(m);svN[m]=Math.max(svN[m]||0,c)})});
+   const gk=i=>gdN(i.grade)||999;/* গ্রেড অনুযায়ী: ছোট গ্রেড-নম্বর আগে (৯,১০,১১…২০), গ্রেডহীন সবার শেষে */
+   const ns=Object.keys(RI).filter(n=>visible(n)&&pickMemos.has(mkey(RI[n]))&&(!pickCat||RI[n].cat===pickCat)).sort((a,b)=>gk(RI[a])-gk(RI[b])||a.localeCompare(b,'bn',{numeric:true}));
+   const mks=[...pickMemos].sort((a,b)=>a.localeCompare(b,'bn',{numeric:true}));
+   const rowH=n=>{const i=RI[n],on=SEL.includes(n),vt=i.virt,lk=vt&&W&&W.vk&&W.vk[n]&&W.vk[n].link,gd=gdN(i.grade);
+    const dn=n.replace(/^📢\s*/,'').replace(/\s*\[[^\[\]]*_\d{1,2}-\d{1,2}-\d{4}\]\s*$/,'');/* স্মারক নং কলামের মাথাতেই আছে — তাই লাইনে নামের শেষের [স্মারক_তারিখ] দেখানো হয় না */
+    const info=(gd?'গ্রেড-'+toBn(gd):'')+(i.count!=null?(gd?' · ':'')+'যোগ্য '+toBn(i.count)+' জন':'');
+    const tip=n+'\n'+(i.post||'—')+(gd?' · গ্রেড-'+toBn(gd):'')+(i.dept?' · '+i.dept:'')+(i.count!=null?' · যোগ্য: '+toBn(i.count)+' জন':'')+(vt?'\n📢 বিজ্ঞপ্তির পদ — রেকর্ড এখনো নেই':'')+(lk?'\n🔗 মূল রেকর্ড যুক্ত হয়েছে (যোগ্য '+toBn((W.vk[n].cnt)||0)+' জন) — তালিকায় রেকর্ডটি আলাদা আছে, দুবার টিক দেবেন না':'');
+    return '<label class="wrRc'+(on?' on':'')+(vt?' virt':'')+(svS.has(n)?' svd s'+Math.min(3,svN[n]||1):'')+'" title="'+esc(tip)+'"><input type="checkbox" data-rn="'+esc(n)+'"'+(on?' checked':'')+'><b>'+esc(dn)+'</b>'+(vt?'<span class="wrTg nt">📢</span>':'')+(lk?'<span class="wrTg ok">🔗</span>':'')+(svS.has(n)?'<span class="wrTg ok">✅</span>':dr[n]?'<span class="wrTg">📝</span>':'')+(info?'<small>'+esc(info)+'</small>':'')+'</label>'};
+   const colH=k=>{const l=ns.filter(n=>mkey(RI[n])===k),f=Object.keys(RI).find(n=>mkey(RI[n])===k),md=f&&RI[f].mdate;/* প্রতিটি নির্বাচিত স্মারকের জন্য একটি করে কলাম */
+    return '<div class="wrCol"><div class="wrMh">📋 স্মারক নং '+esc(k?toBn(k):'(নেই)')+(md?'<small> — তারিখ: '+esc(toBn(md))+'</small>':'')+' <small>('+toBn(l.length)+'টি পদ)</small></div>'+(l.length?l.map(rowH).join(''):'<div class="mut" style="padding:6px 2px">এই ক্যাটাগরিতে কোনো পদ নেই</div>')+'</div>'};
+   L.style.setProperty('--wrN',Math.max(1,mks.length));
+   L.innerHTML=ns.length?mks.map(colH).join(''):'<p class="mut">এই স্মারক/ক্যাটাগরিতে লিখিত পরীক্ষা হয় এমন কোনো পদ নেই।</p>'}
+ const sm=g('wrSelSum');
+ sm.innerHTML=SEL.length?'✔ নির্বাচিত '+toBn(SEL.length)+'টি পদ: '+SEL.map(n=>esc((RI[n]&&RI[n].post)||n)).join('; ')+' — <span style="color:var(--thc)">কাজ খসড়া হিসেবে স্বয়ংক্রিয়ভাবে সংরক্ষিত হচ্ছে</span>'+(focusOnly?' <button type="button" id="wrShowAll" style="margin-left:8px">📂 বিজ্ঞপ্তির সব পদ দেখান</button>':''):''}
+/* পুরোনো (বাংলা নামের) বিজ্ঞপ্তি-পদ কী → ইংরেজি নাম; একই পদ দুইবার থাকলে বাংলাটি বাদ */
+const vNA=t=>String(t||'').replace(/&amp;|&/g,' ').replace(/\s+/g,' ').replace(/\s+([,।)])/g,'$1').trim();
+const vBase=v=>'📢 '+enPost(vNA(v.post))+(vNA(v.dept)?' ['+enDept(vNA(v.dept))+']':'')+' ['+mk2(v.memo)+'_'+String(v.mdate||'').replace(/\//g,'-')+']';
+const vSig=v=>mk2(v.memo)+'|'+nz(vNA(v.post))+'|'+nz(vNA(v.dept));
+const vLegacy=(k,v)=>{const b=vBase(v);return k!==b&&!k.startsWith(b+' #')};
+function migVirtW(w,k){/* w: কমিটি, k: প্রাথমিক কী → নতুন কী ফেরত (বদলালে) */
+ const vk=w&&w.vk;if(!vk||!Object.keys(vk).length)return{key:k,ch:false};
+ let ch=false,key=k;
+ const rmRec=m=>{const v=vk[m]||{};const i=(w.recs||[]).indexOf(m);if(i>=0)w.recs.splice(i,1);
+  if(w.recCnt)delete w.recCnt[m];if(w.xi)delete w.xi[m];delete vk[m];
+  const ps=String(w.post||'').split(/\s*[;；]\s*/).map(x=>x.trim()).filter(Boolean),pv=String(v.post||'').trim(),ix=ps.lastIndexOf(pv);if(ix>=0){ps.splice(ix,1);w.post=ps.join('; ')}};
+ const mv=(o,a,b)=>{if(o&&Object.prototype.hasOwnProperty.call(o,a)){o[b]=o[a];delete o[a]}};
+ /* প্রাথমিক কী */
+ if(vk[k]&&vLegacy(k,vk[k])){const b=vBase(vk[k]);
+  (w.recs||[]).slice().forEach(m=>{if(vk[m]&&vSig(vk[m])==vSig(vk[k])&&m!==b)rmRec(m)});
+  if(vk[b]&&b!==k)delete vk[b];
+  mv(vk,k,b);key=b;ch=true}
+ /* বাকি রেকর্ড */
+ (w.recs||[]).slice().forEach(m=>{const v=vk[m];if(!v||!vLegacy(m,v))return;
+  const b=vBase(v),sg=vSig(v);
+  const twin=[key].concat(w.recs).some(x=>x!==m&&vk[x]&&vSig(vk[x])==sg);
+  if(twin){rmRec(m);ch=true;return}
+  const i=w.recs.indexOf(m);if(i>=0){w.recs[i]=b;mv(w.recCnt,m,b);mv(w.xi,m,b);mv(vk,m,b);ch=true}});
+ return{key,ch}}
+function migVirtStore(load,save,getW){
+ let ch=false;const o=load(),out={},map={};
+ Object.keys(o).forEach(k=>{const w=getW(o[k]);if(!w){out[k]=o[k];return}
+  const r=migVirtW(w,k);if(r.ch)ch=true;
+  if(r.key!==k&&(Object.prototype.hasOwnProperty.call(o,r.key)||Object.prototype.hasOwnProperty.call(out,r.key))){out[k]=o[k];return}/* লক্ষ্য কী আগে থেকেই থাকলে অপরিবর্তিত */
+  out[r.key]=o[k];if(r.key!==k)map[k]=r.key});
+ if(ch)save(out);return{map,ch}}
+function migVirtAll(){
+ try{
+  const a=migVirtStore(loadAll,x=>localStorage.setItem(KEY,JSON.stringify(x)),w=>w);
+  const b=migVirtStore(allLoad,allSave,x=>x&&x.w);
+  if(Object.keys(b.map).length){const o=allLoad();Object.keys(b.map).forEach(k=>{const e=o[b.map[k]];if(e&&e.rec)e.rec=b.map[k]});allSave(o)}
+  if(!(a.ch||b.ch)||!cur)return;
+  const nk=a.map[cur]||b.map[cur]||cur,d=loadAll()[nk]||(allLoad()[nk]&&allLoad()[nk].w);
+  if(d){cur=nk;W=norm(JSON.parse(JSON.stringify(d)));SEL.length=0;SEL.push(cur);(W.recs||[]).forEach(r=>{if(!SEL.includes(r))SEL.push(r)})}
+ }catch(e){console.error(e)}}
+async function fillXiGrades(){/* আগে সংরক্ষিত যুক্ত-পদগুলোতে গ্রেড না থাকলে একবার ভরে দেয় */
+ try{
+  const fix=async w=>{let ch=false;if(!w||!w.xi||!(w.recs||[]).length)return false;Object.assign(VIRT,w.vk||{});
+   for(const n of w.recs){const x=w.xi[n];if(x&&x.grade==null){try{const i=await recInfo(n);x.grade=String(i.grade||'')}catch(e){x.grade=''}ch=true}}return ch};
+  const d=loadAll();let c1=false;for(const k of Object.keys(d))if(await fix(d[k]))c1=true;if(c1)localStorage.setItem(KEY,JSON.stringify(d));
+  const a=allLoad();let c2=false;for(const k of Object.keys(a))if(a[k]&&await fix(a[k].w))c2=true;if(c2)allSave(a);
+  if(W&&W.xi&&cur){const dd=(loadAll()[cur]||(allLoad()[cur]||{}).w)||{};Object.keys(W.xi).forEach(n=>{if(W.xi[n]&&W.xi[n].grade==null&&dd.xi&&dd.xi[n]&&dd.xi[n].grade!=null)W.xi[n].grade=dd.xi[n].grade})}
+ }catch(e){console.error(e)}}
+async function refreshPick(){try{migVirtAll();await loadRI();await fillXiGrades();await syncAllVirt();renderMemo();try{if(T.classList.contains('wrA'))renderAll()}catch(e){}}catch(e){console.error(e)}}
+function ensureVk(){if(!W||!cur)return;const mem=[cur].concat(W.recs||[]),vk={};mem.forEach(m=>{if(VIRT[m]||(W.vk&&W.vk[m]))vk[m]=Object.assign({},VIRT[m]||{},(W.vk&&W.vk[m])||{})});W.vk=vk}
+async function tick(n,on){
+ if(on){
+  if(!SEL.length){SEL.push(n);if(VIRT[n]&&RI[n]&&RI[n].virt)VIRT[n]=Object.assign({},VIRT[n]);await openFor(n);W.recs.forEach(r=>{if(!SEL.includes(r))SEL.push(r)});if(W.vk)Object.assign(VIRT,W.vk);if(VIRT[n]&&RI[n]&&RI[n].virt){W.vk=W.vk||{};W.vk[n]=W.vk[n]||Object.assign({},VIRT[n])}if(!RI[n])await loadRI()}
+  else if(!SEL.includes(n)){SEL.push(n);await addMoreRec(n);if(RI[n]&&RI[n].virt){W.vk=W.vk||{};W.vk[n]=W.vk[n]||Object.assign({},VIRT[n])}}
+ }else{
+  const k=SEL.indexOf(n);if(k<0)return;
+  if(k===0){SEL.splice(0,1);if(!SEL.length){await openFor('')}else{const keep=SEL.slice();await openFor(keep[0]);if(W.vk)Object.assign(VIRT,W.vk);SEL.length=0;SEL.push(keep[0]);for(const r of keep.slice(1)){if(!W.recs.includes(r))await addMoreRec(r);SEL.push(r)}
+    for(const r of W.recs.slice()){if(!SEL.includes(r))await rmMoreRec(W.recs.indexOf(r))}}}
+  else{SEL.splice(k,1);const x=W.recs.indexOf(n);if(x>=0)await rmMoreRec(x);if(W.vk)delete W.vk[n]}}
+ ensureVk();
+ await syncAllVirt();
+ const e=g('wrRec');if(e)e.value=cur&&[...e.options].some(o=>o.value==cur)?cur:'';
+ renderRecs()}
+const q=f=>{chain=chain.then(f).catch(e=>console.error(e));return chain};
+g('wrMemoBtn').addEventListener('click',()=>{const p=g('wrMemoPanel');p.hidden=!p.hidden});
+g('wrMemoPanel').addEventListener('click',e=>{if(e.target.id=='wrDdOk')g('wrMemoPanel').hidden=true});
+g('wrMemoPanel').addEventListener('change',e=>{const c=e.target.closest('input[data-mk]');if(!c)return;if(c.checked)pickMemos.add(c.dataset.mk);else pickMemos.delete(c.dataset.mk);pickCat='';renderMemo()});
+document.addEventListener('mousedown',e=>{if(!e.target.closest||!e.target.closest('#wrMemo'))g('wrMemoPanel').hidden=true});
+g('wrCat').addEventListener('change',e=>{pickCat=e.target.value;renderRecs()});
+g('wrUnk').addEventListener('change',renderMemo);
+g('wrRecList').addEventListener('change',e=>{const c=e.target.closest('input[data-rn]');if(c)q(()=>tick(c.dataset.rn,c.checked))});
+g('wrAllSel').addEventListener('click',()=>q(async()=>{for(const c of [...g('wrRecList').querySelectorAll('input[data-rn]')])if(!c.checked)await tick(c.dataset.rn,true)}));
+g('wrNoSel').addEventListener('click',()=>q(async()=>{for(const c of [...g('wrRecList').querySelectorAll('input[data-rn]')])if(SEL.includes(c.dataset.rn))await tick(c.dataset.rn,false)}));
+/* All Written Committee থেকে খোলা হলে নির্বাচনও মিলিয়ে নেওয়া */
+window.__wrFocusOff=()=>{if(!focusOnly)return;focusOnly=false;try{renderMemo()}catch(e){}};
+window.__wrSyncSel=async()=>{focusOnly=false;if(W&&W.vk)Object.assign(VIRT,W.vk);SEL.length=0;if(cur){SEL.push(cur);(W.recs||[]).forEach(r=>{if(!SEL.includes(r))SEL.push(r)})}
+ await loadRI();await syncAllVirt();pickMemos.clear();SEL.forEach(n=>{if(RI[n])pickMemos.add(mkey(RI[n]))});pickCat='';focusOnly=true;renderMemo()};
+document.addEventListener('click',e=>{if(e.target&&e.target.id=='wrShowAll')window.__wrFocusOff()});
+if(tb)tb.addEventListener('click',()=>setTimeout(refreshPick,0));
+refreshPick();
 })();
 </script>
 </body></html>
