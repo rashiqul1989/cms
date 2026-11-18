@@ -258,12 +258,129 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 .smsBox td.msgc{max-width:320px;white-space:pre-wrap;word-break:break-word}
 .smsBox details pre{margin:4px 0 0;white-space:pre-wrap;word-break:break-all;font-size:12px;max-width:340px}
 </style>
+<style>/* হেডার: ডানের দুই সারি (আপলোড + বাটন) ঘন করে উপরে; বাঁয়ে লোগো/টাইটেল ব্লক */
+@media (min-width:1100px){.hd{display:grid;grid-template-columns:auto 1fr;column-gap:16px;row-gap:8px;align-items:center;align-content:start}
+.hd .brand{grid-column:1;grid-row:1/3;align-self:center}
+.hd .up{grid-column:2;grid-row:1;justify-self:end;align-self:start}
+.hd .st{grid-column:2;grid-row:2;align-self:start}}
+</style>
+<style>/* Staff Record ট্যাব */
+#t-wr.wrR>.card:not(#stfRecW),#t-wr.wrR>#wrSheet{display:none!important}#t-wr:not(.wrR)>.card#stfRecW.noprint{display:none!important}
+#t-wr.wrS #wrSave2{display:none!important}
+#t-wr:not(.wrS) .stfHint{display:none!important}#t-wr.wrS>.card>p.mut:not(.stfHint){display:none!important}
+#stfRecW .srCd{border:1px solid var(--bd);border-radius:12px;background:var(--card);padding:8px 12px;margin-top:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#stfRecW .srT{flex:1 1 140px;min-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#stfRecW .srMt{margin:0;white-space:nowrap;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;max-width:46%;font-size:12px}#stfRecW .srAc{margin:0;flex:none;flex-wrap:nowrap}#stfRecW .srPv{flex:0 0 100%}
+#stfRecW .srH{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}#stfRecW .srH b{flex:1;min-width:240px;line-height:1.45}
+#stfRecW .srMt{font-size:12.5px;opacity:.8;margin-top:3px;line-height:1.5}
+#stfRecW .srAc{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}#stfRecW .srEx{display:inline-block;padding:1px 9px;border-radius:999px;border:1.5px solid;font-weight:700;line-height:1.5}
+#stfRecW .srEx.ex_w{background:#dbeafe;border-color:#3b82f6;color:#1e40af}#stfRecW .srEx.ex_o{background:#fef3c7;border-color:#f59e0b;color:#92400e}#stfRecW .srEx.ex_b{background:#ede9fe;border-color:#8b5cf6;color:#5b21b6}
+#stfRecW .srAc button{padding:4px 8px;font-size:13px}#stfRecW .srCd{gap:8px}
+#stfRecW .srPv{margin-top:10px;background:#e9ecef;border:1px solid var(--bd);border-radius:10px;padding:12px;max-height:70vh;overflow:auto}
+#stfRecW .srPv .srRD,.srPdfHost .srRD{background:#fff;color:#000;margin:0 auto;max-width:8.5in;box-sizing:border-box;padding:.8in;box-shadow:0 1px 6px rgba(0,0,0,.25)}
+.srPdfHost .srRD{max-width:none;padding:0;box-shadow:none;width:100%}
+.srRD{font-family:"KalpurushEmb","Kalpurush",serif;font-size:10pt}
+.srRD .h1{text-align:center;font-size:19pt;font-weight:700;line-height:1.25}.srRD .h2{text-align:center;font-size:14pt;font-weight:700;margin-bottom:14px}
+.srRD .in{text-align:center;font-size:10pt;line-height:1.55;margin:0 8px 10px}.srRD .dt{text-align:right;font-size:10pt;font-weight:700;margin:0 0 4px}
+.srRD table{width:100%;border-collapse:collapse;font-size:10pt}.srRD th,.srRD td{border:1px solid #444;padding:5px 7px;vertical-align:middle}
+.srRD table.hd0 td,.srRD table.hd0 th{border:0;padding:0}
+.srRD th{text-align:center;font-weight:700}.srRD td.c{text-align:center}.srRD tr.g1 td{border-top:2px solid #000}
+.srEmpty{padding:18px;text-align:center;opacity:.7}
+</style>
+<style>/* Entry For Staff ট্যাব: শুধু উপরের নির্বাচন অংশ দেখাবে (বাকি ফর্ম পরে যোগ হবে) */
+#t-wr.wrS #wrBody,#t-wr.wrS>#wrSheet,#t-wr.wrS #wrEntryNote{display:none!important}
+#wrViewW[hidden]{display:none!important}
+@media (min-width:901px){#t-wr .wrPk2c,#t-wr .wrPk2c.wrV3{grid-template-columns:repeat(4,minmax(0,1fr))}#t-wr .wrPk2c .wrDdP{min-width:380px}
+/* Staff List সব সময় কলাম ৪-এ। ১টি স্মারকে ক্যাটাগরি কলাম ২-এ; ২+ স্মারকে 'দেখার ধরন' কলাম ২-এ আসে ও ক্যাটাগরি কলাম ৩-এ সরে যায় */
+#t-wr .wrPk2c>:nth-child(1){grid-column:1;grid-row:1}
+#t-wr .wrPk2c>#wrViewW{grid-column:2;grid-row:1}
+#t-wr .wrPk2c>:nth-child(3){grid-column:2;grid-row:1}
+#t-wr .wrPk2c>#wrViewW:not([hidden])+label{grid-column:3;grid-row:1}
+#t-wr .wrPk2c>#wrStaffW{grid-column:4;grid-row:1}
+#t-wr .wrPk2c .stfBar{flex-wrap:nowrap}#t-wr .wrPk2c .stfBar button{padding:6px 8px}}/* বাছাইয়ের অপশনগুলো বামে; ডানের ফাঁকা জায়গা নতুন অপশনের জন্য */
+/* Entry For Staff: উপরের অংশ পিন করা; প্রতিটি ক্যাটাগরি/স্মারক কলাম আলাদা স্ক্রল হবে */
+@media (min-width:901px){
+#t-wr.wrS{overflow:hidden!important}
+#t-wr.wrS>.card:not(#wrAll){flex:1 1 0!important;min-height:0!important;display:flex!important;flex-direction:column;overflow:hidden!important;margin-bottom:0}
+#t-wr.wrS #wrPick{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
+#t-wr.wrS #wrRecBox:not([hidden]){flex:1 1 0;min-height:0;display:flex;flex-direction:column}
+#t-wr.wrS #wrRecList{flex:1 1 0;min-height:140px;overflow-x:auto;overflow-y:hidden;align-items:stretch;grid-template-rows:minmax(0,1fr)}
+#t-wr.wrS #wrRecList .wrCol{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:4px}
+#t-wr.wrS #wrRecList .wrMh{position:sticky;top:0;z-index:2;background:var(--hl)}
+#t-wr.wrS #wrRecBox .wrPkH,#t-wr.wrS #wrRecBox .wrLg{flex:none}
+#t-wr.wrS #wrPick>:not(#wrRecBox){flex:none!important;min-height:auto!important;position:static}
+#t-wr.wrS .wrChk:has(#wrUnk){display:none!important}#t-wr.wrS #wrPick>.wrChk{display:none!important}
+#t-wr.wrS #wrSelSum{margin:4px 0!important}#t-wr.wrS #wrSelSum:empty{display:none}
+#t-wr.wrS>.card:not(#wrAll){position:relative}
+#t-wr.wrS #wrStaffW{position:absolute!important;top:10px;right:16px;z-index:12;display:flex!important;flex-direction:row!important;align-items:center;gap:10px;grid-column:auto!important;grid-row:auto!important}
+#t-wr.wrS #wrStaffW>span{white-space:nowrap}
+}
+</style>
+<style>/* Entry ট্যাব: শিরোনাম + স্মারক/ক্যাটাগরি বাছাই + ৩) সারি + স্মারক-হেডার পিন; রেকর্ড স্ক্রল করলে উপরে উঠবে */
+@media (min-width:901px){
+#t-wr:not(.wrA):not(.wrS)>.card:not(#wrAll)>h3{position:sticky;top:0;z-index:8;background:var(--card);margin:0!important;padding:10px 0 6px}
+#t-wr:not(.wrA):not(.wrS)>.card:not(#wrAll)>p.mut{position:sticky;top:var(--pa,0px);z-index:8;background:var(--card);margin:0!important;padding:0 0 8px}
+#t-wr:not(.wrA):not(.wrS) .wrPk2c{position:sticky;top:var(--pb,0px);z-index:9;background:var(--hl);padding-bottom:2px}
+#t-wr:not(.wrA):not(.wrS) #wrRecBox .wrPkH{position:sticky;top:var(--pc,0px);z-index:7;background:var(--hl);margin:0!important;padding:10px 0 4px}
+#t-wr:not(.wrA):not(.wrS) #wrRecList{overflow-x:auto;overflow-y:hidden;align-items:stretch;grid-template-rows:minmax(0,1fr);height:max(220px,calc(100vh - var(--pd,260px) - 230px))}
+#t-wr:not(.wrA):not(.wrS) #wrRecList .wrCol{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:4px}
+#t-wr:not(.wrA):not(.wrS) #wrRecList .wrMh{position:sticky;top:0;z-index:6;background:var(--hl)}
+}
+</style>
+<style>/* Entry For Staff: দায়িত্ব ফরম */
+.stfFc{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-top:10px}
+.stfFc[hidden]{display:none!important}
+#t-wr:not(.wrS) #stfFc{display:none!important}
+.stfTop{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}.stfTop h3{margin:0}.stfTop .grow{flex:1}
+.stfDi{width:130px;padding:5px 8px}
+.stfExW{display:flex;justify-content:center}.stfEx{display:flex;gap:14px;align-items:center;border:1px solid var(--bd);background:var(--hl);border-radius:10px;padding:5px 14px}.stfEx label{display:flex;gap:5px;align-items:center;cursor:pointer;font-weight:700}
+.stfGrid{display:grid;grid-template-columns:minmax(380px,500px) 1fr;gap:12px;align-items:start}
+.stfPk{border:1px solid var(--bd);border-radius:10px;padding:8px;background:var(--hl);max-height:70vh;overflow:auto}
+.stfSe{width:100%;margin-bottom:6px}
+.stfCh{display:flex;align-items:center;gap:6px;font-weight:700;margin:8px 0 4px;color:var(--thc);position:sticky;top:-8px;background:var(--hl);padding:4px 0;z-index:2}
+.stfCh small{font-weight:400}.stfCh .grow{flex:1}.stfCh button{padding:2px 8px;font-size:12px}
+.stfIt{display:flex;gap:6px;align-items:flex-start;padding:4px 6px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1.35}
+.stfIt:hover{background:rgba(10,122,59,.08)}.stfIt.on{background:rgba(10,122,59,.14)}.stfIt input{margin-top:3px}
+.stfIt small{display:block;opacity:.75}.stfIt.off{opacity:.5;cursor:not-allowed}
+.stfIt>span{flex:1;min-width:0}.stfAc{display:flex;gap:4px;align-items:center;margin-top:3px;flex-wrap:wrap}.stfAc button{padding:0 7px;font-size:11px;line-height:19px;min-height:0;cursor:pointer}.stfAc select{padding:0 2px;font-size:11px;height:21px;width:auto;min-height:0}#stfPkB .stfCt{display:none}#stfPkB.showCt .stfCt{display:inline-block}.stfCtT{display:flex;gap:6px;align-items:center;font-size:12px;margin:0 0 6px;cursor:pointer}.stfBd{display:block}.stfR1{display:flex;align-items:center;gap:6px}.stfNm{flex:1;min-width:0;font-weight:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stfIt .stfAc{margin-top:0;flex:none;flex-wrap:nowrap;gap:3px}.stfIt small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stfAc button.on{background:#0a7a3b;color:#fff;border-color:#0a7a3b}.stfMk{font-style:normal;font-size:10.5px;background:#fff0c2;color:#6b4a00;border-radius:6px;padding:0 5px;margin-left:4px}
+.stfPv{max-height:70vh;overflow:auto;background:#e9ecef;border:1px solid var(--bd);border-radius:10px;padding:12px}
+#stfDoc{background:#fff;color:#000;margin:0 auto;max-width:8.5in;box-sizing:border-box;padding:.8in;box-shadow:0 1px 6px rgba(0,0,0,.25);font-family:"KalpurushEmb","Kalpurush",serif;font-size:10pt}
+#stfDoc .h1{text-align:center;font-size:19pt;font-weight:700;line-height:1.25}#stfDoc .h2{text-align:center;font-size:14pt;font-weight:700;margin-bottom:14px}
+#stfDoc .in{text-align:center;font-size:10pt;line-height:1.55;margin:0 8px 10px;outline:none}#stfDoc .in:focus{background:#fffbe0}
+#stfDoc .dt{text-align:right;font-size:10pt;font-weight:700;margin:0 0 4px}
+#stfDoc table{width:100%;border-collapse:collapse;font-size:10pt}#stfDoc th,#stfDoc td{border:1px solid #444;padding:5px 7px;vertical-align:middle}
+#stfDoc th{text-align:center;font-weight:700}#stfDoc td.c{text-align:center}#stfDoc tr.g1 td{border-top:2px solid #000}
+#stfDoc .em{text-align:center;color:#777;padding:18px}
+#stfDoc table.hd0{margin-bottom:6px}#stfDoc table.hd0 td{border:0;padding:0;vertical-align:middle}#stfDoc table.hd0 img{display:block}#stfDoc .h2{margin-bottom:0}
+@media (min-width:901px){
+#t-wr.wrS.stfOn>.card:not(#wrAll){flex:2 1 0!important}
+#t-wr.wrS>.stfFc:not([hidden]){display:flex!important;flex-direction:column;flex:3 1 0;min-height:0;overflow:hidden;margin-top:8px}
+#t-wr.wrS .stfGrid{flex:1;min-height:0;align-items:stretch}#t-wr.wrS .stfPk,#t-wr.wrS .stfPv{max-height:none;min-height:0}}
+@media (max-width:900px){.stfGrid{grid-template-columns:1fr}}
+</style>
+<style>#t-wr:not(.wrS) #wrStaffW{display:none}
+#wrStaffW.stfDrop{outline:2px dashed #0a7a3b;outline-offset:4px;border-radius:10px;background:rgba(10,122,59,.10)}#wrStaffW.stfDrop .stfBar{pointer-events:none}
+.stfBar{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.stfBar button{padding:6px 10px;font-size:13px;border-radius:8px;white-space:nowrap}
+#stfOv{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30;display:flex;align-items:flex-start;justify-content:center;padding:24px 14px;overflow:auto}
+#stfOv .bx{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:16px;max-width:920px;width:100%}
+#stfOv h3{margin:0 0 8px}#stfOv .mut{color:var(--mut)}
+#stfOv table{border-collapse:collapse;width:100%;font-size:13.5px}#stfOv th,#stfOv td{border:1px solid var(--bd);padding:4px 8px;text-align:left;vertical-align:top}#stfOv th{background:var(--hl);position:sticky;top:0}
+#stfOv .scr{max-height:55vh;overflow:auto;margin:8px 0}
+#stfOv .fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}#stfOv .fg label{display:flex;flex-direction:column;gap:3px;font-size:13px}#stfOv .fg .w{grid-column:1/-1}
+#stfOv input{padding:7px 9px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);font:inherit}
+#stfOv .ab{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+#stfOv .tg{display:inline-block;padding:0 6px;border-radius:8px;font-size:12px;font-weight:700}#stfOv .tg.n{background:#c6ecd3;color:#0a3d20}#stfOv .tg.u{background:#fff0c2;color:#6b4a00}
+.tg:not(.n):not(.u){background:#e6e9ec;color:#444}
+@media (max-width:700px){#stfOv .fg{grid-template-columns:1fr}}
+</style>
 </head><body><div class="app">
 <header class="hd noprint">
-<div class="brand"><img id="hdLogo" alt="CMS"><div><h1>Candidate Management System (CMS)</h1><div class="sub">ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর</div></div></div>
+<div class="brand"><img id="hdLogo" alt="CMS"><div><h1>Candidate Management System (CMS)</h1><div class="sub">ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর</div><div class="sub" id="lastUpd" style="display:inline-block;width:fit-content;font-size:12.5px;font-weight:600;line-height:1.3;color:#0b4a2a;background:#fff4c2;border:1.5px solid #f2b705;border-radius:6px;padding:2px 9px;margin-top:4px;opacity:1"></div></div></div>
 <div class="up"><button class="p" id="upBtn" title="ফাইল ও ফোল্ডার একসাথে বা আলাদা — যেকোনোভাবে যোগ করে আপলোড করুন">📂 ফাইল আপলোড (HTML)</button><input type="file" id="file" multiple accept=".html,.htm,.txt,.pdf,.xlsx,.xls,.csv" hidden><input type="file" id="upDir" webkitdirectory multiple hidden><label>ছবির ফোল্ডার: <input type="file" id="dir" webkitdirectory multiple></label></div>
-<div class="st"><span class="mut" id="jobId" style="font-weight:600"></span><span class="mut" id="stat"></span><div class="uxBtns"><span class="uxUp"><button type="button" id="kpDirBtn" class="uxB" title="ভাইস-চ্যান্সেলর, ডীন, বিভাগীয় প্রধান, প্রভোস্ট, পরিচালক ও অফিস প্রধানের নামের তালিকা (DOCX) আপলোড/সম্পাদনা — কার্যবিবরণীর সিলেকশন কমিটিতে বসবে">👥 Responsibility List<small>DOCX</small></button><button type="button" id="kpDirView" class="uxR" hidden title="সংরক্ষিত Responsibility List দেখুন" aria-label="Responsibility List দেখুন">👁</button></span><span class="uxUp"><button type="button" id="uxScBtn" class="uxB" title="নির্বাচনী কমিটির তালিকা (DOCX / PDF) আপলোড করুন — শুধু নতুন নাম যুক্ত হবে, বাকি সব অপরিবর্তিত থাকবে">📋 নির্বাচনী কমিটি আপডেট<small>DOCX / PDF</small></button><button type="button" id="uxScView" class="uxR" title="নির্বাচনী কমিটির বর্তমান তালিকা দেখুন" aria-label="নির্বাচনী কমিটির তালিকা দেখুন">👁</button><button type="button" id="uxScRst" class="uxR" hidden title="মূল (ডিফল্ট) তালিকায় ফিরুন" aria-label="কমিটি ডিফল্টে ফিরুন">↺</button><input type="file" id="uxScFile" accept=".docx,.pdf" hidden></span></div><span class="uxUp"><button type="button" id="hdAdBtn" title="নিয়োগ বিজ্ঞপ্তি (PDF / DOCX) আপলোড করলে স্মারক নং ও তারিখ মেলা সব রেকর্ডে পদ, বিভাগ, গ্রেড, বেতন ও যোগ্যতা বসবে" style="background:#fff;color:#005f30;border:1px solid #fff;font-weight:700;border-radius:7px;padding:4px 12px;cursor:pointer">📢 নিয়োগ বিজ্ঞপ্তি আপলোড (PDF / DOCX)</button><button type="button" id="hdAdView" class="uxR" title="নিয়োগ বিজ্ঞপ্তি দেখুন" aria-label="নিয়োগ বিজ্ঞপ্তি দেখুন">👁</button></span></div>
-</header>
+<div class="st"><span class="mut" id="jobId" style="font-weight:600;display:none"></span><span class="mut" id="stat" style="display:none"></span><div class="uxBtns"><span class="uxUp"><button type="button" id="kpDirBtn" class="uxB" title="ভাইস-চ্যান্সেলর, ডীন, বিভাগীয় প্রধান, প্রভোস্ট, পরিচালক ও অফিস প্রধানের নামের তালিকা (DOCX) আপলোড/সম্পাদনা — কার্যবিবরণীর সিলেকশন কমিটিতে বসবে">👥 Responsibility List<small>DOCX</small></button><button type="button" id="kpDirView" class="uxR" hidden title="সংরক্ষিত Responsibility List দেখুন" aria-label="Responsibility List দেখুন">👁</button></span><span class="uxUp"><button type="button" id="uxScBtn" class="uxB" title="নির্বাচনী কমিটির তালিকা (DOCX / PDF) আপলোড করুন — শুধু নতুন নাম যুক্ত হবে, বাকি সব অপরিবর্তিত থাকবে">📋 নির্বাচনী কমিটি আপডেট<small>DOCX / PDF</small></button><button type="button" id="uxScView" class="uxR" title="নির্বাচনী কমিটির বর্তমান তালিকা দেখুন" aria-label="নির্বাচনী কমিটির তালিকা দেখুন">👁</button><button type="button" id="uxScRst" class="uxR" hidden title="মূল (ডিফল্ট) তালিকায় ফিরুন" aria-label="কমিটি ডিফল্টে ফিরুন">↺</button><input type="file" id="uxScFile" accept=".docx,.pdf" hidden></span></div><span class="uxUp"><button type="button" id="hdAdBtn" title="নিয়োগ বিজ্ঞপ্তি (PDF / DOCX) আপলোড করলে স্মারক নং ও তারিখ মেলা সব রেকর্ডে পদ, বিভাগ, গ্রেড, বেতন ও যোগ্যতা বসবে" style="background:#fff;color:#005f30;border:1px solid #fff;font-weight:700;border-radius:7px;padding:4px 12px;cursor:pointer">📢 নিয়োগ বিজ্ঞপ্তি আপলোড (PDF / DOCX)</button><button type="button" id="hdAdView" class="uxR" title="নিয়োগ বিজ্ঞপ্তি দেখুন" aria-label="নিয়োগ বিজ্ঞপ্তি দেখুন">👁</button></span></div>
+</header><script>/* সর্বশেষ আপডেট: এই ফাইলটি সর্বশেষ যখন সেভ/পরিবর্তন হয়েছে (DD-MM-YYYY, Time : hh:mm AM/PM) */
+(function(){try{var el=document.getElementById('lastUpd');if(!el)return;var d=new Date(document.lastModified);if(isNaN(d.getTime()))return;
+var p=function(n){return(n<10?'0':'')+n},h=d.getHours(),ap=h>=12?'PM':'AM',h12=h%12||12;
+el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u09c7\u099f : '+p(d.getDate())+'-'+p(d.getMonth()+1)+'-'+d.getFullYear()+', Time : '+p(h12)+':'+p(d.getMinutes())+' '+ap}catch(e){}})();</script>
 <div class="body">
 <nav class="tabs noprint"><button data-t="rec">রেকর্ড</button><button data-t="data" class="on">ডাটা</button><button data-t="rj" id="rjTab">Reject</button><button data-t="att">হাজিরা শীট</button><button data-t="wr" id="wrTab">Written কমিটি</button><button data-t="cp">কাস্টম প্রিন্ট</button><button data-t="ph">মোবাইল নম্বর</button><button data-t="sms" id="smsTab">Send SMS</button><button data-t="dup">দ্বৈত আবেদন</button><button data-t="kp">কার্যবিবরণী</button><button data-t="np">নিয়োগপত্র</button><button data-t="arc" id="arcTab">আর্কাইভ</button></nav>
 <main class="main">
@@ -383,14 +500,21 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 
 <div class="abar"><button class="p" id="aGen">👁 শীট তৈরি করুন</button><button class="p" id="aDocx">📄 Word (.docx) — Legal</button><span class="anxw" id="aAnxW" style="display:none"><button id="aAnxV" type="button" title="মেধা তালিকা ফরম দেখুন (প্রিভিউ)" aria-label="মেধা তালিকা ফরম দেখুন">👁</button><button class="p" id="aAnx" title="মৌখিক পরীক্ষায় নির্বাচিত প্রার্থীদের নিয়ে প্রাপ্ত নম্বর ও মেধা তালিকা ফরম (Word)">📄 মেধা তালিকা ফরম</button></span><button class="p" id="aRes" title="লিখিত পরীক্ষার ফলাফল শীট (xlsx) — All Marks ও Viva List, ২টি শীটসহ">📊 Result Sheet (Draft)</button><span id="aNbW" style="position:relative;display:inline-block"><button class="p" id="aNb" type="button" title="লিখিত পরীক্ষার নোটিশ বোর্ড লিস্ট — Word (.docx), Legal, দুই কলামে, ৮ পয়েন্ট ফন্ট">📋 নোটিশ বোর্ড লিস্ট</button></span><span id="aStW" style="position:relative;display:inline-block"><button class="p" id="aSt" type="button" title="নির্বাচিত পদের সকল প্রার্থীর স্টিকার — Word (.docx), Legal, ২ কলাম, ডানে ছবি">🏷 স্টিকার ডাউনলোড</button></span></div></div>
 <div id="sheet"></div></div>
-<div class="sec" id="t-wr"><div class="wrSub noprint" id="wrSub"><button type="button" data-ws="e" class="on">✍️ Entry</button><button type="button" data-ws="a">🗂 All Written Committee <span id="wrCnt" class="wrCnt">0</span></button></div><div class="card noprint">
-<h3 style="margin:0 0 8px">✍️ লিখিত পরীক্ষার দায়িত্ব — Entry</h3>
-<p class="mut" style="margin:0 0 8px">প্রথমে স্মারক নং বাছাই করুন — তারপর সেই স্মারকের এক বা একাধিক রেকর্ড/পদ টিক দিন; নির্বাচিত পদগুলোর জন্য একটি কমিটির এন্ট্রি ফরম আসবে। যতটুকু কাজ হবে তা খসড়া হিসেবে নিজে থেকেই থাকবে; “💾 সংরক্ষণ” চাপলে All Written Committee-তে যাবে। (শুধু যেসব পদে লিখিত পরীক্ষা হয় সেগুলো দেখানো হয়: শিক্ষক — প্রভাষক; কর্মকর্তা — গ্রেড ৯ ও ১০; কর্মচারী — সব।)</p>
-<div id="wrPick"><div class="wrPk2c"><div class="f"><span>১) স্মারক নং বাছাই করুন <small class="mut">(একাধিক টিক দেওয়া যাবে)</small></span><div class="wrDd" id="wrMemo"><button type="button" id="wrMemoBtn" class="wrDdB">— স্মারক নং বাছাই করুন —</button><div class="wrDdP" id="wrMemoPanel" hidden></div></div></div><label class="f"><span>২) ক্যাটাগরি বাছাই করুন</span><select id="wrCat" disabled><option value="">— সব ক্যাটাগরি —</option></select></label></div><div id="wrRecBox" hidden><div class="wrPkH"><b>৩) রেকর্ড / পদ বাছাই করুন <small class="mut">(একাধিক হতে পারে)</small></b><span><button type="button" id="wrSave2" class="p" title="এই কমিটি All Written Committee-তে রেকর্ড হিসেবে সংরক্ষিত হবে">💾 সংরক্ষণ</button><button type="button" id="wrAllSel">☑ সব নির্বাচন</button><button type="button" id="wrNoSel">☐ বাদ দিন</button></span></div><div id="wrRecList"></div><div class="mut wrLg">📢 বিজ্ঞপ্তির পদ (রেকর্ড এখনো নেই) · 📝 খসড়া · ✅ সংরক্ষিত · 🔗 মূল রেকর্ড যুক্ত · সংরক্ষিত কমিটির রং: 🟩 ১ স্মারক · 🟧 ২ স্মারক · 🟪 ৩+ স্মারক — নাম/বিবরণ পুরোটা দেখতে লাইনের ওপর মাউস রাখুন</div></div><label class="wrChk" style="margin-top:6px"><input type="checkbox" id="wrUnk"> শ্রেণি/গ্রেড অনির্ধারিত রেকর্ডও দেখান</label><div id="wrSelSum" class="mut"></div></div>
+<div class="sec" id="t-wr"><div class="wrSub noprint" id="wrSub"><button type="button" data-ws="e" class="on">✍️ Entry</button><button type="button" data-ws="a">🗂 All Written Committee <span id="wrCnt" class="wrCnt">0</span></button><button type="button" data-ws="s">👥 Entry For Staff</button><button type="button" data-ws="r">🗃 Staff Record <span id="stfRecCnt" class="wrCnt">0</span></button></div><div class="card noprint">
+<h3 style="margin:0 0 8px" id="wrH3">✍️ লিখিত পরীক্ষার দায়িত্ব — Entry</h3>
+<p class="mut" style="margin:0 0 8px">প্রথমে স্মারক নং বাছাই করুন — তারপর সেই স্মারকের এক বা একাধিক রেকর্ড/পদ টিক দিন; নির্বাচিত পদগুলোর জন্য একটি কমিটির এন্ট্রি ফরম আসবে। যতটুকু কাজ হবে তা খসড়া হিসেবে নিজে থেকেই থাকবে; “💾 সংরক্ষণ” চাপলে All Written Committee-তে যাবে। <span id="wrEntryNote">(শুধু যেসব পদে লিখিত পরীক্ষা হয় সেগুলো দেখানো হয়: শিক্ষক — প্রভাষক; কর্মকর্তা — গ্রেড ৯ ও ১০; কর্মচারী — সব।)</span></p>
+<p class="mut stfHint" style="margin:0 0 8px">প্রথমে স্মারক নং বাছাই করুন — তারপর সেই স্মারকের এক বা একাধিক রেকর্ড/পদ টিক দিন; নির্বাচিত পদগুলোর জন্য একটি কর্মকর্তা ও কর্মচারী দায়িত্ব ফরম আসবে। নিচের ফরমে “💾 সংরক্ষণ” চাপলে ফরমটি <b>Staff Record</b> ট্যাবে জমা হবে — সেখান থেকে ইডিট ও Word / PDF ডাউনলোড করা যাবে।</p>
+<div id="wrPick"><div class="wrPk2c"><div class="f"><span>১) স্মারক নং বাছাই করুন <small class="mut">(একাধিক টিক দেওয়া যাবে)</small></span><div class="wrDd" id="wrMemo"><button type="button" id="wrMemoBtn" class="wrDdB">— স্মারক নং বাছাই করুন —</button><div class="wrDdP" id="wrMemoPanel" hidden></div></div></div><label class="f" id="wrViewW" hidden><span>দেখার ধরন (একাধিক স্মারকের ক্ষেত্রে)</span><select id="wrView"><option value="m">স্মারক অনুযায়ী</option><option value="p">পদ অনুযায়ী</option></select></label><label class="f"><span>২) ক্যাটাগরি বাছাই করুন</span><select id="wrCat" disabled><option value="">— সব ক্যাটাগরি —</option></select></label><div class="f" id="wrStaffW"><span>Staff List (কর্মকর্তা ও কর্মচারী)</span><div class="stfBar"><button type="button" class="p" id="stfUp" title="গ্রেডভিত্তিক কর্মকর্তা ও কর্মচারীদের নামের তালিকা (DOCX) আপলোড">⬆ Staff List Upload</button><button type="button" id="stfNew" title="একজনের নাম, পদবী, দপ্তর ও গ্রেড তালিকায় যোগ করুন">➕ New Staff Entry</button><button type="button" id="stfView" title="সংরক্ষিত Staff List দেখুন">👁 <span id="stfCnt">০</span> জন</button><input type="file" id="stfFile" accept=".docx" hidden></div></div></div><div id="wrRecBox" hidden><div class="wrPkH"><b>৩) রেকর্ড / পদ বাছাই করুন <small class="mut">(একাধিক হতে পারে)</small></b><span><button type="button" id="wrSave2" class="p" title="এই কমিটি All Written Committee-তে রেকর্ড হিসেবে সংরক্ষিত হবে">💾 সংরক্ষণ</button><button type="button" id="wrAllSel">☑ সব নির্বাচন</button><button type="button" id="wrNoSel">☐ বাদ দিন</button></span></div><div id="wrRecList"></div><div class="mut wrLg">📢 বিজ্ঞপ্তির পদ (রেকর্ড এখনো নেই) · 📝 খসড়া · ✅ সংরক্ষিত · 🔗 মূল রেকর্ড যুক্ত · সংরক্ষিত কমিটির রং: 🟩 ১ স্মারক · 🟧 ২ স্মারক · 🟪 ৩+ স্মারক — নাম/বিবরণ পুরোটা দেখতে লাইনের ওপর মাউস রাখুন</div></div><label class="wrChk" style="margin-top:6px"><input type="checkbox" id="wrUnk"> শ্রেণি/গ্রেড অনির্ধারিত রেকর্ডও দেখান</label><div id="wrSelSum" class="mut"></div></div>
 <div class="row" style="display:none"><select id="wrRec" class="grow" title="রেকর্ড বাছাই করুন"><option value="">— রেকর্ড বাছাই করুন —</option></select><div id="wrMore" class="wrMore" hidden></div></div>
 <div id="wrBody" hidden></div>
 </div><div id="wrSheet" hidden></div>
-<div class="card noprint" id="wrAll" hidden><div class="row" style="align-items:center;margin:0 0 8px"><h3 style="margin:0">🗂 All Written Committee</h3><span class="grow"></span><span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap" title="সব কমিটির নিচের স্বাক্ষরের প্রথম পদবী"><b>স্বাক্ষর:</b><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgD"> ডেপুটি রেজিস্ট্রার</label><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgA"> অতিরিক্ত রেজিস্ট্রার</label></span><button type="button" id="wrAllPdf">📕 সব কমিটি PDF</button><button type="button" id="wrAllDocx">📄 সব কমিটি Word (.docx)</button><button type="button" id="wrAdir" title="ক্রম উল্টান">⬇ নতুন আগে</button></div><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><p class="mut" style="margin:0">Entry ট্যাবে “💾 সংরক্ষণ” চাপলে কমিটিগুলো এখানে রেকর্ড আকারে জমা থাকে। এগুলো ব্যাকআপেও যায়। <b>একটি কার্ড টেনে অন্য কার্ডের ওপর ছাড়লে দুটি কমিটি জয়েন হয়ে একটি হবে (আগে অনুমতি চাইবে)।</b></p><span class="grow"></span><label style="display:flex;gap:6px;align-items:center" title="তালিকা সাজানোর ধরন"><b>↕ সর্ট:</b><select id="wrAsort" style="width:auto"><option value="t">সর্বশেষ সংরক্ষণ</option><option value="p">পদের নাম</option><option value="g">গ্রেড</option><option value="d">দপ্তর</option></select></label></div><div class="row"><input id="wrAq" class="grow" placeholder="🔍 রেকর্ড / পদ / বিভাগ দিয়ে খুঁজুন" autocomplete="off"></div><div id="wrAundo"></div><div id="wrAList"></div></div></div>
+<div id="stfFc" class="stfFc noprint" hidden>
+<div class="stfTop"><h3>👥 কর্মকর্তা ও কর্মচারী দায়িত্ব ফরম</h3><span class="grow stfExW"><span class="stfEx" id="stfEx" title="পরীক্ষার ধরন — ফরমের পরিচিতি লেখায় বসবে"><label><input type="checkbox" data-ex="w" checked> লিখিত</label><label><input type="checkbox" data-ex="o"> মৌখিক</label><label><input type="checkbox" data-ex="b"> উভয়</label></span></span>
+<label>তারিখ : <input id="stfFd" class="stfDi" autocomplete="off" title="ফরমের ডান পাশের তারিখ"></label>
+<button type="button" id="stfRe" title="টেবিলের সব নাম খালি করুন">↺ রিসেট</button>
+<button type="button" id="stfSv" class="p" title="এই ফরমটি Staff Record ট্যাবে সংরক্ষিত হবে">💾 সংরক্ষণ</button><button type="button" id="stfWd" class="p">📄 Word (.docx)</button></div>
+<div class="stfGrid"><div class="stfPk"><input id="stfQ2" class="stfSe" placeholder="🔍 Staff List থেকে খুঁজুন (নাম / পদবী / দপ্তর)"><label class="stfCtT" title="ক্যাট-১/২/৩ বাটন দেখান বা লুকান"><input type="checkbox" id="stfCtTg"> ⇄ ক্যাটাগরি পরিবর্তনের অপশন দেখান</label><div id="stfPkB"></div></div><div class="stfPv"><div id="stfDoc"></div></div></div></div>
+<div class="card noprint" id="wrAll" hidden><div class="row" style="align-items:center;margin:0 0 8px"><h3 style="margin:0">🗂 All Written Committee</h3><span class="grow"></span><span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap" title="সব কমিটির নিচের স্বাক্ষরের প্রথম পদবী"><b>স্বাক্ষর:</b><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgD"> ডেপুটি রেজিস্ট্রার</label><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgA"> অতিরিক্ত রেজিস্ট্রার</label></span><button type="button" id="wrAllPdf">📕 সব কমিটি PDF</button><button type="button" id="wrAllDocx">📄 সব কমিটি Word (.docx)</button><button type="button" id="wrAdir" title="ক্রম উল্টান">⬇ নতুন আগে</button></div><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><p class="mut" style="margin:0">Entry ট্যাবে “💾 সংরক্ষণ” চাপলে কমিটিগুলো এখানে রেকর্ড আকারে জমা থাকে। এগুলো ব্যাকআপেও যায়। <b>একটি কার্ড টেনে অন্য কার্ডের ওপর ছাড়লে দুটি কমিটি জয়েন হয়ে একটি হবে (আগে অনুমতি চাইবে)।</b></p><span class="grow"></span><label style="display:flex;gap:6px;align-items:center" title="তালিকা সাজানোর ধরন"><b>↕ সর্ট:</b><select id="wrAsort" style="width:auto"><option value="t">সর্বশেষ সংরক্ষণ</option><option value="p">পদের নাম</option><option value="g">গ্রেড</option><option value="d">দপ্তর</option></select></label></div><div class="row"><input id="wrAq" class="grow" placeholder="🔍 রেকর্ড / পদ / বিভাগ দিয়ে খুঁজুন" autocomplete="off"></div><div id="wrAundo"></div><div id="wrAList"></div></div><div class="card noprint" id="stfRecW" hidden><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><h3 style="margin:0">🗃 Staff Record</h3><span class="grow"></span><button type="button" id="stfRecPdf" title="সংরক্ষিত সব পদের ফরম একটি PDF-এ">📕 সব রেকর্ড PDF</button><button type="button" id="stfRecDocx" title="সংরক্ষিত সব পদের ফরম একটি Word ফাইলে">📄 সব রেকর্ড Word (.docx)</button><button type="button" id="stfRecDir" title="ক্রম উল্টান">⬇ নতুন আগে</button></div><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><p class="mut" style="margin:0">Entry For Staff ফরমে “💾 সংরক্ষণ” চাপলে ফরমটি এখানে জমা থাকে। এখান থেকে প্রিভিউ, ইডিট (ফরম আবার খুলবে), Word / PDF ডাউনলোড বা মুছে ফেলা যাবে। এগুলো ব্যাকআপেও যায়।</p><span class="grow"></span><label style="display:flex;gap:6px;align-items:center" title="তালিকা সাজানোর ধরন (সব রেকর্ড ডাউনলোডও এই ক্রমে হবে)"><b>↕ সর্ট:</b><select id="stfRecSort" style="width:auto"><option value="t">সর্বশেষ সংরক্ষণ</option><option value="p">পদের নাম</option><option value="g">গ্রেড</option><option value="d">বিভাগ / দপ্তর</option></select></label></div><div class="row"><input id="stfRecQ" class="grow" placeholder="🔍 পদ / স্মারক / দপ্তর / নাম দিয়ে খুঁজুন" autocomplete="off"></div><div id="stfRecList"></div></div></div>
 <div class="sec" id="t-cp"><div class="card noprint">
 <div class="row"><input id="cpTitle" class="grow" placeholder="শিরোনাম (যেমন: আবেদনকৃত প্রার্থীদের তথ্য)" value="আবেদনকৃত প্রার্থীদের তথ্য"><input id="cpQ" type="search" autocomplete="off" placeholder="🔍 খুঁজুন (নাম, আইডি, মোবাইল, বিশ্ববিদ্যালয়, ঠিকানা…)" title="এখানে লিখলে শুধু মিলে যাওয়া আবেদনকারীরাই প্রিভিউ/PDF/Word-এ আসবে" style="flex:0 0 340px;width:340px;max-width:34%"><label><input type="checkbox" id="cpHead" checked> প্রতিষ্ঠানের নাম ও লোগো</label><label style="font-weight:600"><input type="checkbox" id="cpAd"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><input type="checkbox" id="cpQt" checked hidden></div>
 <div class="row" style="margin-top:8px"><label>লেআউট: <select id="cpLay"><option value="d">Landscape (বিস্তারিত)</option><option value="t">Portrait (কাস্টম ফিল্ড — Legal)</option><option value="l">Landscape (কাস্টম ফিল্ড — Legal)</option></select></label>
@@ -6094,7 +6218,7 @@ const AKEY='duet_wr_all_v1';
 const allLoad=()=>{try{const o=JSON.parse(localStorage.getItem(AKEY)||'{}')||{};return o&&typeof o=='object'&&!Array.isArray(o)?o:{}}catch(e){return{}}};
 const allSave=o=>{try{localStorage.setItem(AKEY,JSON.stringify(o));return true}catch(e){toast('⚠ সংরক্ষণ করা যায়নি (ব্রাউজারের স্টোরেজ ভরে গেছে?)');return false}};
 const fmtTs=t=>{const d=new Date(t||0);if(isNaN(d))return'';const p=n=>toBn(String(n).padStart(2,'0')),h=d.getHours()%12||12;return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+toBn(d.getFullYear())+' '+p(h)+':'+p(d.getMinutes())+(d.getHours()<12?' AM':' PM')};
-function setMode(m){T.classList.toggle('wrA',m=='a');g('wrSub').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.ws==m));if(m=='a')renderAll();else{try{fillSel()}catch(e){}}}
+function setMode(m){window.__wrStaff=(m=='s');T.classList.toggle('wrA',m=='a');T.classList.toggle('wrS',m=='s');T.classList.toggle('wrR',m=='r');if(m!='a'&&m!='r'){const h=g('wrH3');if(h)h.textContent=(m=='s')?'✍️ লিখিত/মৌখিক পরীক্ষার দায়িত্ব (কর্মকর্তা ও কর্মচারী)':'✍️ লিখিত পরীক্ষার দায়িত্ব — Entry';try{window.__wrRerender&&window.__wrRerender()}catch(e){}}g('wrSub').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.ws==m));if(m=='a')renderAll();else if(m=='r'){try{window.__stfRecRender&&window.__stfRecRender()}catch(e){}}else{try{fillSel()}catch(e){}}}
 /* ---- All Written Committee: সর্ট (সর্বশেষ সংরক্ষণ / পদের নাম / গ্রেড / দপ্তর) ---- */
 let aSortBy='t',aSortAsc=false;
 const aTitle=k=>String(k).replace(/^📢\s*/,'');
@@ -6124,7 +6248,7 @@ function saveCommittee(){
  const any=W.rows.some(r=>['c','s','p','m','r','e'].some(f=>String(r[f]||'').trim()));
  if(!any&&!confirm('কোনো দায়িত্বপ্রাপ্ত শিক্ষক/কর্মকর্তার নাম দেওয়া হয়নি। তবুও সংরক্ষণ করবেন?'))return;
  const o=allLoad(),had=!!o[cur];
- o[cur]={rec:cur,created:(o[cur]&&o[cur].created)||Date.now(),savedAt:Date.now(),w:JSON.parse(JSON.stringify(W))};
+ o[cur]={rec:cur,created:(o[cur]&&o[cur].created)||Date.now(),savedAt:Date.now(),staff:!!window.__wrStaff,w:JSON.parse(JSON.stringify(W))};
  if(allSave(o)){renderAll();toast(had?'💾 কমিটি হালনাগাদ হয়েছে — All Written Committee':'💾 কমিটি সংরক্ষিত হয়েছে — All Written Committee')}}
 g('wrSub').addEventListener('click',e=>{const b=e.target.closest('button');if(b){if(b.dataset.ws=='e'&&window.__wrFocusOff)window.__wrFocusOff();setMode(b.dataset.ws)}});
 g('wrAq').addEventListener('input',renderAll);
@@ -6288,17 +6412,21 @@ function syncVirt(w,primary){
  mem.forEach(m=>{const v=vk[m];if(!v)return;const lk=matchReal(v),cn=lk&&RI[lk].count!=null?RI[lk].count:null;if((v.link||'')!==lk||(v.cnt==null?null:v.cnt)!==cn){v.link=lk;v.cnt=cn;ch=true}});
  const DT='..........';/* রেকর্ড এখনো না থাকলে প্রার্থীর সংখ্যার জায়গায় ডট */
  const parts=mem.map(m=>{if(vk[m])return vk[m].cnt!=null?String(vk[m].cnt):DT;const c=RI[m]&&RI[m].count;return c!=null&&!isNaN(c)?String(c):null}).filter(x=>x!=null);
- const str=parts.length?(parts.length==1?parts[0]:'('+parts.join('+')+') = '+(parts.includes(DT)?DT:parts.reduce((a,b)=>a+Number(b),0))):'';
+ const real=parts.filter(x=>x!=DT);/* রেকর্ডে মাত্র ১ জন প্রার্থী থাকলে ডট (....) বসবে না */
+ const str=parts.length?(parts.length==1?parts[0]:(real.length==1&&Number(real[0])==1)?real[0]:'('+parts.join('+')+') = '+(parts.includes(DT)?DT:parts.reduce((a,b)=>a+Number(b),0))):'';
  (w.rows||[]).forEach(r=>{if(isAutoN(r)&&(String(r.n||'')!==str||r.na!==str)){r.n=str;r.na=str;ch=true}});
  return ch}
+/* আগে সংরক্ষিত কমিটিতে "(১+..........) = .........." থাকলে শুধু "১" করে দেয় (রেকর্ডে ১ জন প্রার্থী) */
+const fixDot1=w=>{let ch=false;(w&&w.rows||[]).forEach(r=>{const t=toEn(String(r.n==null?'':r.n)).replace(/\s+/g,'');if(/^\(1\+\.{2,}\)=\.{2,}$/.test(t)){r.n='1';r.na='1';ch=true}});return ch};
 async function syncAllVirt(){
- let cw=false;if(W&&cur&&W.vk){Object.assign(VIRT,W.vk);cw=syncVirt(W,cur)}
+ let cw=false;if(W&&cur){if(W.vk){Object.assign(VIRT,W.vk);cw=syncVirt(W,cur)}if(fixDot1(W))cw=true}
  if(cw){buildForm();touch();renderPreview()}
- try{const d=loadAll();let c1=false;Object.keys(d).forEach(k=>{if(k==cur&&W)return;if(d[k]&&d[k].vk&&syncVirt(d[k],k))c1=true});if(c1)localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}
- try{const a=allLoad();let c2=false;Object.keys(a).forEach(k=>{const w=a[k]&&a[k].w;if(w&&w.vk&&syncVirt(w,k))c2=true});if(c2)allSave(a)}catch(e){}}
+ try{const d=loadAll();let c1=false;Object.keys(d).forEach(k=>{if(k==cur&&W)return;if(d[k]&&d[k].vk&&syncVirt(d[k],k))c1=true;if(fixDot1(d[k]))c1=true});if(c1)localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}
+ try{const a=allLoad();let c2=false;Object.keys(a).forEach(k=>{const w=a[k]&&a[k].w;if(w&&w.vk&&syncVirt(w,k))c2=true;if(w&&fixDot1(w))c2=true});if(c2)allSave(a)}catch(e){}}
 const showUnk=()=>!!g('wrUnk').checked;
 let focusOnly=false;/* All Written Committee থেকে খুললে শুধু সেই কমিটির রেকর্ড(গুলো) দেখানো হয় */
-const visible=n=>{const i=RI[n];return i&&(focusOnly?SEL.includes(n):(i.el==1||(i.el==2&&showUnk())||SEL.includes(n)))};
+const visible=n=>{const i=RI[n];return i&&(focusOnly?SEL.includes(n):(window.__wrStaff?(i.el!=2||showUnk()||SEL.includes(n)):(i.el==1||(i.el==2&&showUnk())||SEL.includes(n))))};
+const CATS={t:'শিক্ষক',o:'কর্মকর্তা',e:'কর্মচারী',u:'শ্রেণি অনির্ধারিত'};
 function renderMemo(){
  const groups={};
  Object.keys(RI).filter(visible).forEach(n=>{const k=mkey(RI[n]);(groups[k]=groups[k]||[]).push(n)});
@@ -6313,28 +6441,31 @@ function renderCat(){
  ns.forEach(n=>{const c=RI[n].cat;cn[c]=(cn[c]||0)+1});
  const ks=['t','o','e','u'].filter(k=>cn[k]);
  cs.disabled=!pickMemos.size;
- cs.innerHTML='<option value="">— সব ক্যাটাগরি — ('+toBn(ns.length)+'টি পদ)</option>'+ks.map(k=>'<option value="'+k+'">'+CATN[k]+' — '+toBn(cn[k])+'টি পদ</option>').join('');
+ cs.innerHTML='<option value="">— সব ক্যাটাগরি — ('+toBn(ns.length)+'টি পদ)</option>'+ks.map(k=>'<option value="'+k+'">'+(window.__wrStaff?CATS[k]:CATN[k])+' — '+toBn(cn[k])+'টি পদ</option>').join('');
  if(!ks.includes(pickCat))pickCat='';cs.value=pickCat}
 function renderRecs(){
  renderCat();
+ {const vw=g('wrViewW');if(vw){vw.hidden=!(pickMemos.size>1);if(vw.parentNode)vw.parentNode.classList.toggle('wrV3',!vw.hidden)}}
  const box=g('wrRecBox'),L=g('wrRecList');
  if(!pickMemos.size){box.hidden=true;L.innerHTML=''}
- else{box.hidden=false;const dr=loadAll(),sv=allLoad(),svS=new Set(Object.keys(sv)),svN={};
-   Object.keys(sv).forEach(k=>{const x=sv[k],mem=[k].concat((x&&x.w&&x.w.recs)||[]),ms=new Set();mem.forEach(m=>{if(RI[m])ms.add(mkey(RI[m]))});const c=Math.max(1,ms.size);mem.forEach(m=>{svS.add(m);svN[m]=Math.max(svN[m]||0,c)})});
+ else{box.hidden=false;const dr=loadAll(),sv=(window.__wrStaff&&window.__stfRecSv)?window.__stfRecSv():allLoad(),svS=new Set(Object.keys(sv).filter(k=>!window.__wrStaff||(sv[k]&&sv[k].staff))),svN={};
+   Object.keys(sv).forEach(k=>{const x=sv[k];if(window.__wrStaff&&!(x&&x.staff))return;const mem=[k].concat((x&&x.w&&x.w.recs)||[]),ms=new Set();mem.forEach(m=>{if(RI[m])ms.add(mkey(RI[m]))});const c=Math.max(1,ms.size);mem.forEach(m=>{svS.add(m);svN[m]=Math.max(svN[m]||0,c)})});
    const gk=i=>gdN(i.grade)||999;/* গ্রেড অনুযায়ী: ছোট গ্রেড-নম্বর আগে (৯,১০,১১…২০), গ্রেডহীন সবার শেষে */
    const ns=Object.keys(RI).filter(n=>visible(n)&&pickMemos.has(mkey(RI[n]))&&(!pickCat||RI[n].cat===pickCat)).sort((a,b)=>gk(RI[a])-gk(RI[b])||a.localeCompare(b,'bn',{numeric:true}));
    const mks=[...pickMemos].sort((a,b)=>a.localeCompare(b,'bn',{numeric:true}));
    const rowH=n=>{const i=RI[n],on=SEL.includes(n),vt=i.virt,lk=vt&&W&&W.vk&&W.vk[n]&&W.vk[n].link,gd=gdN(i.grade);
     const dn=n.replace(/^📢\s*/,'').replace(/\s*\[[^\[\]]*_\d{1,2}-\d{1,2}-\d{4}\]\s*$/,'');/* স্মারক নং কলামের মাথাতেই আছে — তাই লাইনে নামের শেষের [স্মারক_তারিখ] দেখানো হয় না */
-    const info=(gd?'গ্রেড-'+toBn(gd):'')+(i.count!=null?(gd?' · ':'')+'যোগ্য '+toBn(i.count)+' জন':'');
+    const info=((mks.length>1&&(g('wrView')||{}).value=='p')?'স্মারক '+toBn(mkey(i))+((gd||i.count!=null)?' · ':''):'')+(gd?'গ্রেড-'+toBn(gd):'')+(i.count!=null?(gd?' · ':'')+'যোগ্য '+toBn(i.count)+' জন':'');
     const tip=n+'\n'+(i.post||'—')+(gd?' · গ্রেড-'+toBn(gd):'')+(i.dept?' · '+i.dept:'')+(i.count!=null?' · যোগ্য: '+toBn(i.count)+' জন':'')+(vt?'\n📢 বিজ্ঞপ্তির পদ — রেকর্ড এখনো নেই':'')+(lk?'\n🔗 মূল রেকর্ড যুক্ত হয়েছে (যোগ্য '+toBn((W.vk[n].cnt)||0)+' জন) — তালিকায় রেকর্ডটি আলাদা আছে, দুবার টিক দেবেন না':'');
-    return '<label class="wrRc'+(on?' on':'')+(vt?' virt':'')+(svS.has(n)?' svd s'+Math.min(3,svN[n]||1):'')+'" title="'+esc(tip)+'"><input type="checkbox" data-rn="'+esc(n)+'"'+(on?' checked':'')+'><b>'+esc(dn)+'</b>'+(vt?'<span class="wrTg nt">📢</span>':'')+(lk?'<span class="wrTg ok">🔗</span>':'')+(svS.has(n)?'<span class="wrTg ok">✅</span>':dr[n]?'<span class="wrTg">📝</span>':'')+(info?'<small>'+esc(info)+'</small>':'')+'</label>'};
+    return '<label class="wrRc'+(on?' on':'')+(vt&&!window.__wrStaff?' virt':'')+(svS.has(n)?' svd s'+Math.min(3,svN[n]||1):'')+'" title="'+esc(tip)+'"><input type="checkbox" data-rn="'+esc(n)+'"'+(on?' checked':'')+'><b>'+esc(dn)+'</b>'+(vt?'<span class="wrTg nt">📢</span>':'')+(lk?'<span class="wrTg ok">🔗</span>':'')+(svS.has(n)?'<span class="wrTg ok">✅</span>':dr[n]?'<span class="wrTg">📝</span>':'')+(info?'<small>'+esc(info)+'</small>':'')+'</label>'};
    const colH=k=>{const l=ns.filter(n=>mkey(RI[n])===k),f=Object.keys(RI).find(n=>mkey(RI[n])===k),md=f&&RI[f].mdate;/* প্রতিটি নির্বাচিত স্মারকের জন্য একটি করে কলাম */
     return '<div class="wrCol"><div class="wrMh">📋 স্মারক নং '+esc(k?toBn(k):'(নেই)')+(md?'<small> — তারিখ: '+esc(toBn(md))+'</small>':'')+' <small>('+toBn(l.length)+'টি পদ)</small></div>'+(l.length?l.map(rowH).join(''):'<div class="mut" style="padding:6px 2px">এই ক্যাটাগরিতে কোনো পদ নেই</div>')+'</div>'};
    L.style.setProperty('--wrN',Math.max(1,mks.length));
-   L.innerHTML=ns.length?mks.map(colH).join(''):'<p class="mut">এই স্মারক/ক্যাটাগরিতে লিখিত পরীক্ষা হয় এমন কোনো পদ নেই।</p>'}
+   const staffCols=()=>{const cs=['t','o','e','u'].filter(c=>ns.some(n=>RI[n].cat===c));L.style.setProperty('--wrN',Math.max(1,cs.length));return cs.map(c=>{const l=ns.filter(n=>RI[n].cat===c);return'<div class="wrCol"><div class="wrMh">'+(window.__wrStaff?CATS:CATN)[c]+' <small>('+toBn(l.length)+'টি পদ)</small></div>'+l.map(rowH).join('')+'</div>'}).join('')};
+   L.innerHTML=ns.length?(((!pickCat&&mks.length==1)||(mks.length>1&&(g('wrView')||{}).value=='p'))?staffCols():mks.map(colH).join('')):'<p class="mut">এই স্মারক/ক্যাটাগরিতে লিখিত পরীক্ষা হয় এমন কোনো পদ নেই।</p>'}
  const sm=g('wrSelSum');
- sm.innerHTML=SEL.length?'✔ নির্বাচিত '+toBn(SEL.length)+'টি পদ: '+SEL.map(n=>esc((RI[n]&&RI[n].post)||n)).join('; ')+' — <span style="color:var(--thc)">কাজ খসড়া হিসেবে স্বয়ংক্রিয়ভাবে সংরক্ষিত হচ্ছে</span>'+(focusOnly?' <button type="button" id="wrShowAll" style="margin-left:8px">📂 বিজ্ঞপ্তির সব পদ দেখান</button>':''):''}
+ sm.innerHTML=(SEL.length&&window.__wrStaff)?(focusOnly?'<button type="button" id="wrShowAll">📂 বিজ্ঞপ্তির সব পদ দেখান</button>':''):SEL.length?'✔ নির্বাচিত '+toBn(SEL.length)+'টি পদ: '+SEL.map(n=>esc((RI[n]&&RI[n].post)||n)).join('; ')+' — <span style="color:var(--thc)">কাজ খসড়া হিসেবে স্বয়ংক্রিয়ভাবে সংরক্ষিত হচ্ছে</span>'+(focusOnly?' <button type="button" id="wrShowAll" style="margin-left:8px">📂 বিজ্ঞপ্তির সব পদ দেখান</button>':''):'';
+ try{window.__stfFormUpd&&window.__stfFormUpd(SEL.slice(),RI)}catch(e){}}
 /* পুরোনো (বাংলা নামের) বিজ্ঞপ্তি-পদ কী → ইংরেজি নাম; একই পদ দুইবার থাকলে বাংলাটি বাদ */
 const vNA=t=>String(t||'').replace(/&amp;|&/g,' ').replace(/\s+/g,' ').replace(/\s+([,।)])/g,'$1').trim();
 const vBase=v=>'📢 '+enPost(vNA(v.post))+(vNA(v.dept)?' ['+enDept(vNA(v.dept))+']':'')+' ['+mk2(v.memo)+'_'+String(v.mdate||'').replace(/\//g,'-')+']';
@@ -6404,12 +6535,25 @@ g('wrMemoPanel').addEventListener('click',e=>{if(e.target.id=='wrDdOk')g('wrMemo
 g('wrMemoPanel').addEventListener('change',e=>{const c=e.target.closest('input[data-mk]');if(!c)return;if(c.checked)pickMemos.add(c.dataset.mk);else pickMemos.delete(c.dataset.mk);pickCat='';renderMemo()});
 document.addEventListener('mousedown',e=>{if(!e.target.closest||!e.target.closest('#wrMemo'))g('wrMemoPanel').hidden=true});
 g('wrCat').addEventListener('change',e=>{pickCat=e.target.value;renderRecs()});
+g('wrView').addEventListener('change',()=>renderRecs());
 g('wrUnk').addEventListener('change',renderMemo);
 g('wrRecList').addEventListener('change',e=>{const c=e.target.closest('input[data-rn]');if(c)q(()=>tick(c.dataset.rn,c.checked))});
 g('wrAllSel').addEventListener('click',()=>q(async()=>{for(const c of [...g('wrRecList').querySelectorAll('input[data-rn]')])if(!c.checked)await tick(c.dataset.rn,true)}));
 g('wrNoSel').addEventListener('click',()=>q(async()=>{for(const c of [...g('wrRecList').querySelectorAll('input[data-rn]')])if(SEL.includes(c.dataset.rn))await tick(c.dataset.rn,false)}));
 /* All Written Committee থেকে খোলা হলে নির্বাচনও মিলিয়ে নেওয়া */
+window.__wrRerender=()=>{pickCat='';focusOnly=false;renderMemo()};
 window.__wrFocusOff=()=>{if(!focusOnly)return;focusOnly=false;try{renderMemo()}catch(e){}};
+window.__wrRepaint=()=>{try{renderMemo()}catch(e){}};
+/* Staff Record → ইডিট: সংরক্ষিত পদগুলো Entry For Staff-এ আবার নির্বাচিত অবস্থায় খোলা */
+window.__stfOpenRecs=recs=>q(async()=>{
+ setMode('s');await loadRI();try{await syncAllVirt()}catch(e){}
+ const miss=recs.filter(n=>!RI[n]);const ok=recs.filter(n=>RI[n]);
+ if(!ok.length){toast('⚠ এই রেকর্ডের পদগুলো আর পাওয়া যাচ্ছে না');return}
+ SEL.length=0;
+ for(const n of ok){if(!SEL.includes(n))await tick(n,true)}
+ for(const n of SEL.slice()){if(!ok.includes(n))await tick(n,false)}
+ pickMemos.clear();SEL.forEach(n=>{if(RI[n])pickMemos.add(mkey(RI[n]))});pickCat='';focusOnly=true;renderMemo();
+ toast(miss.length?'✏️ ফরম খোলা হয়েছে — ⚠ '+toBn(miss.length)+'টি পদ আর নেই':'✏️ সংরক্ষিত ফরম Entry For Staff-এ খোলা হয়েছে')});
 window.__wrSyncSel=async()=>{focusOnly=false;if(W&&W.vk)Object.assign(VIRT,W.vk);SEL.length=0;if(cur){SEL.push(cur);(W.recs||[]).forEach(r=>{if(!SEL.includes(r))SEL.push(r)})}
  await loadRI();await syncAllVirt();pickMemos.clear();SEL.forEach(n=>{if(RI[n])pickMemos.add(mkey(RI[n]))});pickCat='';focusOnly=true;renderMemo()};
 document.addEventListener('click',e=>{if(e.target&&e.target.id=='wrShowAll')window.__wrFocusOff()});
@@ -6417,4 +6561,438 @@ if(tb)tb.addEventListener('click',()=>setTimeout(refreshPick,0));
 refreshPick();
 })();
 </script>
+<script>/* পিন করা অংশগুলোর উচ্চতা মেপে sticky অফসেট সেট করে */
+(function(){var T=document.getElementById('t-wr');if(!T)return;
+function h(e){return e?e.offsetHeight:0}
+function pin(){try{var h3=document.getElementById('wrH3'),p=h3&&h3.nextElementSibling,k=T.querySelector('.wrPk2c'),kh=T.querySelector('#wrRecBox .wrPkH');
+var a=h(h3),b=a+h(p),c=b+h(k),d=c+h(kh);T.style.setProperty('--pa',a+'px');T.style.setProperty('--pb',b+'px');T.style.setProperty('--pc',c+'px');T.style.setProperty('--pd',d+'px')}catch(e){}}
+window.__wrPin=pin;
+try{if(window.ResizeObserver){var ro=new ResizeObserver(pin);['wrH3'].forEach(function(i){var e=document.getElementById(i);e&&ro.observe(e)});[T.querySelector('#wrH3+p'),T.querySelector('.wrPk2c'),T.querySelector('#wrRecBox .wrPkH')].forEach(function(e){e&&ro.observe(e)})}}catch(e){}
+window.addEventListener('resize',pin);setTimeout(pin,0);setTimeout(pin,600);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(pin);
+T.addEventListener('click',function(){setTimeout(pin,0);setTimeout(pin,200)});
+})();</script>
+<script>/* ===== Staff List (কর্মকর্তা ও কর্মচারী): DOCX আপলোড + একক এন্ট্রি; ব্রাউজারে সংরক্ষিত ===== */
+(function(){
+var KEY='duet_staff_list_v1',G=function(i){return document.getElementById(i)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var BN='০১২৩৪৫৬৭৮৯',bnd=function(n){return String(n).replace(/\d/g,function(d){return BN[d]})},enD=function(t){return String(t==null?'':t).replace(/[০-৯]/g,function(d){return BN.indexOf(d)})};
+var sp=function(t){return String(t==null?'':t).replace(/[\u200b-\u200d\ufeff]/g,'').replace(/\s+/g,' ').trim()};
+var nk=function(n){return sp(n).replace(/^(জনাবা|জনাব)\s*/,'').replace(/[:ঃ]/g,'ঃ').replace(/[.\s]/g,'').toLowerCase()};
+/* সব নামের শুরুতে 'জনাব' (মহিলা হলে 'জনাবা' থাকলে সেটিই থাকবে) */
+var jn=function(n){n=sp(n);if(!n)return n;return /^জনাবা(\s|$)/.test(n)?n.replace(/^জনাবা\s*/,'জনাবা '):'জনাব '+n.replace(/^জনাব\s*/,'')};
+var tst=function(m){try{window.toast(m,4200)}catch(e){alert(m)}};
+function load(){try{var d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Array.isArray(d.list)){d.list.forEach(function(x){x.n=jn(x.n)});return d}}catch(e){}return{list:[]}}
+function save(d){try{localStorage.setItem(KEY,JSON.stringify(d));try{document.dispatchEvent(new Event('stfchange'))}catch(e){}return true}catch(e){return false}}
+window.STAFF_LIST={key:KEY,load:load,nk:nk,jn:jn,bnd:bnd};
+function cnt(){var c=G('stfCnt');if(c)c.textContent=bnd(load().list.length)}
+/* ---- DOCX পড়া ---- */
+async function zipText(buf,want){var u=new Uint8Array(buf),dv=new DataView(buf),e=-1;
+ for(var i=u.length-22;i>=Math.max(0,u.length-66000);i--){if(dv.getUint32(i,true)==0x06054b50){e=i;break}}
+ if(e<0)throw new Error('ফাইলটি সঠিক .docx নয়');
+ var n=dv.getUint16(e+10,true),p=dv.getUint32(e+16,true);
+ for(var k=0;k<n;k++){if(dv.getUint32(p,true)!=0x02014b50)break;
+  var meth=dv.getUint16(p+10,true),csz=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),xl=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),lo=dv.getUint32(p+42,true),fn=new TextDecoder().decode(u.subarray(p+46,p+46+nl));
+  if(fn==want){var ds=lo+30+dv.getUint16(lo+26,true)+dv.getUint16(lo+28,true),data=u.subarray(ds,ds+csz);
+   if(meth==0)return new TextDecoder().decode(data);
+   if(typeof DecompressionStream=='undefined')throw new Error('এই ব্রাউজারে .docx পড়া যাচ্ছে না — Chrome/Edge ব্যবহার করুন');
+   return await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text()}
+  p+=46+nl+xl+cl}
+ throw new Error('word/document.xml পাওয়া যায়নি')}
+function person(t){t=sp(t).replace(/[;；।\s]+$/,'');var a=t.split(/\s*[,，]\s*/).filter(Boolean);
+ return{n:jn(a[0]||''),des:sp(a[1]||''),dept:sp(a.slice(2).join(', '))}}
+async function parseDocx(buf){
+ var xml=await zipText(buf,'word/document.xml'),doc=new DOMParser().parseFromString(xml,'application/xml'),W='http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+ var body=doc.getElementsByTagNameNS(W,'body')[0];if(!body)throw new Error('ফাইলটি পড়া যায়নি');
+ var ptx=function(p){return Array.prototype.map.call(p.getElementsByTagNameNS(W,'t'),function(t){return t.textContent}).join('')};
+ var out=[],tbls=Array.prototype.filter.call(body.children,function(c){return c.localName=='tbl'});
+ if(!tbls.length)throw new Error('ফাইলে কোনো টেবিল পাওয়া যায়নি');
+ tbls.forEach(function(tb){var rows=Array.prototype.filter.call(tb.children,function(c){return c.localName=='tr'}).map(function(tr){
+   return Array.prototype.filter.call(tr.children,function(c){return c.localName=='tc'}).map(function(tc){return sp(Array.prototype.map.call(tc.getElementsByTagNameNS(W,'p'),ptx).filter(Boolean).join(' '))})});
+  var nc=1,gc=2;
+  for(var i=0;i<rows.length;i++){var r=rows[i],a=r.findIndex(function(x){return /নাম/.test(x)}),b=r.findIndex(function(x){return /গ্রেড/.test(x)});
+   if(a>=0&&b>=0){nc=a;gc=b;rows=rows.slice(i+1);break}}
+  rows.forEach(function(r){if(r.length<=Math.max(nc,gc))return;var t=r[nc];if(!t||/^[\d০-৯\s.\-–—]+$/.test(t))return;
+   var p=person(t);if(!p.n)return;var g=parseInt(enD(r[gc]).replace(/[^\d]/g,''),10);p.gr=g>0?g:0;out.push(p)})});
+ if(!out.length)throw new Error('টেবিলে কোনো নাম পাওয়া যায়নি (কলাম: নাম, পদবী ও দপ্তর / গ্রেড)');
+ return out}
+/* ---- মার্জ: নাম মিললে শুধু নাম/পদবী/গ্রেড আপডেট; বাকিরা অপরিবর্তিত ---- */
+function merge(base,inc){var out=base.map(function(x){return Object.assign({},x)}),idx=new Map();out.forEach(function(x,i){idx.set(nk(x.n),i)});
+ var res={added:[],updated:[],same:[]};
+ inc.forEach(function(p){var k=nk(p.n);if(!k)return;
+  if(idx.has(k)){var o=out[idx.get(k)],ch=o.n!==p.n||(p.des&&o.des!==p.des)||(p.gr&&o.gr!==p.gr);
+   if(ch){var old=Object.assign({},o);o.n=p.n;if(p.des)o.des=p.des;if(p.gr)o.gr=p.gr;if(!o.dept&&p.dept)o.dept=p.dept;res.updated.push({old:old,now:Object.assign({},o)})}else res.same.push(o)}
+  else{var o2={n:p.n,des:p.des,dept:p.dept,gr:p.gr};idx.set(k,out.length);out.push(o2);res.added.push(o2)}});
+ return{out:out,res:res}}
+/* ---- মোডাল ---- */
+function close(){var o=G('stfOv');if(o)o.remove()}
+function open(html){close();var o=document.createElement('div');o.id='stfOv';o.innerHTML='<div class="bx">'+html+'</div>';document.body.appendChild(o);
+ o.addEventListener('mousedown',function(e){if(e.target===o)close()});return o}
+var gdTxt=function(g){return g?bnd(g):'—'};
+/* আপলোড */
+function preview(name,inc){var d=load(),m=merge(d.list,inc),r=m.res;
+ var rows=r.added.map(function(x){return'<tr><td><span class="tg n">নতুন</span></td><td>'+esc(x.n)+'</td><td>'+esc(x.des)+'</td><td>'+esc(x.dept)+'</td><td>'+gdTxt(x.gr)+'</td></tr>'}).concat(r.updated.map(function(u){
+  var dc=function(a,b){return a===b?esc(b):'<s class="mut">'+esc(a||'—')+'</s> → '+esc(b||'—')};
+  return'<tr><td><span class="tg u">আপডেট</span></td><td>'+dc(u.old.n,u.now.n)+'</td><td>'+dc(u.old.des,u.now.des)+'</td><td>'+esc(u.now.dept)+'</td><td>'+(u.old.gr===u.now.gr?gdTxt(u.now.gr):'<s class="mut">'+gdTxt(u.old.gr)+'</s> → '+gdTxt(u.now.gr))+'</td></tr>'})).concat(r.same.map(function(x){return'<tr><td><span class="tg">অপরিবর্তিত</span></td><td>'+esc(x.n)+'</td><td>'+esc(x.des)+'</td><td>'+esc(x.dept)+'</td><td>'+gdTxt(x.gr)+'</td></tr>'})).map(function(h,i){return h.replace('<tr><td>','<tr><td>'+bnd(i+1)+'</td><td>')}).join('');
+ var o=open('<h3>Staff List Upload — প্রিভিউ</h3><p class="mut" style="margin:0 0 6px">ফাইল: <b>'+esc(name)+'</b> — ফাইলে <b>'+bnd(inc.length)+'</b> জন। নতুন <b>'+bnd(r.added.length)+'</b> · আপডেট <b>'+bnd(r.updated.length)+'</b> · অপরিবর্তিত <b>'+bnd(r.same.length)+'</b>। তালিকায় নাম মিললে শুধু নাম, পদবী ও গ্রেড আপডেট হবে; বাকিদের তথ্য আগের মতোই থাকবে।</p>'
+  +(rows?'<div class="scr"><table><thead><tr><th>#</th><th>অবস্থা</th><th>নাম</th><th>পদবী</th><th>দপ্তর</th><th>গ্রেড</th></tr></thead><tbody>'+rows+'</tbody></table></div>':'<p>ফাইলে কোনো তথ্য পাওয়া যায়নি।</p>')
+  +'<div class="ab"><button type="button" id="stfCancel">বাতিল</button><button type="button" class="p" id="stfOk"'+((r.added.length||r.updated.length)?'':' disabled')+'>✔ সংরক্ষণ করুন</button></div>');
+ o.querySelector('#stfCancel').onclick=close;
+ o.querySelector('#stfOk').onclick=function(){if(save({name:name,ts:Date.now(),list:m.out})){close();cnt();tst('✓ Staff List সংরক্ষিত — নতুন '+bnd(r.added.length)+', আপডেট '+bnd(r.updated.length)+', অপরিবর্তিত '+bnd(r.same.length))}else tst('⚠ ব্রাউজারে সংরক্ষণ হয়নি (জায়গা শেষ?)')}}
+/* একক এন্ট্রি */
+function newEntry(){
+ var o=open('<h3>➕ New Staff Entry</h3><p class="mut" style="margin:0 0 8px">কর্মকর্তা/কর্মচারীর তথ্য Staff List-এ যোগ হবে। একই নাম আগে থাকলে তার পদবী, দপ্তর ও গ্রেড আপডেট হবে।</p>'
+  +'<div class="fg"><label class="w">নাম *<input id="stfN" autocomplete="off" placeholder="যেমন: মোঃ রাশিকুল ইসলাম"></label>'
+  +'<label>পদবী *<input id="stfD" autocomplete="off" placeholder="যেমন: প্রধান সহকারী কাম কম্পিউটার অপারেটর"></label>'
+  +'<label>দপ্তর<input id="stfO" autocomplete="off" placeholder="যেমন: কাউন্সিল শাখা"></label>'
+  +'<label>গ্রেড *<input id="stfG" inputmode="numeric" autocomplete="off" placeholder="যেমন: ১১ (১–২০)"></label></div>'
+  +'<div id="stfMsg" class="mut" style="margin-top:8px;min-height:20px"></div>'
+  +'<div class="ab"><button type="button" id="stfCancel">বাতিল</button><button type="button" class="p" id="stfOk">✔ সংরক্ষণ করুন</button></div>');
+ var N=o.querySelector('#stfN'),D=o.querySelector('#stfD'),Op=o.querySelector('#stfO'),Gr=o.querySelector('#stfG'),M=o.querySelector('#stfMsg');
+ N.addEventListener('input',function(){var k=nk(N.value),x=k&&load().list.find(function(y){return nk(y.n)==k});M.textContent=x?'ℹ এই নাম তালিকায় আছে ('+(x.des||'—')+', গ্রেড '+gdTxt(x.gr)+') — সংরক্ষণ করলে আপডেট হবে।':''});
+ o.querySelector('#stfCancel').onclick=close;
+ o.querySelector('#stfOk').onclick=function(){var p={n:jn(N.value),des:sp(D.value),dept:sp(Op.value),gr:parseInt(enD(Gr.value).replace(/[^\d]/g,''),10)||0};
+  if(!p.n||!p.des||!p.gr){M.style.color='#c0392b';M.textContent='⚠ নাম, পদবী ও গ্রেড দিতে হবে';return}
+  if(p.gr<1||p.gr>20){M.style.color='#c0392b';M.textContent='⚠ গ্রেড ১ থেকে ২০ এর মধ্যে হতে হবে';return}
+  var d=load(),m=merge(d.list,[p]);
+  /* একক এন্ট্রিতে দপ্তরও আপডেট হবে */
+  var k=nk(p.n),x=m.out.find(function(y){return nk(y.n)==k});if(x&&p.dept)x.dept=p.dept;
+  if(save({name:d.name||'',ts:Date.now(),list:m.out})){close();cnt();tst(m.res.added.length?'✓ নতুন স্টাফ যোগ হয়েছে — '+p.n:'✓ আগের তথ্য আপডেট হয়েছে — '+p.n)}else tst('⚠ ব্রাউজারে সংরক্ষণ হয়নি')};
+ N.focus()}
+/* তালিকা দেখা */
+function viewList(){var d=load();
+ var o=open('<h3>Staff List — সংরক্ষিত</h3><p class="mut" style="margin:0 0 6px" id="stfInfo"></p><input id="stfQ" placeholder="🔍 নাম / পদবী / দপ্তর / গ্রেড দিয়ে খুঁজুন" style="width:100%"><div class="scr"><table><thead><tr><th>#</th><th>নাম</th><th>পদবী</th><th>দপ্তর</th><th>গ্রেড</th><th></th></tr></thead><tbody id="stfTb"></tbody></table></div><div class="ab"><button type="button" class="p" id="stfCancel">বন্ধ করুন</button></div>');
+ var Tb=o.querySelector('#stfTb'),Q=o.querySelector('#stfQ'),I=o.querySelector('#stfInfo');
+ function draw(){var L=load().list,q=sp(Q.value).toLowerCase(),idx=L.map(function(x,i){return i}).sort(function(a,b){return(L[a].gr||99)-(L[b].gr||99)||L[a].n.localeCompare(L[b].n,'bn')});
+  var f=idx.filter(function(i){var x=L[i];return!q||(x.n+' '+x.des+' '+x.dept+' '+(x.gr||'')+' '+bnd(x.gr||'')).toLowerCase().indexOf(q)>=0});
+  I.textContent='মোট '+bnd(L.length)+' জন'+(q?' — দেখানো হচ্ছে '+bnd(f.length)+' জন':'')+(load().name?' · সর্বশেষ ফাইল: '+load().name:'');
+  Tb.innerHTML=f.length?f.map(function(i,j){var x=L[i];return'<tr><td>'+bnd(j+1)+'</td><td>'+esc(x.n)+'</td><td>'+esc(x.des)+'</td><td>'+esc(x.dept)+'</td><td>'+gdTxt(x.gr)+'</td><td><button type="button" data-del="'+i+'" title="তালিকা থেকে মুছুন">✕</button></td></tr>'}).join(''):'<tr><td colspan="6" class="mut">কোনো তথ্য নেই</td></tr>'}
+ Q.addEventListener('input',draw);
+ Tb.addEventListener('click',function(e){var b=e.target.closest('button[data-del]');if(!b)return;var dd=load(),i=+b.dataset.del,x=dd.list[i];if(!x||!confirm('“'+x.n+'” কে Staff List থেকে মুছবেন?'))return;dd.list.splice(i,1);save(dd);cnt();draw()});
+ o.querySelector('#stfCancel').onclick=close;draw()}
+/* ---- বাটন ---- */
+function mount(){var up=G('stfUp'),fi=G('stfFile');if(!up||!fi)return;
+ up.onclick=function(){fi.value='';fi.click()};
+ fi.onchange=async function(){var f=fi.files&&fi.files[0];if(!f)return;try{var inc=await parseDocx(await f.arrayBuffer());preview(f.name,inc)}catch(e){console.error(e);tst('⚠ '+(e&&e.message||e))}};
+ G('stfNew').onclick=newEntry;G('stfView').onclick=viewList;cnt();
+ /* ড্র্যাগ-ড্রপ: Staff List অংশে .docx ছেড়ে দিলেই আপলোড-প্রিভিউ খুলবে */
+ var zone=G('wrStaffW'),dep=0,hasF=function(e){var t=e.dataTransfer&&e.dataTransfer.types;return !!t&&Array.prototype.indexOf.call(t,'Files')>=0};
+ if(zone&&!zone.__stfDnD){zone.__stfDnD=1;
+  zone.addEventListener('dragenter',function(e){if(!hasF(e))return;e.preventDefault();dep++;zone.classList.add('stfDrop')});
+  zone.addEventListener('dragover',function(e){if(!hasF(e))return;e.preventDefault();e.dataTransfer.dropEffect='copy'});
+  zone.addEventListener('dragleave',function(e){if(!hasF(e))return;if(--dep<=0){dep=0;zone.classList.remove('stfDrop')}});
+  zone.addEventListener('drop',async function(e){if(!hasF(e))return;e.preventDefault();dep=0;zone.classList.remove('stfDrop');
+   var f=e.dataTransfer.files&&e.dataTransfer.files[0];if(!f)return;
+   if(!/\.docx$/i.test(f.name)){tst('⚠ শুধু .docx ফাইল ছাড়া যাবে');return}
+   try{preview(f.name,await parseDocx(await f.arrayBuffer()))}catch(er){console.error(er);tst('⚠ '+(er&&er.message||er))}});
+  /* পেজের অন্য জায়গায় ভুলে ছাড়লে ব্রাউজার যেন ফাইল খুলে না ফেলে */
+  ['dragover','drop'].forEach(function(ev){window.addEventListener(ev,function(e){if(hasF(e)&&!zone.contains(e.target))e.preventDefault()})})}}
+if(document.readyState=='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();</script>
+<script>/* ===== Entry For Staff: দায়িত্ব ফরম (Staff List → ৩ ক্যাটাগরি) ===== */
+(function(){
+var FK='duet_stf_form_v1',G=function(i){return document.getElementById(i)};
+var BN='০১২৩৪৫৬৭৮৯',bn=function(n){return String(n==null?'':n).replace(/\d/g,function(d){return BN[d]})},en=function(t){return String(t==null?'':t).replace(/[০-৯]/g,function(d){return BN.indexOf(d)})};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var sp=function(t){return String(t==null?'':t).replace(/\s+/g,' ').trim()};
+var tst=function(m){try{window.toast(m,4200)}catch(e){alert(m)}};
+var LG=function(){try{return typeof LOGO=='string'&&/^data:image\/png;base64,/.test(LOGO)?LOGO:''}catch(e){return''}};
+var DEF=['মোঃ মফিজুর রহমান','মোঃ আব্দুল মতিন ভূইয়া','মো: রাশিকুল ইসলাম','মো: রমজান আলী','মো: আশিকুল ইসলাম খাঁন'];
+var EXT={w:'লিখিত',o:'মৌখিক',b:'লিখিত ও মৌখিক'};
+function applyDef(){if(st.touched)return;var L=SL().load().list,want={};DEF.forEach(function(n){want[nk(n)]=1});L.forEach(function(x){var k=nk(x.n);if(want[k])st.sel[k]=1})}
+var CATS=[{k:1,t:'ক্যাটাগরি-১',d:'৯ম থেকে তদুর্ধ্ব',lo:1,hi:9},{k:2,t:'ক্যাটাগরি-২',d:'১০ম থেকে ১৬তম গ্রেড',lo:10,hi:16},{k:3,t:'ক্যাটাগরি-৩',d:'১৭তম থেকে ২০তম গ্রেড',lo:17,hi:20}];
+var catOf=function(g){for(var i=0;i<CATS.length;i++)if(g>=CATS[i].lo&&g<=CATS[i].hi)return CATS[i].k;return 0};
+var SL=function(){return window.STAFF_LIST||{load:function(){return{list:[]}},nk:function(x){return x}}};
+var nk=function(n){return SL().nk(n)};
+var st={key:'',sel:{},date:'',intro:null,exam:'w',touched:false,ov:{},cat:{},pos:{}},SELn=[],RIn={},all={};
+function ld(){try{all=JSON.parse(localStorage.getItem(FK)||'{}')||{}}catch(e){all={}}}
+function sv(){try{all[st.key]={sel:st.sel,date:st.date,intro:st.intro,exam:st.exam,touched:st.touched,ov:st.ov,cat:st.cat,pos:st.pos};localStorage.setItem(FK,JSON.stringify(all))}catch(e){}}
+function today(){var d=new Date(),p=function(n){return String(n).padStart(2,'0')};return bn(p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear())}
+/* ---- পরিচিতি লেখা ---- */
+var rel=function(d){d=sp(d);if(!d)return'';return d+(/[\u0995-\u09B9\u09DC-\u09DF\u09CE]$/.test(d)?'ের':'র')};
+var fd=function(s){s=bn(sp(s));if(!s)return'........../........../'+bn(new Date().getFullYear())+' খ্রি.';return /খ্রি/.test(s)?s:(/^[০-৯]/.test(s)?s+' খ্রি.':s)};
+var WD=['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
+var fdw=function(s){var r=fd(s);if(/\(/.test(r))return r;var m=en(sp(s)).match(/(\d{1,2})\s*[\/.\-]\s*(\d{1,2})\s*[\/.\-]\s*(\d{4})/);if(!m)return r;var d=+m[1],mo=+m[2],y=+m[3],t=new Date(Date.UTC(y,mo-1,d));if(t.getUTCDate()!=d||t.getUTCMonth()!=mo-1)return r;return r+' ('+WD[t.getUTCDay()]+')'};
+var jo=function(a,w){return a.length>2?a.slice(0,-1).join(', ')+' '+w+' '+a[a.length-1]:a.join(' '+w+' ')};
+var uq=function(a){return a.filter(function(x,i){return a.indexOf(x)==i})};
+function autoIntro(){
+ var rs=SELn.map(function(n){return RIn[n]}).filter(Boolean);
+ var memos=uq(rs.map(function(r){return sp(r.memo)}).filter(Boolean)),dates=uq(rs.map(function(r){return fd(r.mdate)}));
+ var mt='নিয়োগ বিজ্ঞপ্তির স্মারক নং-'+(memos.length?bn(jo(memos,'ও')):'.........')+', তারিখ'+(dates.length<2?' : '+(dates[0]||fd('')):' যথাক্রমে : '+jo(dates,'ও'))+' অনুযায়ী ';
+ var byD={},ord=[];rs.forEach(function(r){var d=sp(r.dept);if(!(d in byD)){byD[d]=[];ord.push(d)}var p=sp(String(r.post||'').replace(/^📢\s*/,''));if(p&&byD[d].indexOf(p)<0)byD[d].push(p)});
+ var q=function(a){var x=a.map(function(p){return'“'+p+'”'});return x.length>2?x.slice(0,-1).join(', ')+' ও '+x[x.length-1]:x.join(' ও ')};
+ var who=ord.map(function(d){return(d?rel(d)+' ':'')+(byD[d].length?q(byD[d]):'“.........”')});
+ return mt+(who.length?jo(who,'এবং'):'“.........”')+' পদে '+(EXT[st.exam]||EXT.w)+' পরীক্ষা গ্রহণের নিমিত্ত দায়িত্বপ্রাপ্ত কর্মকর্তা ও কর্মচারীবৃন্দ :'}
+/* ---- ফরম-স্তরের সংশোধন (ov), ক্যাটাগরি পরিবর্তন (cat), ক্রম (pos) ---- */
+function eff(x,k){var o=st.ov[k];if(!o)return x;var y=Object.assign({},x,o);y.gr=+y.gr||0;return y}
+function catE(x,k){return st.cat[k]||catOf(x.gr||0)}
+function srt(p,q){var a=st.pos[p.k],b=st.pos[q.k];a=a==null?1e6:a;b=b==null?1e6:b;return(a-b)||((p.x.gr||0)-(q.x.gr||0))||(p.i-q.i)}
+function catList(c){var L=SL().load().list,a=[];L.forEach(function(x0,i){var k=nk(x0.n),x=eff(x0,k);if(catE(x,k)==c)a.push({x:x,i:i,k:k})});return a.sort(srt)}
+/* ---- নির্বাচিত স্টাফ ক্যাটাগরি অনুযায়ী ---- */
+function groups(){
+ var L=SL().load().list,out={1:[],2:[],3:[]};
+ L.forEach(function(x0,i){var k=nk(x0.n);if(!st.sel[k])return;var x=eff(x0,k),c=catE(x,k);if(c&&out[c])out[c].push({x:x,i:i,k:k})});
+ CATS.forEach(function(c){out[c.k].sort(srt)});return out}
+/* ---- ডকুমেন্ট HTML (প্রিভিউ ও এক্সপোর্ট একই) ---- */
+function live(){return{g:groups(),intro:st.intro!=null?st.intro:autoIntro(),date:st.date}}
+function docHtml(ex,m){
+ var M=m||live(),g=M.g,tot=g[1].length+g[2].length+g[3].length,rows='',n=0,seen=0;
+ var intro=M.intro;
+ CATS.forEach(function(c){var a=g[c.k];a.forEach(function(r,j){n++;seen++;var x=r.x,t=esc(x.n)+(x.des?', '+esc(x.des):'')+(x.dept?', '+esc(x.dept):'')+(seen<tot?';':'');
+  rows+='<tr'+(j==0&&seen>1?' class="g1"':'')+'><td class="c">'+bn(n)+'।</td><td>'+t+'</td><td class="c">'+bn(x.gr)+'</td>'+(j==0?'<td class="c" rowspan="'+a.length+'">'+bn(String(a.length).padStart(2,'0'))+' জন</td>':'')+'</tr>'})});
+ var tb='<table><thead><tr><th style="width:9%">ক্র.<br>নং</th><th>নাম, পদবী ও দপ্তর</th><th style="width:11%">গ্রেড</th><th style="width:15%">ক্যাটাগরি</th></tr></thead><tbody>'+(rows||'<tr><td colspan="4" class="em">Staff List থেকে বাঁ পাশে স্টাফ টিক দিন — তিনটি ক্যাটাগরিতে সাজিয়ে এখানে আসবে</td></tr>')+'</tbody></table>';
+ var inH=ex?'<div class="in">'+esc(intro).replace(/\n/g,'<br>')+'</div>':'<div class="in" id="stfIn" contenteditable="true" spellcheck="false" title="এখানে ক্লিক করে লেখা সম্পাদনা করা যাবে">'+esc(intro).replace(/\n/g,'<br>')+'</div>';
+ var lg=LG(),hdr='<table class="hd0"><tr>'+(lg?'<td style="width:1.04in;text-align:right;padding-right:.04in"><img src="'+lg+'" style="height:.6in;width:auto;display:inline-block"></td>':'')+'<td><div class="h1">ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর</div><div class="h2">গাজীপুর-১৭০৭।</div></td>'+(lg?'<td style="width:1.04in"></td>':'')+'</tr></table>';
+ return hdr+inH+'<div class="dt">তারিখ : '+esc(fdw(M.date))+'</div>'+tb}
+function drawDoc(){var d=G('stfDoc');if(!d)return;d.innerHTML=docHtml(false);var i=G('stfIn');if(i)i.addEventListener('input',function(){st.intro=i.innerText.replace(/\n{3,}/g,'\n\n').trim();sv()})}
+/* ---- বাছাই প্যানেল ---- */
+function drawPick(){
+ var B=G('stfPkB'),L=SL().load().list;if(!B)return;
+ var sc=B.parentNode?B.parentNode.scrollTop:0;
+ if(!L.length){B.innerHTML='<p class="mut">Staff List খালি — উপরে “Staff List Upload” দিয়ে DOCX আপলোড করুন (ফাইল ড্র্যাগ-ড্রপও চলবে) অথবা “New Staff Entry” দিন।</p>';return}
+ var by={0:[],1:[],2:[],3:[]};L.forEach(function(x0,i){var k=nk(x0.n),x=eff(x0,k);by[catE(x,k)||0].push({x:x,i:i,k:k})});
+ var opt=function(cur,z){return (z?'<option value="0"'+(cur==0?' selected':'')+'>— ক্যাটাগরি —</option>':'')+CATS.map(function(c){return'<option value="'+c.k+'"'+(cur==c.k?' selected':'')+'>ক্যাট-'+bn(c.k)+'</option>'}).join('')};
+ var item=function(r,ci,n,len){var k=r.k,o=!!st.sel[k],x=r.x,off=!ci,ek=esc(k);
+  return'<label class="stfIt'+(o?' on':'')+(off?' off':'')+'" data-q="'+esc((x.n+' '+x.des+' '+x.dept+' '+x.gr+' '+bn(x.gr)).toLowerCase())+'"><input type="checkbox" data-k="'+ek+'" data-c="'+ci+'"'+(o?' checked':'')+(off?' disabled':'')+'><span class="stfBd"><span class="stfR1"><b class="stfNm" title="'+esc(x.n)+'">'+esc(x.n)+'</b>'+(st.ov[k]?'<em class="stfMk">সংশোধিত</em>':'')+'<span class="stfAc"><button type="button" data-a="up" data-k="'+ek+'" title="উপরে নিন"'+(ci&&n>0?'':' disabled')+'>▲</button><button type="button" data-a="dn" data-k="'+ek+'" title="নিচে নিন"'+(ci&&n<len-1?'':' disabled')+'>▼</button>'+[1,2,3].map(function(q){return'<button type="button" data-a="cat" data-c="'+q+'" data-k="'+ek+'" class="stfCt'+(ci==q?' on':'')+'" title="ক্যাটাগরি-'+bn(q)+'-এ নিন">ক্যাট-'+bn(q)+'</button>'}).join('')+'<button type="button" data-a="ed" data-k="'+ek+'" title="তথ্য সংশোধন">✎ সংশোধন</button></span></span><small>'+esc(x.des)+(x.dept?', '+esc(x.dept):'')+' · '+(x.gr?'গ্রেড-'+bn(x.gr):'গ্রেড নেই')+'</small></span></label>'};
+ var h='';CATS.forEach(function(c){var a=by[c.k].sort(srt),on=a.filter(function(r){return st.sel[r.k]}).length;
+  h+='<div class="stfCh" data-c="'+c.k+'"><span>'+c.t+' <small>('+c.d+') — '+bn(a.length)+' জন · ✔ <b class="stfOnN">'+bn(on)+'</b></small></span><span class="grow"></span><button type="button" data-all="'+c.k+'">সব</button><button type="button" data-none="'+c.k+'">বাদ</button></div>'
+  +(a.length?a.map(function(r,n){return item(r,c.k,n,a.length)}).join(''):'<div class="mut" style="padding:2px 6px">এই ক্যাটাগরিতে কেউ নেই</div>')});
+ if(by[0].length)h+='<div class="stfCh"><span>⚠ গ্রেড নেই <small>('+bn(by[0].length)+' জন — ✎ সংশোধনে গ্রেড দিন বা ক্যাটাগরি বেছে নিন)</small></span></div>'+by[0].map(function(r){return item(r,0,0,0)}).join('');
+ B.innerHTML=h;filt();if(B.parentNode)B.parentNode.scrollTop=sc}
+function filt(){var q=sp((G('stfQ2')||{}).value).toLowerCase();Array.prototype.forEach.call(document.querySelectorAll('#stfPkB .stfIt'),function(l){l.style.display=(!q||l.dataset.q.indexOf(q)>=0)?'':'none'})}
+function cnts(){var g=groups();CATS.forEach(function(c){var e=document.querySelector('#stfPkB .stfCh[data-c="'+c.k+'"] .stfOnN');if(e)e.textContent=bn(g[c.k].length)})}
+/* ---- দেখানো/লুকানো ---- */
+function render(){
+ var fc=G('stfFc'),T=G('t-wr');if(!fc||!T)return;
+ var show=!!window.__wrStaff&&SELn.length>0;fc.hidden=!show;T.classList.toggle('stfOn',show);if(!show)return;
+ var key=SELn.slice().sort().join('|');
+ if(key!==st.key){ld();var o=all[key]||{};st={key:key,sel:o.sel||{},date:o.date||today(),intro:o.intro==null?null:o.intro,exam:o.exam||'w',touched:!!o.touched,ov:o.ov||{},cat:o.cat||{},pos:o.pos||{}};applyDef();G('stfFd').value=st.date;exSet();drawPick()}
+ else if(!G('stfPkB').children.length){applyDef();drawPick()}
+ drawDoc()}
+window.__stfFormUpd=function(sel,ri){SELn=sel;RIn=ri||{};render()};
+document.addEventListener('stfchange',function(){if(!G('stfFc').hidden){applyDef();drawPick();drawDoc()}});
+try{new MutationObserver(render).observe(G('t-wr'),{attributes:true,attributeFilter:['class']})}catch(e){}
+/* ---- ইভেন্ট ---- */
+G('stfPkB').addEventListener('change',function(e){var c=e.target.closest('input[data-k]');if(!c)return;st.touched=true;if(c.checked)st.sel[c.dataset.k]=1;else delete st.sel[c.dataset.k];c.closest('.stfIt').classList.toggle('on',c.checked);sv();cnts();drawDoc()});
+G('stfPkB').addEventListener('click',function(e){var b=e.target.closest('button[data-all],button[data-none]');if(!b)return;var on=b.hasAttribute('data-all'),c=b.dataset.all||b.dataset.none;st.touched=true;
+ Array.prototype.forEach.call(document.querySelectorAll('#stfPkB input[data-c="'+c+'"]'),function(i){if(i.closest('.stfIt').style.display=='none')return;i.checked=on;if(on)st.sel[i.dataset.k]=1;else delete st.sel[i.dataset.k];i.closest('.stfIt').classList.toggle('on',on)});sv();cnts();drawDoc()});
+function exSet(){Array.prototype.forEach.call(document.querySelectorAll('#stfEx input'),function(i){i.checked=i.dataset.ex==st.exam})}
+G('stfEx').addEventListener('change',function(e){var c=e.target.closest('input[data-ex]');if(!c)return;st.exam=c.dataset.ex;exSet();
+  if(st.intro!=null){st.intro=st.intro.replace(/(লিখিত ও মৌখিক|লিখিত|মৌখিক) পরীক্ষা গ্রহণের/g,EXT[st.exam]+' পরীক্ষা গ্রহণের')}
+  sv();drawDoc()});
+/* ---- উপরে/নিচে, ক্যাটাগরি পরিবর্তন, তথ্য সংশোধন ---- */
+function findK(k){var L=SL().load().list;for(var i=0;i<L.length;i++)if(nk(L[i].n)==k)return i;return -1}
+function mv(k,d){var i=findK(k);if(i<0)return;var x0=SL().load().list[i],c=catE(eff(x0,k),k);if(!c)return;var a=catList(c),p=a.findIndex(function(r){return r.k==k}),q=p+d;if(p<0||q<0||q>=a.length)return;var t=a[p];a[p]=a[q];a[q]=t;a.forEach(function(r,n){st.pos[r.k]=n});st.touched=true;sv();drawPick();drawDoc()}
+function chCat(k,c){var i=findK(k);if(i<0||!c)return;var x=eff(SL().load().list[i],k),a=catList(c);a.forEach(function(r,n){st.pos[r.k]=n});st.pos[k]=a.length;if(catOf(x.gr||0)==c)delete st.cat[k];else st.cat[k]=c;st.touched=true;sv();drawPick();drawDoc();tst('✓ ক্যাটাগরি-'+bn(c)+'-এ সরানো হয়েছে')}
+function edit(k){var L=SL().load().list,idx=findK(k);if(idx<0)return;var x0=L[idx],x=eff(x0,k),old=G('stfOv');if(old)old.remove();
+ var o=document.createElement('div');o.id='stfOv';
+ o.innerHTML='<div class="bx" style="max-width:560px"><h3>✎ তথ্য সংশোধন</h3><p class="mut" style="margin:0 0 8px">সংশোধন শুধু এই ফরমে কার্যকর হবে (Staff List অপরিবর্তিত থাকবে)। নিচের টিক দিলে Staff List-এও স্থায়ীভাবে বদলাবে।</p>'
+ +'<div class="fg"><label class="w">নাম<input id="stfEdN" value="'+esc(x.n)+'"></label><label class="w">পদবী<input id="stfEdD" value="'+esc(x.des)+'"></label><label class="w">দপ্তর<input id="stfEdP" value="'+esc(x.dept||'')+'"></label>'
+ +'<label>গ্রেড (১–২০)<input id="stfEdG" inputmode="numeric" value="'+(x.gr?bn(x.gr):'')+'"></label><label>ক্যাটাগরি<select id="stfEdC" style="padding:7px 9px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx)"><option value="0">স্বয়ংক্রিয় (গ্রেড অনুযায়ী)</option>'+CATS.map(function(c){return'<option value="'+c.k+'"'+(st.cat[k]==c.k?' selected':'')+'>'+c.t+' ('+c.d+')</option>'}).join('')+'</select></label></div>'
+ +'<label style="display:flex;gap:6px;align-items:center;margin-top:10px;cursor:pointer"><input type="checkbox" id="stfEdS"> Staff List-এও স্থায়ীভাবে আপডেট করুন</label>'
+ +'<div class="ab"><button type="button" id="stfEdR" title="এই ফরমের সংশোধন ও ক্যাটাগরি পরিবর্তন তুলে নিন">↩ মূল তথ্যে ফিরুন</button><button type="button" id="stfEdX">বাতিল</button><button type="button" class="p" id="stfEdOk">✔ সংরক্ষণ</button></div></div>';
+ document.body.appendChild(o);var cl=function(){o.remove()};
+ o.addEventListener('mousedown',function(e){if(e.target===o)cl()});o.querySelector('#stfEdX').onclick=cl;
+ o.querySelector('#stfEdR').onclick=function(){delete st.ov[k];delete st.cat[k];st.touched=true;sv();drawPick();drawDoc();cl()};
+ o.querySelector('#stfEdOk').onclick=function(){
+  var n=sp(G('stfEdN').value),des=sp(G('stfEdD').value),dp=sp(G('stfEdP').value),gr=parseInt(en(G('stfEdG').value).replace(/[^\d]/g,''),10)||0,cs=+G('stfEdC').value;
+  if(!n){tst('⚠ নাম ফাঁকা রাখা যাবে না');return}
+  if(gr<0||gr>20){tst('⚠ গ্রেড ১ থেকে ২০-এর মধ্যে দিন');return}
+  if(!gr&&!cs){tst('⚠ গ্রেড দিন অথবা ক্যাটাগরি বেছে নিন');return}
+  if(G('stfEdS').checked){
+   var nn=SL().jn?SL().jn(n):n,nkNew=nk(nn),L2=SL().load().list;
+   for(var i=0;i<L2.length;i++)if(i!=idx&&nk(L2[i].n)==nkNew){tst('⚠ এই নামে Staff List-এ আরেকজন আছে');return}
+   var d=SL().load();d.list[idx]=Object.assign({},d.list[idx],{n:nn,des:des,dept:dp,gr:gr});
+   try{localStorage.setItem(SL().key,JSON.stringify(d))}catch(e){tst('⚠ Staff List সংরক্ষণ হয়নি');return}
+   if(nkNew!=k){['sel','cat','pos'].forEach(function(f){if(st[f][k]!=null){st[f][nkNew]=st[f][k];delete st[f][k]}})}
+   delete st.ov[k];if(cs)st.cat[nkNew]=cs;else delete st.cat[nkNew];
+   try{document.dispatchEvent(new Event('stfchange'))}catch(e){}
+  }else{
+   var same=n==x0.n&&des==sp(x0.des)&&dp==sp(x0.dept||'')&&gr==(+x0.gr||0);
+   if(same)delete st.ov[k];else st.ov[k]={n:n,des:des,dept:dp,gr:gr};
+   if(cs&&catOf(gr)!=cs)st.cat[k]=cs;else delete st.cat[k];
+  }
+  st.touched=true;sv();drawPick();drawDoc();cl();tst('✓ তথ্য সংশোধিত')}}
+G('stfPkB').addEventListener('click',function(e){var b=e.target.closest('button[data-a]');if(!b)return;e.preventDefault();e.stopPropagation();if(b.disabled)return;var a=b.dataset.a;if(a=='ed')edit(b.dataset.k);else if(a=='cat'){if(!b.classList.contains('on'))chCat(b.dataset.k,+b.dataset.c)}else mv(b.dataset.k,a=='up'?-1:1)});
+G('stfPkB').addEventListener('change',function(e){var s=e.target.closest('select[data-a="cat"]');if(!s)return;chCat(s.dataset.k,+s.value)});
+G('stfCtTg').addEventListener('change',function(){G('stfPkB').classList.toggle('showCt',this.checked)});
+G('stfQ2').addEventListener('input',filt);
+G('stfFd').addEventListener('input',function(){st.date=this.value;sv();drawDoc()});
+G('stfRe').addEventListener('click',function(){var g=groups(),t=g[1].length+g[2].length+g[3].length;if(!t){tst('টেবিল আগেই খালি আছে');return}
+ if(!confirm('টেবিলের সব নাম ('+bn(t)+' জন) খালি করা হবে। চালিয়ে যাবেন?'))return;
+ st.sel={};st.touched=true;sv();drawPick();drawDoc();tst('✓ টেবিল খালি করা হয়েছে')});
+var CSS='@page{size:8.5in 14in;margin:.8in}table.hd0 td{border:0;padding:0}table.hd0{margin-bottom:6pt}body{font-family:"KalpurushEmb","Kalpurush",serif;font-size:10pt;color:#000}.h1{text-align:center;font-size:19pt;font-weight:bold}.h2{text-align:center;font-size:14pt;font-weight:bold;margin-bottom:0}.in{text-align:center;font-size:10pt;line-height:1.5;margin:0 6pt 8pt}.dt{text-align:right;font-size:10pt;font-weight:bold;margin:0 0 3pt}table{width:100%;border-collapse:collapse;font-size:10pt}th,td{border:1px solid #000;padding:4pt 5pt;vertical-align:middle}th{text-align:center}td.c{text-align:center}tr{page-break-inside:avoid}';
+var KBf=function(){try{return typeof KB64=='string'?KB64:''}catch(e){return''}};
+function full(){var kb=KBf(),ff=kb?'@font-face{font-family:"KalpurushEmb";src:url(data:font/ttf;base64,'+kb+') format("truetype")}':'';return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Staff Committee</title><!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]--><style>'+ff+CSS+'</style></head><body>'+docHtml(true)+'</body></html>'}
+function need(){var g=groups();if(g[1].length+g[2].length+g[3].length)return true;tst('⚠ আগে Staff List থেকে অন্তত একজন স্টাফ টিক দিন');return false}
+/* ---- আসল .docx তৈরি (অতিরিক্ত লাইব্রেরি ছাড়া) ---- */
+var CT=(function(){var t=new Uint32Array(256);for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc(u){var c=0xFFFFFFFF;for(var i=0;i<u.length;i++)c=CT[(c^u[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0}
+function zipStore(files){var enc=new TextEncoder(),parts=[],cd=[],off=0;
+ files.forEach(function(f){var nb=enc.encode(f.n),d=typeof f.d=='string'?enc.encode(f.d):f.d,cr=crc(d);
+  var h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);h.setUint16(12,0x21,true);h.setUint32(14,cr,true);h.setUint32(18,d.length,true);h.setUint32(22,d.length,true);h.setUint16(26,nb.length,true);
+  parts.push(new Uint8Array(h.buffer),nb,d);
+  var c=new DataView(new ArrayBuffer(46));c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(10,0,true);c.setUint16(14,0x21,true);c.setUint32(16,cr,true);c.setUint32(20,d.length,true);c.setUint32(24,d.length,true);c.setUint16(28,nb.length,true);c.setUint32(42,off,true);
+  cd.push(new Uint8Array(c.buffer),nb);off+=30+nb.length+d.length});
+ var cs=cd.reduce(function(s,a){return s+a.length},0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+ return new Blob(parts.concat(cd,[new Uint8Array(e.buffer)]),{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'})}
+var FN='Kalpurush';
+function wR(t,z,b){return'<w:r><w:rPr><w:rFonts w:ascii="'+FN+'" w:hAnsi="'+FN+'" w:cs="'+FN+'" w:eastAsia="'+FN+'"/>'+(b?'<w:b/><w:bCs/>':'')+'<w:sz w:val="'+z+'"/><w:szCs w:val="'+z+'"/></w:rPr><w:t xml:space="preserve">'+esc(t)+'</w:t></w:r>'}
+function wP(runs,al,after,before){return'<w:p><w:pPr><w:spacing w:before="'+(before||0)+'" w:after="'+(after||0)+'" w:line="276" w:lineRule="auto"/><w:jc w:val="'+al+'"/></w:pPr>'+runs+'</w:p>'}
+function wC(w,inner,o){o=o||{};return'<w:tc><w:tcPr><w:tcW w:w="'+w+'" w:type="dxa"/>'+(o.vm?'<w:vMerge'+(o.vm=='r'?' w:val="restart"':'')+'/>':'')+(o.top?'<w:tcBorders><w:top w:val="single" w:sz="12" w:space="0" w:color="000000"/></w:tcBorders>':'')+'<w:vAlign w:val="center"/></w:tcPr>'+inner+'</w:tc>'}
+var DPID=0,LOGOC=null;
+function logoImg(){if(LOGOC)return LOGOC.v;var img=null,lg=LG();
+ if(lg){try{var bs=atob(lg.split(',')[1]),u=new Uint8Array(bs.length);for(var q=0;q<bs.length;q++)u[q]=bs.charCodeAt(q);var pw=((u[16]<<24)|(u[17]<<16)|(u[18]<<8)|u[19])>>>0,ph=((u[20]<<24)|(u[21]<<16)|(u[22]<<8)|u[23])>>>0;if(pw>0&&ph>0)img={d:u,cy:548640,cx:Math.round(548640*pw/ph)}}catch(e){img=null}}
+ LOGOC={v:img};return img}
+function bodyXml(M,img,last){
+ var g=M.g,tot=g[1].length+g[2].length+g[3].length,intro=M.intro,W=[900,6600,980,1456],n=0,seen=0;
+ var hd='<w:tr><w:trPr><w:cantSplit/><w:tblHeader/></w:trPr>'+[['ক্র. নং',0],['নাম, পদবী ও দপ্তর',1],['গ্রেড',2],['ক্যাটাগরি',3]].map(function(h){return wC(W[h[1]],wP(wR(h[0],20,1),'center',40,40))}).join('')+'</w:tr>';
+ var rows='';
+ CATS.forEach(function(c){var a=g[c.k];a.forEach(function(r,j){n++;seen++;var x=r.x,top=(j==0&&seen>1);
+  var t=x.n+(x.des?', '+x.des:'')+(x.dept?', '+x.dept:'')+(seen<tot?';':'');
+  rows+='<w:tr><w:trPr><w:cantSplit/></w:trPr>'+wC(W[0],wP(wR(bn(n)+'।',20),'center',40,40),{top:top})+wC(W[1],wP(wR(t,20),'left',40,40),{top:top})+wC(W[2],wP(wR(bn(x.gr),20),'center',40,40),{top:top})
+  +wC(W[3],wP(j==0?wR(bn(String(a.length).padStart(2,'0'))+' জন',20):'','center',40,40),{vm:j==0?'r':'c',top:top})+'</w:tr>'})});
+ if(!rows)rows='<w:tr>'+wC(9936,wP('','center'))+'</w:tr>';
+ var introRuns=String(intro).split('\n').map(function(l){return wR(l,20)}).join('<w:r><w:br/></w:r>');
+ var tbl='<w:tbl><w:tblPr><w:tblW w:w="9936" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders><w:top w:val="single" w:sz="6" w:space="0" w:color="000000"/><w:left w:val="single" w:sz="6" w:space="0" w:color="000000"/><w:bottom w:val="single" w:sz="6" w:space="0" w:color="000000"/><w:right w:val="single" w:sz="6" w:space="0" w:color="000000"/><w:insideH w:val="single" w:sz="6" w:space="0" w:color="000000"/><w:insideV w:val="single" w:sz="6" w:space="0" w:color="000000"/></w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="100" w:type="dxa"/><w:right w:w="100" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>'+W.map(function(w){return'<w:gridCol w:w="'+w+'"/>'}).join('')+'</w:tblGrid>'+hd+rows+'</w:tbl>';
+ var logoRun=img?'<w:r><w:rPr><w:position w:val="10"/></w:rPr><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="'+img.cx+'" cy="'+img.cy+'"/><wp:docPr id="'+(++DPID)+'" name="DUET Logo"/><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="0" name="logo.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+img.cx+'" cy="'+img.cy+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>':'';
+ var hw=img?[1500,6936,1500]:[9936];
+ var hcell=function(w,inner){return'<w:tc><w:tcPr><w:tcW w:w="'+w+'" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>'+inner+'</w:tc>'};
+ var titles=wP(wR('ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর',38,1),'center',0)+wP(wR('গাজীপুর-১৭০৭।',28,1),'center',0);
+ var head='<w:tbl><w:tblPr><w:tblW w:w="9936" w:type="dxa"/><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid>'+hw.map(function(w){return'<w:gridCol w:w="'+w+'"/>'}).join('')+'</w:tblGrid><w:tr>'+(img?hcell(hw[0],wP(logoRun,'right',0))+hcell(hw[1],titles)+hcell(hw[2],wP('','left',0)):hcell(hw[0],titles))+'</w:tr></w:tbl>'+wP('','left',120);
+ var body=head+wP(introRuns,'center',160)+wP(wR('তারিখ : '+fdw(M.date),20,1),'right',60)+tbl+(last?'<w:p/>':'<w:p><w:r><w:br w:type="page"/></w:r></w:p>');
+ return body}
+function buildDocx(models){
+ var img=logoImg(),body=models.map(function(M,i){return bodyXml(M,img,i==models.length-1)}).join('');
+ var X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+ var doc=X+'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"><w:body>'+body+'<w:sectPr><w:pgSz w:w="12240" w:h="20160"/><w:pgMar w:top="1152" w:right="1152" w:bottom="1152" w:left="1152" w:header="576" w:footer="576" w:gutter="0"/></w:sectPr></w:body></w:document>';
+ var KB=KBf(),guid='{'+(window.crypto&&crypto.randomUUID?crypto.randomUUID():'D2F4A1B3-5C6E-4F70-8A9B-0C1D2E3F4A5B').toUpperCase()+'}',font=null;
+ if(KB){try{var fb=atob(KB);font=new Uint8Array(fb.length);for(var z=0;z<fb.length;z++)font[z]=fb.charCodeAt(z);var hx=guid.replace(/[{}-]/g,''),ky=[];for(var y=0;y<16;y++)ky.push(parseInt(hx.substr(30-2*y,2),16));for(var y2=0;y2<32;y2++)font[y2]^=ky[y2%16]}catch(e){font=null}}
+ var NS='http://schemas.openxmlformats.org/',RT=NS+'officeDocument/2006/relationships/',RH='<Relationships xmlns="'+NS+'package/2006/relationships">';
+ var F1='<w:rFonts w:ascii="Kalpurush" w:hAnsi="Kalpurush" w:cs="Kalpurush" w:eastAsia="Kalpurush"/>',WN='xmlns:w="'+NS+'wordprocessingml/2006/main"';
+ var pk=[
+  {n:'[Content_Types].xml',d:X+'<Types xmlns="'+NS+'package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/></Types>'},
+  {n:'_rels/.rels',d:X+RH+'<Relationship Id="rId1" Type="'+RT+'officeDocument" Target="word/document.xml"/></Relationships>'},
+  {n:'word/document.xml',d:doc},
+  {n:'word/_rels/document.xml.rels',d:X+RH+(img?'<Relationship Id="rId1" Type="'+RT+'image" Target="media/logo.png"/>':'')+'<Relationship Id="rId2" Type="'+RT+'styles" Target="styles.xml"/><Relationship Id="rId3" Type="'+RT+'settings" Target="settings.xml"/><Relationship Id="rId4" Type="'+RT+'fontTable" Target="fontTable.xml"/></Relationships>'},
+  {n:'word/styles.xml',d:X+'<w:styles '+WN+'><w:docDefaults><w:rPrDefault><w:rPr>'+F1+'<w:sz w:val="20"/><w:szCs w:val="20"/><w:lang w:val="en-US" w:eastAsia="en-US" w:bidi="bn-BD"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>'},
+  {n:'word/settings.xml',d:X+'<w:settings '+WN+'>'+(font?'<w:embedTrueTypeFonts/><w:saveSubsetFonts w:val="0"/>':'')+'<w:defaultTabStop w:val="720"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>'},
+  {n:'word/fontTable.xml',d:X+'<w:fonts '+WN+' xmlns:r="'+NS+'officeDocument/2006/relationships"><w:font w:name="Kalpurush"><w:charset w:val="01"/><w:family w:val="auto"/><w:pitch w:val="variable"/>'+(font?'<w:embedRegular r:id="rId1" w:fontKey="'+guid+'"/>':'')+'</w:font></w:fonts>'}];
+ if(font){pk.push({n:'word/_rels/fontTable.xml.rels',d:X+RH+'<Relationship Id="rId1" Type="'+RT+'font" Target="fonts/font1.odttf"/></Relationships>'},{n:'word/fonts/font1.odttf',d:font})}
+ if(img)pk.push({n:'word/media/logo.png',d:img.d});
+ return zipStore(pk)}
+G('stfWd').addEventListener('click',function(){if(!need())return;var a=document.createElement('a');a.href=URL.createObjectURL(buildDocx([live()]));a.download=(SELn.length?dutyFn(SELn):'Staff-Committee-'+(st.date?en(st.date).replace(/[^\d]/g,'-'):'form'))+'.docx';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500)});
+/* ================= Staff Record: সংরক্ষণ, তালিকা, ইডিট, ডাউনলোড ================= */
+var RK='duet_stf_rec_v1',rAsc=false;
+function rLoad(){try{var o=JSON.parse(localStorage.getItem(RK)||'{}');return o&&typeof o=='object'&&!Array.isArray(o)?o:{}}catch(e){return{}}}
+function rPut(o){try{localStorage.setItem(RK,JSON.stringify(o));return true}catch(e){tst('⚠ সংরক্ষণ করা যায়নি (ব্রাউজারের স্টোরেজ ভরে গেছে?)');return false}}
+var DLf=function(b,n,m){return typeof dl=='function'?dl(b,n,m||''):Promise.resolve().then(function(){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500)})};
+var safeN=function(t){return sp(String(t||'')).replace(/[\\\/:*?"<>|]+/g,' ').replace(/\s+/g,' ').trim().slice(0,150)||'Staff Record'};
+var dutyFn=function(recs){return safeN((recs||[]).map(function(n){return String(n).replace(/^📢\s*/,'')}).join(', '))+'_Staff Duty'};
+function tsFmt(t){var d=new Date(t||0);if(isNaN(d))return'';var p=function(n){return bn(String(n).padStart(2,'0'))},h=d.getHours()%12||12;return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+bn(d.getFullYear())+' '+p(h)+':'+p(d.getMinutes())+(d.getHours()<12?' AM':' PM')}
+function recModel(r){var g={1:[],2:[],3:[]};[1,2,3].forEach(function(c){(r.rows[c]||[]).forEach(function(x){g[c].push({x:x})})});return{g:g,intro:r.intro,date:r.date}}
+function recTotal(r){return[1,2,3].reduce(function(t,c){return t+((r.rows[c]||[]).length)},0)}
+function recInfo(r){var P=[],M=[],D=[];(r.recs||[]).forEach(function(n){var i=(r.info||{})[n]||{};var p=sp(String(i.post||n).replace(/^📢\s*/,''));if(p&&P.indexOf(p)<0)P.push(p+(i.dept?' ['+sp(i.dept)+']':''));var m=sp(i.memo);if(m&&M.indexOf(m)<0)M.push(m)});return{posts:P,memos:M}}
+function rTitle(r){var q=recInfo(r);return q.posts.length?q.posts.join('; '):r.key}
+function saveRec(){
+ if(!need())return;
+ var g=groups(),rows={};[1,2,3].forEach(function(c){rows[c]=g[c].map(function(r){return{n:r.x.n,des:r.x.des||'',dept:r.x.dept||'',gr:+r.x.gr||0}})});
+ var info={};SELn.forEach(function(n){var i=RIn[n]||{};info[n]={post:i.post||'',dept:i.dept||'',memo:i.memo||'',mdate:i.mdate||'',grade:i.grade==null?'':i.grade}});
+ var o=rLoad(),k=st.key,had=!!o[k],lv=live();
+ o[k]={key:k,recs:SELn.slice(),info:info,created:(o[k]&&o[k].created)||Date.now(),savedAt:Date.now(),date:lv.date,exam:st.exam,intro:lv.intro,rows:rows,
+  snap:{sel:JSON.parse(JSON.stringify(st.sel)),date:st.date,intro:st.intro,exam:st.exam,touched:true,ov:JSON.parse(JSON.stringify(st.ov)),cat:JSON.parse(JSON.stringify(st.cat)),pos:JSON.parse(JSON.stringify(st.pos))}};
+ if(!rPut(o))return;
+ st.touched=true;sv();cnt();rList();try{window.__wrRepaint&&window.__wrRepaint()}catch(e){}
+ tst(had?'💾 Staff Record হালনাগাদ হয়েছে ('+bn(recTotal(o[k]))+' জন)':'💾 Staff Record-এ সংরক্ষিত হয়েছে ('+bn(recTotal(o[k]))+' জন)')}
+G('stfSv').addEventListener('click',saveRec);
+function cnt(){var e=G('stfRecCnt');if(e)e.textContent=bn(Object.keys(rLoad()).length)}
+window.__stfRecSv=function(){var o=rLoad(),x={};Object.keys(o).forEach(function(k){var r=o[k],a=r.recs||[];if(!a.length)return;x[a[0]]={staff:true,w:{recs:a.slice(1)}}});return x};
+/* ---- তালিকা ---- */
+var rOpen={};
+var rBy='t';
+function rGr(r){var m=999;(r.recs||[]).forEach(function(n){var g=parseInt(en(String(((r.info||{})[n]||{}).grade==null?'':(r.info[n].grade))).replace(/[^\d]/g,''),10);if(g&&g<m)m=g});return m}
+function rDp(r){return(r.recs||[]).map(function(n){return sp(((r.info||{})[n]||{}).dept)}).filter(Boolean).sort().join(', ')}
+function rCmp(x,y){var c=0;
+ if(rBy=='t')c=(x.savedAt||0)-(y.savedAt||0);
+ else{if(rBy=='g')c=rGr(x)-rGr(y);else if(rBy=='d')c=rDp(x).localeCompare(rDp(y),'bn',{numeric:true});
+  if(!c)c=rTitle(x).localeCompare(rTitle(y),'bn',{numeric:true})}
+ return rAsc?c:-c}
+function rAll(){var o=rLoad();return Object.keys(o).map(function(k){return o[k]}).sort(rCmp)}
+function rDirTxt(){var b=G('stfRecDir');if(b)b.textContent=rBy=='t'?(rAsc?'⬆ পুরোনো আগে':'⬇ নতুন আগে'):(rAsc?'⬆ ক্রমানুসারে (A→Z / ছোট→বড়)':'⬇ উল্টো ক্রমে (Z→A / বড়→ছোট)')}
+function rSorted(){var q=sp((G('stfRecQ')||{}).value).toLowerCase(),a=rAll();
+ if(!q)return a;return a.filter(function(r){var t=[rTitle(r),r.key,rDp(r),(recInfo(r).memos||[]).join(' ')].concat([1,2,3].reduce(function(z,c){return z.concat((r.rows[c]||[]).map(function(x){return x.n+' '+x.des+' '+x.dept}))},[])).join(' ').toLowerCase();return t.indexOf(q)>=0})}
+function rList(){var L=G('stfRecList');if(!L)return;var all2=rLoad(),tot=Object.keys(all2).length,a=rSorted();
+ ['stfRecPdf','stfRecDocx'].forEach(function(i){var b=G(i);if(b)b.disabled=!tot});
+ if(!tot){L.innerHTML='<div class="srEmpty">কোনো রেকর্ড সংরক্ষিত নেই — Entry For Staff ট্যাবে ফরম সাজিয়ে “💾 সংরক্ষণ” চাপুন।</div>';return}
+ if(!a.length){L.innerHTML='<div class="srEmpty">কোনো মিল পাওয়া যায়নি</div>';return}
+ L.innerHTML=a.map(function(r){var q=recInfo(r),open=!!rOpen[r.key],c=[1,2,3].map(function(k){return(r.rows[k]||[]).length});
+  return'<div class="srCd" data-k="'+esc(r.key)+'"><b class="srT" title="'+esc(rTitle(r))+'">📁 '+esc(rTitle(r))+'</b>'
+  +'<div class="srMt">'+(q.memos.length?'স্মারক '+esc(bn(q.memos.join(', ')))+' · ':'')+esc(fd(r.date))+' · <span class="srEx ex_'+esc(EXT[r.exam]?r.exam:'w')+'">'+esc(EXT[r.exam]||EXT.w)+'</span> · <b>'+bn(recTotal(r))+' জন</b> · সংরক্ষিত : '+esc(tsFmt(r.savedAt))+'</div>'
+  +'<div class="srAc"><button type="button" data-a="pv">'+(open?'🙈 প্রিভিউ বন্ধ':'👁 প্রিভিউ')+'</button><button type="button" class="p" data-a="ed" title="ফরমটি Entry For Staff-এ খুলে সম্পাদনা করুন">✏️ ইডিট</button><button type="button" data-a="dx">📄 Word (.docx)</button><button type="button" data-a="pd">📕 PDF</button><button type="button" data-a="del" title="এই রেকর্ড মুছুন">🗑 মুছুন</button></div>'
+  +(open?'<div class="srPv"><div class="srRD">'+docHtml(true,recModel(r))+'</div></div>':'')+'</div>'}).join('')}
+G('stfRecQ').addEventListener('input',rList);
+G('stfRecDir').addEventListener('click',function(){rAsc=!rAsc;rDirTxt();rList()});
+G('stfRecSort').addEventListener('change',function(){rBy=this.value;rAsc=rBy!='t';rDirTxt();rList()});
+G('stfRecList').addEventListener('click',function(e){var b=e.target.closest('button[data-a]');if(!b)return;var k=b.closest('.srCd').dataset.k,o=rLoad(),r=o[k];if(!r)return;var a=b.dataset.a;
+ if(a=='pv'){rOpen[k]=!rOpen[k];rList()}
+ else if(a=='del'){if(!confirm('“'+rTitle(r)+'” — এই সংরক্ষিত ফরমটি Staff Record থেকে মুছে ফেলবেন?\n(Entry For Staff-এর খসড়া মুছবে না)'))return;delete o[k];delete rOpen[k];if(rPut(o)){cnt();rList();try{window.__wrRepaint&&window.__wrRepaint()}catch(x){}tst('🗑 Staff Record থেকে মুছে ফেলা হয়েছে')}}
+ else if(a=='ed')openRec(k);
+ else if(a=='dx')dlDocx([r],dutyFn(r.recs)+'.docx',b);
+ else if(a=='pd')dlPdf([r],dutyFn(r.recs)+'.pdf',b)});
+G('stfRecDocx').addEventListener('click',function(){var a=rSorted0();dlDocx(a,'Staff Record ('+a.length+' forms).docx',this)});
+G('stfRecPdf').addEventListener('click',function(){var a=rSorted0();dlPdf(a,'Staff Record ('+a.length+' forms).pdf',this)});
+function rSorted0(){return rAll()}
+window.__stfRecRender=function(){cnt();rList()};
+/* ---- ইডিট: সংরক্ষিত ফরম Entry For Staff-এ ফিরিয়ে আনা ---- */
+function openRec(k){var r=rLoad()[k];if(!r||!r.snap)return;
+ ld();all[r.key]=JSON.parse(JSON.stringify(r.snap));try{localStorage.setItem(FK,JSON.stringify(all))}catch(e){}
+ st.key='';if(window.__stfOpenRecs)window.__stfOpenRecs((r.recs||[]).slice())}
+/* ---- ডাউনলোড ---- */
+async function dlDocx(list,fn,btn){if(!list.length){tst('⚠ কোনো সংরক্ষিত রেকর্ড নেই');return}
+ var old=btn&&btn.textContent;if(btn){btn.disabled=true;btn.textContent='⏳ তৈরি হচ্ছে...'}
+ try{await DLf(buildDocx(list.map(recModel)),fn,'');tst('📄 Word ফাইল তৈরি হয়েছে ('+bn(list.length)+'টি ফরম)')}
+ catch(err){console.error(err);alert('⚠ Word ফাইল তৈরি করা যায়নি: '+(err&&err.message||err))}
+ finally{if(btn){btn.disabled=false;btn.textContent=old}}}
+async function dlPdf(list,fn,btn){if(!list.length){tst('⚠ কোনো সংরক্ষিত রেকর্ড নেই');return}
+ if(!window.html2canvas||!(window.jspdf&&window.jspdf.jsPDF)){tst('⚠ PDF লাইব্রেরি লোড হয়নি — ইন্টারনেট সংযোগ দেখে পেজ রিলোড করুন');return}
+ var old=btn&&btn.textContent;if(btn)btn.disabled=true;
+ var host=document.createElement('div');host.className='srPdfHost';host.style.cssText='position:absolute;left:-20000px;top:0;width:662px;background:#fff;color:#000';document.body.appendChild(host);
+ try{
+  try{await document.fonts.load('12px "KalpurushEmb"','অআকখ abc');await document.fonts.ready}catch(e){}
+  var jsPDF=window.jspdf.jsPDF,pdf=new jsPDF({orientation:'p',unit:'mm',format:[215.9,355.6],compress:true});
+  var MM=20.32,CWmm=215.9-2*MM,mmPx=CWmm/662,CH=(355.6-2*MM)/mmPx,pages=0;
+  for(var ri=0;ri<list.length;ri++){
+   if(btn)btn.textContent='⏳ PDF তৈরি হচ্ছে ('+bn(ri+1)+'/'+bn(list.length)+')';
+   host.innerHTML='<div class="srRD">'+docHtml(true,recModel(list[ri]))+'</div>';
+   await Promise.all(Array.prototype.map.call(host.querySelectorAll('img'),function(im){return im.complete?1:new Promise(function(r){im.onload=im.onerror=r})}));
+   await new Promise(function(r){setTimeout(r,30)});
+   var top=host.getBoundingClientRect().top,H=host.scrollHeight,cuts=Array.prototype.map.call(host.querySelectorAll('tbody tr'),function(t){return t.getBoundingClientRect().bottom-top});
+   var cv=await html2canvas(host,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:700}),sc=cv.height/H,start=0;
+   while(start<H-1){var lim=start+CH,end;
+    if(H<=lim+1)end=H;else{end=lim;for(var q=cuts.length-1;q>=0;q--){if(cuts[q]<=lim&&cuts[q]>start+40){end=cuts[q];break}}}
+    var pc=document.createElement('canvas');pc.width=cv.width;pc.height=Math.max(1,Math.round((end-start)*sc));var cx=pc.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,pc.width,pc.height);cx.drawImage(cv,0,Math.round(start*sc),cv.width,pc.height,0,0,pc.width,pc.height);
+    if(pages>0)pdf.addPage();pages++;
+    pdf.addImage(pc.toDataURL('image/jpeg',0.92),'JPEG',MM,MM,CWmm,pc.height/sc*mmPx,undefined,'FAST');
+    start=end}}
+  await DLf(pdf.output('blob'),fn,'application/pdf');tst('⬇ PDF ডাউনলোড হয়েছে ('+bn(pages)+' পাতা, '+bn(list.length)+'টি ফরম)')}
+ catch(err){console.error(err);alert('⚠ PDF তৈরি করা যায়নি: '+(err&&err.message||err))}
+ finally{host.remove();if(btn){btn.disabled=false;btn.textContent=old}}}
+cnt();rList();
+
+})();
+</script>
+
+<style>#t-wr.wrS #wrPick>.wrPk2c{position:relative!important}
+#t-wr.wrS .wrPk2c>.stfSv{position:absolute;top:-10px;right:0;display:flex;gap:6px;align-items:center;z-index:12}
+#t-wr.wrS .wrPk2c>.stfSv button{margin:0!important;padding:3px 10px!important;font-size:13px}</style>
+<script>/* Entry For Staff: সংরক্ষণ / সব নির্বাচন / বাদ দিন বাটন উপরের সারিতে (ক্যাটাগরি বাছাইয়ের ডানে) */
+(function(){var T=document.getElementById('t-wr'),sv=document.getElementById('wrSave2'),box=document.getElementById('wrRecBox');
+if(!T||!sv||!box)return;var sp=sv.parentNode,top=T.querySelector('.wrPk2c'),home=sp.parentNode,ph=document.createComment('stfSv');
+if(!top)return;var sw=document.getElementById('wrStaffW'),h3=document.getElementById('wrH3');if(sw&&h3&&h3.parentNode)h3.parentNode.insertBefore(sw,h3.nextSibling);home.insertBefore(ph,sp);sp.classList.add('stfSvW');
+function sync(){var st=T.classList.contains('wrS');
+ if(st&&sp.parentNode!==top){top.appendChild(sp);sp.classList.add('stfSv')}
+ else if(!st&&sp.parentNode===top){ph.parentNode.insertBefore(sp,ph.nextSibling);sp.classList.remove('stfSv')}
+ sp.style.display=(st&&box.hidden)?'none':''}
+try{var mo=new MutationObserver(sync);mo.observe(T,{attributes:true,attributeFilter:['class']});mo.observe(box,{attributes:true,attributeFilter:['hidden']})}catch(e){}
+sync()})();</script>
 </body></html>
