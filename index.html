@@ -493,7 +493,48 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 #t-wr .wrTa>.f>.wrLb{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
 #t-wr .wrLb .wrLt{min-width:0}
 #t-wr .wrCnB{flex:none;min-width:22px;text-align:center;font-size:11px;font-weight:800;line-height:16px;padding:0 7px;border-radius:10px;background:#d9f2e1;color:#0b6b32;border:1.5px solid #2e9e5b}
-</style></head><body><div class="app">
+</style><style>/* রেকর্ড নামের শেষে স্মারক নং ও তারিখ: বর্ডার + ফিল কালার */
+.rmBadge{display:inline-block;text-decoration:none;padding:1px 8px;border:1.5px solid #2e9e63;border-radius:8px;background:#dff3e7;color:#0a5a2b;font-size:12.5px;font-weight:600;line-height:1.5;white-space:nowrap}
+</style>
+<style>#rCsv{display:none!important}
+/* রেকর্ড ট্যাব: ফিল্টার সারিতে Excel / CSV / নির্বাচিত মুছুন একই লাইনে */
+@media (min-width:1280px){
+#rFilterRow{flex-wrap:nowrap;gap:8px}
+#rFilterRow>span{white-space:nowrap;flex:0 0 auto}
+#rFilterRow>span.grow{flex:1 1 0;min-width:0}
+#rFilterRow #rinfo{font-size:12px}
+#rFilterRow #rcat,#rFilterRow #rmemo,#rFilterRow #rcatStat{margin-left:6px!important;font-size:12.5px!important}
+#rFilterRow #rcatStat{flex-wrap:nowrap!important;gap:4px 10px!important}
+#rFilterRow>button{flex:0 0 auto;padding:6px 10px;font-size:12.5px;white-space:nowrap}
+}
+</style>
+<style>/* সাইডবার ব্যাকআপ কার্ড */
+.side .bkc .bkb{display:flex;flex-direction:column;gap:8px}
+.side .bkc .bkb button{width:100%;justify-content:center;text-align:center;display:flex;align-items:center;gap:6px}
+/* সাইডবারের ৪টি কার্ড পুরো উচ্চতা জুড়ে নিজে থেকে ফিট (অতিরিক্ত জায়গা কার্ডগুলো ভাগ করে নেয়) */
+@media (min-width:901px){
+.side{gap:10px}
+.side>.sbc{flex:1 1 auto;display:flex;flex-direction:column;justify-content:space-evenly;padding:10px 12px}
+.side>.sbc h3{margin:0 0 6px;font-size:13.5px}
+.side .sbsel{margin-bottom:6px;padding:5px 8px;font-size:12.5px}
+.side .sbc .kv{padding:3px 0;font-size:12.5px}
+.side .bkc .bkb{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1 1 auto;align-content:space-evenly}
+.side .bkc .bkb #rFold{grid-column:1/-1}
+.side .bkc .bkb button{padding:7px 6px;font-size:12.5px;gap:4px;min-height:0;white-space:nowrap}
+.side .bkc .bkb kbd{display:none}
+.side .rgc .rgin{padding:5px 8px;font-size:12.5px;margin-bottom:6px}
+.side .rgc .rgbox{flex:1 1 auto;min-height:56px;padding:6px}
+.side .rgc .rgn{font-size:26px}
+.side .rgc .rgi{margin-top:5px;font-size:11.5px}
+.side .credit{flex:0 0 auto;padding:11px 14px;font-size:12.5px;line-height:1.5;margin-top:0}
+.side .credit .c1{font-size:13.5px}
+.side .credit .c2{font-size:14.5px;margin-bottom:4px}
+.side .credit hr{margin:6px 0}
+}
+}
+.side .bkc .bkb kbd{margin-left:auto}
+</style>
+</head><body><div class="app">
 <header class="hd noprint">
 <div class="brand"><img id="hdLogo" alt="CMS"><div><h1>Candidate Management System (CMS)</h1><div class="sub">ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর</div><div class="sub" id="lastUpd" style="display:inline-block;width:fit-content;font-size:12.5px;font-weight:600;line-height:1.3;color:#0b4a2a;background:#fff4c2;border:1.5px solid #f2b705;border-radius:6px;padding:2px 9px;margin-top:4px;opacity:1"></div></div></div>
 <div class="up"><button class="p" id="upBtn" title="ফাইল ও ফোল্ডার একসাথে বা আলাদা — যেকোনোভাবে যোগ করে আপলোড করুন">📂 ফাইল আপলোড (HTML)</button><input type="file" id="file" multiple accept=".html,.htm,.txt,.pdf,.xlsx,.xls,.csv" hidden><input type="file" id="upDir" webkitdirectory multiple hidden><label>ছবির ফোল্ডার: <input type="file" id="dir" webkitdirectory multiple></label></div>
@@ -517,8 +558,8 @@ el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u0
 
 <div class="sec" id="t-rec"><div class="card noprint">
 <div class="row"><input id="rq" class="grow" placeholder="🔍 রেকর্ড খুঁজুন (নাম, ফাইল, তারিখ...)">
-<button class="p" id="rFold" title="ব্যাকআপ রাখার ফোল্ডার বেছে নিন / বদলান">📁 ব্যাকআপ ফোল্ডার</button><button id="rBak">⬇ Backup<kbd>Alt+B</kbd></button><button id="rRes">⬆ Restore<kbd>Alt+R</kbd></button><input type="file" id="rResF" accept=".json,application/json" hidden></div>
-<div class="row" style="margin:8px 0"><span id="rinfo" class="mut"></span><span id="rcat" style="margin-left:16px;font-size:13px"></span><span id="rcatStat" style="margin-left:16px;font-size:13px;display:inline-flex;flex-wrap:wrap;gap:4px 16px;align-items:center"></span><span class="grow"></span>
+</div>
+<div class="row" id="rFilterRow" style="margin:8px 0"><span id="rinfo" class="mut"></span><span id="rcat" style="margin-left:16px;font-size:13px"></span><span id="rmemo" style="margin-left:16px;font-size:13px"></span><span id="rcatStat" style="margin-left:16px;font-size:13px;display:inline-flex;flex-wrap:wrap;gap:4px 16px;align-items:center"></span><span class="grow"></span>
 <button id="rXl">Excel (রেকর্ড তালিকা)</button><button id="rCsv">CSV (রেকর্ড তালিকা)</button><button class="d" id="rDelSel">নির্বাচিত মুছুন</button></div>
 <div class="tw"><table id="rt"></table></div>
 <p class="mut">প্রতিটি ফাইল আপলোড করলে আপলোড করা ফাইলের নামেই (এক্সটেনশন ছাড়া, যেমন “Assistant Section Officer [TE] [2026-05-05 - 1263]”) একটি রেকর্ড তৈরি হয়। একই নামের ফাইল আবার আপলোড করলে ওই রেকর্ডই হালনাগাদ হয় (মুছে ফেলা আবেদনকারী ও ছবি মনে থাকে)। নামে ক্লিক করলে রেকর্ডটি খোলে। কলামের নামে ক্লিক করে সাজানো যায়। ডাটা পরিবর্তন করলে নিজে নিজেই সংরক্ষিত হয়; Backup নিলে সব রেকর্ড একটি .json ফাইলে নামে, Restore দিয়ে সেটি ফিরিয়ে আনা যায়।</p></div></div>
@@ -663,12 +704,13 @@ el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u0
 <p class="mut">পরীক্ষা শেষ হয়ে গেলে “রেকর্ড” ট্যাবে রেকর্ডের সারির 🗃️ আইকনে ক্লিক করলে রেকর্ডটি এখানে আর্কাইভ হয়। আর্কাইভ করা রেকর্ডের ডাটা অন্য কোনো ট্যাবে বা পাশের তথ্যে দেখায় না ও হিসাবেও ধরা হয় না। এখানে “রিস্টোর” চাপলে রেকর্ড আগের মতো ফিরে আসে। Backup নিলে আর্কাইভের রেকর্ডও ব্যাকআপে থাকে।</p></div></div>
 </main>
 <aside class="side noprint">
-<div class="sbc"><h3>বর্তমান রেকর্ড</h3><select id="sbRec" class="sbsel" title="রেকর্ড বদলান"><option value="">— কোনো রেকর্ড নেই —</option></select><div class="kv"><span>মোট আবেদনকারীর সংখ্যা :</span><b id="sbTot">0</b></div><div class="kv"><span>Rejected :</span><b class="r" id="sbRj">0</b></div><div class="kv"><span>যোগ্য প্রার্থীর সংখ্যা :</span><b id="sbN">0</b></div></div>
+<div class="sbc"><h3>বর্তমান রেকর্ড</h3><input id="sbRecQ" class="sbsel" placeholder="🔍 রেকর্ড খুঁজুন (নাম / স্মারক)…" autocomplete="off" title="লিখে খুঁজুন — Enter চাপলে প্রথম ফলাফল বাছাই হবে" style="margin-bottom:6px"><select id="sbRec" class="sbsel" title="রেকর্ড বদলান"><option value="">— কোনো রেকর্ড নেই —</option></select><div class="kv"><span>মোট আবেদনকারীর সংখ্যা :</span><b id="sbTot">0</b></div><div class="kv"><span>Rejected :</span><b class="r" id="sbRj">0</b></div><div class="kv"><span>যোগ্য প্রার্থীর সংখ্যা :</span><b id="sbN">0</b></div></div>
 <div class="sbc rgc"><h3>🔢 রেঞ্জ অনুযায়ী হিসাব</h3>
 <select id="rgMode" class="sbsel" title="ক্রম (SL) বা আইডি দিয়ে হিসাব"><option value="sl">ক্রম (SL) অনুযায়ী</option><option value="id">আইডির শেষ ৩ ডিজিট অনুযায়ী</option></select>
 <input id="rgIn" class="rgin" placeholder="যেমন: 1-50, 60, 75-90" autocomplete="off" title="কমা দিয়ে লিখুন; ধারাবাহিক হলে 5-10। আইডি মোডে পুরো আইডিও (198000003-198000050) চলবে">
 <div class="rgbox" id="rgBox"><div class="rgl">রেঞ্জে যোগ্য প্রার্থী</div><div class="rgn" id="rgN">—</div></div>
 <div class="rgi" id="rgInfo">ক্রম বা আইডির রেঞ্জ লিখুন</div></div>
+<div class="sbc bkc"><h3>💾 ব্যাকআপ</h3><div class="bkb"><button class="p" id="rFold" title="ব্যাকআপ রাখার ফোল্ডার বেছে নিন / বদলান">📁 ব্যাকআপ ফোল্ডার</button><button id="rBak">⬇ Backup<kbd>Alt+B</kbd></button><button id="rRes">⬆ Restore<kbd>Alt+R</kbd></button><input type="file" id="rResF" accept=".json,application/json" hidden></div></div>
 <div class="credit"><div class="c1">Crafted with ❤️ by</div><div class="c2">Md. Rashiqul Islam</div><div>Registrar Office, DUET, Gazipur.</div><hr><div>E-mail : <a href="mailto:rasikul@duet.ac.bd">rasikul@duet.ac.bd</a>,</div><div>Cell : <a href="tel:01722044842">01722-044842</a></div></div>
 </aside>
 </div></div>
@@ -1101,10 +1143,11 @@ if(ev.key=='ArrowDown'||ev.key=='ArrowUp'){ev.preventDefault();step(ev.key=='Arr
 /* ডাটা ট্যাবে বর্তমান রেকর্ডের নাম বোল্ড ও হাইলাইট করে দেখানো */
 (function(){let last=null;const e=document.getElementById('dCurRec');if(!e)return;
 setInterval(()=>{let n='';try{n=rec||''}catch(x){}if(n===last)return;last=n;e.textContent=n?'📂 '+n:'';e.title='বর্তমান রেকর্ড: '+n;e.classList.toggle('on',!!n)},250)})();
+function rnHtml(n){n=String(n||'');const m=n.match(/^(.*?)\s*(\[\s*[\d০-৯]{2,}[_\s\-][^\]]*\])\s*$/);if(!m)return esc(n);const d=(m[2].match(/[\d০-৯]+/)||['0'])[0].replace(/[০-৯]/g,x=>'০১২৩৪৫৬৭৮৯'.indexOf(x)),PAL=[['#dff3e7','#2e9e63','#0a5a2b'],['#dbeafe','#3b82f6','#1e40af'],['#fef3c7','#f59e0b','#92400e'],['#ede9fe','#8b5cf6','#5b21b6'],['#fce7f3','#ec4899','#9d174d'],['#cffafe','#06b6d4','#155e75'],['#fee2e2','#ef4444','#991b1b'],['#ecfccb','#84cc16','#3f6212'],['#ffedd5','#f97316','#9a3412'],['#e0e7ff','#6366f1','#3730a3']],c=PAL[(+d||0)%PAL.length];return esc(m[1])+' <span class="rmBadge" style="background:'+c[0]+';border-color:'+c[1]+';color:'+c[2]+'">'+esc(m[2])+'</span>'}
 function recRender(){try{adSync()}catch(e){}sbFill();const at=$('#arcTab');if(at){const c=Object.keys(AMETA).length;at.textContent='আর্কাইভ'+(c?' ('+c+')':'')}arcRender();if(!$('#rt'))return;const a=recList(),H=[['name','রেকর্ডের নাম'],['n','আবেদনকারী'],['del','মুছে ফেলা'],['ph','ছবি'],['created','তৈরি'],['ts','সর্বশেষ সংরক্ষণ']];
 $('#rinfo').textContent=`মোট ${Object.keys(META).length} টি রেকর্ড · দেখানো হচ্ছে ${a.length} টি · নির্বাচিত ${[...rsel].filter(n=>META[n]).length} টি`;
 $('#rt').innerHTML='<thead><tr><th><input type=checkbox id=rall></th><th>#</th>'+H.map(([k,l])=>`<th data-s="${k}">${l}${rsort.k==k?(rsort.d>0?' ▲':' ▼'):''}</th>`).join('')+'<th></th></tr></thead><tbody>'+
-(a.length?a.map((m,i)=>`<tr class="${m.name==rec?'cur':''}"><td><input type=checkbox class=rk data-n="${esc(m.name)}" ${rsel.has(m.name)?'checked':''}></td><td>${i+1}</td><td style="white-space:normal;min-width:260px"><a href="#" data-o="${esc(m.name)}">${esc(m.name)}</a>${m.name==rec?' <span class=chip>বর্তমান</span>':''}</td><td>${m.n}</td><td>${m.del}</td><td>${m.ph}</td><td>${fd(m.created)}</td><td>${fd(m.ts)}</td><td><button class="ic${m.adv?' adOn':''}" data-ad="${esc(m.name)}" title="নিয়োগ বিজ্ঞপ্তির তথ্য (স্মারক নং, তারিখ, পদ, বিভাগ, গ্রেড)">📢</button> <button class="ic" data-ra="${esc(m.name)}" title="আর্কাইভ করুন (পরীক্ষা শেষ হলে)">🗃️</button> <button data-rnb="${esc(m.name)}" title="পুন:বিজ্ঞপ্তির রেকর্ড এই রেকর্ডের সাথে যুক্ত করুন">পুন:বিজ্ঞপ্তি</button> <button data-rn="${esc(m.name)}">নাম বদল</button> <button class=d data-rd="${esc(m.name)}">মুছুন</button></td></tr>`).join(''):'<tr><td colspan=10 class=mut style="text-align:center;padding:18px">কোনো রেকর্ড নেই। ফাইল আপলোড করলে রেকর্ড তৈরি হবে।</td></tr>')+'</tbody>';
+(a.length?a.map((m,i)=>`<tr class="${m.name==rec?'cur':''}"><td><input type=checkbox class=rk data-n="${esc(m.name)}" ${rsel.has(m.name)?'checked':''}></td><td>${i+1}</td><td style="white-space:normal;min-width:260px"><a href="#" data-o="${esc(m.name)}">${rnHtml(m.name)}</a>${m.name==rec?' <span class=chip>বর্তমান</span>':''}</td><td>${m.n}</td><td>${m.del}</td><td>${m.ph}</td><td>${fd(m.created)}</td><td>${fd(m.ts)}</td><td><button class="ic${m.adv?' adOn':''}" data-ad="${esc(m.name)}" title="নিয়োগ বিজ্ঞপ্তির তথ্য (স্মারক নং, তারিখ, পদ, বিভাগ, গ্রেড)">📢</button> <button class="ic" data-ra="${esc(m.name)}" title="আর্কাইভ করুন (পরীক্ষা শেষ হলে)">🗃️</button> <button data-rnb="${esc(m.name)}" title="পুন:বিজ্ঞপ্তির রেকর্ড এই রেকর্ডের সাথে যুক্ত করুন">পুন:বিজ্ঞপ্তি</button> <button data-rn="${esc(m.name)}">নাম বদল</button> <button class=d data-rd="${esc(m.name)}">মুছুন</button></td></tr>`).join(''):'<tr><td colspan=10 class=mut style="text-align:center;padding:18px">কোনো রেকর্ড নেই। ফাইল আপলোড করলে রেকর্ড তৈরি হবে।</td></tr>')+'</tbody>';
 $$('#rt th[data-s]').forEach(h=>h.onclick=()=>{const k=h.dataset.s;rsort=rsort.k==k?{k,d:-rsort.d}:{k,d:(k=='name'||k=='src')?1:-1};recRender()});
 const ra=$('#rall');if(ra)ra.onchange=e=>{a.forEach(m=>e.target.checked?rsel.add(m.name):rsel.delete(m.name));recRender()};
 $$('.rk').forEach(x=>x.onchange=()=>{x.checked?rsel.add(x.dataset.n):rsel.delete(x.dataset.n);$('#rinfo').textContent=$('#rinfo').textContent.replace(/নির্বাচিত \d+/,'নির্বাচিত '+[...rsel].filter(n=>META[n]).length)});
@@ -3863,30 +3906,42 @@ const box=document.getElementById('rcat'),inf=document.getElementById('rinfo');i
 const LB={t:'শিক্ষক',o:'কর্মকর্তা',e:'কর্মচারী',u:'অনির্ধারিত'};
 box.innerHTML='<b>ক্যাটাগরি:</b> <select id="rcatSel" title="ক্যাটাগরি অনুযায়ী রেকর্ড ফিল্টার" style="margin-left:4px"><option value="">সব</option><option value="t">শিক্ষক</option><option value="o">কর্মকর্তা</option><option value="e">কর্মচারী</option><option value="u">অনির্ধারিত</option></select>';
 const sel=document.getElementById('rcatSel');
+/* স্মারক নং অনুযায়ী ফিল্টার ড্রপডাউন */
+const mbox=document.getElementById('rmemo');
+if(mbox)mbox.innerHTML='<b>স্মারক:</b> <select id="rmemoSel" title="স্মারক নং অনুযায়ী রেকর্ড ফিল্টার" style="margin-left:4px"><option value="">সব</option></select>';
+const msel=document.getElementById('rmemoSel');
+const memoOf=n=>{const m=String(n||'').match(/\[\s*([\d০-৯]{2,})\s*[_\s\-]/);return m?String(bn(m[1])).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)):'__'};
+const memoLb=k=>k=='__'?'অন্যান্য (স্মারক নং নেই)':String(k).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+const mOk=n=>!msel||!msel.value||memoOf(n)===msel.value;
 const cache={};let sig='',seq=0,tm=0;
 /* রেকর্ড তালিকায় ফিল্টার প্রয়োগ */
 const orig=recList;
-recList=function(){const a=orig.apply(this,arguments),f=sel.value;return f?a.filter(m=>cache[m.name]===f):a};
+recList=function(){const a=orig.apply(this,arguments),f=sel.value;return a.filter(m=>(!f||cache[m.name]===f)&&mOk(m.name))};
 async function refresh(){
   const my=++seq,names=Object.keys(META||{}),c={t:0,o:0,e:0,u:0},nc={};
   for(const n of names){const x=await window.recCatInfo(n);nc[n]=x.cat;c[x.cat]++}
   if(my!=seq)return false;
   const ns=JSON.stringify(nc),changed=ns!=sig;sig=ns;
   Object.keys(cache).forEach(k=>delete cache[k]);Object.assign(cache,nc);
+  if(msel){const cur=msel.value,mc={};names.forEach(n=>{const k=memoOf(n);mc[k]=(mc[k]||0)+1});
+   const ks=Object.keys(mc).sort((a,b)=>a=='__'?1:b=='__'?-1:(+b)-(+a));
+   msel.innerHTML='<option value="">সব ('+names.length+')</option>'+ks.map(k=>'<option value="'+k+'">'+memoLb(k)+' ('+mc[k]+')</option>').join('');
+   msel.value=mc[cur]?cur:''}
   [...sel.options].forEach(o=>{if(!o.value){o.textContent='সব ('+names.length+')';return}
     o.textContent=LB[o.value]+' ('+c[o.value]+')';o.hidden=(o.value=='u'&&!c.u&&sel.value!='u')});
   return changed}
 /* নির্বাচিত ক্যাটাগরির মোট আবেদনকারী / Rejected / যোগ্য প্রার্থী (প্রতিটি রেকর্ডের আবেদনকারী ও মুছে ফেলা/Reject সংখ্যার যোগফল) */
 const st=document.getElementById('rcatStat');
 function stat(){if(!st)return;const f=sel.value;let n=0,rj=0;
-  for(const k of Object.keys(META||{})){if(f&&cache[k]!==f)continue;const m=META[k]||{};n+=+m.n||0;rj+=+m.del||0}
+  for(const k of Object.keys(META||{})){if(f&&cache[k]!==f)continue;if(!mOk(k))continue;const m=META[k]||{};n+=+m.n||0;rj+=+m.del||0}
   st.innerHTML='<span>মোট আবেদনকারীর সংখ্যা : <b style="color:#0a7a3d">'+(n+rj)+'</b></span><span>Rejected : <b style="color:#c62828">'+rj+'</b></span><span>যোগ্য প্রার্থীর সংখ্যা : <b style="color:#0a7a3d">'+n+'</b></span>';
-  st.title=(f?LB[f]:'সব ক্যাটাগরি')+' — মোট রেকর্ড: '+Object.keys(META||{}).filter(k=>!f||cache[k]===f).length}
+  st.title=(f?LB[f]:'সব ক্যাটাগরি')+' — মোট রেকর্ড: '+Object.keys(META||{}).filter(k=>(!f||cache[k]===f)&&mOk(k)).length}
 async function upd(){const ch=await refresh();stat();if(ch&&sel.value)recRender()}
 sel.onchange=async()=>{
   await refresh();stat();
   const f=sel.value;if(f)[...rsel].forEach(n=>{if(cache[n]!==f)rsel.delete(n)}); /* লুকানো রেকর্ড নির্বাচিত থাকবে না */
   recRender()};
+if(msel)msel.onchange=()=>{stat();[...rsel].forEach(n=>{if(!mOk(n))rsel.delete(n)});recRender()};
 new MutationObserver(()=>{clearTimeout(tm);tm=setTimeout(upd,60)}).observe(inf,{childList:true,characterData:true,subtree:true});
 upd();
 })();
@@ -7178,5 +7233,21 @@ sync()})();</script>
 <script>/* চিহ্ন-ব্যাখ্যা (📢 📝 ✅ 🔗 …) শিরোনামের ডানে, একই লাইনে */
 (function(){try{var h=document.getElementById('wrH3'),l=document.querySelector('#t-wr .wrLg');if(!h||!l)return;
 h.style.cssText+=';display:flex;align-items:center;gap:14px;flex-wrap:wrap';
-l.style.cssText+=';margin:0;font-size:12px;font-weight:400;flex:1 1 420px;min-width:0';h.appendChild(l)}catch(e){}})();</script>
+l.style.cssText+=';margin:0;font-size:12px;font-weight:400;flex:1 1 420px;min-width:0';h.appendChild(l);new MutationObserver(function(){if(l.parentNode!==h){h.appendChild(l)}}).observe(h,{childList:true})}catch(e){}})();</script>
+<script>/* বর্তমান রেকর্ড: সার্চ করে রেকর্ড বাছাই */
+(()=>{const q=document.getElementById('sbRecQ'),sl=document.getElementById('sbRec');if(!q||!sl)return;
+const nz=t=>String(t||'').toLowerCase().replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/\s+/g,' ').trim();
+let busy=0;
+function apply(){if(busy)return;busy=1;const w=nz(q.value).split(' ').filter(Boolean);let vis=[];
+ [...sl.options].forEach(o=>{const ok=!w.length||w.every(x=>nz(o.textContent).includes(x));o.hidden=!ok;o.disabled=!ok&&o.value!==sl.value&&false;if(ok&&o.value!=='')vis.push(o)});
+ if(w.length){sl.size=Math.max(2,Math.min(7,vis.length||1));sl.style.height='auto'}else{sl.size=1;sl.removeAttribute('size')}
+ busy=0;return vis}
+function done(){q.value='';apply();sl.size=1;sl.removeAttribute('size')}
+q.addEventListener('input',apply);
+q.addEventListener('keydown',e=>{if(e.key=='Enter'){e.preventDefault();const v=apply();if(v&&v[0]){sl.value=v[0].value;sl.dispatchEvent(new Event('change',{bubbles:true}));done()}}
+ else if(e.key=='Escape'){done()}
+ else if(e.key=='ArrowDown'){const v=apply();if(v&&v[0]){e.preventDefault();sl.focus()}}});
+sl.addEventListener('change',()=>{if(q.value)done()});
+new MutationObserver(()=>{if(q.value)apply()}).observe(sl,{childList:true});
+})();</script>
 </body></html>
