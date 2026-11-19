@@ -327,6 +327,8 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 #t-wr:not(.wrA):not(.wrS) #wrRecList .wrCol{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:4px}
 #t-wr:not(.wrA):not(.wrS) #wrRecList .wrMh{position:sticky;top:0;z-index:6;background:var(--hl)}
 }
+/* Entry For Staff-এ টুলবারের সাথে ওভারল্যাপ এড়াতে চিহ্ন-ব্যাখ্যা লুকানো */
+#t-wr.wrS #wrH3 .wrLg{display:none!important}
 #t-wr label.wrChk:has(#wrUnk),#t-wr #wrSelSum{display:none!important}
 #wrAHead p.mut{max-height:0;overflow:hidden;opacity:0;margin:0!important;transition:max-height .2s,opacity .2s}
 #wrAHead>.row:nth-child(2){margin:0!important}
@@ -6693,7 +6695,9 @@ function renderRecs(){
    L.innerHTML=ns.length?(((!pickCat&&mks.length==1)||(mks.length>1&&(g('wrView')||{}).value=='p'))?staffCols():mks.map(colH).join('')):'<p class="mut">এই স্মারক/ক্যাটাগরিতে লিখিত পরীক্ষা হয় এমন কোনো পদ নেই।</p>'}
  const sm=g('wrSelSum');
  sm.innerHTML=(SEL.length&&window.__wrStaff)?(focusOnly?'<button type="button" id="wrShowAll">📂 বিজ্ঞপ্তির সব পদ দেখান</button>':''):SEL.length?'✔ নির্বাচিত '+toBn(SEL.length)+'টি পদ: '+SEL.map(n=>esc((RI[n]&&RI[n].post)||n)).join('; ')+' — <span style="color:var(--thc)">কাজ খসড়া হিসেবে স্বয়ংক্রিয়ভাবে সংরক্ষিত হচ্ছে</span>'+(focusOnly?' <button type="button" id="wrShowAll" style="margin-left:8px">📂 বিজ্ঞপ্তির সব পদ দেখান</button>':''):'';
- try{window.__stfFormUpd&&window.__stfFormUpd(SEL.slice(),RI)}catch(e){}}
+ try{/* বর্তমানে তালিকায় সত্যিই টিক দেওয়া পদ না থাকলে (স্মারক বাদ/বদল হলে) নিচের ফরম ও প্রিভিউ বন্ধ থাকবে */
+  const vis=new Set([...document.querySelectorAll('#wrRecList input[data-rn]:checked')].map(x=>x.getAttribute('data-rn')));
+  window.__stfFormUpd&&window.__stfFormUpd(SEL.filter(n=>vis.has(n)),RI)}catch(e){}}
 /* পুরোনো (বাংলা নামের) বিজ্ঞপ্তি-পদ কী → ইংরেজি নাম; একই পদ দুইবার থাকলে বাংলাটি বাদ */
 const vNA=t=>String(t||'').replace(/&amp;|&/g,' ').replace(/\s+/g,' ').replace(/\s+([,।)])/g,'$1').trim();
 const vBase=v=>'📢 '+enPost(vNA(v.post))+(vNA(v.dept)?' ['+enDept(vNA(v.dept))+']':'')+' ['+mk2(v.memo)+'_'+String(v.mdate||'').replace(/\//g,'-')+']';
