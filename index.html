@@ -274,7 +274,9 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 #stfRecW .srMt{font-size:12.5px;opacity:.8;margin-top:3px;line-height:1.5}
 #stfRecW .srAc{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}#stfRecW .srEx{display:inline-block;padding:1px 9px;border-radius:999px;border:1.5px solid;font-weight:700;line-height:1.5}
 #stfRecW .srEx.ex_w{background:#dbeafe;border-color:#3b82f6;color:#1e40af}#stfRecW .srEx.ex_o{background:#fef3c7;border-color:#f59e0b;color:#92400e}#stfRecW .srEx.ex_b{background:#ede9fe;border-color:#8b5cf6;color:#5b21b6}
-#stfRecW .srAc button{padding:4px 8px;font-size:13px}#stfRecW .srCd{gap:8px}
+#stfRecW .srAc button{padding:4px 8px;font-size:13px}#stfRecW .srCd{gap:8px;padding:3px 10px;margin-top:5px;border-radius:9px}
+#stfRecW .srAc button{padding:2px 7px;font-size:12.5px;line-height:1.35;min-height:0}
+#stfRecW .srAc .srEx,#stfRecW .srCd .srEx{padding:0 8px}
 #stfRecW .srPv{margin-top:10px;background:#e9ecef;border:1px solid var(--bd);border-radius:10px;padding:12px;max-height:70vh;overflow:auto}
 #stfRecW .srPv .srRD,.srPdfHost .srRD{background:#fff;color:#000;margin:0 auto;max-width:8.5in;box-sizing:border-box;padding:.8in;box-shadow:0 1px 6px rgba(0,0,0,.25)}
 .srPdfHost .srRD{max-width:none;padding:0;box-shadow:none;width:100%}
@@ -325,6 +327,28 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 #t-wr:not(.wrA):not(.wrS) #wrRecList .wrCol{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:4px}
 #t-wr:not(.wrA):not(.wrS) #wrRecList .wrMh{position:sticky;top:0;z-index:6;background:var(--hl)}
 }
+#t-wr label.wrChk:has(#wrUnk),#t-wr #wrSelSum{display:none!important}
+#wrAHead p.mut{max-height:0;overflow:hidden;opacity:0;margin:0!important;transition:max-height .2s,opacity .2s}
+#wrAHead>.row:nth-child(2){margin:0!important}
+#wrAHead>.row:first-child:hover+.row p.mut,#wrAHead p.mut:hover{max-height:120px;opacity:1;margin:0 0 8px!important}
+#stfRecHead p.mut{max-height:0;overflow:hidden;opacity:0;margin:0!important;transition:max-height .2s,opacity .2s}
+#stfRecHead>.row:nth-child(2){margin:0!important}
+#stfRecHead>.row:first-child:hover+.row p.mut,#stfRecHead p.mut:hover{max-height:120px;opacity:1;margin:0 0 8px!important}
+/* Entry For Staff-এর নির্দেশনা লেখা অটো-হাইড */
+#t-wr>.card>p.mut.stfHint{max-height:0;overflow:hidden;opacity:0;margin:0!important;padding:0!important;transition:max-height .2s,opacity .2s}
+#t-wr>.card>#wrH3:hover~p.mut.stfHint,#t-wr>.card>p.mut.stfHint:hover{max-height:200px;opacity:1;margin:0 0 8px!important}
+/* Entry-র নির্দেশনা লেখা অটো-হাইড: শিরোনামে মাউস নিলে দেখাবে */
+#t-wr>.card>p.mut:not(.stfHint){max-height:0;overflow:hidden;opacity:0;margin:0!important;padding:0!important;transition:max-height .2s,opacity .2s}
+#t-wr>.card>#wrH3:hover~p.mut:not(.stfHint),#t-wr>.card>p.mut:not(.stfHint):hover{max-height:200px;opacity:1;margin:0 0 8px!important}
+/* স্ক্রলে ওভারল্যাপ ঠিক করা: উপরের শিরোনাম/বাছাই অংশ আর পিন (sticky) থাকবে না — স্বাভাবিকভাবে স্ক্রল হবে */
+@media (min-width:901px){
+#t-wr:not(.wrA):not(.wrS)>.card:not(#wrAll)>h3,
+#t-wr:not(.wrA):not(.wrS)>.card:not(#wrAll)>p.mut,
+#t-wr:not(.wrA):not(.wrS) .wrPk2c,
+#t-wr:not(.wrA):not(.wrS) #wrRecBox .wrPkH{position:static!important;top:auto!important}
+#t-wr:not(.wrA):not(.wrS) #wrRecList{height:auto!important;max-height:340px}
+}
+
 </style>
 <style>/* Entry For Staff: দায়িত্ব ফরম */
 .stfFc{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-top:10px}
@@ -372,7 +396,104 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 .tg:not(.n):not(.u){background:#e6e9ec;color:#444}
 @media (max-width:700px){#stfOv .fg{grid-template-columns:1fr}}
 </style>
-</head><body><div class="app">
+<style id="wrPinCss">
+#t-wr.wrA #wrAHead{background:var(--card);border-bottom:1px solid var(--bd);padding-bottom:4px}
+@media (min-width:901px){
+#t-wr.wrA{overflow:hidden!important;display:flex;flex-direction:column;height:100%;min-height:0}
+#t-wr.wrA>.wrSub{flex:none}
+#t-wr.wrA>#wrAll{flex:1 1 0!important;min-height:0!important;display:flex!important;flex-direction:column;overflow:hidden!important;margin-bottom:0}
+#t-wr.wrA #wrAHead{flex:none}
+#t-wr.wrA #wrAundo{flex:none}
+#t-wr.wrA #wrAList{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-top:8px}
+}
+@media (max-width:900px){#t-wr.wrA #wrAHead{position:sticky;top:0;z-index:30}}
+
+#t-wr.wrR #stfRecHead{background:var(--card);border-bottom:1px solid var(--bd);padding-bottom:4px}
+@media (min-width:901px){
+#t-wr.wrR{overflow:hidden!important;display:flex;flex-direction:column;height:100%;min-height:0}
+#t-wr.wrR>.wrSub{flex:none}
+#t-wr.wrR>#stfRecW{flex:1 1 0!important;min-height:0!important;display:flex!important;flex-direction:column;overflow:hidden!important;margin-bottom:0}
+#t-wr.wrR #stfRecHead{flex:none}
+#t-wr.wrR #stfRecList{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-top:8px}
+}
+@media (max-width:900px){#t-wr.wrR #stfRecHead{position:sticky;top:0;z-index:30}}
+
+#t-wr #wrBody,#t-wr #wrSheet{scroll-margin-top:calc(var(--pd,0px) + 8px)}
+
+/* Entry: রেকর্ড তালিকা এখন বিষয়বস্তু অনুযায়ী ছোট-বড় হয়; বেশি হলে কলামের ভেতরে স্ক্রল */
+@media (min-width:901px){
+#t-wr:not(.wrA):not(.wrS) #wrRecList{height:auto!important;grid-template-rows:auto!important;min-height:0!important}
+#t-wr:not(.wrA):not(.wrS) #wrRecList .wrCol{max-height:max(220px,calc(100vh - var(--pd,260px) - 230px))}
+}
+
+/* শীর্ষ তথ্যের ৬টি ফিল্ড এক লাইনে */
+@media (min-width:1100px){
+#t-wr #wrBody>.wrG{grid-template-columns:.8fr .95fr 1.6fr 1.7fr .7fr;gap:8px;align-items:end}
+#t-wr #wrBody>.wrG>.f{min-width:0}
+#t-wr #wrBody>.wrG>.f>span{font-size:12px;line-height:1.25}
+#t-wr #wrBody>.wrG input{min-width:0;width:100%;padding-left:8px;padding-right:8px}
+}
+
+/* শীর্ষ তথ্যের পাঁচটি ফিল্ড ডিফল্টে লুকানো; তারিখ ফিল্ড দৃশ্যমান */
+#t-wr #wrBody:not(.hdrOpen) .hdrX{display:none!important}
+#t-wr #wrBody:not(.hdrOpen)>.wrG{grid-template-columns:minmax(0,260px)!important}
+#t-wr .wrPhT{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#t-wr .wrHdrTg{padding:2px 10px;font-size:12px;border-radius:8px;cursor:pointer}
+#t-wr .wrHdrSm{font-size:12px;font-weight:400;flex:1 1 220px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#t-wr #wrBody.hdrOpen .wrHdrSm{display:none}
+
+/* ব্যবহারিক টিক ও তালিকার তারিখ — শিরোনামের লাইনেই */
+#t-wr .wrPhT .wrPracT{margin:0 0 0 auto;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;white-space:nowrap}
+#t-wr .wrPhT .wrLd{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;white-space:nowrap}
+#t-wr .wrPhT .wrLd input{width:140px;padding:5px 8px}
+#t-wr #wrBody:not(.hdrOpen)>.wrG{display:none!important}
+#t-wr #wrBody.hdrOpen .wrPhT .wrHdrSm{display:none}
+
+#t-wr .wrPhT .wrLd{border-left:2px solid var(--bd,#b7c9bf);padding-left:14px;margin-left:6px;min-height:28px}
+
+/* সারির তারিখ ও প্রার্থীর সংখ্যা — সারির হেডারেই */
+#t-wr .wrRh{flex-wrap:wrap}
+#t-wr .wrRhF{display:flex;gap:10px;align-items:flex-end;flex:0 1 auto;margin-left:auto}
+#t-wr .wrRhF .f{display:flex;flex-direction:column;gap:2px;margin:0}
+#t-wr .wrRhF .f>span{font-size:11.5px;line-height:1.2;white-space:nowrap}
+#t-wr .wrRhF .f input{padding:4px 8px;min-width:0}
+#t-wr .wrRhF .f:nth-child(1) input{width:210px}
+#t-wr .wrRhF .f:nth-child(2) input{width:170px}
+#t-wr .wrRhF{align-items:center;gap:0;flex-wrap:nowrap}
+#t-wr .wrRhF .f{flex-direction:row;align-items:center;gap:6px}
+#t-wr .wrRhF .f>span::after{content:' :'}
+#t-wr .wrRhF .f+.f{border-left:2px solid var(--bd,#b7c9bf);margin-left:14px;padding-left:14px}
+#t-wr .wrPhD{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+#t-wr .wrPhD .wrTopF{display:inline-flex;margin-left:16px;font-weight:400}
+#t-wr .wrPhD .wrTopF .wrRhF{margin-left:0;flex-wrap:nowrap}
+
+/* নামের তালিকা (ক্রমিক নং + উপরে/নিচে) */
+#t-wr .wrTa>.f>textarea[data-k]{display:none!important}
+#t-wr .wrNl{border:1px solid var(--bd,#b7c9bf);border-radius:8px;background:#fff;padding:4px;min-height:90px;display:flex;flex-direction:column;gap:3px}
+#t-wr .wrNi{display:flex;align-items:flex-start;gap:4px;padding:3px 4px;border-radius:6px;background:var(--hl,#eef6f1);border:1px solid transparent}
+#t-wr .wrNi:focus-within{border-color:var(--pr,#0a7d3b);background:#fff}
+#t-wr .wrNn{flex:none;min-width:22px;font-weight:700;color:var(--thc,#0a5a2b);font-size:13px;line-height:1.5;padding-top:1px}
+#t-wr .wrNt{flex:1 1 auto;min-width:0;font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word;outline:none;color:inherit}
+#t-wr .wrNb{flex:none;display:flex;gap:2px}
+#t-wr .wrNb button{width:20px;height:20px;padding:0;line-height:18px;font-size:10px;border-radius:5px;cursor:pointer;min-height:0}
+#t-wr .wrNb button[data-nact=rm]{color:#c62828;border-color:#e57373}
+#t-wr .wrCard .wrNa{display:none}
+#t-wr .wrCard:hover .wrNa,#t-wr .wrCard:focus-within .wrNa{display:block}
+#t-wr .wrCard .wrNl{min-height:60px}
+#t-wr .wrRedit{border:1px solid var(--bd,#b7c9bf);background:#fff;color:var(--thc,#0a5a2b);border-radius:6px;width:22px;height:20px;padding:0;line-height:18px;font-size:12px;cursor:pointer;vertical-align:middle;min-height:0}
+#t-wr .wrRedit:hover{background:var(--hl,#e3f1e8)}
+#t-wr .wrRin{width:64px;padding:2px 6px;font-size:12px;text-align:center;border:1px solid var(--bd,#b7c9bf);border-radius:6px;background:#fff}
+#t-wr .wrNa input{width:100%;box-sizing:border-box;font-size:12.5px;padding:5px 8px}
+
+/* নামের তালিকা: ২ জনের বেশি হলে বক্সের ভেতরে স্ক্রল */
+#t-wr .wrNl{max-height:152px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+#t-wr .wrNl .wrNa{position:sticky;bottom:-4px;background:#fff;padding:3px 0 2px;margin-top:auto;z-index:2}
+
+/* তালিকার জনসংখ্যা — কলামের ওপরের ডান কোনায় */
+#t-wr .wrTa>.f>.wrLb{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+#t-wr .wrLb .wrLt{min-width:0}
+#t-wr .wrCnB{flex:none;min-width:22px;text-align:center;font-size:11px;font-weight:800;line-height:16px;padding:0 7px;border-radius:10px;background:#d9f2e1;color:#0b6b32;border:1.5px solid #2e9e5b}
+</style></head><body><div class="app">
 <header class="hd noprint">
 <div class="brand"><img id="hdLogo" alt="CMS"><div><h1>Candidate Management System (CMS)</h1><div class="sub">ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়, গাজীপুর</div><div class="sub" id="lastUpd" style="display:inline-block;width:fit-content;font-size:12.5px;font-weight:600;line-height:1.3;color:#0b4a2a;background:#fff4c2;border:1.5px solid #f2b705;border-radius:6px;padding:2px 9px;margin-top:4px;opacity:1"></div></div></div>
 <div class="up"><button class="p" id="upBtn" title="ফাইল ও ফোল্ডার একসাথে বা আলাদা — যেকোনোভাবে যোগ করে আপলোড করুন">📂 ফাইল আপলোড (HTML)</button><input type="file" id="file" multiple accept=".html,.htm,.txt,.pdf,.xlsx,.xls,.csv" hidden><input type="file" id="upDir" webkitdirectory multiple hidden><label>ছবির ফোল্ডার: <input type="file" id="dir" webkitdirectory multiple></label></div>
@@ -514,7 +635,7 @@ el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u0
 <button type="button" id="stfRe" title="টেবিলের সব নাম খালি করুন">↺ রিসেট</button>
 <button type="button" id="stfSv" class="p" title="এই ফরমটি Staff Record ট্যাবে সংরক্ষিত হবে">💾 সংরক্ষণ</button><button type="button" id="stfWd" class="p">📄 Word (.docx)</button></div>
 <div class="stfGrid"><div class="stfPk"><input id="stfQ2" class="stfSe" placeholder="🔍 Staff List থেকে খুঁজুন (নাম / পদবী / দপ্তর)"><label class="stfCtT" title="ক্যাট-১/২/৩ বাটন দেখান বা লুকান"><input type="checkbox" id="stfCtTg"> ⇄ ক্যাটাগরি পরিবর্তনের অপশন দেখান</label><div id="stfPkB"></div></div><div class="stfPv"><div id="stfDoc"></div></div></div></div>
-<div class="card noprint" id="wrAll" hidden><div class="row" style="align-items:center;margin:0 0 8px"><h3 style="margin:0">🗂 All Written Committee</h3><span class="grow"></span><span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap" title="সব কমিটির নিচের স্বাক্ষরের প্রথম পদবী"><b>স্বাক্ষর:</b><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgD"> ডেপুটি রেজিস্ট্রার</label><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgA"> অতিরিক্ত রেজিস্ট্রার</label></span><button type="button" id="wrAllPdf">📕 সব কমিটি PDF</button><button type="button" id="wrAllDocx">📄 সব কমিটি Word (.docx)</button><button type="button" id="wrAdir" title="ক্রম উল্টান">⬇ নতুন আগে</button></div><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><p class="mut" style="margin:0">Entry ট্যাবে “💾 সংরক্ষণ” চাপলে কমিটিগুলো এখানে রেকর্ড আকারে জমা থাকে। এগুলো ব্যাকআপেও যায়। <b>একটি কার্ড টেনে অন্য কার্ডের ওপর ছাড়লে দুটি কমিটি জয়েন হয়ে একটি হবে (আগে অনুমতি চাইবে)।</b></p><span class="grow"></span><label style="display:flex;gap:6px;align-items:center" title="তালিকা সাজানোর ধরন"><b>↕ সর্ট:</b><select id="wrAsort" style="width:auto"><option value="t">সর্বশেষ সংরক্ষণ</option><option value="p">পদের নাম</option><option value="g">গ্রেড</option><option value="d">দপ্তর</option></select></label></div><div class="row"><input id="wrAq" class="grow" placeholder="🔍 রেকর্ড / পদ / বিভাগ দিয়ে খুঁজুন" autocomplete="off"></div><div id="wrAundo"></div><div id="wrAList"></div></div><div class="card noprint" id="stfRecW" hidden><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><h3 style="margin:0">🗃 Staff Record</h3><span class="grow"></span><button type="button" id="stfRecPdf" title="সংরক্ষিত সব পদের ফরম একটি PDF-এ">📕 সব রেকর্ড PDF</button><button type="button" id="stfRecDocx" title="সংরক্ষিত সব পদের ফরম একটি Word ফাইলে">📄 সব রেকর্ড Word (.docx)</button><button type="button" id="stfRecDir" title="ক্রম উল্টান">⬇ নতুন আগে</button></div><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><p class="mut" style="margin:0">Entry For Staff ফরমে “💾 সংরক্ষণ” চাপলে ফরমটি এখানে জমা থাকে। এখান থেকে প্রিভিউ, ইডিট (ফরম আবার খুলবে), Word / PDF ডাউনলোড বা মুছে ফেলা যাবে। এগুলো ব্যাকআপেও যায়।</p><span class="grow"></span><label style="display:flex;gap:6px;align-items:center" title="তালিকা সাজানোর ধরন (সব রেকর্ড ডাউনলোডও এই ক্রমে হবে)"><b>↕ সর্ট:</b><select id="stfRecSort" style="width:auto"><option value="t">সর্বশেষ সংরক্ষণ</option><option value="p">পদের নাম</option><option value="g">গ্রেড</option><option value="d">বিভাগ / দপ্তর</option></select></label></div><div class="row"><input id="stfRecQ" class="grow" placeholder="🔍 পদ / স্মারক / দপ্তর / নাম দিয়ে খুঁজুন" autocomplete="off"></div><div id="stfRecList"></div></div></div>
+<div class="card noprint" id="wrAll" hidden><div id="wrAHead"><div class="row" style="align-items:center;margin:0 0 8px"><h3 style="margin:0">🗂 All Written Committee</h3><span class="grow"></span><span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap" title="সব কমিটির নিচের স্বাক্ষরের প্রথম পদবী"><b>স্বাক্ষর:</b><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgD"> ডেপুটি রেজিস্ট্রার</label><label style="display:flex;gap:4px;align-items:center;cursor:pointer"><input type="checkbox" id="wrSgA"> অতিরিক্ত রেজিস্ট্রার</label></span><button type="button" id="wrAllPdf">📕 সব কমিটি PDF</button><button type="button" id="wrAllDocx">📄 সব কমিটি Word (.docx)</button><button type="button" id="wrAdir" title="ক্রম উল্টান">⬇ নতুন আগে</button><label style="display:flex;gap:6px;align-items:center" title="তালিকা সাজানোর ধরন"><b>↕ সর্ট:</b><select id="wrAsort" style="width:auto"><option value="t">সর্বশেষ সংরক্ষণ</option><option value="p">পদের নাম</option><option value="g">গ্রেড</option><option value="d">দপ্তর</option></select></label></div><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><p class="mut" style="margin:0">Entry ট্যাবে “💾 সংরক্ষণ” চাপলে কমিটিগুলো এখানে রেকর্ড আকারে জমা থাকে। এগুলো ব্যাকআপেও যায়। <b>একটি কার্ড টেনে অন্য কার্ডের ওপর ছাড়লে দুটি কমিটি জয়েন হয়ে একটি হবে (আগে অনুমতি চাইবে)।</b></p><span class="grow"></span></div><div class="row"><input id="wrAq" class="grow" placeholder="🔍 রেকর্ড / পদ / বিভাগ দিয়ে খুঁজুন" autocomplete="off"><button type="button" class="d" id="wrDelAll" title="All Written Committee-র সব সংরক্ষিত কমিটি মুছে ফেলুন (নিশ্চিতকরণ লাগবে)">🗑 Delete All</button></div></div><div id="wrAundo"></div><div id="wrAList"></div></div><div class="card noprint" id="stfRecW" hidden><div id="stfRecHead"><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><h3 style="margin:0">🗃 Staff Record</h3><span class="grow"></span><button type="button" id="stfRecPdf" title="সংরক্ষিত সব পদের ফরম একটি PDF-এ">📕 সব রেকর্ড PDF</button><button type="button" id="stfRecDocx" title="সংরক্ষিত সব পদের ফরম একটি Word ফাইলে">📄 সব রেকর্ড Word (.docx)</button><button type="button" id="stfRecDir" title="ক্রম উল্টান">⬇ নতুন আগে</button><label style="display:flex;gap:6px;align-items:center" title="তালিকা সাজানোর ধরন (সব রেকর্ড ডাউনলোডও এই ক্রমে হবে)"><b>↕ সর্ট:</b><select id="stfRecSort" style="width:auto"><option value="t">সর্বশেষ সংরক্ষণ</option><option value="p">পদের নাম</option><option value="g">গ্রেড</option><option value="d">বিভাগ / দপ্তর</option></select></label></div><div class="row" style="align-items:center;margin:0 0 8px;gap:8px;flex-wrap:wrap"><p class="mut" style="margin:0">Entry For Staff ফরমে “💾 সংরক্ষণ” চাপলে ফরমটি এখানে জমা থাকে। এখান থেকে প্রিভিউ, ইডিট (ফরম আবার খুলবে), Word / PDF ডাউনলোড বা মুছে ফেলা যাবে। এগুলো ব্যাকআপেও যায়।</p><span class="grow"></span></div><div class="row"><input id="stfRecQ" class="grow" placeholder="🔍 পদ / স্মারক / দপ্তর / নাম দিয়ে খুঁজুন" autocomplete="off"><button type="button" class="d" id="stfRecDelAll" title="Staff Record-এর সব সংরক্ষিত ফরম মুছে ফেলুন (নিশ্চিতকরণ লাগবে)">🗑 Delete All</button></div></div><div id="stfRecList"></div></div></div>
 <div class="sec" id="t-cp"><div class="card noprint">
 <div class="row"><input id="cpTitle" class="grow" placeholder="শিরোনাম (যেমন: আবেদনকৃত প্রার্থীদের তথ্য)" value="আবেদনকৃত প্রার্থীদের তথ্য"><input id="cpQ" type="search" autocomplete="off" placeholder="🔍 খুঁজুন (নাম, আইডি, মোবাইল, বিশ্ববিদ্যালয়, ঠিকানা…)" title="এখানে লিখলে শুধু মিলে যাওয়া আবেদনকারীরাই প্রিভিউ/PDF/Word-এ আসবে" style="flex:0 0 340px;width:340px;max-width:34%"><label><input type="checkbox" id="cpHead" checked> প্রতিষ্ঠানের নাম ও লোগো</label><label style="font-weight:600"><input type="checkbox" id="cpAd"> নিয়োগ বিজ্ঞপ্তির তথ্য এড করুন</label><input type="checkbox" id="cpQt" checked hidden></div>
 <div class="row" style="margin-top:8px"><label>লেআউট: <select id="cpLay"><option value="d">Landscape (বিস্তারিত)</option><option value="t">Portrait (কাস্টম ফিল্ড — Legal)</option><option value="l">Landscape (কাস্টম ফিল্ড — Legal)</option></select></label>
@@ -5748,9 +5869,17 @@ fillCfg();
 nav.tabs button[data-t=wr]::before{content:"✍️ "}
 nav.tabs button[data-t=wr]{white-space:nowrap;line-height:1.5}
 #t-wr{overflow:auto}#t-wr>.card{flex:none;overflow:visible;max-height:none}
-#t-wr .wrSub{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}#t-wr .wrSub button{padding:8px 16px;border-radius:10px;font-weight:700}#t-wr .wrSub button.on{background:var(--pr);color:var(--prt);border-color:var(--pr)}#t-wr .wrCnt{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:10px;background:var(--hl);color:var(--thc);font-size:12px;text-align:center}#t-wr .wrSub button.on .wrCnt{background:rgba(255,255,255,.25);color:inherit}
+#t-wr .wrSub{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}#t-wr>.wrSub{position:sticky;top:0;z-index:30;background:var(--bg);padding:6px 0 8px;margin:0 0 4px}#t-wr .wrSub button{padding:8px 16px;border-radius:10px;font-weight:700}#t-wr .wrSub button.on{background:var(--pr);color:var(--prt);border-color:var(--pr)}#t-wr .wrCnt{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:10px;background:var(--hl);color:var(--thc);font-size:12px;text-align:center}#t-wr .wrSub button.on .wrCnt{background:rgba(255,255,255,.25);color:inherit}
 #t-wr.wrA>.card:not(#wrAll),#t-wr.wrA>#wrSheet{display:none!important}#t-wr:not(.wrA)>#wrAll{display:none!important}
 #t-wr .wrAi{border:1px solid var(--bd);border-radius:12px;margin:10px 0;padding:10px 12px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}#t-wr .wrAi .wrAm{flex:1;min-width:240px}#t-wr .wrAi .wrAm b{font-size:14.5px}#t-wr .wrAi .wrAm div{font-size:12.5px;color:var(--mut);margin-top:3px}#t-wr .wrAi .wrAb{display:flex;gap:6px;flex-wrap:wrap}
+/* প্রতিটি কমিটি এক লাইনে */
+#t-wr .wrAi{flex-wrap:nowrap!important;align-items:center!important;margin:6px 0!important;padding:6px 12px!important;gap:10px!important}
+#t-wr .wrAi .wrAm{flex:1 1 0!important;min-width:0!important;display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden}
+#t-wr .wrAi .wrAm b{flex:0 1 auto;min-width:80px;max-width:42%;overflow:hidden;text-overflow:ellipsis}
+#t-wr .wrAi .wrAm .wrTg{flex:none}
+#t-wr .wrAi .wrAm div{flex:1 1 0;min-width:0;margin:0!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#t-wr .wrAi .wrAb{flex:none;flex-wrap:nowrap!important}#t-wr .wrAi .wrAb button{padding:4px 10px;font-size:13px;white-space:nowrap}
+#t-wr .wrAi .wrPrB{flex:none;padding:3px 10px!important;font-size:12px!important}
 #t-wr .wrAi[draggable=true]{cursor:grab}#t-wr .wrAi.dragging{opacity:.45}
 #t-wr .wrAi.dropOn{outline:3px dashed #c2185b;outline-offset:2px}
 #t-wr #wrAundo .wrUn{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#d9f2e1;color:#0b6b32;border:1px solid #2e9e5b;border-radius:10px;padding:8px 12px;margin:8px 0}
@@ -5789,6 +5918,9 @@ nav.tabs button[data-t=wr]{white-space:nowrap;line-height:1.5}
 #t-wr .wrRh{display:flex;align-items:center;gap:8px;background:var(--hl);padding:7px 12px;border-bottom:1px solid var(--bd);color:var(--thc);border-radius:12px 12px 0 0}
 #t-wr .wrSb,#t-wr .wrTa{display:grid;grid-template-columns:repeat(var(--n,6),minmax(0,1fr));gap:10px;padding:0 12px 12px}
 #t-wr .wrSb{padding-bottom:8px}
+#t-wr .wrTa>.wrCard{border:1px solid var(--bd,#b7c9bf);border-radius:12px;background:var(--card,#fff);padding:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:6px;min-width:0;margin:0}
+#t-wr .wrTa>.wrCard>.wrLb{align-items:center;padding:7px 9px;border-radius:8px;background:var(--hl,#e3f1e8);border:1px solid var(--bd,#b7c9bf);color:var(--thc,#0a5a2b);font-weight:700}
+#t-wr .wrTa{padding-top:12px}
 #t-wr .wrSc{position:relative;min-width:0}
 #t-wr .wrSl{display:block;font-size:11.5px;font-weight:700;color:var(--thc);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #t-wr .wrSw{display:flex;gap:4px;border:1px solid var(--bd);border-radius:8px;background:var(--card);padding:2px;min-width:0}
@@ -5903,6 +6035,7 @@ const intro=()=>{
    else who=joinO(its.map(m=>(m.dept?rel(m.dept)+' ':'')+pg(m)),'এবং')}
  return mt+who+tail};
 const blocks=s=>String(s||'').split(/\n\s*\n/).map(b=>b.split('\n').map(x=>x.trim()).filter(Boolean)).filter(b=>b.length);
+const rateLbl=c=>c.r==null?'':(c.r==5?'('+(n=>n?toBn(n):'........')(toEn(String(W.rates[5]||'')).replace(/[^\d.]/g,''))+'× সংখ্যা)':'('+money(W.rates[c.r])+')');
 const rateSub=c=>c.r==null?'':(c.r==5?'(সম্মানী : পূর্ণ উত্তরপত্র '+money(W.rates[5])+' × উত্তরপত্রের সংখ্যা)':'(সম্মানী : '+money(W.rates[c.r])+')');
 const cellTxt=(r,c)=>c.k=='d'?toBn(String(r.d||'').trim()):c.k=='n'?nLines(r).join(' '):'';
 /* প্রার্থীর সংখ্যা: "(১২৮+৩২) = ১৬০" লিখলে "=" থেকে নতুন লাইন (নমুনার মতো) */
@@ -5988,10 +6121,11 @@ const sortKey=(W_,e)=>{const m=W_.meta&&W_.meta[e];return m?m:null};
 function addEntry(i,k,e,meta){
  const row=W.rows[i];W.meta=W.meta||{};W.meta[e]=meta;
  const cur=persons(row[k]).map(b=>b.join(', '));
- if(!cur.some(x=>nz(x)==nz(e)))cur.push(e);
- const known=cur.filter(x=>W.meta[x]),manual=cur.filter(x=>!W.meta[x]);
- known.sort((a,b)=>{const x=W.meta[a],y=W.meta[b];return(x[0]-y[0])||((x[1]==null?9e15:x[1])-(y[1]==null?9e15:y[1]))});
- row[k]=known.concat(manual).join('\n')}
+ if(!cur.some(x=>nz(x)==nz(e))){
+  const cmp=(x,y)=>(x[0]-y[0])||((x[1]==null?9e15:x[1])-(y[1]==null?9e15:y[1]));
+  let pos=cur.length;for(let q=0;q<cur.length;q++){const m=W.meta[cur[q]];if(!m||cmp(meta,m)<0){pos=q;break}}
+  cur.splice(pos,0,e)}
+ row[k]=cur.join('\n')}
 
 /* ---------- রেকর্ডের তথ্য ---------- */
 async function recInfo(n){
@@ -6019,12 +6153,18 @@ function fillSel(){
 }
 
 /* ---------- ফরম ---------- */
-const deptOpts=()=>{const T=teachers();return'<option value="">সব বিভাগ</option><option value="vc">ভিসি / প্রো-ভিসি</option>'+T.depts.map((d,j)=>'<option value="'+j+'">'+esc(deptLbl(deptShort(d)||d))+' — '+esc(d)+'</option>').join('')};
-const stripHtml=()=>{const cs=AC().slice(2),n=cs.length,o=deptOpts();return'<div class="wrSb" style="--n:'+n+'">'+cs.map((c,x)=>'<div class="wrSc'+(x>=n-2?' wrSr':'')+'" data-k="'+c.k+'"><span class="wrSl" title="'+esc(c.t)+'">🔍 '+esc(SHORTT[c.k]||c.t)+'</span><div class="wrSw"><select data-dsel title="বিভাগ বাছাই করুন">'+o+'</select><input data-q placeholder="নাম লিখে খুঁজুন" autocomplete="off"></div><div class="wrRes" hidden></div></div>').join('')+'</div>'};
-const rowHtml=(r,i)=>'<div class="wrRow" data-i="'+i+'"><div class="wrRh"><b>🗓 সারি '+toBn(i+1)+'</b><span class="grow" style="flex:1"></span><button type="button" data-act="dup" title="এই সারির কপি নিচে যোগ হবে">⧉ কপি</button><button type="button" class="d" data-act="del">✕ মুছুন</button></div><div class="wrRg">'
- +'<label class="f"><span>'+colT(COLS[0])+'</span><input data-k="d" value="'+esc(r.d)+'" placeholder="যেমন: ১৫/১১/২০২৬"></label>'
- +'<label class="f"><span>'+COLS[1].t+'</span><input data-k="n" inputmode="numeric" value="'+esc(r.n)+'"></label>'
- +'</div>'+stripHtml()+'<div class="wrTa" style="--n:'+AC().slice(2).length+'">'+AC().slice(2).map(c=>'<div class="f"><span>'+esc(c.t)+' <small class="mut" data-rl="'+c.r+'">'+esc(rateSub(c))+'</small></span><textarea data-k="'+c.k+'" rows="6" placeholder="প্রতি লাইনে একজন: নাম, পদবি, বিভাগ (ক্রমিক নং নিজে থেকে বসবে)। উপরের সার্চ বক্স থেকেও যোগ করা যাবে।">'+esc(r[c.k])+'</textarea>'+'</div>').join('')
+/* ড্রপডাউনে সংক্ষিপ্ত ইংরেজি নাম + মোট শিক্ষক সংখ্যা, যেমন: ME (১২) */
+const DEPT_EN={'সিই':'CE','স্থাপত্য':'Arch','ইইই':'EEE','সিএসই':'CSE','এমই':'ME','টিই':'TE','আইপিই':'IPE','গণিত':'Math','পদার্থবিজ্ঞান':'Phy','রসায়ন':'Chem','এইচএসএস':'HSS','এমএমই':'MME','সিএইচই':'ChE','এফই':'FE','আইইই':'IEE','আইডব্লিউই':'IWE','আইআইসিটি':'IICT'};
+const deptNoList=d=>/3csr|৩সিএসআর|ক্লাইমেট|climate|জলবায়ু/i.test(d)||deptShort(d)=='৩সিএসআর';
+const deptOpts=()=>{const T=teachers();return'<option value="">সব বিভাগ</option><option value="vc">ভিসি / প্রো-ভিসি</option>'+T.depts.map((d,j)=>{if(deptNoList(d))return'';const sh=deptShort(d)||d,en=DEPT_EN[sh]||deptLbl(sh),n=T.list.filter(t=>t.dept===d).length;return'<option value="'+j+'" title="'+esc(d)+'">'+esc(en)+' ('+toBn(n)+')</option>'}).join('')};
+const colS=(c,x,n)=>'<div class="wrSc'+(x>=n-2?' wrSr':'')+'" data-k="'+c.k+'"><div class="wrSw"><select data-dsel title="বিভাগ বাছাই করুন">'+deptOpts()+'</select><input data-q placeholder="নাম লিখে খুঁজুন" autocomplete="off"></div><div class="wrRes" hidden></div></div>';
+const stripHtml=()=>{const cs=AC().slice(2),n=cs.length,o=deptOpts();return'<div class="wrSb" style="--n:'+n+'">'+cs.map((c,x)=>'<div class="wrSc'+(x>=n-2?' wrSr':'')+'" data-k="'+c.k+'"><div class="wrSw"><select data-dsel title="বিভাগ বাছাই করুন">'+o+'</select><input data-q placeholder="নাম লিখে খুঁজুন" autocomplete="off"></div><div class="wrRes" hidden></div></div>').join('')+'</div>'};
+/* নামের তালিকা: প্রতিটির শুরুতে ক্রমিক নং + ▲ ▼ ✕ */
+const nlItem=(t,j)=>'<div class="wrNi"><span class="wrNn">'+toBn(j+1)+'।</span><div class="wrNt" contenteditable="plaintext-only" spellcheck="false">'+esc(t)+'</div><span class="wrNb"><button type="button" data-nact="up" title="উপরে নিন">▲</button><button type="button" data-nact="dn" title="নিচে নিন">▼</button><button type="button" data-nact="rm" title="বাদ দিন">✕</button></span></div>';
+const nlHtml=(v,k)=>'<div class="wrNl" data-nk="'+k+'">'+persons(v).map((b,j)=>nlItem(b.join('\n'),j)).join('')+'<div class="wrNa"><input data-nadd placeholder="＋ নাম, পদবি, বিভাগ লিখে Enter চাপুন" autocomplete="off"></div></div>';
+const rowF=r=>'<span class="wrRhF"><label class="f"><span>'+colT(COLS[0])+'</span><input data-k="d" value="'+esc(r.d)+'" placeholder="যেমন: ১৫/১১/২০২৬"></label><label class="f"><span>'+COLS[1].t+'</span><input data-k="n" inputmode="numeric" value="'+esc(r.n)+'"></label></span>';
+const topF=()=>W&&W.rows[0]?rowF(W.rows[0]):'';
+const rowHtml=(r,i)=>'<div class="wrRow" data-i="'+i+'">'+(i==0?'':'<div class="wrRh"><b>🗓 সারি '+toBn(i+1)+'</b><span class="grow" style="flex:1"></span>'+(i==0?'':rowF(r))+'<button type="button" data-act="dup" title="এই সারির কপি নিচে যোগ হবে">⧉ কপি</button><button type="button" class="d" data-act="del">✕ মুছুন</button></div>')+'<div class="wrTa" style="--n:'+AC().slice(2).length+'">'+AC().slice(2).map((c,x,A)=>'<div class="f wrCard"><span class="wrLb"><span class="wrLt">'+esc(SHORTT[c.k]||c.t)+' <small class="mut" data-rl="'+c.r+'">'+esc(rateLbl(c))+'</small> <button type="button" class="wrRedit" title="সম্মানীর পরিমাণ সংশোধন করুন">✎</button><input class="wrRin" data-rate="'+c.r+'" value="'+esc(W.rates[c.r])+'" inputmode="numeric" title="সম্মানীর হার (Enter চাপুন)" hidden></span><b class="wrCnB" title="এই তালিকায় মোট জন">'+toBn(persons(r[c.k]).length)+'</b></span>'+colS(c,x,A.length)+'<textarea data-k="'+c.k+'" rows="1" hidden>'+esc(r[c.k])+'</textarea>'+nlHtml(r[c.k],c.k)+'</div>').join('')
  +'</div></div>';
 /* একই গ্রেডের একাধিক পদ নিয়ে একটি কমিটি */
 function moreHtml(){
@@ -6054,16 +6194,16 @@ async function rmMoreRec(idx){
  W.recs.splice(idx,1);buildForm();touch();renderPreview()}
 function buildForm(){
  const b=g('wrBody');
- b.innerHTML='<div class="wrPh">📌 শীর্ষ তথ্য</div><div class="wrG">'
- +'<label class="f"><span>তালিকার তারিখ (ওপরে ডানে)</span><input data-h="ldate" value="'+esc(W.ldate)+'" placeholder="যেমন: ১০/১১/২০২৬"></label>'
- +'<label class="f"><span>নিয়োগ বিজ্ঞপ্তির স্মারক নং</span><input data-h="memo" value="'+esc(W.memo)+'"></label>'
- +'<label class="f"><span>বিজ্ঞপ্তির তারিখ</span><input data-h="mdate" value="'+esc(W.mdate)+'" placeholder="যেমন: ০৫/০৫/২০২৬"></label>'
- +'<label class="f"><span>বিভাগ / দপ্তর</span><input data-h="dept" value="'+esc(W.dept)+'"></label>'
- +'<label class="f"><span>পদের নাম <small class="mut">(একাধিক পদ হলে ; দিয়ে আলাদা করুন)</small></span><input data-h="post" value="'+esc(W.post)+'" placeholder="যেমন: নিরাপত্তা প্রহরী; পরিচ্ছন্নতা কর্মী"></label>'
- +'<label class="f"><span>গ্রেড (সংখ্যা)</span><input data-h="grade" value="'+esc(W.grade)+'" placeholder="যেমন: 16"></label></div>'
- +'<label class="wrChk"><input type="checkbox" id="wrPrac"'+(W.prac?' checked':'')+'> ব্যবহারিক পরীক্ষা আছে (টিক দিলে “ব্যবহারিক পরীক্ষা গ্রহণকারী” কলাম যোগ হবে)</label>'
- +'<details><summary>💰 সম্মানীর হার (প্রয়োজনে বদলান)</summary><div class="wrRt">'+AC().filter(c=>c.r!=null).map(c=>'<label class="f"><span>'+esc(c.t)+'</span><input data-rate="'+c.r+'" value="'+esc(W.rates[c.r])+'"></label>').join('')+'</div></details>'
- +'<div class="wrPh">👥 দায়িত্ব বণ্টন</div><div id="wrRows">'+W.rows.map(rowHtml).join('')+'</div>'
+ const _sm=[W.memo&&('স্মারক '+W.memo),W.mdate&&('বিজ্ঞপ্তি '+W.mdate),W.post,W.dept,W.grade&&('গ্রেড-'+W.grade)].filter(Boolean).join(' · ');
+ b.classList.toggle('hdrOpen',!!window.__wrHdrOpen);
+ b.innerHTML='<div class="wrPh wrPhT">📌 শীর্ষ তথ্য <button type="button" id="wrHdrTg" class="wrHdrTg">'+(window.__wrHdrOpen?'▾ লুকান':'▸ দেখান / সম্পাদনা')+'</button><span class="mut wrHdrSm">'+esc(_sm)+'</span><label class="wrChk wrPracT"><input type="checkbox" id="wrPrac"'+(W.prac?' checked':'')+'> ব্যবহারিক পরীক্ষা আছে (টিক দিলে “ব্যবহারিক পরীক্ষা গ্রহণকারী” কলাম যোগ হবে)</label><label class="wrLd"><span>তালিকার তারিখ (ওপরে ডানে)</span><input data-h="ldate" value="'+esc(W.ldate)+'" placeholder="যেমন: ১০/১১/২০২৬"></label></div><div class="wrG">'
+ +'<label class="f hdrX"><span>নিয়োগ বিজ্ঞপ্তির স্মারক নং</span><input data-h="memo" value="'+esc(W.memo)+'"></label>'
+ +'<label class="f hdrX"><span>বিজ্ঞপ্তির তারিখ</span><input data-h="mdate" value="'+esc(W.mdate)+'" placeholder="যেমন: ০৫/০৫/২০২৬"></label>'
+ +'<label class="f hdrX"><span>বিভাগ / দপ্তর</span><input data-h="dept" value="'+esc(W.dept)+'"></label>'
+ +'<label class="f hdrX"><span>পদের নাম <small class="mut">(একাধিক পদ হলে ; দিয়ে আলাদা করুন)</small></span><input data-h="post" value="'+esc(W.post)+'" placeholder="যেমন: নিরাপত্তা প্রহরী; পরিচ্ছন্নতা কর্মী"></label>'
+ +'<label class="f hdrX"><span>গ্রেড (সংখ্যা)</span><input data-h="grade" value="'+esc(W.grade)+'" placeholder="যেমন: 16"></label>'
+ +'</div>'
+ +'<div class="wrPh wrPhD">👥 দায়িত্ব বণ্টন<span id="wrTopF" class="wrTopF">'+topF()+'</span></div><div id="wrRows">'+W.rows.map(rowHtml).join('')+'</div>'
  +'<div class="wrAct"><button type="button" id="wrAdd">➕ আরেকটি পরীক্ষার তারিখ / সারি</button><span class="mut">প্রতিটি কলামের উপরের সার্চ বক্সে বিভাগ বেছে বা নাম লিখে শিক্ষক যোগ করুন — জ্যেষ্ঠতা অনুযায়ী (ভিসি, প্রো-ভিসি, তারপর অধ্যাপক → সহযোগী → সহকারী, একই পদে বর্তমান পদে যোগদানের তারিখ অনুযায়ী) নিজে থেকে সাজবে। হাতে লিখলে প্রতি লাইনে একজন (নাম, পদবি, বিভাগ); ক্রমিক নং (১।, ২।…) নিজে থেকে বসবে। প্রার্থীর সংখ্যায় “(১২৮+৩২) = ১৬০” লিখলে “=” থেকে পরের লাইনে যাবে।</span></div>'
  +'<div class="wrAct"><button type="button" class="p" id="wrSave" title="এই কমিটি All Written Committee-তে রেকর্ড হিসেবে সংরক্ষিত হবে">💾 সংরক্ষণ</button><button type="button" class="p" id="wrDocx">📄 Word (.docx)</button><button type="button" id="wrPdf">🖨 PDF</button><button type="button" id="wrReload" title="রেকর্ড থেকে স্মারক নং, তারিখ, পদ, বিভাগ, গ্রেড আবার আনুন">↻ রেকর্ড থেকে শীর্ষ তথ্য নিন</button><button type="button" class="d" id="wrClear">🗑 ফরম খালি করুন</button><span class="mut" id="wrSaved">✓ খসড়া স্বয়ংক্রিয়ভাবে সংরক্ষিত হয় — কমিটি স্থায়ীভাবে রাখতে “💾 সংরক্ষণ” চাপুন</span></div><div class="mut" id="wrSen" style="font-size:12px;margin-top:4px">'+esc(teachers().info||'Teacher List আপলোড করা নেই — সার্চে শুধু ভিসি/প্রো-ভিসি পাওয়া যাবে (উপরে “Teacher List” বাটনে DOCX আপলোড করুন)')+'</div>';
  b.hidden=false;renderMore();
@@ -6160,11 +6300,14 @@ g('wrRec').addEventListener('change',e=>openFor(e.target.value));
 const tb=document.querySelector('.tabs button[data-t=wr]');
 if(tb)tb.addEventListener('click',()=>setTimeout(fillSel,0));
 T.addEventListener('change',e=>{if(e.target.id=='wrPrac'&&W){W.prac=e.target.checked;buildForm();touch();renderPreview()}});
+T.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.wrRedit');if(!b)return;const lb=b.closest('.wrLt'),inp=lb&&lb.querySelector('.wrRin');if(!inp)return;inp.hidden=!inp.hidden;if(!inp.hidden){inp.focus();inp.select()}});
+T.addEventListener('keydown',e=>{const t=e.target;if(t.classList&&t.classList.contains('wrRin')&&(e.key=='Enter'||e.key=='Escape')){e.preventDefault();t.hidden=true}});
+T.addEventListener('focusout',e=>{const t=e.target;if(t.classList&&t.classList.contains('wrRin'))t.hidden=true});
 T.addEventListener('input',e=>{
  const t=e.target;if(!W)return;
  if(t.dataset.h){W[t.dataset.h]=t.value}
- else if(t.dataset.rate!=null){W.rates[+t.dataset.rate]=t.value;COLS.forEach(c=>{if(c.r!=null){const s=T.querySelector('[data-rl="'+c.r+'"]');if(s)s.textContent=rateSub(c)}})}
- else if(t.dataset.k){const row=t.closest('.wrRow');if(!row)return;W.rows[+row.dataset.i][t.dataset.k]=t.value}
+ else if(t.dataset.rate!=null){W.rates[+t.dataset.rate]=t.value;T.querySelectorAll('input[data-rate="'+t.dataset.rate+'"]').forEach(x=>{if(x!==t)x.value=t.value});COLS.forEach(c=>{if(c.r!=null){T.querySelectorAll('[data-rl="'+c.r+'"]').forEach(s=>{s.textContent=rateLbl(c)})}})}
+ else if(t.dataset.k){const row=t.closest('.wrRow'),tp=t.closest('#wrTopF');if(!row&&!tp)return;W.rows[row?+row.dataset.i:0][t.dataset.k]=t.value}
  else return;
  touch();
 });
@@ -6176,6 +6319,9 @@ function showRes(cell){
  if(dv==='vc')L=L.filter(t=>t.vc);else if(dv!=='')L=L.filter(t=>t.dept==TD.depts[+dv]);
  if(q)L=L.filter(t=>nz(t.n).includes(q)||nz(t.des).includes(q)||nz(entryOf(t)).includes(q)||nz(extraRoles(t).join(' ')).includes(q));
  if(!q&&dv===''){box.innerHTML='<div class="wrRe">বিভাগ বাছাই করুন অথবা নামের অংশ লিখুন…</div>';box.hidden=false;box._res=[];hideRes(box);return}
+ {/* এই কলামে যাঁর নাম ইতিমধ্যে বাছাই করা হয়েছে, তাঁকে তালিকায় দেখানো হবে না (অন্য কলামে প্রভাব নেই) */
+  const rw=cell.closest('.wrRow'),cr=rw&&W&&W.rows[+rw.dataset.i];
+  if(cr){const ex=persons(cr[cell.dataset.k]).map(b=>nz(b.join(' ')));if(ex.length)L=L.filter(t=>{const nn=nz(t.vc?(t.vcName||t.n):t.n);return!nn||!ex.some(e=>e.includes(nn))})}}
  L=L.slice(0,60);box._res=L;
  box.innerHTML=L.length?L.map((t,j)=>'<div class="wrRi'+(j?'':' on')+'" data-j="'+j+'">'+esc(t.vc?(t.vcName||t.n):t.n)+'<small>'+esc([t.vc==1?'ভাইস-চ্যান্সেলর':t.vc==2?'প্রো-ভাইস-চ্যান্সেলর':t.des,deptLbl(t.ds),t.jt?('যোগদান: '+t.jt):''].filter(Boolean).join(' · '))+'</small>'+(()=>{const x=extraRoles(t);return x.length?'<small class="wrEx">অন্যান্য দায়িত্ব: '+x.map((r,y)=>'<span class="wrXr" data-x="'+y+'" title="ক্লিক করলে নামের সাথে এই দায়িত্বসহ যোগ হবে">'+esc(r)+'</span>').join('')+'</small>':''})()+'</div>').join(''):'<div class="wrRe">'+(TD.list.some(t=>!t.pseudo)?'কোনো শিক্ষক পাওয়া যায়নি':'Teacher List আপলোড করা নেই')+'</div>';
  box.hidden=false;hideRes(box)}
@@ -6183,10 +6329,14 @@ function pickRes(cell,j,xr){
  const box=cell.querySelector('.wrRes'),t=box._res&&box._res[j],row=cell.closest('.wrRow');if(!t||!row||!W)return;
  const i=+row.dataset.i,k=cell.dataset.k;
  if(xr!=null){const r=extraRoles(t)[xr];if(r==null)return;addEntry(i,k,entryRole(t,r),[t.rank,t.jd])}else addEntry(i,k,entryOf(t),[t.rank,t.jd]);
- const ta=row.querySelector('textarea[data-k="'+k+'"]');if(ta)ta.value=W.rows[i][k];
+ const ta=row.querySelector('textarea[data-k="'+k+'"]');if(ta)ta.value=W.rows[i][k];const nl0=row.querySelector('.wrNl[data-nk="'+k+'"]');if(nl0){nl0.outerHTML=nlHtml(W.rows[i][k],k);const nl1=row.querySelector('.wrNl[data-nk="'+k+'"]'),cb=nl1&&nl1.closest('.f')&&nl1.closest('.f').querySelector('.wrCnB');if(cb)cb.textContent=toBn(persons(W.rows[i][k]).length);
+  /* সর্বশেষ বাছাই করা ব্যক্তির নাম তালিকা বক্সে দৃশ্যমান রাখা */
+  if(nl1){const nn=nz(t.vc?(t.vcName||t.n):t.n),it=[...nl1.querySelectorAll('.wrNi')].find(x=>nz(x.textContent).includes(nn));
+   if(it){const a=it.getBoundingClientRect(),b=nl1.getBoundingClientRect();nl1.scrollTop+=a.top-b.top-4;it.style.borderColor='var(--pr,#0a7d3b)';setTimeout(()=>{it.style.borderColor=''},1500)}}}
  const inp=cell.querySelector('[data-q]');inp.value='';box.hidden=true;touch()}
 T.addEventListener('input',e=>{const t=e.target;if(t.matches&&t.matches('[data-q]'))showRes(t.closest('.wrSc'))});
 T.addEventListener('focusin',e=>{const t=e.target;if(t.matches&&t.matches('[data-q]'))showRes(t.closest('.wrSc'))});
+T.addEventListener('click',e=>{const t=e.target;if(t.matches&&t.matches('[data-q]'))showRes(t.closest('.wrSc'))});
 T.addEventListener('change',e=>{const t=e.target;if(t.matches&&t.matches('[data-dsel]')){const c=t.closest('.wrSc');showRes(c);c.querySelector('[data-q]').focus()}});
 T.addEventListener('keydown',e=>{const t=e.target;if(!t.matches||!t.matches('[data-q]'))return;const c=t.closest('.wrSc'),box=c.querySelector('.wrRes');
  if(e.key=='Escape'){box.hidden=true;return}
@@ -6194,7 +6344,23 @@ T.addEventListener('keydown',e=>{const t=e.target;if(!t.matches||!t.matches('[da
  if(e.key=='Enter'){const on=box.querySelector('.wrRi.on');if(on)pickRes(c,+on.dataset.j);e.preventDefault()}});
 T.addEventListener('mousedown',e=>{const it=e.target.closest&&e.target.closest('.wrRi');if(it){e.preventDefault();const xr=e.target.closest('.wrXr');pickRes(it.closest('.wrSc'),+it.dataset.j,xr?+xr.dataset.x:null)}});
 document.addEventListener('mousedown',e=>{if(!e.target.closest||!e.target.closest('.wrSc'))hideRes(null)});
-const reRows=()=>{g('wrRows').innerHTML=W.rows.map(rowHtml).join('');touch()};
+const reRows=()=>{g('wrRows').innerHTML=W.rows.map(rowHtml).join('');const tf=g('wrTopF');if(tf)tf.innerHTML=topF();touch()};
+/* ---- নামের তালিকা: সম্পাদনা / উপরে-নিচে / বাদ / নতুন নাম ---- */
+const nlSer=nl=>{const it=[...nl.querySelectorAll('.wrNt')].map(x=>x.innerText.replace(/\r/g,'').split('\n').map(z=>z.trim()).filter(Boolean).join('\n')).filter(Boolean);return it.join(it.some(x=>x.includes('\n'))?'\n\n':'\n')};
+const nlNum=nl=>nl.querySelectorAll('.wrNi').forEach((x,j)=>{x.querySelector('.wrNn').textContent=toBn(j+1)+'।'});
+const nlCn=nl=>{const f=nl.closest('.f'),b=f&&f.querySelector('.wrCnB');if(b)b.textContent=toBn(nl.querySelectorAll('.wrNi').length)};
+const nlSync=nl=>{const row=nl.closest('.wrRow');if(!row||!W)return;const i=+row.dataset.i,k=nl.dataset.nk,v=nlSer(nl);W.rows[i][k]=v;nlCn(nl);const ta=row.querySelector('textarea[data-k="'+k+'"]');if(ta)ta.value=v;touch()};
+T.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button[data-nact]');if(!b||!W)return;const nl=b.closest('.wrNl'),it=b.closest('.wrNi');if(!nl||!it)return;const a=b.dataset.nact;
+ if(a=='up'){const p=it.previousElementSibling;if(p&&p.classList.contains('wrNi'))nl.insertBefore(it,p)}
+ else if(a=='dn'){const n=it.nextElementSibling;if(n&&n.classList.contains('wrNi'))nl.insertBefore(n,it)}
+ else if(a=='rm'){it.remove()}
+ nlNum(nl);nlSync(nl)});
+T.addEventListener('input',e=>{const t=e.target;if(t.classList&&t.classList.contains('wrNt')){const nl=t.closest('.wrNl');if(nl)nlSync(nl)}});
+T.addEventListener('keydown',e=>{const t=e.target;if(!t.classList)return;
+ if(t.classList.contains('wrNt')&&e.key=='Enter'){e.preventDefault();t.blur();return}
+ if(t.matches&&t.matches('[data-nadd]')&&e.key=='Enter'){e.preventDefault();nlAdd(t)}});
+T.addEventListener('paste',e=>{const t=e.target;if(!(t.matches&&t.matches('[data-nadd]')))return;const tx=(e.clipboardData||window.clipboardData).getData('text');if(/\n/.test(tx)){e.preventDefault();t.value+=(t.value?'\n':'')+tx;nlAdd(t)}});
+function nlAdd(inp){const nl=inp.closest('.wrNl');if(!nl)return;const ls=inp.value.split(/\n/).map(x=>x.replace(NUMRE,'').trim()).filter(Boolean);if(!ls.length)return;const box=nl.querySelector('.wrNa');ls.forEach(x=>{box.insertAdjacentHTML('beforebegin',nlItem(x,nl.querySelectorAll('.wrNi').length))});inp.value='';nlNum(nl);nlSync(nl);nl.scrollTop=nl.scrollHeight}
 T.addEventListener('change',e=>{const t=e.target;if(t.id=='wrMoreSel'&&t.value){addMoreRec(t.value)}});
 T.addEventListener('click',async e=>{
  const b=e.target.closest('button');if(!b||!W)return;
@@ -6242,7 +6408,7 @@ function renderAll(){
   const ds=rows.map(r=>toBn(String(r.d||'').trim())).filter(Boolean).join(', '),ns=rows.map(r=>toBn(String(r.n||'').trim())).filter(Boolean).join(', ');
   const cnt=rows.reduce((a,r)=>a+['c','s','p','m','r','e'].reduce((b,f)=>b+persons(r[f]).length,0),0);
   const nm=(()=>{const E=typeof toEn=='function'?toEn:x=>x,S=new Set(),add=v=>{v=E(String(v==null?'':v)).replace(/\s/g,'').split('/').pop();if(v)S.add(v)};add(w.memo);(w.recs||[]).forEach(m=>{const i=(w.xi&&w.xi[m])||(w.vk&&w.vk[m]);if(i)add(i.memo)});return Math.max(1,Math.min(3,S.size))})();
-   return'<div class="wrAi s'+nm+'" draggable="true" data-k="'+esc(k)+'"><div class="wrAm"><b>📁 '+esc(k)+'</b>'+((w.recs||[]).length?' <span class="wrTg nt" title="একাধিক পদ একত্রে — স্প্লিট করে আলাদা করা যায়">🔗 '+toBn(1+w.recs.length)+'টি পদ একত্রে</span>':'')+(w.vk&&Object.keys(w.vk).length?' <span class="wrTg nt">📢 বিজ্ঞপ্তির পদ'+(Object.values(w.vk).some(v=>v.link)?' · 🔗 রেকর্ড যুক্ত':' · রেকর্ড এখনো নেই')+'</span>':'')+'<div>পদ: '+esc(w.post||'—')+(w.dept?' · '+esc(w.dept):'')+' · পরীক্ষার তারিখ: '+esc(ds||'—')+' · প্রার্থী: '+esc(ns||'—')+' · দায়িত্বপ্রাপ্ত এন্ট্রি: '+toBn(cnt)+' · সংরক্ষিত: '+esc(fmtTs(x.savedAt))+'</div></div>'+(w.prac?'<div class="wrPrB">[ব্যবহারিকসহ]</div>':'')+'<div class="wrAb"><button type="button" class="p" data-wa="open">✏️ খুলুন / এডিট</button><button type="button" data-wa="docx">📄 Word</button>'+((w.recs||[]).length?'<button type="button" data-wa="split" title="একত্রিত পদগুলো আলাদা আলাদা একক কমিটিতে ভাগ করুন">✂ স্প্লিট</button>':'')+'<button type="button" class="d" data-wa="del">🗑 মুছুন</button></div></div>'}).join(''):'<p class="mut">'+(keys.length?'কোনো কমিটি মেলেনি।':'এখনো কোনো কমিটি সংরক্ষিত নেই — Entry ট্যাবে কমিটি তৈরি করে “💾 সংরক্ষণ” চাপুন।')+'</p>'}
+   return'<div class="wrAi s'+nm+'" draggable="true" data-k="'+esc(k)+'"><div class="wrAm"><b title="'+esc(k)+'">📁 '+esc(k)+'</b>'+((w.recs||[]).length?' <span class="wrTg nt" title="একাধিক পদ একত্রে — স্প্লিট করে আলাদা করা যায়">🔗 '+toBn(1+w.recs.length)+'টি পদ একত্রে</span>':'')+(w.vk&&Object.keys(w.vk).length?' <span class="wrTg nt">📢 বিজ্ঞপ্তির পদ'+(Object.values(w.vk).some(v=>v.link)?' · 🔗 রেকর্ড যুক্ত':' · রেকর্ড এখনো নেই')+'</span>':'')+'<div title="'+esc('পদ: '+(w.post||'—')+(w.dept?' · '+w.dept:''))+'">পদ: '+esc(w.post||'—')+(w.dept?' · '+esc(w.dept):'')+' · পরীক্ষার তারিখ: '+esc(ds||'—')+' · প্রার্থী: '+esc(ns||'—')+' · দায়িত্বপ্রাপ্ত এন্ট্রি: '+toBn(cnt)+' · সংরক্ষিত: '+esc(fmtTs(x.savedAt))+'</div></div>'+(w.prac?'<div class="wrPrB">[ব্যবহারিকসহ]</div>':'')+'<div class="wrAb"><button type="button" class="p" data-wa="open">✏️ খুলুন / এডিট</button><button type="button" data-wa="docx">📄 Word</button>'+((w.recs||[]).length?'<button type="button" data-wa="split" title="একত্রিত পদগুলো আলাদা আলাদা একক কমিটিতে ভাগ করুন">✂ স্প্লিট</button>':'')+'<button type="button" class="d" data-wa="del">🗑 মুছুন</button></div></div>'}).join(''):'<p class="mut">'+(keys.length?'কোনো কমিটি মেলেনি।':'এখনো কোনো কমিটি সংরক্ষিত নেই — Entry ট্যাবে কমিটি তৈরি করে “💾 সংরক্ষণ” চাপুন।')+'</p>'}
 function saveCommittee(){
  if(!cur||!W){toast('⚠ আগে রেকর্ড বাছাই করুন');return}
  const any=W.rows.some(r=>['c','s','p','m','r','e'].some(f=>String(r[f]||'').trim()));
@@ -6319,7 +6485,14 @@ g('wrAundo').addEventListener('click',e=>{if(e.target.id!='wrUndoBtn'||!lastMerg
   if(cur&&rc[cur])W=norm(JSON.parse(JSON.stringify(rc[cur].w)));
   lastMerge=null;showUndo('');renderAll();toast('↩ আগের অবস্থায় ফেরানো হয়েছে')}});
 
-g('wrAsort').addEventListener('change',e=>{aSortBy=e.target.value;aSortAsc=aSortBy!='t'?true:false;syncDirBtn();renderAll()});
+g('wrDelAll').addEventListener('click',()=>{const o=allLoad(),n=Object.keys(o).length;
+  if(!n){toast('ℹ মুছে ফেলার মতো কোনো কমিটি নেই');return}
+  const WORD='Delete All';
+  const t=prompt('⚠ All Written Committee-র সংরক্ষিত সব '+toBn(n)+'টি কমিটি স্থায়ীভাবে মুছে যাবে।\n(Entry-র খসড়া মুছবে না; এই কাজ ফেরানো যাবে না — আগে Backup নিয়ে রাখা ভালো)\n\nনিশ্চিত করতে নিচের বক্সে হুবহু লিখুন:  '+WORD,'');
+  if(t===null)return;
+  if(String(t).trim()!==WORD){toast('⚠ লেখা মেলেনি — কিছুই মুছে ফেলা হয়নি');return}
+  if(allSave({})){lastMerge=null;showUndo('');renderAll();toast('🗑 সব কমিটি মুছে ফেলা হয়েছে ('+toBn(n)+'টি)')}});
+ g('wrAsort').addEventListener('change',e=>{aSortBy=e.target.value;aSortAsc=aSortBy!='t'?true:false;syncDirBtn();renderAll()});
 const syncDirBtn=()=>{const b=g('wrAdir');b.textContent=aSortBy=='t'?(aSortAsc?'⬆ পুরোনো আগে':'⬇ নতুন আগে'):(aSortAsc?'⬆ ক্রমানুসারে (A→Z / ছোট→বড়)':'⬇ উল্টো ক্রমে (Z→A / বড়→ছোট)')};
 g('wrAdir').addEventListener('click',()=>{aSortAsc=!aSortAsc;syncDirBtn();renderAll()});
 syncDirBtn();
@@ -6333,7 +6506,7 @@ g('wrAll').addEventListener('click',async e=>{
   const dr=loadAll()[k];if(dr&&JSON.stringify(dr)!=JSON.stringify(x.w)&&!confirm('এই রেকর্ডের Entry-তে অসংরক্ষিত পরিবর্তনসহ একটি খসড়া আছে।\n\nOK = সংরক্ষিত কমিটি দিয়ে খসড়া প্রতিস্থাপন করুন\nCancel = বাতিল'))return;
   cur=k;W=norm(JSON.parse(JSON.stringify(x.w)));saveW();
   const sel=g('wrRec');if(![...sel.options].some(op=>op.value==k)){const op=document.createElement('option');op.value=k;op.textContent=k;sel.appendChild(op)}sel.value=k;
-  setMode('e');buildForm();renderPreview();try{await window.__wrSyncSel()}catch(x){}toast('✏️ সংরক্ষিত কমিটি Entry-তে খোলা হয়েছে');return}
+  setMode('e');buildForm();renderPreview();try{await window.__wrSyncSel()}catch(x){}toast('✏️ সংরক্ষিত কমিটি Entry-তে খোলা হয়েছে');const _go=()=>{try{const t=g('wrBody');if(t&&!t.hidden)t.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}};setTimeout(_go,120);setTimeout(_go,700);return}
  if(b.dataset.wa=='docx'){
   const old=b.textContent,oc=cur,ow=W;b.disabled=true;b.textContent='⏳ তৈরি হচ্ছে...';
   try{cur=k;W=norm(JSON.parse(JSON.stringify(x.w)));const blob=await makeDocx(),fn=safe(k+' - লিখিত পরীক্ষার দায়িত্ব')+'.docx';await dl(blob,fn,'');toast('📄 Word ফাইল তৈরি হয়েছে')}
@@ -6554,6 +6727,7 @@ window.__stfOpenRecs=recs=>q(async()=>{
  for(const n of SEL.slice()){if(!ok.includes(n))await tick(n,false)}
  pickMemos.clear();SEL.forEach(n=>{if(RI[n])pickMemos.add(mkey(RI[n]))});pickCat='';focusOnly=true;renderMemo();
  toast(miss.length?'✏️ ফরম খোলা হয়েছে — ⚠ '+toBn(miss.length)+'টি পদ আর নেই':'✏️ সংরক্ষিত ফরম Entry For Staff-এ খোলা হয়েছে')});
+T.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('#wrHdrTg');if(!t)return;window.__wrHdrOpen=!window.__wrHdrOpen;const b=g('wrBody');b.classList.toggle('hdrOpen',!!window.__wrHdrOpen);t.textContent=window.__wrHdrOpen?'▾ লুকান':'▸ দেখান / সম্পাদনা'});
 window.__wrSyncSel=async()=>{focusOnly=false;if(W&&W.vk)Object.assign(VIRT,W.vk);SEL.length=0;if(cur){SEL.push(cur);(W.recs||[]).forEach(r=>{if(!SEL.includes(r))SEL.push(r)})}
  await loadRI();await syncAllVirt();pickMemos.clear();SEL.forEach(n=>{if(RI[n])pickMemos.add(mkey(RI[n]))});pickCat='';focusOnly=true;renderMemo()};
 document.addEventListener('click',e=>{if(e.target&&e.target.id=='wrShowAll')window.__wrFocusOff()});
@@ -6939,6 +7113,12 @@ G('stfRecList').addEventListener('click',function(e){var b=e.target.closest('but
  else if(a=='ed')openRec(k);
  else if(a=='dx')dlDocx([r],dutyFn(r.recs)+'.docx',b);
  else if(a=='pd')dlPdf([r],dutyFn(r.recs)+'.pdf',b)});
+G('stfRecDelAll').addEventListener('click',function(){var o=rLoad(),n=Object.keys(o).length;
+ if(!n){tst('ℹ মুছে ফেলার মতো কোনো রেকর্ড নেই');return}
+ var W='Delete All',t=prompt('⚠ Staff Record-এর সংরক্ষিত সব '+bn(n)+'টি রেকর্ড স্থায়ীভাবে মুছে যাবে।\n(Entry For Staff-এর খসড়া মুছবে না; এই কাজ ফেরানো যাবে না — আগে Backup নিয়ে রাখা ভালো)\n\nনিশ্চিত করতে নিচের বক্সে হুবহু লিখুন:  '+W,'');
+ if(t===null)return;
+ if(String(t).trim()!==W){tst('⚠ লেখা মেলেনি — কিছুই মুছে ফেলা হয়নি');return}
+ if(rPut({})){rOpen={};cnt();rList();try{window.__wrRepaint&&window.__wrRepaint()}catch(x){}tst('🗑 Staff Record-এর সব রেকর্ড মুছে ফেলা হয়েছে ('+bn(n)+'টি)')}});
 G('stfRecDocx').addEventListener('click',function(){var a=rSorted0();dlDocx(a,'Staff Record ('+a.length+' forms).docx',this)});
 G('stfRecPdf').addEventListener('click',function(){var a=rSorted0();dlPdf(a,'Staff Record ('+a.length+' forms).pdf',this)});
 function rSorted0(){return rAll()}
@@ -6995,4 +7175,8 @@ function sync(){var st=T.classList.contains('wrS');
  sp.style.display=(st&&box.hidden)?'none':''}
 try{var mo=new MutationObserver(sync);mo.observe(T,{attributes:true,attributeFilter:['class']});mo.observe(box,{attributes:true,attributeFilter:['hidden']})}catch(e){}
 sync()})();</script>
+<script>/* চিহ্ন-ব্যাখ্যা (📢 📝 ✅ 🔗 …) শিরোনামের ডানে, একই লাইনে */
+(function(){try{var h=document.getElementById('wrH3'),l=document.querySelector('#t-wr .wrLg');if(!h||!l)return;
+h.style.cssText+=';display:flex;align-items:center;gap:14px;flex-wrap:wrap';
+l.style.cssText+=';margin:0;font-size:12px;font-weight:400;flex:1 1 420px;min-width:0';h.appendChild(l)}catch(e){}})();</script>
 </body></html>
