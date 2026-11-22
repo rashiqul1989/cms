@@ -83,12 +83,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--pr);outline-offs
 nav.tabs{display:flex;flex-direction:column;flex-wrap:nowrap;gap:4px;margin:0;align-self:start;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px;box-shadow:0 1px 3px rgba(0,60,30,.08)}
 nav.tabs button{text-align:left;border-color:transparent;background:transparent;padding:9px 10px;font-weight:600;border-radius:8px}
 nav.tabs button:hover{background:var(--hl)}nav.tabs button.on{background:var(--pr);color:var(--prt)}
-nav.tabs button[data-t=data]::before{content:"📊 "}nav.tabs button[data-t=rec]::before{content:"🗂 "}nav.tabs button[data-t=rj]::before{content:"⛔ "}nav.tabs button[data-t=ph]::before{content:"📱 "}nav.tabs button[data-t=sms]::before{content:"💬 "}nav.tabs button[data-t=att]::before{content:"📝 "}nav.tabs button[data-t=cp]::before{content:"🖨 "}
+nav.tabs button[data-t=data]::before{content:"📊 "}nav.tabs button[data-t=rec]::before{content:"🗂 "}nav.tabs button[data-t=rj]::before{content:"⛔ "}nav.tabs button[data-t=sms]::before{content:"💬 "}nav.tabs button[data-t=att]::before{content:"📝 "}nav.tabs button[data-t=cp]::before{content:"🖨 "}
 .main{min-width:0;min-height:0;overflow:hidden}
 .sec.on{display:flex;flex-direction:column;height:100%;min-height:0}
 .sec .card{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;margin-bottom:0;overflow:auto}
 .sec .card .tw{flex:1 1 auto;min-height:140px;max-height:none}
-#t-att,#t-ph{overflow:auto}#t-att .card,#t-ph .card{flex:none;overflow:visible}#sheet{flex:none;margin-top:12px}
+#t-att{overflow:auto}#t-att .card{flex:none;overflow:visible}#sheet{flex:none;margin-top:12px}
 .side{display:flex;flex-direction:column;gap:12px;min-height:0;overflow:auto}
 .side>.sbc:not(.rgc){order:1}.side>.rgc{order:2}.side>.credit{order:3}
 .sbc{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,60,30,.08)}
@@ -546,7 +546,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 var p=function(n){return(n<10?'0':'')+n},h=d.getHours(),ap=h>=12?'PM':'AM',h12=h%12||12;
 el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u09c7\u099f : '+p(d.getDate())+'-'+p(d.getMonth()+1)+'-'+d.getFullYear()+', Time : '+p(h12)+':'+p(d.getMinutes())+' '+ap}catch(e){}})();</script>
 <div class="body">
-<nav class="tabs noprint"><button data-t="rec">রেকর্ড</button><button data-t="data" class="on">ডাটা</button><button data-t="rj" id="rjTab">Reject</button><button data-t="att">হাজিরা শীট</button><button data-t="wr" id="wrTab">Written কমিটি</button><button data-t="cp">কাস্টম প্রিন্ট</button><button data-t="ph">মোবাইল নম্বর</button><button data-t="sms" id="smsTab">Send SMS</button><button data-t="dup">দ্বৈত আবেদন</button><button data-t="kp">কার্যবিবরণী</button><button data-t="np">নিয়োগপত্র</button><button data-t="arc" id="arcTab">আর্কাইভ</button></nav>
+<nav class="tabs noprint"><button data-t="rec">রেকর্ড</button><button data-t="data" class="on">ডাটা</button><button data-t="cp">কাস্টম প্রিন্ট</button><button data-t="rj" id="rjTab">Reject</button><button data-t="att">হাজিরা শীট</button><button data-t="wr" id="wrTab">Written কমিটি</button><button data-t="sms" id="smsTab">Send SMS</button><button data-t="dup">দ্বৈত আবেদন</button><button data-t="kp">কার্যবিবরণী</button><button data-t="np">নিয়োগপত্র</button><button data-t="arc" id="arcTab">আর্কাইভ</button></nav>
 <main class="main">
 <div class="sec on" id="t-data"><div class="card noprint">
 <div class="row"><input id="q" class="grow" placeholder="🔍 খুঁজুন (নাম, আইডি, মোবাইল, বিশ্ববিদ্যালয়, ঠিকানা...)">
@@ -574,15 +574,15 @@ el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u0
 <div class="tw"><table id="rjt"></table></div>
 <p class="mut">ডাটা ট্যাব থেকে (SL অনুযায়ী / নির্বাচিত / সারির “মুছুন”) যাদের মুছে ফেলা হয়, তাদের পূর্ণ তথ্য (ছবিসহ) সংশ্লিষ্ট পদের রেকর্ডের নামের সাথে এখানে জমা থাকে। “রিস্টোর” দিলে তারা আগের SL নম্বর নিয়েই ডাটা তালিকায় ফিরে আসে। এই তালিকা রেকর্ডের সাথেই সংরক্ষিত হয় এবং Backup / Restore-এও থাকে।</p></div></div>
 
-<div class="sec" id="t-ph"><div class="card noprint">
+<div class="sec" id="t-sms"><div class="card noprint smsBox">
+<div class="smsSub"><button data-p="send" class="on">✉ SMS পাঠান</button><button data-p="dlr">📬 ডেলিভারি রিপোর্ট</button><button data-p="log">🧾 লগ রিপোর্ট</button><button data-p="ph">📱 মোবাইল নম্বর</button><button data-p="cfg">⚙ সেটিং</button><span class="grow"></span><span id="smsBal" class="mut"></span><button id="smsBalBtn" title="bulksmsbd.net অ্যাকাউন্টের ব্যালেন্স দেখুন">💰 ব্যালেন্স</button></div>
+
+<div class="smsP" id="smsP-ph">
 <div class="row"><label>উৎস: <select id="phSrc"><option value="f">ফিল্টার করা সারি</option><option value="a">সব সারি</option></select></label>
 <label>ফরম্যাট: <select id="phFmt"><option value="l">প্রতি লাইনে একটি</option><option value="c">কমা দিয়ে</option><option value="n">নাম, নম্বর</option></select></label>
 <label>প্রিফিক্স: <select id="phPre"><option value="0">01XXXXXXXXX</option><option value="88">8801XXXXXXXXX</option><option value="+88">+8801XXXXXXXXX</option></select></label></div>
 <p class="mut" id="phInfo"></p><textarea id="phOut" style="min-height:200px"></textarea>
-<div class="row" style="margin-top:8px"><button class="p" id="phCopy">কপি</button><button id="phDl">TXT ডাউনলোড</button></div></div></div>
-
-<div class="sec" id="t-sms"><div class="card noprint smsBox">
-<div class="smsSub"><button data-p="send" class="on">✉ SMS পাঠান</button><button data-p="dlr">📬 ডেলিভারি রিপোর্ট</button><button data-p="log">🧾 লগ রিপোর্ট</button><button data-p="cfg">⚙ সেটিং</button><span class="grow"></span><span id="smsBal" class="mut"></span><button id="smsBalBtn" title="bulksmsbd.net অ্যাকাউন্টের ব্যালেন্স দেখুন">💰 ব্যালেন্স</button></div>
+<div class="row" style="margin-top:8px"><button class="p" id="phCopy">কপি</button><button id="phDl">TXT ডাউনলোড</button></div></div>
 
 <div class="smsP on" id="smsP-send">
 <div class="row"><label style="display:none">প্রাপক: <select id="smsSrc"><option value="f">ডাটা ট্যাবের ফিল্টার করা সারি</option><option value="a">সব সারি</option><option value="m">শুধু ম্যানুয়াল নম্বর</option></select></label><label title="একটি পদ/রেকর্ড বাছলে শুধু সেই রেকর্ডের যোগ্য (Reject ছাড়া) প্রার্থীদের মোবাইল নম্বর তালিকায় আসবে; কেউ আগে থেকে টিক দেওয়া থাকবে না">পদ / রেকর্ড: <select id="smsRec" style="max-width:230px"><option value="">— পদ / রেকর্ড বাছাই করুন —</option><option value="__cur">বর্তমান রেকর্ড (প্রাপক অনুযায়ী)</option></select></label><label title="মোবাইল নম্বরের সমস্যা ইস্যু অনুযায়ী দেখুন">Issue: <select id="smsIss" style="max-width:150px"><option value="">— সব —</option></select></label>
@@ -1040,6 +1040,21 @@ const CP_PDF_CSS=id=>`#${id} table{border-collapse:separate!important;border-spa
 `#${id} table.in td:last-child{border-right:0!important}`+
 `#${id} table.in tr:last-child td{border-bottom:0!important}`+
 `#${id} thead th{white-space:normal!important;overflow-wrap:anywhere}`;
+/* প্রিভিউ: ভিতরের টেবিল (শিক্ষা/ডকুমেন্ট) ঘরের পুরো উচ্চতা ভরুক — শেষ সারি লম্বা হবে, কলামের বর্ডার নিচ পর্যন্ত যাবে */
+function cpStretch(root){
+  try{
+    root=root||document.getElementById('csheet');if(!root)return;
+    const pv=v=>parseFloat(v)||0;
+    root.querySelectorAll('[data-cpst]').forEach(e=>{e.style.height='';e.removeAttribute('data-cpst')});
+    root.querySelectorAll('td.nz').forEach(td=>{
+      const n=td.querySelector(':scope>table');if(!n||!n.rows.length)return;
+      const cs=getComputedStyle(td),ex=td.getBoundingClientRect().height-pv(cs.borderTopWidth)/2-pv(cs.borderBottomWidth)/2-pv(cs.paddingTop)-pv(cs.paddingBottom)-n.getBoundingClientRect().height;
+      if(ex>0.5){const lr=n.rows[n.rows.length-1];lr.style.height=(lr.getBoundingClientRect().height+ex)+'px';lr.setAttribute('data-cpst','1')}
+    });
+  }catch(e){console.warn('cpStretch',e)}
+}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>cpStretch());
+window.addEventListener('resize',()=>cpStretch());
 function cpPdfFix(host){
   const all=[...host.querySelectorAll('table')],pxv=v=>parseFloat(v)||0;
   /* ১) কলামের প্রস্থ → পূর্ণ পিক্সেল (যোগফল ঠিক টেবিলের প্রস্থ) */
@@ -1073,7 +1088,7 @@ async function pdfDl(btnId,rootId,gen,o,fname){
   const bt=$('#'+btnId),old=bt.textContent;
   if(!window.html2canvas||!(window.jspdf&&window.jspdf.jsPDF)){toast('⚠ PDF লাইব্রেরি লোড হয়নি — ইন্টারনেট সংযোগ দেখে পেজ রিলোড করুন');return}
   if(gen()===false)return;
-  const root=document.getElementById(rootId),pgs=root?[...root.querySelectorAll('.pg')].map(p=>p.outerHTML):[];
+  const root=document.getElementById(rootId),pgs=root?[...root.querySelectorAll('.pg')].map(p=>{const c=p.cloneNode(true);c.querySelectorAll('[data-cpst]').forEach(e=>{e.style.height='';e.removeAttribute('data-cpst')});return c.outerHTML}):[];
   if(!pgs.length){toast('⚠ আগে ডাটা লোড করুন');return}
   bt.disabled=true;let fr=null;
   try{
@@ -2169,7 +2184,7 @@ h+=`<table class="dt"><colgroup>${G.map(x=>`<col style="width:${pc(x.w,tot)}">`)
 rs.map((r,n)=>`<tr>${O.sl?`<td class="c">${(r.no||off+n+1)}</td>`:''}${F.has('id')?`<td class="c">${esc(r.id)}</td>`:''}${cpNm(F)?`<td>${F.has('photo')?ph(r):''}${nameLines(r,F).map(l=>`<div${l.b?' style="font-weight:700"':''}>${esc(l.t)}</div>`).join('')}</td>`:''}${cpPm(F)?`<td>${permLines(r,F).map(l=>`<div${l.b?' style="font-weight:700"':''}>${esc(l.t)}</div>`).join('')}</td>`:''}${O.ed?`<td colspan=5 class="nz">${r.edu.length?`<table class="in ed">${r.edu.map(e=>`<tr>${eduCells(e).map((c,i)=>`<td style="width:${pc(EW[i],sm(EW))}">${c.map(esc).join('<br>')}</td>`).join('')}</tr>`).join('')}</table>`:''}</td>`:''}${O.ex?`<td>${expBlocks(r).map(x=>`<div class="eb">${x.l.map(esc).join('<br>')}${x.d?`<br><b>${esc(x.d)}</b>`:''}</div>`).join('')}</td>`:''}${O.dc?`<td colspan=3 class="nz"><table class="in">${DOCS.map(q=>`<tr><td style="width:${pc(DW[0],sm(DW))}">${q}</td><td style="width:${pc(DW[1],sm(DW))}">&nbsp;</td><td style="width:${pc(DW[2],sm(DW))}">&nbsp;</td></tr>`).join('')}</table></td>`:''}${O.rm?'<td></td>':''}</tr>`).join('')+'</tbody></table>'}
 else h+=tblHtml(rs,off);
 h+=`<p style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:14px"><span style="font-size:7pt;text-align:left">${esc(rec||'')}</span><span>পাতা ${p+1}/${NPG} · মোট পরীক্ষার্থী: ${a.length}</span></p></div>`}
-$('#csheet').innerHTML=h;return true}
+$('#csheet').innerHTML=h;cpStretch();return true}
 $('#cpGen').onclick=cpGen;
 /* মার্ক করা অংশে যেকোনো পরিবর্তনে লাইভ প্রিভিউ */
 (function(){const card=$('#cpTitle').closest('.card');if(!card)return;let tm=0;
@@ -6018,7 +6033,7 @@ async function bal(){
 $('#smsBalBtn').onclick=bal;$('#cfBal').onclick=bal;
 
 /* ---------- ইন্টারফেস ---------- */
-function showP(p){$$('.smsSub button[data-p]').forEach(b=>b.classList.toggle('on',b.dataset.p==p));$$('.smsP').forEach(e=>e.classList.toggle('on',e.id=='smsP-'+p));if(p=='dlr')renderDlr();if(p=='log')renderLog()}
+function showP(p){$$('.smsSub button[data-p]').forEach(b=>b.classList.toggle('on',b.dataset.p==p));$$('.smsP').forEach(e=>e.classList.toggle('on',e.id=='smsP-'+p));if(p=='dlr')renderDlr();if(p=='log')renderLog();if(p=='ph'){try{$('#phSrc').onchange()}catch(e){}}}
 $$('.smsSub button[data-p]').forEach(b=>b.onclick=()=>showP(b.dataset.p));
 $('#smsRcT').addEventListener('change',e=>{const n=e.target.dataset&&e.target.dataset.n;if(!n)return;e.target.checked?off.delete(n):off.add(n);renderRc2()});
 function renderRc2(){$('#smsRcInfo').textContent=rcInfo(rcAll());cnt()}
