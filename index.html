@@ -546,7 +546,7 @@ nav.tabs button[data-t=dup]::before{content:"👥 "}nav.tabs button[data-t=arc]:
 var p=function(n){return(n<10?'0':'')+n},h=d.getHours(),ap=h>=12?'PM':'AM',h12=h%12||12;
 el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u09c7\u099f : '+p(d.getDate())+'-'+p(d.getMonth()+1)+'-'+d.getFullYear()+', Time : '+p(h12)+':'+p(d.getMinutes())+' '+ap}catch(e){}})();</script>
 <div class="body">
-<nav class="tabs noprint"><button data-t="rec">রেকর্ড</button><button data-t="data" class="on">ডাটা</button><button data-t="cp">কাস্টম প্রিন্ট</button><button data-t="rj" id="rjTab">Reject</button><button data-t="att">হাজিরা শীট</button><button data-t="wr" id="wrTab">Written কমিটি</button><button data-t="sms" id="smsTab">Send SMS</button><button data-t="dup">দ্বৈত আবেদন</button><button data-t="kp">কার্যবিবরণী</button><button data-t="np">নিয়োগপত্র</button><button data-t="arc" id="arcTab">আর্কাইভ</button></nav>
+<nav class="tabs noprint"><button data-t="rec">রেকর্ড</button><button data-t="data" class="on">ডাটা</button><button data-t="rj" id="rjTab">Reject</button><button data-t="cp">কাস্টম প্রিন্ট</button><button data-t="att">হাজিরা শীট</button><button data-t="wr" id="wrTab">Written কমিটি</button><button data-t="sms" id="smsTab">Send SMS</button><button data-t="dup">দ্বৈত আবেদন</button><button data-t="kp">কার্যবিবরণী</button><button data-t="np">নিয়োগপত্র</button><button data-t="arc" id="arcTab">আর্কাইভ</button></nav>
 <main class="main">
 <div class="sec on" id="t-data"><div class="card noprint">
 <div class="row"><input id="q" class="grow" placeholder="🔍 খুঁজুন (নাম, আইডি, মোবাইল, বিশ্ববিদ্যালয়, ঠিকানা...)">
@@ -592,7 +592,7 @@ el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u0
 <details style="margin-bottom:10px"><summary class="mut">➕ ম্যানুয়াল নম্বর যোগ করুন (কমা / স্পেস / নতুন লাইনে আলাদা)</summary><textarea id="smsMan" placeholder="01XXXXXXXXX, 8801XXXXXXXXX" style="min-height:70px;margin-top:6px"></textarea></details>
 <div class="row" style="margin-bottom:6px"><b>বার্তা</b><span class="mut">ব্যক্তিগত করতে বসান:</span><button type="button" data-ins="{name}">{name}</button><button type="button" data-ins="{id}">{id}</button><span class="grow"></span></div>
 <textarea id="smsMsg" style="min-height:120px" placeholder="এখানে বার্তা লিখুন… যেমন: প্রিয় {name}, আপনার আবেদন (আইডি {id}) গৃহীত হয়েছে।"></textarea>
-<div class="row" style="margin-top:6px"><span id="smsCnt" class="mut"></span><span class="grow"></span><button id="smsTest" title="একটি নম্বরে টেস্ট পাঠান">📱 টেস্ট SMS</button><button class="p" id="smsSend">📤 SMS পাঠান</button></div>
+<div class="row" style="margin-top:6px"><span id="smsCnt" class="mut"></span><span class="grow"></span><button class="p" id="smsSend">📤 SMS পাঠান</button></div>
 <div id="smsProgW" style="display:none;margin-top:10px"><div class="smsBar"><i id="smsProgB"></i></div><div class="mut" id="smsProgT" style="margin-top:4px"></div></div>
 </div>
 
@@ -689,13 +689,21 @@ el.textContent='\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u0986\u09aa\u09a1\u0
 <p class="mut cpHd" style="margin:8px 0 2px"><button type="button" id="cpTog" title="ফিল্ডের তালিকা দেখান / লুকান">▾ ফিল্ডের তালিকা দেখান</button><span>যে ফিল্ডগুলো থাকবে (টিক দিন): <a href="#" id="cpAll">সব</a> · <a href="#" id="cpNone">কিছুই না</a></span><label id="cpNoQtL" title="শিক্ষাগত যোগ্যতা ও অভিজ্ঞতা (QT &amp; SB) টেবিল বাদ দিন" style="margin:0 0 0 auto;font-weight:600;color:var(--thc);display:inline-flex;gap:6px;align-items:center;cursor:pointer"><input type="checkbox" id="cpNoQt"> QT &amp; SB বাদে</label><label id="cpNoDcL" style="margin:0 0 0 16px;font-weight:600;color:var(--thc);display:inline-flex;gap:6px;align-items:center;cursor:pointer"><input type="checkbox" id="cpNoDc" checked> Documents Submitted বাদ দিন</label></p><div class="cols cpHide" id="cpCols"></div>
 <div class="row" style="margin-top:8px"><button class="p" id="cpGen">প্রিভিউ</button><button type="button" id="cpBio" style="margin-left:14px;font-weight:700;border:1.5px solid var(--pr,#00843f);background:var(--hl,#e4f2ea);color:var(--pr,#00843f);border-radius:8px;cursor:pointer" title="হাজিরা শীটে YES চেপে কার্যবিবরণীতে যাওয়া নির্বাচিত প্রার্থীদের বায়োডাটা সামারী (এখন টিক দেওয়া ফিল্ডগুলো সহ) Word (.docx)-এ ডাউনলোড">📑 বায়োডাটা সামারী</button><button id="cpPrint">⬇ PDF ডাউনলোড</button><button class="p" id="cpDocx">📄 Word (.docx)</button></div>
 <div class="uxUpRow"><p class="mut" style="margin:0">PDF ডাউনলোড বাটনে ক্লিক করলেই ফাইল নিজে থেকে ডাউনলোড হবে (প্রিন্ট উইন্ডো আসবে না)। তিনটি লেআউটই Legal সাইজে আসে: Landscape (বিস্তারিত) ও Landscape (কাস্টম) ল্যান্ডস্কেপে, Portrait পোর্ট্রেটে। প্রথমবার ইন্টারনেট লাগবে।</p></div></div>
-<div id="csheet"></div></div><div class="sec" id="t-dup"><div class="card noprint">
+<div id="csheet"></div></div><style id="dSwCss">.dSw{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;font-weight:600;margin-left:12px;user-select:none;position:relative}.dSw input{position:absolute;opacity:0;width:0;height:0}
+.dSw i{width:78px;height:34px;border-radius:17px;flex:none;position:relative;background:linear-gradient(180deg,#d3d3d3,#efefef);box-shadow:inset 0 2px 5px rgba(0,0,0,.28),0 0 0 1px #c6c6c6;transition:background .2s,box-shadow .2s}
+.dSw i::before{content:"OFF";position:absolute;left:12px;top:0;font:700 17px/34px Arial,Helvetica,sans-serif;color:#8d8d8d;letter-spacing:.3px}
+.dSw i::after{content:"";position:absolute;left:3px;top:3px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff 0,#e9e9e9 45%,#c4c4c4 100%);box-shadow:0 2px 4px rgba(0,0,0,.4),inset 0 -1px 2px rgba(0,0,0,.15);transform:translateX(44px);transition:transform .2s}
+.dSw input:checked+i{background:linear-gradient(180deg,#14a04a,#2fcf6a);box-shadow:inset 0 2px 5px rgba(0,0,0,.3),0 0 0 1px #0f8a3f}
+.dSw input:checked+i::before{content:"ON";left:auto;right:13px;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.25)}
+.dSw input:checked+i::after{transform:translateX(0)}
+.dSw input:focus-visible+i{outline:2px solid var(--pr,#00843f);outline-offset:2px}#dHlT{display:none}</style>
+<div class="sec" id="t-dup"><div class="card noprint">
 <div class="row"><input id="dTitle" class="grow" value="দ্বৈত আবেদনকারীর তালিকা" placeholder="শিরোনাম"><label>কাগজ: <select id="dPaper"><option value="l">Legal</option><option value="a">A4</option></select></label><label><input type="checkbox" id="dRj"> Reject করা আবেদনকারীও ধরুন</label></div>
 <p class="mut" style="margin:8px 0 2px">যে পদের রেকর্ডগুলো তুলনা করা হবে (কমপক্ষে ১টি): <a href="#" id="dAll">সব</a> · <a href="#" id="dNone">কিছুই না</a> · <span id="dCnt"></span></p>
 <div class="row" id="dFlt" style="margin:4px 0 6px;gap:6px;flex-wrap:wrap"><select id="dCat" title="পদের ক্যাটাগরি"><option value="">সব ক্যাটাগরি</option><option value="t">শিক্ষক</option><option value="o">কর্মকর্তা</option><option value="e">কর্মচারী</option><option value="u">শ্রেণি অনির্ধারিত</option></select><input id="dQ" class="grow" placeholder="🔍 পদ / রেকর্ডের নাম খুঁজুন"></div>
 <div id="dRecs"></div>
 <p class="mut" style="margin:6px 0 0">নাম, পিতার নাম ও জন্ম তারিখ — তিনটিই মিললে একই ব্যক্তি ধরা হয় (Md/Mohammad, ফাঁকা ঘর ও চিহ্ন উপেক্ষা করা হয়)। একজন একাধিক পদে (অথবা একই পদে একাধিকবার) আবেদন করলে তবেই তালিকায় আসবে। ১টি পদ নির্বাচিত থাকলে সেই পদের ভেতরের দ্বৈত আবেদনই দেখাবে।</p>
-<div class="row" style="margin-top:8px"><button class="p" id="dGen">দ্বৈত আবেদন খুঁজুন</button><button id="dPdf">⬇ PDF ডাউনলোড</button><button class="p" id="dDocx">📄 Word (.docx)</button><span id="dInfo" class="mut"></span></div></div>
+<div class="row" style="margin-top:8px"><button class="p" id="dGen">দ্বৈত আবেদন খুঁজুন</button><button id="dPdf">⬇ PDF ডাউনলোড</button><button class="p" id="dDocx">📄 Word (.docx)</button><span id="dInfo" class="mut"></span><label class="dSw" title="ON করলে এই তুলনায় যে যে পদের দ্বৈত আবেদন ধরা পড়েছে, সেই পদের লিখিত ও মৌখিক পরীক্ষার হাজিরা শীটে দ্বৈত আবেদনকারীদের আইডি বোল্ড ও আন্ডারলাইন হবে"><input type="checkbox" id="dHl"><i></i><span>হাজিরা শীটে দ্বৈত আইডি বোল্ড+আন্ডারলাইন<b id="dHlT">OFF</b></span></label></div></div>
 <div id="dPinW" class="noprint"><div id="dPin" class="dsh"></div></div><div id="dsheet"></div></div>
 <div class="sec" id="t-kp"><div class="card noprint"><h3 style="margin:0 0 8px">📋 কার্যবিবরণী</h3><div id="kpBox" class="catBox"></div><p class="mut" style="margin-top:10px">যে পদের কার্যবিবরণী দরকার তার নামের পাশের <b>“কার্যবিবরণী প্রস্তুত”</b> বাটনে ক্লিক করুন। টুলে যে তথ্য আছে (স্মারক নং, তারিখ, পদ, বিভাগ, গ্রেড, পদসংখ্যা, মোট প্রার্থী, সিলেকশন কমিটি) তা নিজে বসবে; যা নেই শুধু তার ঘর আসবে। ঘ) ও ঙ) অংশের নাম/পিতার নাম হাতে লেখার জন্য ফাঁকা থাকবে।</p></div></div>
 <div class="sec" id="t-np"><div class="card noprint"><h3 style="margin:0 0 8px">✉️ নিয়োগপত্র</h3><div id="npBox" class="catBox"></div><p class="mut" style="margin-top:10px">শিক্ষক, কর্মকর্তা ও কর্মচারী — সব শ্রেণির পদের জন্যই নিয়োগপত্র তৈরি করা যাবে (বাটনে ক্লিক করে প্রার্থী বাছুন)। স্মারক নং-এর ধরন পদের শ্রেণি অনুযায়ী নিজে বদলায়।</p></div></div>
@@ -1022,13 +1030,20 @@ inp.addEventListener('keydown',e=>{if(e.key=='Escape')box.style.display='none'})
 const tmTxt=()=>{const t=($('#aTime').value||'').trim().replace(/\s*ঘটিকা\s*$/,'');if(!t)return'';return[$('#aTimeP').value,t,'ঘটিকা'].filter(Boolean).join(' ')};
 let aRoomCur='';const roomFmt=x=>{x=String(x||'').replace(/\s+/g,' ').trim();if(!x)return'';return /^কক্ষ\s*নং/.test(x)?x:'কক্ষ নং-'+x};
 const sinfo=()=>{vSave();const tm=tmTxt();return[$('#aDate').value&&'তারিখ: '+window.khri($('#aDate').value),tm&&'সময়: '+tm,$('#aVenue').value&&($('#aType').value.includes('মৌখিক')?'স্থান/ভেন্যু : ':'ভবনের নাম: ')+$('#aVenue').value,aRoomCur].filter(Boolean)};
+/* দ্বৈত আবেদনকারীর আইডি হাজিরা শীটে বোল্ড+আন্ডারলাইন (সুইচ: দ্বৈত আবেদন ট্যাব) */
+window.DUPHL=window.DUPHL||{on:false,ids:new Set()};
+window.dupIdHl=r=>{const H=window.DUPHL;return !!(H.on&&r&&H.ids.has(rec+'\u0001'+String(r.id)))};
+window.dupHlPatch=()=>{const sh=document.getElementById('sheet');if(!sh)return;const H=window.DUPHL;
+sh.querySelectorAll('table').forEach(t=>{const pg=t.closest('.pg');if(!pg||!/হাজিরা শীট\s*—/.test(pg.textContent))return;
+const ix=[...t.querySelectorAll('thead th')].findIndex(x=>x.textContent.trim()=='আইডি');if(ix<0)return;
+t.querySelectorAll('tbody tr').forEach(tr=>{const td=tr.children[ix];if(!td)return;const on=H.on&&H.ids.has(rec+'\u0001'+td.textContent.trim());td.style.fontWeight=on?'700':'';td.style.textDecoration=on?'underline':''})})};
 function gen(ov){ov=ov&&ov.a?ov:null;const{cs,sg,a:a0,viva,per:per0}=sdata();const a=ov?ov.a:a0;if(viva&&!a.length){toast('⚠ মৌখিক পরীক্ষার জন্য SL নম্বর লিখুন বা ডাটা ট্যাবে টিক দিন');$('#sheet').innerHTML='';return}const auto=!per0,rh=auto?(cs.some(c=>c.ph)?16:10):Math.max(9,Math.min(22,Math.floor(2100/per0)/10)),per=auto?Math.max(5,Math.floor(196/rh)):per0,pages=Math.ceil(a.length/per)||1;let h='';
 for(let p=0;p<pages;p++){const rs=a.slice(p*per,(p+1)*per),l1=[$('#aPost').value&&'পদের নাম : '+esc($('#aPost').value),$('#aDept').value&&'বিভাগ/দপ্তর : '+esc($('#aDept').value)].filter(Boolean).join(' &nbsp;|&nbsp; ');
 h+=`<div class="pg">${p==0?`<h2 style="display:flex;align-items:center;justify-content:center;gap:12px"><img src="${LOGO}" style="height:58px;width:auto"><span>${esc($('#aInst').value)}</span></h2>${$('#aAddr').value?`<p>${esc($('#aAddr').value)}</p>`:''}${adOn('a')?adHtml('a'):`${$('#aPost').value?`<h3>পদের নাম : ${esc($('#aPost').value)}</h3>`:''}${$('#aDept').value?`<h3>বিভাগ/দপ্তর : ${esc($('#aDept').value)}</h3>`:''}${(!viva&&payLn())?`<h3>${esc(payLn())}</h3>`:''}`}<h3>হাজিরা শীট — ${esc($('#aType').value)}</h3><p>${sinfo().map(esc).join(' &nbsp;|&nbsp; ')}</p>`:`${l1?`<h3>${l1}</h3>`:''}<p>${sinfo().map(esc).join(' &nbsp;|&nbsp; ')}</p><h3>হাজিরা শীট — ${esc($('#aType').value)}</h3>`}
 <table><thead><tr><th>ক্রম</th>${cs.map(c=>`<th>${esc(c.l)}</th>`).join('')}${sg?'<th>স্বাক্ষর</th>':''}</tr></thead><tbody>`+
 rs.map((r,n)=>`<tr style="height:${rh}mm"><td>${(r.no||p*per+n+1)}</td>${cs.map(c=>`<td${c.k=='name'||c.k=='father'?' class="l"':''}>${c.ph?ph(r):c.k=='mobile'?mk(r):esc(c.g(r))}</td>`).join('')}${sg?'<td class="sg"></td>':''}</tr>`).join('')+
 `</tbody></table><p style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:14px"><span style="font-size:7pt;text-align:left">${esc(rec||'')}</span><span>পাতা ${p+1}/${pages} · মোট পরীক্ষার্থী: ${a.length}</span></p></div>`}
-if(ov&&ov.app)$('#sheet').insertAdjacentHTML('beforeend',h);else $('#sheet').innerHTML=h}
+if(ov&&ov.app)$('#sheet').insertAdjacentHTML('beforeend',h);else $('#sheet').innerHTML=h;try{window.dupHlPatch()}catch(e){}}
 
 /* ---- কাস্টম প্রিন্ট PDF: টেবিলের বর্ডার ঠিক রাখার ফিক্স ----
    সমস্যা: html2canvas collapse-বর্ডার ও ভগ্নাংশ-পিক্সেল ঠিকমতো আঁকতে পারে না, আর ভিতরের (শিক্ষাগত যোগ্যতার) টেবিল ঘরের পুরো উচ্চতা ভরে না — তাই লাইন কাটা/অনুপস্থিত হতো।
@@ -1686,7 +1701,7 @@ const b64u=s=>{const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length
 const imgDim=u=>new Promise(res=>{const i=new Image();i.onload=()=>res([i.naturalWidth,i.naturalHeight]);i.onerror=()=>res([0,0]);i.src=u});
 const NS='xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"';
 const FN='<w:rFonts w:ascii="Kalpurush" w:hAnsi="Kalpurush" w:cs="Kalpurush" w:eastAsia="Kalpurush"/>';
-const wr=(t,o={})=>`<w:r><w:rPr>${FN}${o.b?'<w:b/><w:bCs/>':''}${o.c?`<w:color w:val="${o.c}"/>`:''}<w:sz w:val="${o.s||20}"/><w:szCs w:val="${o.s||20}"/></w:rPr><w:t xml:space="preserve">${XE(t)}</w:t></w:r>`;
+const wr=(t,o={})=>`<w:r><w:rPr>${FN}${o.b?'<w:b/><w:bCs/>':''}${o.c?`<w:color w:val="${o.c}"/>`:''}<w:sz w:val="${o.s||20}"/><w:szCs w:val="${o.s||20}"/>${o.u?'<w:u w:val="single"/>':''}</w:rPr><w:t xml:space="preserve">${XE(t)}</w:t></w:r>`;
 const wp=(runs,o={})=>`<w:p><w:pPr>${o.pb?'<w:pageBreakBefore/>':''}<w:spacing w:before="${o.bf||0}" w:after="${o.af||0}"/><w:jc w:val="${o.jc||'left'}"/></w:pPr>${runs}</w:p>`;
 const wtc=(w,inner,shd)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/>${shd?'<w:shd w:val="clear" w:color="auto" w:fill="EEEEEE"/>':''}<w:vAlign w:val="center"/></w:tcPr>${inner}</w:tc>`;
 const KW={photo:1000,id:1250,name:2500,father:2300,mobile:1450,email:2300,dob:1250,age:1500,quota:1000,addr:2900,paddr:2900};
@@ -1730,7 +1745,7 @@ let tb=`<w:tbl><w:tblPr><w:tblW w:w="${TW}" w:type="dxa"/><w:jc w:val="center"/>
 const hd=['ক্রম',...cs.map(c=>c.l),...(sg?['স্বাক্ষর']:[])];
 tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="450" w:hRule="atLeast"/><w:tblHeader/></w:trPr>${hd.map((h,i)=>wtc(grid[i],wp(wr(h,{b:1,s:19}),{jc:'center'}),1)).join('')}</w:tr>`;
 for(let n=0;n<rs.length;n++){const r=rs[n];let cells=wtc(grid[0],wp(wr(String((r.no||off+n+1)),{s:18}),{jc:'center'}));
-for(let i=0;i<cs.length;i++){const c=cs[i],J=(c.k=='name'||c.k=='father')?'left':'center';let inner;if(c.ph){const px=await photoXml(r);inner=wp(px||'',{jc:'center'})}else if(c.k=='mobile'){const bad=!okm(r.mobile);inner=wp(wr(r.mobile||'—',{s:18,b:bad,c:bad?'C00000':''}),{jc:'center'})}else inner=wp(wr(String(c.g(r)==null?'':c.g(r)),{s:18}),{jc:J});cells+=wtc(grid[i+1],inner)}
+for(let i=0;i<cs.length;i++){const c=cs[i],J=(c.k=='name'||c.k=='father')?'left':'center';let inner;if(c.ph){const px=await photoXml(r);inner=wp(px||'',{jc:'center'})}else if(c.k=='mobile'){const bad=!okm(r.mobile);inner=wp(wr(r.mobile||'—',{s:18,b:bad,c:bad?'C00000':''}),{jc:'center'})}else{const dh=c.k=='id'&&window.dupIdHl&&window.dupIdHl(r);inner=wp(wr(String(c.g(r)==null?'':c.g(r)),{s:18,b:dh,u:dh}),{jc:J})}cells+=wtc(grid[i+1],inner)}
 if(sg)cells+=wtc(grid[cs.length+1],wp(''));
 tb+=`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="${rowH}" w:hRule="atLeast"/></w:trPr>${cells}</w:tr>`}
 body+=tb+'</w:tbl>'}
@@ -2344,7 +2359,8 @@ const G=[...M.values()].filter(g=>g.length>1);
 G.forEach(g=>{const b=(g.find(x=>x.nameBn)||{}).nameBn;g.forEach(x=>x.dn=b||x.name)});
 G.forEach(g=>g.sort((x,y)=>x.post.localeCompare(y.post,'bn',{numeric:true})||String(x.id).localeCompare(String(y.id),undefined,{numeric:true})));
 G.sort((x,y)=>String(x[0].dn).localeCompare(String(y[0].dn),'bn'));
-return{G,nP:G.length,nA:G.reduce((q,g)=>q+g.length,0),nR:ns.length,skip}}
+const res={G,nP:G.length,nA:G.reduce((q,g)=>q+g.length,0),nR:ns.length,skip};if(window.DUPHL&&window.DUPHL.on)window.DUPHL.ids=hlOf(res);return res}
+const hlOf=d=>{const st=new Set();d.G.forEach(g=>g.forEach(x=>st.add(x.rec+'\u0001'+String(x.id))));return st};
 const dSum=d=>`তুলনাকৃত রেকর্ড: ${d.nR} টি · দ্বৈত আবেদনকারী: ${d.nP} জন · মোট আবেদন: ${d.nA} টি`;
 const dRows=d=>{const o=[];d.G.forEach((g,i)=>g.forEach((r,j)=>o.push({g:i,j,n:g.length,r})));return o};
 const dTr=x=>{const rs=x.j?'':` rowspan="${x.n}"`,m=c=>x.j?'':`<td class="l"${rs}>${c}</td>`;return `<tr class="${x.g%2?'g1':''}"><td>${esc(x.r.no||'')}</td><td>${esc(x.r.id)}</td><td class="l">${esc(x.r.post)}</td>${m(esc(x.r.dn))}${m(esc(x.r.father))}${x.j?'':`<td${rs}>${esc(x.r.dob)}</td>`}</tr>`};
@@ -2352,7 +2368,7 @@ const dHead=(d,T)=>`<h2 style="display:flex;align-items:center;justify-content:c
 const dTh='<thead><tr><th style="width:6%">ক্রম</th><th style="width:12%">আইডি</th><th style="width:28%">পদ নাম ও বিভাগ/দপ্তর</th><th style="width:20%">নাম</th><th style="width:20%">পিতার নাম</th><th style="width:14%">জন্ম তারিখ</th></tr></thead>';
 /* পাতা ভাগ: আসল উচ্চতা মেপে, একজনের সারি একই পাতায় রেখে */
 async function dupGen(){
-const d=await dupData();if(!d)return false;
+const d=await dupData();if(!d)return false;if(window.DUPHL.on&&window.dupHlPatch)window.dupHlPatch();
 const root=$('#dsheet'),P=PAPER[$('#dPaper').value],T=dTT();
 if(!d.G.length){root.innerHTML='';$('#dPin').innerHTML='';dPinChk();$('#dInfo').textContent='✓ কোনো দ্বৈত আবেদন পাওয়া যায়নি ('+d.nR+' টি রেকর্ড তুলনা করা হয়েছে)';toast('✓ কোনো দ্বৈত আবেদন পাওয়া যায়নি');return false}
 const rows=dRows(d);
@@ -2425,6 +2441,11 @@ if(window.__recCats)window.__recCats().then(m=>{dCats=m;dFlt()}).catch(()=>{})}
 $('.tabs button[data-t=dup]').addEventListener('click',dupList);
 $('#dAll').onclick=e=>{e.preventDefault();$$('#dRecs input').forEach(x=>{if(x.closest('label').style.display!='none'){x.checked=true;dOn.add(x.dataset.n)}});dupCnt()};
 $('#dNone').onclick=e=>{e.preventDefault();$$('#dRecs input').forEach(x=>{if(x.closest('label').style.display!='none'){x.checked=false;dOn.delete(x.dataset.n)}});dupCnt()};
+$('#dHl').onchange=async function(){const H=window.DUPHL,sw=this;
+if(sw.checked){const d=await dupData();if(!d){sw.checked=false;return}
+H.ids=hlOf(d);H.on=true;toast(d.G.length?'✓ ON — '+H.ids.size+' টি দ্বৈত আইডি হাজিরা শীটে বোল্ড+আন্ডারলাইন হবে':'✓ ON — তবে কোনো দ্বৈত আবেদন পাওয়া যায়নি')}
+else{H.on=false;H.ids=new Set();toast('OFF — হাজিরা শীটের আইডি আগের মতো সাধারণ')}
+$('#dHlT').textContent=H.on?'ON':'OFF';try{window.dupHlPatch()}catch(e){}};
 $('#dGen').onclick=dupGen;$('#dDocx').onclick=dupDocx;
 $('#dPdf').onclick=async()=>{if(!(await dupGen()))return;const P=PAPER[$('#dPaper').value];pdfDl('dPdf','dsheet',()=>true,{w:P.w,h:P.h,m:12,px:P.px},safe(dTT())+'.pdf')};
 window._dup={dPost,dNm,dDob};
@@ -5911,7 +5932,7 @@ function units(items,tpl){
 function persist(){
   if(DLR.length>CAP)DLR=DLR.slice(-CAP);if(LOG.length>CAP)LOG=LOG.slice(-CAP);
   sv(K.dlr,DLR);sv(K.log,LOG)}
-function setBusy(b){busy=b;['smsSend','smsTest','dlRetry','dlRetryU'].forEach(i=>{const e=$('#'+i);if(e)e.disabled=b});$('#smsProgW').style.display=b?'block':$('#smsProgW').style.display}
+function setBusy(b){busy=b;['smsSend','dlRetry','dlRetryU'].forEach(i=>{const e=$('#'+i);if(e)e.disabled=b});$('#smsProgW').style.display=b?'block':$('#smsProgW').style.display}
 
 async function run(items,tpl){
   const c=cfg();
@@ -5937,11 +5958,51 @@ function pre(){
   if(busy){toast_('একটি প্রেরণ চলছে…');return null}
   if(!m){toast_('বার্তা লিখুন');return null}
   return m}
-$('#smsSend').onclick=()=>{const m=pre();if(!m)return;const a=picked();if(!a.length){toast_('কোনো প্রাপক নির্বাচিত নেই');return}
-  const u=/[^\x00-\x7F]/.test(m),L=m.length,parts=u?(L<=70?1:Math.ceil(L/67)):(L<=160?1:Math.ceil(L/153));
-  if(!confirm(`${a.length} জনকে SMS পাঠানো হবে (আনুমানিক ${a.length*parts} SMS ক্রেডিট)।\n\nবার্তা:\n${m.slice(0,200)}${m.length>200?'…':''}\n\nনিশ্চিত?`))return;
-  run(a,m)};
-$('#smsTest').onclick=()=>{const m=pre();if(!m)return;const v=prompt('টেস্ট নম্বর (01XXXXXXXXX):');if(v==null)return;const n=normNum(v);if(!n){toast_('সঠিক মোবাইল নম্বর দিন');return}run([{n,name:'টেস্ট',id:'TEST'}],m)};
+/* ---------- পাঠানোর আগে সারসংক্ষেপ ---------- */
+const smsParts=m=>{const u=/[^\x00-\x7F]/.test(m),L=m.length;return !L?0:u?(L<=70?1:Math.ceil(L/67)):(L<=160?1:Math.ceil(L/153))};
+function smsSummary(a,m){
+  const old=document.getElementById('smsSumOv');if(old)old.remove();
+  const pers=PERS.test(m),uni=/[^\x00-\x7F]/.test(m),c=cfg();
+  const totSms=a.reduce((q,x)=>q+smsParts(pers?fill(m,x):m),0),perMax=Math.max(...a.map(x=>smsParts(pers?fill(m,x):m)));
+  const dup=a.filter(x=>x.issue),bad=rcBad(),man=a.filter(x=>x.name==='ম্যানুয়াল').length,noCfg=!c.key||!c.sender;
+  const prev=pers?fill(m,a[0]):m;
+  const row=(k,v)=>`<div class="ssR"><span>${k}</span><b>${v}</b></div>`;
+  const bl=(arr,f)=>`<div class="ssL">${arr.slice(0,60).map(f).join('')}${arr.length>60?`<div class="mut" style="padding:4px 8px">… আরও ${arr.length-60} টি</div>`:''}</div>`;
+  const ov=document.createElement('div');ov.id='smsSumOv';
+  ov.innerHTML=`<style>#smsSumOv{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}
+#smsSumOv .ssB{background:var(--card,#fff);color:var(--tx,#14261b);border:1px solid var(--bd,#cde0d3);border-radius:14px;width:100%;max-width:640px;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+#smsSumOv .ssH{padding:14px 18px;font-weight:800;font-size:17px;border-bottom:1px solid var(--bd,#cde0d3);color:var(--thc,#0a4d2a)}
+#smsSumOv .ssC{padding:12px 18px;overflow:auto;flex:1}
+#smsSumOv .ssG{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+#smsSumOv .ssK{background:var(--hl,#e4f2ea);border-radius:10px;padding:8px 12px;text-align:center}
+#smsSumOv .ssK b{display:block;font-size:22px;color:var(--pr,#00843f)}#smsSumOv .ssK span{font-size:12.5px;color:var(--mut,#587061)}
+#smsSumOv .ssR{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dashed var(--bd,#cde0d3);font-size:13.5px}
+#smsSumOv h4{margin:12px 0 6px;font-size:14px}
+#smsSumOv .ssM{white-space:pre-wrap;word-break:break-word;background:var(--hl,#e4f2ea);border:1px solid var(--bd,#cde0d3);border-radius:8px;padding:10px 12px;font-size:14px;line-height:1.55;max-height:200px;overflow:auto}
+#smsSumOv .ssW{border-radius:8px;padding:8px 12px;font-size:13.5px;margin-top:8px;background:rgba(220,150,0,.14);border:1px solid #e0a100;color:#7a5200}
+#smsSumOv .ssW.ok{background:rgba(0,132,63,.10);border-color:var(--pr,#00843f);color:var(--pr,#00843f)}#smsSumOv .ssW.er{background:rgba(214,43,43,.10);border-color:var(--dg,#d62b2b);color:var(--dg,#d62b2b)}
+#smsSumOv .ssL{max-height:130px;overflow:auto;border:1px solid var(--bd,#cde0d3);border-radius:8px;margin-top:6px;font-size:12.5px}
+#smsSumOv .ssL div{padding:3px 8px;border-bottom:1px solid var(--bd,#cde0d3)}
+#smsSumOv .ssF{padding:12px 18px;border-top:1px solid var(--bd,#cde0d3);display:flex;gap:10px;justify-content:flex-end}
+#smsSumOv .ssF button{padding:9px 22px;font-weight:700;border-radius:9px;cursor:pointer}
+#smsSumOv .ssF .go{background:var(--pr,#00843f);color:#fff;border-color:var(--pr,#00843f)}</style>
+<div class="ssB"><div class="ssH">📤 SMS পাঠানোর সারসংক্ষেপ</div><div class="ssC">
+<div class="ssG"><div class="ssK"><b>${a.length}</b><span>প্রাপক (নম্বর)</span></div><div class="ssK"><b>${totSms}</b><span>মোট SMS (আনুমানিক ক্রেডিট)</span></div></div>
+${row('বার্তার ধরন',uni?'ইউনিকোড (বাংলা)':'ইংরেজি')}${row('বার্তার দৈর্ঘ্য',m.length+' অক্ষর · প্রতি প্রাপকে '+(perMax>1&&pers?'সর্বোচ্চ ':'')+perMax+' পার্ট')}${row('প্রেরণ পদ্ধতি',pers?'ব্যক্তিগতকৃত (প্রতিজনকে আলাদা)':'গ্রুপ (একই বার্তা)')}${row('Sender ID',E(c.sender||'—'))}${man?row('ম্যানুয়াল নম্বর',man+' টি'):''}
+<h4>📝 বার্তা${pers?' <span class="mut" style="font-weight:400">(প্রথম প্রাপক '+E(a[0].name||a[0].n)+'-এর জন্য নমুনা)</span>':''}</h4><div class="ssM">${E(prev)}</div>
+<h4>📞 নম্বর যাচাই</h4>
+${bad.length?`<div class="ssW er">❌ ${bad.length} জনের মোবাইল নম্বর ভুল/অসম্পূর্ণ — এদের SMS যাবে না</div>${bl(bad,x=>`<div>${E(x.name)} · ${E(x.id)} · <b>${E(x.raw||'(খালি)')}</b> — ${E(x.issue)}</div>`)}`:'<div class="ssW ok">✅ ভুল নম্বর পাওয়া যায়নি</div>'}
+${dup.length?`<div class="ssW">⚠ ${dup.length} টি ডুপ্লিকেট নম্বর (একই নম্বরে একাধিক জন) — প্রতি নম্বরে একবারই যাবে</div>${bl(dup,x=>`<div>${E(x.name)} · ${E(x.id)} · ${E(x.n)}${E(x.note||'')}</div>`)}`:''}
+${noCfg?'<div class="ssW er">❌ API Key / Sender ID দেওয়া নেই — আগে “সেটিং” ট্যাবে দিন</div>':''}
+</div><div class="ssF"><button type="button" class="ssX">✕ বাতিল</button><button type="button" class="p go ssGo">📤 Send</button></div></div>`;
+  document.body.appendChild(ov);
+  const close=()=>{ov.remove();document.removeEventListener('keydown',kd)},kd=e=>{if(e.key=='Escape')close()};
+  document.addEventListener('keydown',kd);
+  ov.addEventListener('mousedown',e=>{if(e.target===ov)close()});
+  ov.querySelector('.ssX').onclick=close;
+  ov.querySelector('.ssGo').onclick=()=>{close();run(a,m)};
+  ov.querySelector('.ssGo').focus()}
+$('#smsSend').onclick=()=>{const m=pre();if(!m)return;const a=picked();if(!a.length){toast_('কোনো প্রাপক নির্বাচিত নেই');return}smsSummary(a,m)};
 
 /* ---------- ডেলিভারি রিপোর্ট ---------- */
 function dlrF(){
@@ -5989,8 +6050,9 @@ async function dlrAll(fmt){
   const ST={ok:'সফল',fail:'ব্যর্থ',unk:'অনিশ্চিত'};let ok=0,fail=0,unk=0;const rows=[];
   for(let i=0;i<a.length;i++){const x=a[i],c=await info(x.rec||''),r=c.byId[String(x.id)]||c.byMob[x.n]||{};if(x.st=='ok')ok++;else if(x.st=='fail')fail++;else unk++;
     rows.push([String(r.no||r.sl||i+1),String(x.id||r.id||''),r.nameBn||en(r.name||x.name),r.fatherBn||en(r.father||''),x.n,ST[x.st]||'',fDT(x.t),x.msg||''])}
-  const p=$('#dlP').value||$('#dlA').value;
-  await window.dlrExportAll(fmt,{rows,ok,fail,unk,scope:p&&p!='__none'?p:'',fname:'SMS ডেলিভারি রিপোর্ট'+(p&&p!='__none'?' - '+p:'')})}
+  /* ফিল্টার না থাকলেও (এমনকি একটি SMS হলেও) শিরোনামের নিচে রেকর্ডের নাম থাকবে */
+  const pf=$('#dlP').value||$('#dlA').value,pn=pf&&pf!='__none'?pf:'',recs=[...new Set(a.map(x=>x.rec).filter(Boolean))],p=pn||recs.join(' · ');
+  await window.dlrExportAll(fmt,{rows,ok,fail,unk,scope:p,fname:'SMS ডেলিভারি রিপোর্ট'+(p?' - '+p:'')})}
 $('#dlAllBtn').onclick=e=>{e.stopPropagation();const m=$('#dlAllMenu');m.style.display=m.style.display=='none'?'block':'none'};
 document.addEventListener('click',()=>{const m=$('#dlAllMenu');if(m)m.style.display='none'});
 $$('#dlAllMenu [data-f]').forEach(b=>b.onclick=async e=>{e.stopPropagation();$('#dlAllMenu').style.display='none';try{await dlrAll(b.dataset.f)}catch(err){toast_('⚠ রিপোর্ট তৈরি হয়নি: '+(err&&err.message||err))}});
